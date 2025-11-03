@@ -1672,6 +1672,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1231873419245186938, guid: fdf678a7193c58346a367114b3da57ac, type: 3}
       insertIndex: -1
       addedObject: {fileID: 490501004}
+    - targetCorrespondingSourceObject: {fileID: 1231873419245186938, guid: fdf678a7193c58346a367114b3da57ac, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 490501007}
   m_SourcePrefab: {fileID: 100100000, guid: fdf678a7193c58346a367114b3da57ac, type: 3}
 --- !u!1 &490501000 stripped
 GameObject:
@@ -1692,22 +1695,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::REIW.LocalCharacter
   collider: {fileID: 490501002}
   colliderTransformLinker: {fileID: 490501003}
-  maxMoveSpeed: 8
+  maxMoveSpeed: 4
   maxSlopeSpeed: 4
-  movementSharpness: 15
-  orientationSharpness: 15
-  maxAirMoveSpeed: 8
+  movementSharpness: 13
+  orientationSharpness: 13
+  maxAirMoveSpeed: 4
   airAccelerationSpeed: 5
   airOrientationSharpness: 15
-  airMoveDrag: 0.1
+  airMoveDrag: 0
   gravityDir: {x: 0, y: -1, z: 0}
   gravityMagnitude: 30
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 65
   stableLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 65
   clientCharacter: {fileID: 0}
   CharacterAnimator: {fileID: 0}
   CharacterAnimation: {fileID: 0}
@@ -1824,6 +1827,18 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2829148430046862697, guid: fdf678a7193c58346a367114b3da57ac, type: 3}
   m_PrefabInstance: {fileID: 490500999}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &490501007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 490501000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a20595a773af2d042b295f42312523c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::REIW.CharacterMoveComponentsHandler
 --- !u!1 &509465929
 GameObject:
   m_ObjectHideFlags: 0
