@@ -98,7 +98,7 @@ namespace REIW
         [HideInInspector]
         public CharacterAvatarBoneMapper AvatarBoneMapper;
         [HideInInspector]
-        public CharacterEffectSound CharacterEffectSound;
+        //public CharacterEffectSound CharacterEffectSound;
         
         public CharacterBaseEventBus EventBus { get; protected set; } = new();
        
@@ -206,7 +206,7 @@ namespace REIW
             _lifecycleCts?.Dispose();
             _lifecycleCts = null;
             
-            CharacterEffectSound.StopWireAction();
+            //CharacterEffectSound.StopWireAction();
             // 추가로 루핑 FX/SFX 정리 필요 시 여기에
         }
         
@@ -245,7 +245,7 @@ namespace REIW
             //CharacterCustomizer = clientCharacter.CharacterCustomizer;
             AnimancerEvents = clientCharacter.AnimancerEvents;
             AvatarBoneMapper = clientCharacter.AvatarBoneMapper;
-            CharacterEffectSound = clientCharacter._characterEffectSound;
+            //CharacterEffectSound = clientCharacter._characterEffectSound;
             
             
             isInitialized = true;
@@ -276,7 +276,7 @@ namespace REIW
         {
             //Debug.LogError("StartJump");
             //Effect
-            AnimancerEvents.OnFxEventInt( (int)eKnownEffect.JUMP_ACTION );
+            //AnimancerEvents.OnFxEventInt( (int)eKnownEffect.JUMP_ACTION );
             //>
         }
         
@@ -311,7 +311,7 @@ namespace REIW
 
         protected virtual void OnDestroy()
         {
-            CharacterEffectSound.StopWireAction();
+            //CharacterEffectSound.StopWireAction();
         }
         //>
         //>

@@ -203,19 +203,19 @@ namespace REIW.Animations
                 return true;
             }
 
-            if (InAnimancerState is ManualMixerState mixerState)
-                return SetUseRootMotion(mixerState.GetCurrentChildState());
-
-            if (InAnimancerState is SequenceState sequenceState)
-            {
-                var currentState = sequenceState.GetCurrentChildState();
-                if (SetUseRootMotion(currentState))
-                {
-                    if (sequenceState.GetNextChildState() is { } nextState)
-                        currentState.SetExitEvent(() => { SetUseRootMotion(nextState); });
-                    return true;
-                }
-            }
+            // if (InAnimancerState is ManualMixerState mixerState)
+            //     return SetUseRootMotion(mixerState.GetCurrentChildState());
+            //
+            // if (InAnimancerState is SequenceState sequenceState)
+            // {
+            //     var currentState = sequenceState.GetCurrentChildState();
+            //     if (SetUseRootMotion(currentState))
+            //     {
+            //         if (sequenceState.GetNextChildState() is { } nextState)
+            //             currentState.SetExitEvent(() => { SetUseRootMotion(nextState); });
+            //         return true;
+            //     }
+            // }
 
             return false;
         }

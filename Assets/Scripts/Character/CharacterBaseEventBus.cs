@@ -48,13 +48,13 @@ namespace REIW
     /// </summary>
     public interface IMoveGrappleEventListener : ICharacterEventListener
     {
-        void OnGrappleRequested(GrapplePoint target, Vector3 grapplePosition, float grappleDistance, bool isFar, Action<bool> funcStartGrapple); // 그래플 키 입력
-        void OnGrappleStarted(GrapplePoint target, float grappleMoveTime);            // 그래플 시작
+        // void OnGrappleRequested(GrapplePoint target, Vector3 grapplePosition, float grappleDistance, bool isFar, Action<bool> funcStartGrapple); // 그래플 키 입력
+        // void OnGrappleStarted(GrapplePoint target, float grappleMoveTime);            // 그래플 시작
         void OnGrappleArrival();                                        // 그래플 완료
         void OnGrappleLaunchRequested(Action<bool> funcStartLaunch);    // 런칭(그래플 후 점프) 요청
         void OnGrappleLaunchStarted();                                  // 런칭(그래플 후 점프) 시작
         void OnGrappleLaunchLanding();                                  // 런칭(그래플 후 점프) 착지
-        void OnGrapplePointTargeted(GrapplePoint prev, GrapplePoint target, Vector3 grapplePosition);  // 그래플 포인트 변경
+        //void OnGrapplePointTargeted(GrapplePoint prev, GrapplePoint target, Vector3 grapplePosition);  // 그래플 포인트 변경
     }
 
     /// <summary>
@@ -62,7 +62,7 @@ namespace REIW
     /// </summary>
     public interface IGatheringEventListener : ICharacterEventListener
     {
-        void OnStartGathering(EnumGathering gatheringType, float gatheringSpeed = 1f);
+        //void OnStartGathering(EnumGathering gatheringType, float gatheringSpeed = 1f);
         void OnStopGathering();
         void OnStartGatheringSuccess();
     }
@@ -74,7 +74,7 @@ namespace REIW
 
     public interface ICharacterStateEventListener : ICharacterEventListener
     {
-        void OnChangeStaminaActionType(eStaminaActionType staminaActionType);
+        //void OnChangeStaminaActionType(eStaminaActionType staminaActionType);
     }
     
     public class CharacterBaseEventBus

@@ -118,8 +118,8 @@ namespace REIW
         
 //        private bool holdSprintRequestUntilDashEnds = false;             // 대시 중일 때, 스프린트 상태 전환 보류 플래그
         
-        public void SetCommandModeType(eInputCommandModeType type) => CurrentEInputCommandModeType = type;
-        public eInputCommandModeType CurrentEInputCommandModeType { get; private set; } = eInputCommandModeType.Character;
+        // public void SetCommandModeType(eInputCommandModeType type) => CurrentEInputCommandModeType = type;
+        // public eInputCommandModeType CurrentEInputCommandModeType { get; private set; } = eInputCommandModeType.Character;
 
         // 루트모션 포지션 변화값의 평면 변화값 사용 모드
         [SerializeField] private CharacterRootMotionMode modeRootMotionHorizotalPos;
@@ -362,20 +362,20 @@ namespace REIW
                 EventBus.Post<ICharacterBaseEventListener>(_=>_.OnJumpRequested());
             }
             
-            if (curInputs.Dash)
-            {
-                if (PlayerController.Instance.InputActionStaminaValidator.CanStaminaAction(eStaminaActionType.Dash))
-                {
-                    EventBus.Post<ICharacterBaseEventListener>(_ => _.OnDashRequested(() =>
-                    {
-                        PlayerController.Instance.CurrentExecuteActionTypeStateType =
-                            PlayerController.Instance.InputActionStaminaValidator.CanStaminaAction(eStaminaActionType
-                                .Sprint)
-                                ? eStaminaActionType.Sprint
-                                : eStaminaActionType.Normal;
-                    }));
-                }
-            }
+            // if (curInputs.Dash)
+            // {
+            //     if (PlayerController.Instance.InputActionStaminaValidator.CanStaminaAction(eStaminaActionType.Dash))
+            //     {
+            //         EventBus.Post<ICharacterBaseEventListener>(_ => _.OnDashRequested(() =>
+            //         {
+            //             PlayerController.Instance.CurrentExecuteActionTypeStateType =
+            //                 PlayerController.Instance.InputActionStaminaValidator.CanStaminaAction(eStaminaActionType
+            //                     .Sprint)
+            //                     ? eStaminaActionType.Sprint
+            //                     : eStaminaActionType.Normal;
+            //         }));
+            //     }
+            // }
 
             // Gadget 입력 변화 감지 (토글 방식)
             switch (prevInputs.Mount)
@@ -390,16 +390,16 @@ namespace REIW
 
             // 이전 프레임 입력값과 비교하여 Request, Release 구분
             // 아예 Input에 구분해서 넣어도 될것 같은데 일단은 이렇게 처리.
-            switch (prevInputs.Sprint)
-            {
-                case true when !curInputs.Sprint:
-                    EventBus.Post<ICharacterBaseEventListener>(_=>_.OnSprintReleased());
-                    break;
-                case false when curInputs.Sprint:
-                    if (PlayerController.Instance.InputActionStaminaValidator.CanStaminaAction(eStaminaActionType.Sprint))
-                        EventBus.Post<ICharacterBaseEventListener>(_=>_.OnSprintRequested());
-                    break;
-            }
+            // switch (prevInputs.Sprint)
+            // {
+            //     case true when !curInputs.Sprint:
+            //         EventBus.Post<ICharacterBaseEventListener>(_=>_.OnSprintReleased());
+            //         break;
+            //     case false when curInputs.Sprint:
+            //         if (PlayerController.Instance.InputActionStaminaValidator.CanStaminaAction(eStaminaActionType.Sprint))
+            //             EventBus.Post<ICharacterBaseEventListener>(_=>_.OnSprintRequested());
+            //         break;
+            // }
 
             // 이전 프레임 입력값과 비교하여 Request, Release 구분
             switch (prevInputs.Walk)

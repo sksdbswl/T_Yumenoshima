@@ -28,7 +28,7 @@ namespace REIW.Animations.Character
         
         public override bool IsLocal => Character?.IsLocalCharacter ?? false;
 
-        private OwnerPlayerNetObject _ownerPlayerNetObject;
+        //private OwnerPlayerNetObject _ownerPlayerNetObject;
 
         public event Action<(AvatarIKGoal footType, float footPower, eKnownSfxSound groundTag)> FootStepEvent
         {
@@ -100,8 +100,8 @@ namespace REIW.Animations.Character
             }
             
 
-            if (IsLocal)
-                _ownerPlayerNetObject ??= Character.GetComponent<OwnerPlayerNetObject>();
+            // if (IsLocal)
+            //     _ownerPlayerNetObject ??= Character.GetComponent<OwnerPlayerNetObject>();
         }
 
         protected override bool InitializeRootMotionSettings()
@@ -112,13 +112,13 @@ namespace REIW.Animations.Character
             if (!base.InitializeRootMotionSettings())
                 return false;
 
-            string soName = string.Format(
-                AnimationClipRootMotionSettingsSO.GetRootMotionSettingsSOFileNameFormat(eObjectType.Character),
-                UserDataModel.Singleton.PlayerInfoData.Race.ToString().ToLower(),
-                UserDataModel.Singleton.PlayerInfoData.Gender.ToString().ToLower());
-
-            _rootMotionSettings = AssetManager.Singleton.GetAnimationClipRootMotionSettingsSO(
-                $"{nameof(eObjectType.Character).ToLower()}/{soName}");
+            // string soName = string.Format(
+            //     AnimationClipRootMotionSettingsSO.GetRootMotionSettingsSOFileNameFormat(eObjectType.Character),
+            //     UserDataModel.Singleton.PlayerInfoData.Race.ToString().ToLower(),
+            //     UserDataModel.Singleton.PlayerInfoData.Gender.ToString().ToLower());
+            //
+            // _rootMotionSettings = AssetManager.Singleton.GetAnimationClipRootMotionSettingsSO(
+            //     $"{nameof(eObjectType.Character).ToLower()}/{soName}");
             return true;
         }
 
@@ -227,11 +227,11 @@ namespace REIW.Animations.Character
             if (!IsLocal)
                 return false;
             
-            if (base.ChangeAnimationNetObject(InAnimationType, InAnimationSpeed))
-            {
-                _ownerPlayerNetObject?.ChangeAnimType((int)InAnimationType, InAnimationSpeed);
-                return true;
-            }
+            // if (base.ChangeAnimationNetObject(InAnimationType, InAnimationSpeed))
+            // {
+            //     _ownerPlayerNetObject?.ChangeAnimType((int)InAnimationType, InAnimationSpeed);
+            //     return true;
+            // }
 
             return false;
         }

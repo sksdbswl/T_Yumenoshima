@@ -329,11 +329,11 @@ namespace REIW.Animations.Character
                 }
                 else if (!IsMoveInput)
                 {
-                    if (_actionInputBuffer.value == eCharacterActionInputType.NONE)
-                        IsSprintInputBuffer = true;
-                    else if (_actionInputBuffer.value == eCharacterActionInputType.SPRINT &&
-                             !_actionInputBuffer.hasBuffer)
-                        IsSprintInput = false;
+                    // if (_actionInputBuffer.value == eCharacterActionInputType.NONE)
+                    //     IsSprintInputBuffer = true;
+                    // else if (_actionInputBuffer.value == eCharacterActionInputType.SPRINT &&
+                    //          !_actionInputBuffer.hasBuffer)
+                    //     IsSprintInput = false;
                 }
             }
         }

@@ -1,4 +1,3 @@
-using MagicaCloth2;
 using UnityEngine;
 
 namespace REIW
@@ -38,19 +37,19 @@ namespace REIW
             if (PlayerPrefs.HasKey("MasterVolume"))
             {
                 MasterVolume = PlayerPrefs.GetFloat("MasterVolume");
-                SoundManager.Singleton.SetMasterVolume(MasterVolume);
+                //SoundManager.Singleton.SetMasterVolume(MasterVolume);
             }
             
             if (PlayerPrefs.HasKey("BGMVolume"))
             {
                 BGMVolume = PlayerPrefs.GetFloat("BGMVolume");
-                SoundManager.Singleton.SetBgmVolume(BGMVolume);
+                //SoundManager.Singleton.SetBgmVolume(BGMVolume);
             }
             
             if (PlayerPrefs.HasKey("SfxVolume"))
             {
                 SfxVolume = PlayerPrefs.GetFloat("SfxVolume");
-                SoundManager.Singleton.SetSfxVolume(SfxVolume);
+               // SoundManager.Singleton.SetSfxVolume(SfxVolume);
             }
             
             // 회전 감도
@@ -73,43 +72,43 @@ namespace REIW
             return _magicaCloth;
         }
 
-        public void SetOptionMagica(_eOptionMagica eOptionList)
-        {
-            if (_magicaCloth == _eOptionMagica.Off && eOptionList != _eOptionMagica.Off)
-            {
-                foreach (var cloth in GameObject.FindObjectsOfType<MagicaCloth>())
-                    cloth.enabled = true;    
-            }
-            
-            _magicaCloth = (_eOptionMagica)eOptionList;
-            PlayerPrefs.SetInt("MagicaCloth", (int)_magicaCloth);
-
-            ArtConfigSO.MagicaClothConfig config = REIW.Main.Singleton.ArtConfig.High;
-            switch (_magicaCloth)
-            {
-                case _eOptionMagica.High:
-                    config = REIW.Main.Singleton.ArtConfig.High;
-                    break;
-                case _eOptionMagica.Medium:
-                    config = REIW.Main.Singleton.ArtConfig.Medium;
-                    break;
-                case _eOptionMagica.Low:
-                    config = REIW.Main.Singleton.ArtConfig.Low;
-                    break;
-                case _eOptionMagica.Off:
-                    config = REIW.Main.Singleton.ArtConfig.Off;
-                    DisableAllMagicaCloth();
-                    break;
-            }
-            MagicaManager.SetSimulationFrequency(config.SimulationFrequency);      
-            MagicaManager.SetMaxSimulationCountPerFrame(config.MaxSimulationCountPerFrame);
-        }
+        // public void SetOptionMagica(_eOptionMagica eOptionList)
+        // {
+        //     if (_magicaCloth == _eOptionMagica.Off && eOptionList != _eOptionMagica.Off)
+        //     {
+        //         foreach (var cloth in GameObject.FindObjectsOfType<MagicaCloth>())
+        //             cloth.enabled = true;    
+        //     }
+        //     
+        //     _magicaCloth = (_eOptionMagica)eOptionList;
+        //     PlayerPrefs.SetInt("MagicaCloth", (int)_magicaCloth);
+        //
+        //     ArtConfigSO.MagicaClothConfig config = REIW.Main.Singleton.ArtConfig.High;
+        //     switch (_magicaCloth)
+        //     {
+        //         case _eOptionMagica.High:
+        //             config = REIW.Main.Singleton.ArtConfig.High;
+        //             break;
+        //         case _eOptionMagica.Medium:
+        //             config = REIW.Main.Singleton.ArtConfig.Medium;
+        //             break;
+        //         case _eOptionMagica.Low:
+        //             config = REIW.Main.Singleton.ArtConfig.Low;
+        //             break;
+        //         case _eOptionMagica.Off:
+        //             config = REIW.Main.Singleton.ArtConfig.Off;
+        //             DisableAllMagicaCloth();
+        //             break;
+        //     }
+        //     MagicaManager.SetSimulationFrequency(config.SimulationFrequency);      
+        //     MagicaManager.SetMaxSimulationCountPerFrame(config.MaxSimulationCountPerFrame);
+        // }
         
-        public void DisableAllMagicaCloth()
-        {
-            foreach (var cloth in GameObject.FindObjectsOfType<MagicaCloth>())
-                cloth.enabled = false;
-        }
+        // public void DisableAllMagicaCloth()
+        // {
+        //     foreach (var cloth in GameObject.FindObjectsOfType<MagicaCloth>())
+        //         cloth.enabled = false;
+        // }
 
 
         public void SetVolume(eOptionList option, float volume)
@@ -127,7 +126,7 @@ namespace REIW
                     break;
             }
             PlayerPrefs.SetFloat(option.ToString(), volume);
-            SoundManager.Singleton.SetVolume(option, volume);
+            //SoundManager.Singleton.SetVolume(option, volume);
         }
 
         public float GetVolume(eOptionList option)
