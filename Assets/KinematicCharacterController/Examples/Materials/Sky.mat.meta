@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: c83a44e14a5b5d342bde6d50d26add77
+timeCreated: 1492141699
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 99131
+  packageName: Kinematic Character Controller
+  packageVersion: 3.4.4
+  assetPath: Assets/KinematicCharacterController/Examples/Materials/Sky.mat
+  uploadId: 505601

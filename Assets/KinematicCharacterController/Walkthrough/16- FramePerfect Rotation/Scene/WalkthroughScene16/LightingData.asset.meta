@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: b24e35e7d2923944ea29a08294dfbf12
+timeCreated: 1517694278
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 25800000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 99131
+  packageName: Kinematic Character Controller
+  packageVersion: 3.4.4
+  assetPath: Assets/KinematicCharacterController/Walkthrough/16- FramePerfect Rotation/Scene/WalkthroughScene16/LightingData.asset
+  uploadId: 505601

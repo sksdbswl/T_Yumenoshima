@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: e05790cf7a670974b93b15cf5402ee01
+timeCreated: 1506988233
+licenseType: Store
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 99131
+  packageName: Kinematic Character Controller
+  packageVersion: 3.4.4
+  assetPath: Assets/KinematicCharacterController/Walkthrough/7- Orienting towards
+    arbitrary up direction/Scene/WalkthroughScene7.unity
+  uploadId: 505601

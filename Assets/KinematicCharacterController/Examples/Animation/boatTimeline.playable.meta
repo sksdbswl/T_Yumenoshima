@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: b8b687ffb757a8240babc177ae49dc12
+timeCreated: 1523122860
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 99131
+  packageName: Kinematic Character Controller
+  packageVersion: 3.4.4
+  assetPath: Assets/KinematicCharacterController/Examples/Animation/boatTimeline.playable
+  uploadId: 505601

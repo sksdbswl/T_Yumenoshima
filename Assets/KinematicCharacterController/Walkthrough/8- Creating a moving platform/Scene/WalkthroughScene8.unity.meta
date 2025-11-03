@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: a19dcd0c256a9b848962180e7fac31af
+timeCreated: 1506988233
+licenseType: Store
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 99131
+  packageName: Kinematic Character Controller
+  packageVersion: 3.4.4
+  assetPath: Assets/KinematicCharacterController/Walkthrough/8- Creating a moving
+    platform/Scene/WalkthroughScene8.unity
+  uploadId: 505601

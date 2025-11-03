@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 52e4569ae4c292c4d8b505c22c38847b
+timeCreated: 1507247652
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 99131
+  packageName: Kinematic Character Controller
+  packageVersion: 3.4.4
+  assetPath: Assets/KinematicCharacterController/Walkthrough/11- Charging state/Scripts/MyCharacterController.cs
+  uploadId: 505601

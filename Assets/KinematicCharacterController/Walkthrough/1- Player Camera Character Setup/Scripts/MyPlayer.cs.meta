@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: b0110a982fdc2164f917552ab644f799
+timeCreated: 1507245023
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 99131
+  packageName: Kinematic Character Controller
+  packageVersion: 3.4.4
+  assetPath: Assets/KinematicCharacterController/Walkthrough/1- Player Camera Character
+    Setup/Scripts/MyPlayer.cs
+  uploadId: 505601

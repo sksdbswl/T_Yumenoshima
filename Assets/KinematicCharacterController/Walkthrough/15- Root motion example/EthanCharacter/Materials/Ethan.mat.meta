@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 9aa5c06248b4ad9409715d2b088312f6
+timeCreated: 1507408328
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 99131
+  packageName: Kinematic Character Controller
+  packageVersion: 3.4.4
+  assetPath: Assets/KinematicCharacterController/Walkthrough/15- Root motion example/EthanCharacter/Materials/Ethan.mat
+  uploadId: 505601

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f57d6d28ca1a6a34ba8ef04000d426e7
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 25800000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 99131
+  packageName: Kinematic Character Controller
+  packageVersion: 3.4.4
+  assetPath: Assets/KinematicCharacterController/Examples/Scenes/CharacterPlayground/LightingData.asset
+  uploadId: 505601
