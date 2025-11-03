@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Animancer;
 using Animancer.Units;
-using Cysharp.Threading.Tasks;
 using RootMotion.FinalIK;
 using UnityEngine;
 using REIW.EventLock;
@@ -26,50 +25,50 @@ namespace REIW.Animations.Character
             LANDING
         }
 
-        public struct GrappleInformation
-        {
-            internal GrapplePoint Target;
-            internal Vector3 GrapplePosition;
-            internal float GrappleDistance;
-            internal float GrappleMoveTime;
-            internal bool IsFar;
-            internal Action<bool> StartGrappleCallback;
-            internal Action<bool> StartLaunchCallback;
-
-            internal Transform TargetTransform => Target?.transform;
-            internal bool IsValid => Target != null;
-
-            public static GrappleInformation Create(GrapplePoint InTarget, Vector3 InGrapplePosition,
-                float InGrappleDistance, bool InFar, Action<bool> InStartGrappleCallback)
-            {
-                Debug.Log($"Is Far : {InFar}");
-                return new GrappleInformation()
-                {
-                    Target = InTarget,
-                    GrapplePosition = InGrapplePosition,
-                    GrappleDistance = InGrappleDistance,
-                    IsFar = InFar,
-                    StartGrappleCallback = InStartGrappleCallback
-                };
-            }
-
-            public float GetMoveAnimationSpeed(float InAnimationLength)
-            {
-                return Mathf.Clamp(InAnimationLength / GrappleMoveTime, 0.2f, 10f) * 0.95f;
-            }
-
-            public void StartGrapple(bool InSuccess)
-            {
-                StartGrappleCallback?.Invoke(InSuccess);
-                StartGrappleCallback = null;
-            }
-
-            public void StartLaunch(bool InSuccess)
-            {
-                StartLaunchCallback?.Invoke(InSuccess);
-                StartLaunchCallback = null;
-            }
-        }
+        // public struct GrappleInformation
+        // {
+        //     internal GrapplePoint Target;
+        //     internal Vector3 GrapplePosition;
+        //     internal float GrappleDistance;
+        //     internal float GrappleMoveTime;
+        //     internal bool IsFar;
+        //     internal Action<bool> StartGrappleCallback;
+        //     internal Action<bool> StartLaunchCallback;
+        //
+        //     internal Transform TargetTransform => Target?.transform;
+        //     internal bool IsValid => Target != null;
+        //
+        //     public static GrappleInformation Create(GrapplePoint InTarget, Vector3 InGrapplePosition,
+        //         float InGrappleDistance, bool InFar, Action<bool> InStartGrappleCallback)
+        //     {
+        //         Debug.Log($"Is Far : {InFar}");
+        //         return new GrappleInformation()
+        //         {
+        //             Target = InTarget,
+        //             GrapplePosition = InGrapplePosition,
+        //             GrappleDistance = InGrappleDistance,
+        //             IsFar = InFar,
+        //             StartGrappleCallback = InStartGrappleCallback
+        //         };
+        //     }
+        //
+        //     public float GetMoveAnimationSpeed(float InAnimationLength)
+        //     {
+        //         return Mathf.Clamp(InAnimationLength / GrappleMoveTime, 0.2f, 10f) * 0.95f;
+        //     }
+        //
+        //     public void StartGrapple(bool InSuccess)
+        //     {
+        //         StartGrappleCallback?.Invoke(InSuccess);
+        //         StartGrappleCallback = null;
+        //     }
+        //
+        //     public void StartLaunch(bool InSuccess)
+        //     {
+        //         StartLaunchCallback?.Invoke(InSuccess);
+        //         StartLaunchCallback = null;
+        //     }
+        // }
 
         public override eStateType StateType => eStateType.GRAPPLE;
 
@@ -105,20 +104,20 @@ namespace REIW.Animations.Character
         [Tooltip("Throw 모션의 IK 적용 Weight 변화 속도")] [SerializeField]
         private float _throwIKPositionWeightSpeed = 1f;
 
-        private GrappleInformation _grappleInfo;
+        //private GrappleInformation _grappleInfo;
         private eGrappleAnimationState _currentGrappleState;
         private eAnimationType _playingAnimationType;
         private eAnimationType _throwAnimationType;
         private eAnimationType _arriveAnimationType;
         private eAnimationType _launchAnimationType;
 
-        public override bool CanEnterState => _grappleInfo.IsValid;
-        public override bool CanExitState => (Movement.IsGrappleInput || _isLanding) && (IsArriveEnd || IsLandingEndByAniState || IsLandingEndByMovement);
+        // public override bool CanEnterState => _grappleInfo.IsValid;
+        // public override bool CanExitState => (Movement.IsGrappleInput || _isLanding) && (IsArriveEnd || IsLandingEndByAniState || IsLandingEndByMovement);
         
         private bool IsArriveEnd => (_currentGrappleState == eGrappleAnimationState.ARRIVE && _playingAniState == null);
         private bool IsLandingEndByAniState => _currentGrappleState == eGrappleAnimationState.LANDING && _playingAniState == null;
-        private bool IsLandingEndByMovement => _currentGrappleState == eGrappleAnimationState.LANDING && Movement.MovementDirection != Vector3.zero &&
-            (_playingAniState != null && (Movement.GetMovementData<CharacterMoveGrapple>()?.AvailableLandingMove(_playingAniState.NormalizedTime) ?? false));
+        //private bool IsLandingEndByMovement => _currentGrappleState == eGrappleAnimationState.LANDING && Movement.MovementDirection != Vector3.zero &&
+            //(_playingAniState != null && (Movement.GetMovementData<CharacterMoveGrapple>()?.AvailableLandingMove(_playingAniState.NormalizedTime) ?? false));
 
         public bool IsEnableThrowGrapple => _currentGrappleState == eGrappleAnimationState.LAUNCH ||
                                             _currentGrappleState == eGrappleAnimationState.FALL ||
@@ -169,8 +168,8 @@ namespace REIW.Animations.Character
             {
                 Movement.IsContinuousJump = true;
 
-                if (!_grappleInfo.IsFar)
-                    Movement.CurrentMoveType = eMoveType.SPRINT;
+                // if (!_grappleInfo.IsFar)
+                //     Movement.CurrentMoveType = eMoveType.SPRINT;
             }
 
             Movement.IsGrappleInput = false;
@@ -215,8 +214,8 @@ namespace REIW.Animations.Character
             {
                 if (IsEnableThrowGrapple)
                     PlayThrowAnimation();
-                else
-                    _grappleInfo.StartGrapple(false);
+                // else
+                //     _grappleInfo.StartGrapple(false);
             }
         }
 
@@ -224,8 +223,8 @@ namespace REIW.Animations.Character
         {
             Reset();
 
-            _playingAniState = InternalPlayAnimation(GetThrowAnimationType());
-            SetAnimationEndEvent(_playingAniState, OnAnimation_ThrowEndEvent);
+            // _playingAniState = InternalPlayAnimation(GetThrowAnimationType());
+            // SetAnimationEndEvent(_playingAniState, OnAnimation_ThrowEndEvent);
 
             Movement.SetAirbornStateGrounderIKWeight(true);
             Movement.IsLanding = false;
@@ -233,33 +232,33 @@ namespace REIW.Animations.Character
 
             if (IsLocal)
             {
-                CharacterMoveGrapple grapple = _localCharacter.CharacterMoveComponentsHandler.GetMoveComponent<CharacterMoveGrapple>();
-                grapple?.StartThrow();    
+                // CharacterMoveGrapple grapple = _localCharacter.CharacterMoveComponentsHandler.GetMoveComponent<CharacterMoveGrapple>();
+                // grapple?.StartThrow();    
             }
             
 
-            ChangeStaminaActionType(eStaminaActionType.Grapple);
+            //ChangeStaminaActionType(eStaminaActionType.Grapple);
         }
 
         private void PlayMoveAnimation()
         {
-            _playingAniState = InternalPlayAnimation(GetMoveAnimationType(),
-                InCalculateSpeedFunc: (state) =>
-                {
-                    if (state.IsValid() && _moveMixer.State != null)
-                    {
-                        _moveMixer.State.Parameter = GetMoveAnimationParameter();
-                        _moveMixer.State.RecalculateWeights();
-                    }
-                    return _grappleInfo.GetMoveAnimationSpeed(state.Length);
-                });
-            SetThrowAnimationIK();
+            // _playingAniState = InternalPlayAnimation(GetMoveAnimationType(),
+            //     InCalculateSpeedFunc: (state) =>
+            //     {
+            //         if (state.IsValid() && _moveMixer.State != null)
+            //         {
+            //             _moveMixer.State.Parameter = GetMoveAnimationParameter();
+            //             _moveMixer.State.RecalculateWeights();
+            //         }
+            //         return _grappleInfo.GetMoveAnimationSpeed(state.Length);
+            //     });
+            // SetThrowAnimationIK();
         }
 
         private void PlayArriveAnimation()
         {
-            _playingAniState = InternalPlayAnimation(GetArriveAnimationType());
-            SetAnimationEndEvent(_playingAniState, OnAnimation_ArriveEndEvent);
+            // _playingAniState = InternalPlayAnimation(GetArriveAnimationType());
+            // SetAnimationEndEvent(_playingAniState, OnAnimation_ArriveEndEvent);
 
             Movement.SetAirbornStateGrounderIKWeight(false);
             Movement.IsLanding = false;
@@ -268,8 +267,8 @@ namespace REIW.Animations.Character
 
         private void PlayLaunchAnimation()
         {
-            if (_grappleInfo.StartLaunchCallback == null)
-                return;
+            // if (_grappleInfo.StartLaunchCallback == null)
+            //     return;
 
             _enableAnyMovement = false;
             Movement.SetAirbornStateGrounderIKWeight(true);
@@ -290,7 +289,7 @@ namespace REIW.Animations.Character
             Movement.SetAirbornStateGrounderIKWeight(false);
             Movement.IsLanding = false;
             
-            Character.CharacterEffectSound.StopLoopingSfx((int)eKnownSfxSound.SE_Cynox_F_GrappleFall );
+            //Character.CharacterEffectSound.StopLoopingSfx((int)eKnownSfxSound.SE_Cynox_F_GrappleFall );
             
             return true;
         }
@@ -371,16 +370,16 @@ namespace REIW.Animations.Character
                         if (_sounds.ContainsKey(InAnimationType))
                         {
 
-                            var ct = Character.GetCancellationTokenOnDestroy();
-                            if (Character.IsLocalCharacter)
-                            {
-                                //Debug.LogWarning("InAnimationType:" +InAnimationType);
-                                // Effect Wire Action
-                                Character.CharacterEffectSound.WireTargetEvent(_grappleInfo.GrapplePosition, ct).Forget();
-                                Character.CharacterEffectSound.WireActionTest(_grappleInfo.GrapplePosition, ct).Forget();
-                                Character.CharacterEffectSound.AddSnapShot_GrapplePosition(_grappleInfo.GrapplePosition);
-                            }
-                            Character.CharacterEffectSound.PlayCharacterSfx((int)_sounds[InAnimationType]);
+                            // var ct = Character.GetCancellationTokenOnDestroy();
+                            // if (Character.IsLocalCharacter)
+                            // {
+                            //     //Debug.LogWarning("InAnimationType:" +InAnimationType);
+                            //     // Effect Wire Action
+                            //     Character.CharacterEffectSound.WireTargetEvent(_grappleInfo.GrapplePosition, ct).Forget();
+                            //     Character.CharacterEffectSound.WireActionTest(_grappleInfo.GrapplePosition, ct).Forget();
+                            //     Character.CharacterEffectSound.AddSnapShot_GrapplePosition(_grappleInfo.GrapplePosition);
+                            // }
+                            // Character.CharacterEffectSound.PlayCharacterSfx((int)_sounds[InAnimationType]);
                         }
 
                     }
@@ -405,12 +404,12 @@ namespace REIW.Animations.Character
                         
                         if (_sounds.ContainsKey(InAnimationType))
                         {
-                            if (InAnimationType != eAnimationType.GRAPPLE_MOVE_REG)
-                            {
-                                Character.CharacterEffectSound.PlayCharacterSfx((int)_sounds[InAnimationType]);
-                            }
-                            // Debug.LogWarning("PlayLoopSfx");
-                            Character.CharacterEffectSound.PlayCharacterLoopSfx((int)eKnownSfxSound.SE_Cynox_F_GrappleMoveReg);           
+                            // if (InAnimationType != eAnimationType.GRAPPLE_MOVE_REG)
+                            // {
+                            //     Character.CharacterEffectSound.PlayCharacterSfx((int)_sounds[InAnimationType]);
+                            // }
+                            // // Debug.LogWarning("PlayLoopSfx");
+                            // Character.CharacterEffectSound.PlayCharacterLoopSfx((int)eKnownSfxSound.SE_Cynox_F_GrappleMoveReg);           
                         }
                     }
                     break;
@@ -432,22 +431,22 @@ namespace REIW.Animations.Character
 
                         if (_sounds.ContainsKey(InAnimationType))
                         {
-                            Character.CharacterEffectSound.PlayCharacterSfx((int)_sounds[InAnimationType]);
+                            //Character.CharacterEffectSound.PlayCharacterSfx((int)_sounds[InAnimationType]);
                         }
                     }
 
                     if (Character.IsLocalCharacter)
                     {
-                        Character.CharacterEffectSound.AddSnapShot_GrappleEnd();
+                        //Character.CharacterEffectSound.AddSnapShot_GrappleEnd();
                     }
 
 
-                    Character.CharacterEffectSound.StopWireAction();
+                    //Character.CharacterEffectSound.StopWireAction();
 
                     try
                     {
                         // Debug.LogWarning("StopLoopSfx");
-                        Character.CharacterEffectSound.StopLoopingSfx((int)eKnownSfxSound.SE_Cynox_F_GrappleMoveReg);
+                        //Character.CharacterEffectSound.StopLoopingSfx((int)eKnownSfxSound.SE_Cynox_F_GrappleMoveReg);
                     }
                     catch (Exception e)
                     {
@@ -469,7 +468,7 @@ namespace REIW.Animations.Character
                         _launchMixer.State.RecalculateWeights();
                         if (_sounds.ContainsKey(InAnimationType))
                         {
-                            Character.CharacterEffectSound.PlayCharacterSfx((int)_sounds[InAnimationType]);
+                            //Character.CharacterEffectSound.PlayCharacterSfx((int)_sounds[InAnimationType]);
                         }
                     }
                     break;
@@ -487,7 +486,7 @@ namespace REIW.Animations.Character
 
                         if (_sounds.ContainsKey(InAnimationType))
                         {
-                            Character.CharacterEffectSound.PlayCharacterSfx((int)_sounds[InAnimationType]);
+                            //Character.CharacterEffectSound.PlayCharacterSfx((int)_sounds[InAnimationType]);
                         }
                     }
                     break;
@@ -497,7 +496,7 @@ namespace REIW.Animations.Character
                     
                     if (_sounds.ContainsKey(InAnimationType))
                     {
-                       Character.CharacterEffectSound.PlayCharacterLoopSfx((int)_sounds[InAnimationType]);
+                       //Character.CharacterEffectSound.PlayCharacterLoopSfx((int)_sounds[InAnimationType]);
                     }
                     
                     state = Animation.PlayAnimation(InAnimationType, _fall, InAnimationSpeed, InCalculateSpeedFunc);
@@ -560,18 +559,18 @@ namespace REIW.Animations.Character
             }
         }
 
-        public void SetGrappleInfo(GrappleInformation InGrappleInfo)
-        {
-            _grappleInfo = InGrappleInfo;
-        }
-
-        public void StartGrapple(in GrapplePoint InTarget, in float InGrappleMoveTime)
-        {
-            _grappleInfo.Target = InTarget;
-            _grappleInfo.GrappleMoveTime = InGrappleMoveTime;
-
-            PlayMoveAnimation();
-        }
+        // public void SetGrappleInfo(GrappleInformation InGrappleInfo)
+        // {
+        //     _grappleInfo = InGrappleInfo;
+        // }
+        //
+        // public void StartGrapple(in GrapplePoint InTarget, in float InGrappleMoveTime)
+        // {
+        //     _grappleInfo.Target = InTarget;
+        //     _grappleInfo.GrappleMoveTime = InGrappleMoveTime;
+        //
+        //     PlayMoveAnimation();
+        // }
 
         public void ArriveGrapple()
         {
@@ -583,13 +582,13 @@ namespace REIW.Animations.Character
 
         public void LaunchRequested(in Action<bool> InStartLaunchCallback)
         {
-            if (!enabled || !_grappleInfo.IsFar)
-            {
-                InStartLaunchCallback?.Invoke(false);
-                return;
-            }
-
-            _grappleInfo.StartLaunchCallback = InStartLaunchCallback;
+            // if (!enabled || !_grappleInfo.IsFar)
+            // {
+            //     InStartLaunchCallback?.Invoke(false);
+            //     return;
+            // }
+            //
+            // _grappleInfo.StartLaunchCallback = InStartLaunchCallback;
             Movement.IsJumpInput = false;
             Movement.UseHorizontalRootMotionPosition = CharacterRootMotionMode.Ignore;
         }
@@ -614,45 +613,45 @@ namespace REIW.Animations.Character
             };
         }
 
-        private eAnimationType GetThrowAnimationType()
-        {
-            float angle =
-                Movement.GetVerticalAngleToTarget(Character.CharacterTransform, _grappleInfo.TargetTransform);
-            if (Movement.IsGrounded)
-            {
-                if (angle > _throwUpAngle)
-                    return eAnimationType.GRAPPLE_THROW_UP;
-                if (angle < _throwDownAngle)
-                    return eAnimationType.GRAPPLE_THROW_DOWN;
-                return eAnimationType.GRAPPLE_THROW;
-            }
-            else
-            {
-                if (angle > _throwUpAngle)
-                    return eAnimationType.GRAPPLE_THROW_AIR_UP;
-                if (angle < _throwDownAngle)
-                    return eAnimationType.GRAPPLE_THROW_AIR_DOWN;
-                return eAnimationType.GRAPPLE_THROW_AIR;
-            }
-        }
+        // private eAnimationType GetThrowAnimationType()
+        // {
+        //     float angle =
+        //         Movement.GetVerticalAngleToTarget(Character.CharacterTransform, _grappleInfo.TargetTransform);
+        //     if (Movement.IsGrounded)
+        //     {
+        //         if (angle > _throwUpAngle)
+        //             return eAnimationType.GRAPPLE_THROW_UP;
+        //         if (angle < _throwDownAngle)
+        //             return eAnimationType.GRAPPLE_THROW_DOWN;
+        //         return eAnimationType.GRAPPLE_THROW;
+        //     }
+        //     else
+        //     {
+        //         if (angle > _throwUpAngle)
+        //             return eAnimationType.GRAPPLE_THROW_AIR_UP;
+        //         if (angle < _throwDownAngle)
+        //             return eAnimationType.GRAPPLE_THROW_AIR_DOWN;
+        //         return eAnimationType.GRAPPLE_THROW_AIR;
+        //     }
+        // }
+        //
+        // private eAnimationType GetMoveAnimationType()
+        // {
+        //     return _grappleInfo.GrappleDistance switch
+        //     {
+        //         var distance when distance < _moveShortAniMaxDistance => eAnimationType.GRAPPLE_MOVE_SHORT,
+        //         var distance when distance < _moveMediumAniMaxDistance => eAnimationType.GRAPPLE_MOVE_MEDIUM,
+        //         var distance when distance < _moveRegAniMaxDistance => eAnimationType.GRAPPLE_MOVE_REG,
+        //         _ => eAnimationType.GRAPPLE_MOVE_SPIN
+        //     };
+        // }
 
-        private eAnimationType GetMoveAnimationType()
-        {
-            return _grappleInfo.GrappleDistance switch
-            {
-                var distance when distance < _moveShortAniMaxDistance => eAnimationType.GRAPPLE_MOVE_SHORT,
-                var distance when distance < _moveMediumAniMaxDistance => eAnimationType.GRAPPLE_MOVE_MEDIUM,
-                var distance when distance < _moveRegAniMaxDistance => eAnimationType.GRAPPLE_MOVE_REG,
-                _ => eAnimationType.GRAPPLE_MOVE_SPIN
-            };
-        }
-
-        private eAnimationType GetArriveAnimationType()
-        {
-            return _grappleInfo.Target != null
-                ? _grappleInfo.Target.GetArriveAnimationType(_playingAnimationType)
-                : eAnimationType.GRAPPLE_ARRIVE;
-        }
+        // private eAnimationType GetArriveAnimationType()
+        // {
+        //     return _grappleInfo.Target != null
+        //         ? _grappleInfo.Target.GetArriveAnimationType(_playingAnimationType)
+        //         : eAnimationType.GRAPPLE_ARRIVE;
+        // }
 
         private eAnimationType GetLaunchAnimationType()
         {
@@ -753,16 +752,16 @@ namespace REIW.Animations.Character
             }, 0);
         }
 
-        private void OnAnimation_ThrowEndEvent()
-        {
-            _grappleInfo.StartGrapple(true);
-        }
-
-        private void OnAnimation_ArriveEndEvent()
-        {
-            _playingAniState = null;
-            _grappleInfo.StartLaunch(false);
-        }
+        // private void OnAnimation_ThrowEndEvent()
+        // {
+        //     _grappleInfo.StartGrapple(true);
+        // }
+        //
+        // private void OnAnimation_ArriveEndEvent()
+        // {
+        //     _playingAniState = null;
+        //     _grappleInfo.StartLaunch(false);
+        // }
 
         private void OnAnimation_LaunchEndEvent()
         {
@@ -772,31 +771,31 @@ namespace REIW.Animations.Character
             PlayFallAnimation();
         }
 
-        public void OnAnimation_EnableAnyMovementArriveEvent(int InArriveType)
-        {
-            if (GetArriveAnimationParameter() != InArriveType)
-                return;
-
-            _enableAnyMovement = true;
-            _grappleInfo.StartLaunch(false);
-        }
-
-        public void OnAnimation_PlayLaunchAnimationEvent(int InArriveType)
-        {
-            if (GetArriveAnimationParameter() != InArriveType)
-                return;
-
-            _oncameraeventGrapple = false;
-            PlayLaunchAnimation();
-        }
-
-        public void OnAnimation_StartLaunchEvent(int InLaunchType)
-        {
-            if (GetLaunchAnimationParameter() != InLaunchType)
-                return;
-
-            _grappleInfo.StartLaunch(true);
-        }
+        // public void OnAnimation_EnableAnyMovementArriveEvent(int InArriveType)
+        // {
+        //     if (GetArriveAnimationParameter() != InArriveType)
+        //         return;
+        //
+        //     _enableAnyMovement = true;
+        //     _grappleInfo.StartLaunch(false);
+        // }
+        //
+        // public void OnAnimation_PlayLaunchAnimationEvent(int InArriveType)
+        // {
+        //     if (GetArriveAnimationParameter() != InArriveType)
+        //         return;
+        //
+        //     _oncameraeventGrapple = false;
+        //     PlayLaunchAnimation();
+        // }
+        //
+        // public void OnAnimation_StartLaunchEvent(int InLaunchType)
+        // {
+        //     if (GetLaunchAnimationParameter() != InLaunchType)
+        //         return;
+        //
+        //     _grappleInfo.StartLaunch(true);
+        // }
 
 //        private bool IsLandingAirBone => _isLanding && Movement.CurrentMoveType == eMoveType.AIRBORNE;
         public override eEventLockType CurrentEventLockType
@@ -820,16 +819,16 @@ namespace REIW.Animations.Character
             }
         }
 
-        public override IngameCameraSystem_Event.CameraEventType CameraEventType
-        {
-            get
-            {
-                if (_oncameraeventGrapple)
-                    return IngameCameraSystem_Event.CameraEventType.Grapple;
-
-                return base.CameraEventType;
-            }
-        }
+        // public override IngameCameraSystem_Event.CameraEventType CameraEventType
+        // {
+        //     get
+        //     {
+        //         if (_oncameraeventGrapple)
+        //             return IngameCameraSystem_Event.CameraEventType.Grapple;
+        //
+        //         return base.CameraEventType;
+        //     }
+        // }
 
 // #if UNITY_EDITOR
 //         private void OnGUI()

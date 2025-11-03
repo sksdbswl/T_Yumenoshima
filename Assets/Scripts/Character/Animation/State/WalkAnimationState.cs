@@ -80,7 +80,7 @@ namespace REIW.Animations.Character
                 SetState(eMovementType.MOVE);
             }
 
-            ChangeStaminaActionType(eStaminaActionType.Normal);
+            //ChangeStaminaActionType(eStaminaActionType.Normal);
         }
 
         public void SetMoveMixer(in LinearMixerTransition InMoveMixer)

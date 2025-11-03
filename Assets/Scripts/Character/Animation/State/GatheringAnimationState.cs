@@ -51,22 +51,22 @@ namespace REIW.Animations.Character
             }
         }
 
-        public eAnimationType ConvertToAnimationType(in EnumGathering InGatheringType)
-        {
-            return InGatheringType switch
-            {
-                EnumGathering.Gathering => eAnimationType.GATHERING_GATHERING,
-                EnumGathering.Felling => eAnimationType.GATHERING_FELLING,
-                EnumGathering.Mining => eAnimationType.GATHERING_MINING,
-                EnumGathering.Toshovel => eAnimationType.GATHERING_TO_SHOVEL,
-                EnumGathering.IceCarving_01 => eAnimationType.GATHERING_ICECARVING_1,
-                EnumGathering.IceCarving_02 => eAnimationType.GATHERING_ICECARVING_2,
-                EnumGathering.Hunting => eAnimationType.GATHERING_HUNTING,
-                EnumGathering.SheepShearing => eAnimationType.GATHERING_SHEEP_SHEARING,
-                EnumGathering.Petting => eAnimationType.GATHERING_PETTING_1,
-                _ => eAnimationType.GATHERING_GATHERING,
-            };
-        }
+        // public eAnimationType ConvertToAnimationType(in EnumGathering InGatheringType)
+        // {
+        //     return InGatheringType switch
+        //     {
+        //         EnumGathering.Gathering => eAnimationType.GATHERING_GATHERING,
+        //         EnumGathering.Felling => eAnimationType.GATHERING_FELLING,
+        //         EnumGathering.Mining => eAnimationType.GATHERING_MINING,
+        //         EnumGathering.Toshovel => eAnimationType.GATHERING_TO_SHOVEL,
+        //         EnumGathering.IceCarving_01 => eAnimationType.GATHERING_ICECARVING_1,
+        //         EnumGathering.IceCarving_02 => eAnimationType.GATHERING_ICECARVING_2,
+        //         EnumGathering.Hunting => eAnimationType.GATHERING_HUNTING,
+        //         EnumGathering.SheepShearing => eAnimationType.GATHERING_SHEEP_SHEARING,
+        //         EnumGathering.Petting => eAnimationType.GATHERING_PETTING_1,
+        //         _ => eAnimationType.GATHERING_GATHERING,
+        //     };
+        // }
 
         private void OnAnimation_CheckSuccessCancel()
         {

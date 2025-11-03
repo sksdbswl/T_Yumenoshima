@@ -48,7 +48,7 @@ namespace REIW.Animations.Character
         {
             base.OnEnable();
 
-            ChangeStaminaActionType(eStaminaActionType.Normal);
+            //ChangeStaminaActionType(eStaminaActionType.Normal);
             PlayMainAnimation();
 
             _randomizeTime += _firstRandomizeDelay;

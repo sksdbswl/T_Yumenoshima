@@ -2,7 +2,6 @@ using System;
 using System.Threading;
 using Animancer;
 using Animancer.Units;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace REIW.Animations.Character
@@ -85,7 +84,7 @@ namespace REIW.Animations.Character
             _cts?.Cancel();
             _cts = new CancellationTokenSource();
 
-            Character.CharacterEffectSound.LoopingFxUniTask(eKnownEffect.SPRINT_Loop, _cts.Token).Forget();
+            //Character.CharacterEffectSound.LoopingFxUniTask(eKnownEffect.SPRINT_Loop, _cts.Token).Forget();
         }
 
         protected override void OnDisable()
@@ -101,7 +100,7 @@ namespace REIW.Animations.Character
             _cts?.Dispose();
             _cts = null;
             
-            Character.CharacterEffectSound.StopLoopingFx(eKnownEffect.SPRINT_Loop);
+            //Character.CharacterEffectSound.StopLoopingFx(eKnownEffect.SPRINT_Loop);
         }
 
         protected override void SetState(in eMovementType InType)

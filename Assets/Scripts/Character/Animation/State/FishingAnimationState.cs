@@ -143,7 +143,7 @@ namespace REIW.Animations.Character
         // 타 캐릭터 용. 로컬 캐릭터는 FishingSystem에서 처리
         private void PlayOtherRodAnim(eAnimationType type)
         {
-            IngameFishingSystem.Instance.PlayOtherRodAnim(Character.DatabaseID, type);
+            //IngameFishingSystem.Instance.PlayOtherRodAnim(Character.DatabaseID, type);
         }
 
         void OnAnimation_MissEndEvent()
@@ -159,7 +159,7 @@ namespace REIW.Animations.Character
         {
             if (IsLocal)
             {
-                IngameFishingSystem.Instance.OnThrowLureLocal();
+                //IngameFishingSystem.Instance.OnThrowLureLocal();
             }
         }
 
@@ -169,7 +169,7 @@ namespace REIW.Animations.Character
         {
             if (IsLocal)
             {
-                IngameFishingSystem.Instance.PlayFishCatchEffect();
+                //IngameFishingSystem.Instance.PlayFishCatchEffect();
             }
         }
         

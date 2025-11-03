@@ -32,7 +32,7 @@ namespace REIW.Animations.Character
         public override void OnEnterState()
         {
             base.OnEnterState();
-            ChangeStaminaActionType(eStaminaActionType.Normal);
+            //ChangeStaminaActionType(eStaminaActionType.Normal);
             _playingAniState = InternalPlayAnimation(eAnimationType.MOVE_FAIL_WALL);
             SetAnimationEndEvent(_playingAniState, OnAnimation_EndEvent_WallFail);
             _playingAniState.NormalizedTime = 0;

@@ -7,7 +7,7 @@ namespace REIW.Animations.Character
 {
     using eAnimationType = CharacterAnimationEnums.eAnimationType;
     using eStateType = CharacterAnimationEnums.eStateType;
-    using TabType = CharacterStageUI.TabType;
+    //using TabType = CharacterStageUI.TabType;
     
     public class CharacterStageAnimationState : CharacterAnimationState
     {
@@ -39,27 +39,27 @@ namespace REIW.Animations.Character
         }
 
         // [suhlee] TODO: Refactor: 탭 별 Transition 처리 필요
-        public void OnClickCharacterStageUITab(TabType prevTab, TabType currentTab)
-        {
-            switch (currentTab)
-            {
-                case TabType.Character:
-                case TabType.Tools:
-                case TabType.Emotes:
-                case TabType.Equipment:
-                    if (prevTab == TabType.Avatar)
-                    {
-                        InternalPlayAnimation(eAnimationType.CHARACTER_STAGE_AVATAR_TO_IDLE); 
-                    }
-                    break;
-                case TabType.Avatar:
-                    if (prevTab != TabType.Avatar)
-                    {
-                        InternalPlayAnimation(eAnimationType.CHARACTER_STAGE_IDLE_TO_AVATAR);
-                    }
-                    break;
-            }
-        }
+        // public void OnClickCharacterStageUITab(TabType prevTab, TabType currentTab)
+        // {
+        //     switch (currentTab)
+        //     {
+        //         case TabType.Character:
+        //         case TabType.Tools:
+        //         case TabType.Emotes:
+        //         case TabType.Equipment:
+        //             if (prevTab == TabType.Avatar)
+        //             {
+        //                 InternalPlayAnimation(eAnimationType.CHARACTER_STAGE_AVATAR_TO_IDLE); 
+        //             }
+        //             break;
+        //         case TabType.Avatar:
+        //             if (prevTab != TabType.Avatar)
+        //             {
+        //                 InternalPlayAnimation(eAnimationType.CHARACTER_STAGE_IDLE_TO_AVATAR);
+        //             }
+        //             break;
+        //     }
+        // }
         
         protected override AnimancerState InternalPlayAnimation(in eAnimationType InAnimationType,
             in float InAnimationSpeed = 1f, in Func<AnimancerState, float> InCalculateSpeedFunc = null)

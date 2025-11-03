@@ -65,7 +65,7 @@ namespace REIW.Animations.Character
         {
             base.OnEnable();
 
-            ChangeStaminaActionType(eStaminaActionType.Normal);
+            //ChangeStaminaActionType(eStaminaActionType.Normal);
             PlayFallAnimation();
 
             Movement.IsLanding = false;
@@ -168,7 +168,7 @@ namespace REIW.Animations.Character
         {
             if (Movement.CurrentMoveType == eMoveType.AIRBORNE)
             {
-                Character.AnimancerEvents.OnFxEventInt((int)eKnownEffect.FX_LAND);
+                //Character.AnimancerEvents.OnFxEventInt((int)eKnownEffect.FX_LAND);
                 return eAnimationType.AIRBORNE_LANDIND;
             }
             else if (!Movement.IsMoveInput ||

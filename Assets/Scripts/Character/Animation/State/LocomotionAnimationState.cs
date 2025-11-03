@@ -138,7 +138,7 @@ namespace REIW.Animations.Character
         {
             base.OnEnable();
 
-            ChangeStaminaActionType(eStaminaActionType.Normal);
+            //ChangeStaminaActionType(eStaminaActionType.Normal);
 
             _currentForwardSpeed = AnimationParameters.ForwardSpeed;
             Movement.ForceFindGroundedFoot = false;

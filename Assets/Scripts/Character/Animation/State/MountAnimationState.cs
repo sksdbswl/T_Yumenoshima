@@ -92,8 +92,8 @@ namespace REIW.Animations.Character
 
                 if (CanExitState)
                 {
-                    PlayerController.Instance.CurrentInputCommandModeType = eInputCommandModeType.Character;
-                    PlayerController.Instance.CurrentExecuteActionTypeStateType = eStaminaActionType.Normal;
+                    // PlayerController.Instance.CurrentInputCommandModeType = eInputCommandModeType.Character;
+                    // PlayerController.Instance.CurrentExecuteActionTypeStateType = eStaminaActionType.Normal;
                     return (true, HasMoveInput() ? eStateType.RUN : eStateType.IDLE);
                 }
 
@@ -123,11 +123,11 @@ namespace REIW.Animations.Character
 
             if (_currentMountSerial == 0)
             {
-                var playerMountData = UserDataModel.Singleton.PlayerMountData.TryGetEquippedMount(MountType.Riding);
-                if (playerMountData != null)
-                {
-                    _currentMountSerial = playerMountData.Serial;
-                }
+                // var playerMountData = UserDataModel.Singleton.PlayerMountData.TryGetEquippedMount(MountType.Riding);
+                // if (playerMountData != null)
+                // {
+                //     _currentMountSerial = playerMountData.Serial;
+                // }
             }
 
             _wasMoving = false;
@@ -168,8 +168,8 @@ namespace REIW.Animations.Character
                         HasMoveInput() ? eStateType.RUN : eStateType.IDLE
                     );
                     
-                    PlayerController.Instance.CurrentInputCommandModeType = eInputCommandModeType.Character;
-                    PlayerController.Instance.CurrentExecuteActionTypeStateType = eStaminaActionType.Normal;
+                    // PlayerController.Instance.CurrentInputCommandModeType = eInputCommandModeType.Character;
+                    // PlayerController.Instance.CurrentExecuteActionTypeStateType = eStaminaActionType.Normal;
                 }
             }
 
@@ -231,8 +231,8 @@ namespace REIW.Animations.Character
                     HasMoveInput() ? eStateType.RUN : eStateType.IDLE
                 );
                 
-                PlayerController.Instance.CurrentInputCommandModeType = eInputCommandModeType.Character;
-                PlayerController.Instance.CurrentExecuteActionTypeStateType = eStaminaActionType.Normal;
+                // PlayerController.Instance.CurrentInputCommandModeType = eInputCommandModeType.Character;
+                // PlayerController.Instance.CurrentExecuteActionTypeStateType = eStaminaActionType.Normal;
             }
             else if (_currentMountSerial == 3000)
             {
@@ -244,8 +244,8 @@ namespace REIW.Animations.Character
                         HasMoveInput() ? eStateType.RUN : eStateType.IDLE
                     );
                     
-                    PlayerController.Instance.CurrentInputCommandModeType = eInputCommandModeType.Character;
-                    PlayerController.Instance.CurrentExecuteActionTypeStateType = eStaminaActionType.Normal;
+                    // PlayerController.Instance.CurrentInputCommandModeType = eInputCommandModeType.Character;
+                    // PlayerController.Instance.CurrentExecuteActionTypeStateType = eStaminaActionType.Normal;
                 });
             }
         }
@@ -306,8 +306,10 @@ namespace REIW.Animations.Character
 
         private bool HasMoveInput()
         {
-            var linkedMount = PlayerController.Instance?.EquippedLocalMount;
-            return linkedMount != null && linkedMount.PlayerMoveInput.sqrMagnitude > 0.01f;
+            // var linkedMount = PlayerController.Instance?.EquippedLocalMount;
+            // return linkedMount != null && linkedMount.PlayerMoveInput.sqrMagnitude > 0.01f;
+            
+            return false;
         }
 
         protected override AnimancerState InternalPlayAnimation(in eAnimationType InAnimationType,
@@ -319,8 +321,8 @@ namespace REIW.Animations.Character
 
             if (_currentAnimationType == eAnimationType.MOUNT_SPRINT && IsLocal)
             {
-                if (_localCharacter != null)
-                    _localCharacter.GetAniimationEventController().CameraFovResetInScript(1, _SprintFovResetAniamtionCurve);
+                // if (_localCharacter != null)
+                //     _localCharacter.GetAniimationEventController().CameraFovResetInScript(1, _SprintFovResetAniamtionCurve);
             }
 
             _currentAnimationType = InAnimationType;
@@ -337,7 +339,7 @@ namespace REIW.Animations.Character
 
             if (InAnimationType == eAnimationType.MOUNT_SPRINT && IsLocal)
             {
-                _localCharacter.GetAniimationEventController().CameraFovSetInScript( _SprintFov,1, _SprintFovSetAniamtionCurve);
+                //_localCharacter.GetAniimationEventController().CameraFovSetInScript( _SprintFov,1, _SprintFovSetAniamtionCurve);
             }
             
             return _playingAniState;
@@ -368,9 +370,9 @@ namespace REIW.Animations.Character
             return null;
         }
 
-        public override IngameCameraSystem_Event.CameraEventType CameraEventType
-        {
-            get => IngameCameraSystem_Event.CameraEventType.Default;
-        }
+        // public override IngameCameraSystem_Event.CameraEventType CameraEventType
+        // {
+        //     get => IngameCameraSystem_Event.CameraEventType.Default;
+        // }
     }
 }

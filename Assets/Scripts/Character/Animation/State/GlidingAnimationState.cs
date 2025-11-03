@@ -2,7 +2,6 @@ using UnityEngine;
 using Animancer;
 using System;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
 using REIW.EventLock;
 using GlidingPool = UnityEngine.Pool.ObjectPool<REIW.GlidingAttachObject>;
 
@@ -92,8 +91,8 @@ namespace REIW.Animations.Character
         {
             get
             {
-                if (_data == null)
-                    _data = AssetManager.Singleton.GetCharacterMovementDataSO<CharacterMoveGlidingData>(true);
+                // if (_data == null)
+                //     _data = AssetManager.Singleton.GetCharacterMovementDataSO<CharacterMoveGlidingData>(true);
                 return _data;
             }
         }
@@ -142,8 +141,8 @@ namespace REIW.Animations.Character
             if (asset == null)
                 return;
 
-            if (AssetManager.IsCreated)
-                AssetManager.Singleton.ReleaseAsset(asset);
+            // if (AssetManager.IsCreated)
+            //     AssetManager.Singleton.ReleaseAsset(asset);
 
             asset = null;
         }
@@ -190,7 +189,7 @@ namespace REIW.Animations.Character
                     var state = InternalPlayAnimation(eAnimationType.GLIDING_START);
                     SetAnimationEndEvent(state, OnAnimation_EndEvent);
                     AttachObject();
-                    ChangeStaminaActionType(eStaminaActionType.Glide);
+                    //ChangeStaminaActionType(eStaminaActionType.Glide);
                 }
                     break;
 
@@ -253,7 +252,7 @@ namespace REIW.Animations.Character
                     clip = _glideJump;
                     
                     // 
-                    Character.AnimancerEvents.OnFxObjectEvent((int)_attachObject.Trail_Jump, _attachObject.Fx_Trail_JumpTransform);
+                    //Character.AnimancerEvents.OnFxObjectEvent((int)_attachObject.Trail_Jump, _attachObject.Fx_Trail_JumpTransform);
                     //>
                     
                     break;
@@ -280,7 +279,7 @@ namespace REIW.Animations.Character
             if (Character.IsLocalCharacter)
             {
                 _loopingSound = loopSfxIndex;
-                Character.CharacterEffectSound.LocalPlayerLoopSfx(loopSfxIndex );
+                //Character.CharacterEffectSound.LocalPlayerLoopSfx(loopSfxIndex );
             }
         }
 
@@ -288,7 +287,7 @@ namespace REIW.Animations.Character
         {
             if (Character.IsLocalCharacter)
             {
-                Character.CharacterEffectSound.StopLoopingSfx(_loopingSound );
+                //Character.CharacterEffectSound.StopLoopingSfx(_loopingSound );
             }
         }
             
@@ -308,65 +307,63 @@ namespace REIW.Animations.Character
         }
 
 
-        public override IngameCameraSystem_Event.CameraEventType CameraEventType
-        {
-            get => IngameCameraSystem_Event.CameraEventType.Custom;
-        }
+        // public override IngameCameraSystem_Event.CameraEventType CameraEventType
+        // {
+        //     get => IngameCameraSystem_Event.CameraEventType.Custom;
+        // }
 
         private void AttachObject()
         {
-            AttachObject(Character.GetPlayerNetObject().GlideSerialID);
+            //AttachObject(Character.GetPlayerNetObject().GlideSerialID);
         }
 
         private void AttachObject(uint serialID)
         {
-            if (_attachObject != null)
-                return;
-            
-            // 글라이더 정보에서 붙러와야함...
-            Debug.LogError("Gliding ");
-            
-            GlideObjectDataSO.DataInfo info = GameDataModel.Singleton.GlideObjectDatas.GetDataInfo(0);
-            if (info == null)
-                return;
-
-            GameObject obj = GameObject.Instantiate(info.AttachObject);
-            _attachObject = obj.GetComponent<GlidingAttachObject>();
-            
-            if (_attachObject == null)
-            {
-                Debug.LogError("GlidingAttachObject: AttachObject: AttachObject is null!");
-                _attachObject = obj.AddComponent<GlidingAttachObject>();
-            }
-            
-            // _attachObject.AttachAction = () => Character?.VisualAttachment?.Attach(info.AttachBones, ref obj, info.LocalPositionOffset, Quaternion.Euler(info.LocalRotationOffset), info.LocalScaleOffset);
-            
-            _attachObject.AttachAction = () =>
-            {
-                if (Character == null || Character.VisualAttachment == null)
-                    return;
-
-                Character.VisualAttachment.Attach(info.AttachBones, ref obj, info.LocalPositionOffset, Quaternion.Euler(info.LocalRotationOffset), info.LocalScaleOffset);
-                Character.AnimancerEvents.OnFxObjectEvent((int)_attachObject.Mount_Summon, _attachObject.Fx_Mount_SummonTransform);
-                PlayCharacterLoopSfx((int)_attachObject.Trail_Loop_Sound);
-                OnFxGlidingTrailEvent((int)_attachObject.Trail_Loop, _attachObject.Fx_Trail_1, _attachObject.Fx_Trail_2);
-            };
-
-
-            _attachObject.DetachAction = () =>
-            {
-                if (Character == null || Character.VisualAttachment == null)
-                    return;
-
-                PlayCharacterStopLoopSfx();
-                
-                Character.CharacterEffectSound.LocalPlayerSfx((int)eKnownSfxSound.SE_GlideEnd_Common);
-                
-                Character.VisualAttachment.Detach(info.AttachBones);
-                OnFxGlidingTrailEventStop();
-            };
-            _attachAnimator = _attachObject.GetComponent<Animator>();            
-            PlayAnimationAttachObject(eAnimationType.GLIDING_START);
+            // if (_attachObject != null)
+            //     return;
+            //
+            // // 글라이더 정보에서 붙러와야함...
+            // Debug.LogError("Gliding ");
+            //
+            // GlideObjectDataSO.DataInfo info = GameDataModel.Singleton.GlideObjectDatas.GetDataInfo(0);
+            // if (info == null)
+            //     return;
+            //
+            // GameObject obj = GameObject.Instantiate(info.AttachObject);
+            // _attachObject = obj.GetComponent<GlidingAttachObject>();
+            //
+            // if (_attachObject == null)
+            // {
+            //     Debug.LogError("GlidingAttachObject: AttachObject: AttachObject is null!");
+            //     _attachObject = obj.AddComponent<GlidingAttachObject>();
+            // }
+            //
+            // _attachObject.AttachAction = () =>
+            // {
+            //     if (Character == null || Character.VisualAttachment == null)
+            //         return;
+            //
+            //     Character.VisualAttachment.Attach(info.AttachBones, ref obj, info.LocalPositionOffset, Quaternion.Euler(info.LocalRotationOffset), info.LocalScaleOffset);
+            //     Character.AnimancerEvents.OnFxObjectEvent((int)_attachObject.Mount_Summon, _attachObject.Fx_Mount_SummonTransform);
+            //     PlayCharacterLoopSfx((int)_attachObject.Trail_Loop_Sound);
+            //     OnFxGlidingTrailEvent((int)_attachObject.Trail_Loop, _attachObject.Fx_Trail_1, _attachObject.Fx_Trail_2);
+            // };
+            //
+            //
+            // _attachObject.DetachAction = () =>
+            // {
+            //     if (Character == null || Character.VisualAttachment == null)
+            //         return;
+            //
+            //     PlayCharacterStopLoopSfx();
+            //     
+            //     Character.CharacterEffectSound.LocalPlayerSfx((int)eKnownSfxSound.SE_GlideEnd_Common);
+            //     
+            //     Character.VisualAttachment.Detach(info.AttachBones);
+            //     OnFxGlidingTrailEventStop();
+            // };
+            // _attachAnimator = _attachObject.GetComponent<Animator>();            
+            // PlayAnimationAttachObject(eAnimationType.GLIDING_START);
         }
 
         private readonly string[] AttackAnimationTriggers = new string[]
@@ -401,71 +398,71 @@ namespace REIW.Animations.Character
             if (_attachObject != null)
                 return;
 
-            if (Character is not NetworkCharacter networkCharacter)
-                return;
+            // if (Character is not NetworkCharacter networkCharacter)
+            //     return;
 
             // 추후 정보에 따라서...
-            uint id  = networkCharacter.GetPlayerNetObject().GlideSerialID;
-            AttachObject(id);
+            //uint id  = networkCharacter.GetPlayerNetObject().GlideSerialID;
+            //AttachObject(id);
         }
         
         //Effect
         
-        private LoopingPooledEffect fx1;
-        private LoopingPooledEffect fx2;
+        // private LoopingPooledEffect fx1;
+        // private LoopingPooledEffect fx2;
         public async void OnFxGlidingTrailEvent(int type, Transform glidingLeft, Transform glidingRight)
         {
-            if(glidingLeft == null)
-                Debug.LogError("glidingLeft is null!");
-            if(glidingRight == null)
-                Debug.LogError("glidingRight is null!");
-            
-            EffectDatabaseSO.EffectEntry entry = DataTable.Singleton.GetEffectEntry(type);
-            if (entry != null)
-            {
-                var ct = Character.GetCancellationTokenOnDestroy(); 
-                    
-                var pooled1 = await IndexedEffectPoolManager.Singleton.GetAsync(entry, ct);
-                fx1 = pooled1 as LoopingPooledEffect;
-                
-                var pooled2 = await IndexedEffectPoolManager.Singleton.GetAsync(entry, ct);
-                fx2 = pooled2 as LoopingPooledEffect;
-                
-                if (fx1 != null && glidingLeft)
-                {
-                    fx1.SpawnEffectAtSocket( glidingLeft, _attachObject.transform.forward);
-                }
-                else
-                {
-                    Debug.Log("FX Is NULL ! OnFxEventInt:" + type);
-                }
-                
-                if (fx2 != null && glidingRight)
-                {
-                    fx2.SpawnEffectAtSocket( glidingRight, _attachObject.transform.forward);
-                }
-                else
-                {
-                    Debug.Log("FX Is NULL ! OnFxEventInt:" + type);
-                }
-            }
-            else
-            {
-                Debug.Log("EffectEntry is null type=" + type);
-            }
+            // if(glidingLeft == null)
+            //     Debug.LogError("glidingLeft is null!");
+            // if(glidingRight == null)
+            //     Debug.LogError("glidingRight is null!");
+            //
+            // EffectDatabaseSO.EffectEntry entry = DataTable.Singleton.GetEffectEntry(type);
+            // if (entry != null)
+            // {
+            //     var ct = Character.GetCancellationTokenOnDestroy(); 
+            //         
+            //     var pooled1 = await IndexedEffectPoolManager.Singleton.GetAsync(entry, ct);
+            //     fx1 = pooled1 as LoopingPooledEffect;
+            //     
+            //     var pooled2 = await IndexedEffectPoolManager.Singleton.GetAsync(entry, ct);
+            //     fx2 = pooled2 as LoopingPooledEffect;
+            //     
+            //     if (fx1 != null && glidingLeft)
+            //     {
+            //         fx1.SpawnEffectAtSocket( glidingLeft, _attachObject.transform.forward);
+            //     }
+            //     else
+            //     {
+            //         Debug.Log("FX Is NULL ! OnFxEventInt:" + type);
+            //     }
+            //     
+            //     if (fx2 != null && glidingRight)
+            //     {
+            //         fx2.SpawnEffectAtSocket( glidingRight, _attachObject.transform.forward);
+            //     }
+            //     else
+            //     {
+            //         Debug.Log("FX Is NULL ! OnFxEventInt:" + type);
+            //     }
+            // }
+            // else
+            // {
+            //     Debug.Log("EffectEntry is null type=" + type);
+            // }
         }
 
         public async void OnFxGlidingTrailEventStop()
         {
             //Trail End
-            if (fx1 != null)
-            {
-                fx1.ForceStop();
-            }
-            if (fx2 != null)
-            {
-                fx2.ForceStop();
-            }
+            // if (fx1 != null)
+            // {
+            //     fx1.ForceStop();
+            // }
+            // if (fx2 != null)
+            // {
+            //     fx2.ForceStop();
+            // }
         }
         //>
         

@@ -177,7 +177,7 @@ namespace REIW.Animations.Character
             _isEnableQuickTurn = false;
             Movement.IsDashInput = false;
 
-            ChangeStaminaActionType(eStaminaActionType.Dash);
+            //ChangeStaminaActionType(eStaminaActionType.Dash);
         }
 
         public override bool IsPlayingAnimation(in float InNormalizedTime)

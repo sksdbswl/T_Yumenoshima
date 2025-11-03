@@ -139,15 +139,15 @@ namespace REIW.Animations.Character
             return true;
         }
 
-        protected void ChangeStaminaActionType(eStaminaActionType InStaminaActionType)
-        {
-            if (IsLocal)
-                Character.EventBus.Post<ICharacterStateEventListener>(_ => _.OnChangeStaminaActionType(InStaminaActionType));
-        }
+        // protected void ChangeStaminaActionType(eStaminaActionType InStaminaActionType)
+        // {
+        //     if (IsLocal)
+        //         Character.EventBus.Post<ICharacterStateEventListener>(_ => _.OnChangeStaminaActionType(InStaminaActionType));
+        // }
 
         public virtual eEventLockType CurrentEventLockType => eEventLockType.None;
         public virtual eEventLockType ReleaseEventLockType => eEventLockType.None;
-        public virtual IngameCameraSystem_Event.CameraEventType CameraEventType =>IngameCameraSystem_Event.CameraEventType.Default;
+        //public virtual IngameCameraSystem_Event.CameraEventType CameraEventType =>IngameCameraSystem_Event.CameraEventType.Default;
 
         public virtual Vector3 CameraEventOffset
         {
