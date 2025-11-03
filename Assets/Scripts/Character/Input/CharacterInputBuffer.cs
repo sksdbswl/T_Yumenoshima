@@ -87,8 +87,8 @@ namespace REIW
         }
     }
 
-    // [System.Serializable]
-    // public class CharacterActionInputBuffer : InputBuffer.Abstractions.InputBufferValueBase<eCharacterActionInputType>
-    // {
-    // }
+    [System.Serializable]
+    public class CharacterActionInputBuffer : InputBuffer.Abstractions.InputBufferValueBase<eCharacterActionInputType>
+    {
+    }
 }
