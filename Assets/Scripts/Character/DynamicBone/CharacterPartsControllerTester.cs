@@ -33,8 +33,8 @@ namespace REIW
 
         [SerializeField]
         private ulong _equippartsScriptID = 0;
-        [SerializeField]
-        private EnumGender _equippartsGender = EnumGender.Male;
+        // [SerializeField]
+        // private EnumGender _equippartsGender = EnumGender.Male;
 
         [SerializeField]
         private Transform ChangeRoot;
@@ -78,7 +78,7 @@ namespace REIW
         [ContextMenu("EquipAndMagica")]
         private void SetEquipAndMagica()
         {
-            Controller.SetEquipAndMagicacloth(0, _targetObject, CharacterPartsController.PartsType.All);
+            //Controller.SetEquipAndMagicacloth(0, _targetObject, CharacterPartsController.PartsType.All);
         }
 
         [ContextMenu("Equip")]
@@ -108,15 +108,15 @@ namespace REIW
         [ContextMenu("EquipDefaultGender")]
         public void EquipDefaultGender()
         {
-             IDictionary<CharacterPartsController.PartsType, Transform> dic = GameDataModel.Singleton.EquipPartsDatas.DefulatParts(_equippartsGender);
-             Controller.SetAllEquip(CharacterPartsControllerBase.ALL_LOD, dic);
+             // IDictionary<CharacterPartsController.PartsType, Transform> dic = GameDataModel.Singleton.EquipPartsDatas.DefulatParts(_equippartsGender);
+             // Controller.SetAllEquip(CharacterPartsControllerBase.ALL_LOD, dic);
         }
 
         [ContextMenu("EquipFromScript")]
         public void EquipFromScript()
         {
-             EquipPartsDataSO.DataInfo info = GameDataModel.Singleton.EquipPartsDatas.GetDataInfo(_equippartsScriptID);
-             Controller.SetEquip(0, info);
+             // EquipPartsDataSO.DataInfo info = GameDataModel.Singleton.EquipPartsDatas.GetDataInfo(_equippartsScriptID);
+             // Controller.SetEquip(0, info);
         }
         
         [ContextMenu("ResetParts")]
@@ -128,7 +128,7 @@ namespace REIW
         [ContextMenu("SetLODFromSript")]
         public void SetLODFromSript()
         {
-            Controller.SetEquip(_equippartsScriptID);
+            //Controller.SetEquip(_equippartsScriptID);
         }
 
         [ContextMenu("AnimatorRebind")]

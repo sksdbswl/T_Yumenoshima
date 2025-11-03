@@ -124,14 +124,14 @@ namespace REIW
             ChangeState(ClimbState.None);
             SetGravity(Vector3.down);
             
-            PlayerController.Instance.CurrentExecuteActionTypeStateType = eStaminaActionType.Normal;
+            //PlayerController.Instance.CurrentExecuteActionTypeStateType = eStaminaActionType.Normal;
         }
 
         public override void Initialize(ICharacterMoveController controller)
         {
             base.Initialize(controller);
             
-            _groundLayer = LayerMask.GetMask(LayerMask.LayerToName(Layer.LAYER_GROUND));
+            //_groundLayer = LayerMask.GetMask(LayerMask.LayerToName(Layer.LAYER_GROUND));
         }
 
         public override void FixedUpdateComponent()
@@ -145,8 +145,8 @@ namespace REIW
                 return;
             }
             
-            PlayerController.Instance.CurrentExecuteActionTypeStateType = 
-                IsNotDownGravity ? eStaminaActionType.WallClimb : eStaminaActionType.Normal;
+            // PlayerController.Instance.CurrentExecuteActionTypeStateType = 
+            //     IsNotDownGravity ? eStaminaActionType.WallClimb : eStaminaActionType.Normal;
             
             switch (curState)
             {

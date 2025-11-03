@@ -76,53 +76,53 @@ namespace REIW
         public void ResetParts(int index) => ExecuteForTargets(index, x => x.ResetParts());
         public void SetAllEquip(int index, IDictionary<CharacterPartsController.PartsType, Transform> targetlist) => ExecuteForTargets(index, x => x.SetAllEquip(targetlist));
         public void SetEquip(int index, Transform srctarget, CharacterPartsController.PartsType settype) => ExecuteForTargets(index, x => x.SetEquip(srctarget, settype));
-        public void SetEquipAndMagicacloth(int index, Transform srctarget, CharacterPartsController.PartsType settype) => ExecuteForTargets(index, x => x.ApplyEquipAndMagicaCloth(srctarget, settype));
-        public void SetEquip(int index, EquipPartsDataSO.DataInfo info) => ExecuteForTargets(index, x => x.SetEquip(info));
+        //public void SetEquipAndMagicacloth(int index, Transform srctarget, CharacterPartsController.PartsType settype) => ExecuteForTargets(index, x => x.ApplyEquipAndMagicaCloth(srctarget, settype));
+        //public void SetEquip(int index, EquipPartsDataSO.DataInfo info) => ExecuteForTargets(index, x => x.SetEquip(info));
 
-        public void SetEquipAll()
-        {
-            for (EnumCategory category = EnumCategory.Top; category <= EnumCategory.Ring; ++category)
-            {
-                GameDataModel.Singleton.ItemData.GetAvatarItemData(category, 0);    
-            }
-        }
-        
-        public void SetEquip(ulong scriptid)
-        {
-            EquipPartsDataSO.DataInfo info = GameDataModel.Singleton.EquipPartsDatas.GetDataInfo(scriptid);
-            if (info == null)
-                return;
+        // public void SetEquipAll()
+        // {
+        //     for (EnumCategory category = EnumCategory.Top; category <= EnumCategory.Ring; ++category)
+        //     {
+        //         GameDataModel.Singleton.ItemData.GetAvatarItemData(category, 0);    
+        //     }
+        // }
+        //
+        // public void SetEquip(ulong scriptid)
+        // {
+        //     EquipPartsDataSO.DataInfo info = GameDataModel.Singleton.EquipPartsDatas.GetDataInfo(scriptid);
+        //     if (info == null)
+        //         return;
+        //
+        //     for (EquipPartsDataSO.ObjectLOD lod = EquipPartsDataSO.ObjectLOD.LOD1; lod <= EquipPartsDataSO.ObjectLOD.LOD3; ++lod)
+        //     {
+        //         GameObject obj = info.GetLODObject(lod);
+        //         if (obj == null)
+        //         {
+        //             GetGroupPartsController((int)lod).EmptyEquip(info.Parts);
+        //             continue;
+        //         }
+        //
+        //         GetGroupPartsController((int)lod).SetEquip(obj.transform, info.Parts);
+        //     }
+        // }
 
-            for (EquipPartsDataSO.ObjectLOD lod = EquipPartsDataSO.ObjectLOD.LOD1; lod <= EquipPartsDataSO.ObjectLOD.LOD3; ++lod)
-            {
-                GameObject obj = info.GetLODObject(lod);
-                if (obj == null)
-                {
-                    GetGroupPartsController((int)lod).EmptyEquip(info.Parts);
-                    continue;
-                }
-
-                GetGroupPartsController((int)lod).SetEquip(obj.transform, info.Parts);
-            }
-        }
-
-        private IEnumerable<CharacterPartsController> ResolveTargets(int index)
-        {
-            if (index == ALL_LOD)
-            {
-                foreach (EquipPartsDataSO.ObjectLOD lod in Enum.GetValues(typeof(EquipPartsDataSO.ObjectLOD)))
-                    yield return GetGroupPartsController((int)lod);
-            }
-            else
-            {
-                yield return GetGroupPartsController(index);
-            }
-        }
+        // private IEnumerable<CharacterPartsController> ResolveTargets(int index)
+        // {
+        //     if (index == ALL_LOD)
+        //     {
+        //         foreach (EquipPartsDataSO.ObjectLOD lod in Enum.GetValues(typeof(EquipPartsDataSO.ObjectLOD)))
+        //             yield return GetGroupPartsController((int)lod);
+        //     }
+        //     else
+        //     {
+        //         yield return GetGroupPartsController(index);
+        //     }
+        // }
 
         private void ExecuteForTargets(int index, Action<CharacterPartsController> action)
         {
-            foreach (var controller in ResolveTargets(index))
-                action(controller);
+            // foreach (var controller in ResolveTargets(index))
+            //     action(controller);
         }
 
         private CharacterPartsController GetGroupPartsController(int lod)

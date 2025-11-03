@@ -2,7 +2,6 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cysharp.Threading.Tasks;
 
 using Animancer;
 using System.Threading;
@@ -14,39 +13,39 @@ namespace REIW.Animations
     [RequireComponent(typeof(AnimancerComponent))]
     public partial class AnimationEventController : CacheMonoBehaviour
     {
-        private AnimationEventDataSO.DataInfo[] _animationEvents;
+        //private AnimationEventDataSO.DataInfo[] _animationEvents;
 
-        private IngameCameraSystem _ingameCameraSystem;
+        //private IngameCameraSystem _ingameCameraSystem;
         // private PlayerStandaloneController _playerstandaloneController;
         private AnimancerComponent _animancer;
         private float _oldFov = float.MinValue;
         private CancellationTokenSource _cancellationTokenSource = null;
         private LocalCharacter _localCharacter;
-        private IngameCameraSystem_Event _ingameCameraSystemEvent;
+        //private IngameCameraSystem_Event _ingameCameraSystemEvent;
 
         public void Initialize(LocalCharacter localCharacter)
         {
-            _animationEvents ??= GameDataModel.Singleton.AnimationEventData.Array;
-            _cancellationTokenSource = new CancellationTokenSource();
-
-            _ = InitializeAnimationEvents(_cancellationTokenSource.Token);
-         
-            // _playerstandaloneController = FindAnyObjectByType<PlayerStandaloneController>();
-            _ingameCameraSystem = IngameCameraSystem.Instance;// FindAnyObjectByType<IngameCameraSystem>();
-            
-            Debug.LogWarning("Animation events initialized:" + _ingameCameraSystem);
-            
-            _oldFov = _ingameCameraSystem.TPSCamera.Lens.FieldOfView;
-
-            _localCharacter = localCharacter;
-            _localCharacter.CharacterEventLockController.AddEventLockState(this);
-
-            _ingameCameraSystemEvent = _ingameCameraSystem.gameObject.GetorAddComponent<IngameCameraSystem_Event>();
-            _ingameCameraSystemEvent.LocalCharacter = _localCharacter;
-//            _localCharacter.MyAnimationEventController = this;
-
-            PlayerController.Instance.EventCameraRotateAction -= UpdateEventCameraRotate;
-            PlayerController.Instance.EventCameraRotateAction += UpdateEventCameraRotate;
+//             _animationEvents ??= GameDataModel.Singleton.AnimationEventData.Array;
+//             _cancellationTokenSource = new CancellationTokenSource();
+//
+//             _ = InitializeAnimationEvents(_cancellationTokenSource.Token);
+//          
+//             // _playerstandaloneController = FindAnyObjectByType<PlayerStandaloneController>();
+//             _ingameCameraSystem = IngameCameraSystem.Instance;// FindAnyObjectByType<IngameCameraSystem>();
+//             
+//             Debug.LogWarning("Animation events initialized:" + _ingameCameraSystem);
+//             
+//             _oldFov = _ingameCameraSystem.TPSCamera.Lens.FieldOfView;
+//
+//             _localCharacter = localCharacter;
+//             _localCharacter.CharacterEventLockController.AddEventLockState(this);
+//
+//             _ingameCameraSystemEvent = _ingameCameraSystem.gameObject.GetorAddComponent<IngameCameraSystem_Event>();
+//             _ingameCameraSystemEvent.LocalCharacter = _localCharacter;
+// //            _localCharacter.MyAnimationEventController = this;
+//
+//             PlayerController.Instance.EventCameraRotateAction -= UpdateEventCameraRotate;
+//             PlayerController.Instance.EventCameraRotateAction += UpdateEventCameraRotate;
         }
 
         private void OnDestroy()
@@ -54,19 +53,19 @@ namespace REIW.Animations
             Dispose(_cancellationTokenSource);
             _cancellationTokenSource = null;
 
-            Dispose(_cameraMoveCancellationTokenSource);
-            _cameraMoveCancellationTokenSource = null;
-
-            Dispose(_cameraRotateCancellationTokenSource);
-            _cameraRotateCancellationTokenSource = null;
-
-            Dispose(_cameraFovCancellationTokenSource);
-            _cameraFovCancellationTokenSource = null;
-            
-            _localCharacter?.CharacterEventLockController.RemoveEventLockState(this);
-
-            if (PlayerController.Instance != null)
-                PlayerController.Instance.EventCameraRotateAction -= UpdateEventCameraRotate;
+            // Dispose(_cameraMoveCancellationTokenSource);
+            // _cameraMoveCancellationTokenSource = null;
+            //
+            // Dispose(_cameraRotateCancellationTokenSource);
+            // _cameraRotateCancellationTokenSource = null;
+            //
+            // Dispose(_cameraFovCancellationTokenSource);
+            // _cameraFovCancellationTokenSource = null;
+            //
+            // _localCharacter?.CharacterEventLockController.RemoveEventLockState(this);
+            //
+            // if (PlayerController.Instance != null)
+            //     PlayerController.Instance.EventCameraRotateAction -= UpdateEventCameraRotate;
             
 
             void Dispose(CancellationTokenSource tokenSource)
@@ -81,32 +80,32 @@ namespace REIW.Animations
             }
         }
 
-        protected virtual async UniTaskVoid InitializeAnimationEvents(CancellationToken token)
-        {
-            _animancer = GetComponent<AnimancerComponent>();
-
-            List<AnimationEventDataSO.DataInfo> list = _animationEvents.ToList();
-            List<AnimationEventDataSO.DataInfo> workinglist = new List<AnimationEventDataSO.DataInfo>();
-
-            while (list.Count > 0)
-            {
-                if (token.IsCancellationRequested)
-                    return;
-
-                workinglist.Clear();
-                foreach (AnimationEventDataSO.DataInfo info in list)
-                {
-                    if (info.Initialize(_animancer.States))
-                        workinglist.Add(info);
-                }
-
-                list.RemoveAll(x => workinglist.Contains(x));
-                if (list.Count == 0)
-                    return;
-
-                await UniTask.WaitForEndOfFrame(token);
-            }
-        }
+        // protected virtual async UniTaskVoid InitializeAnimationEvents(CancellationToken token)
+        // {
+        //     _animancer = GetComponent<AnimancerComponent>();
+        //
+        //     List<AnimationEventDataSO.DataInfo> list = _animationEvents.ToList();
+        //     List<AnimationEventDataSO.DataInfo> workinglist = new List<AnimationEventDataSO.DataInfo>();
+        //
+        //     while (list.Count > 0)
+        //     {
+        //         if (token.IsCancellationRequested)
+        //             return;
+        //
+        //         workinglist.Clear();
+        //         foreach (AnimationEventDataSO.DataInfo info in list)
+        //         {
+        //             if (info.Initialize(_animancer.States))
+        //                 workinglist.Add(info);
+        //         }
+        //
+        //         list.RemoveAll(x => workinglist.Contains(x));
+        //         if (list.Count == 0)
+        //             return;
+        //
+        //         await UniTask.WaitForEndOfFrame(token);
+        //     }
+        // }
 
         private AnimancerState _oldAnimancerState = null;
         private (AnimationClip, float) _oldanimationInfo;

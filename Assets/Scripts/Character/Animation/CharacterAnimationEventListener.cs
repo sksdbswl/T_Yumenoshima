@@ -74,7 +74,7 @@ namespace REIW.Animations.Character
 
             public void OnMountReleased()
             {
-                PlayerController.Instance.CurrentExecuteActionTypeStateType = eStaminaActionType.Normal;
+                //PlayerController.Instance.CurrentExecuteActionTypeStateType = eStaminaActionType.Normal;
                 MountEvent?.Invoke(false);
             }
         }
@@ -105,80 +105,80 @@ namespace REIW.Animations.Character
             }
         }
 
-        public class CharacterGrappleAnimationEventListener : AnimationEventListener, IMoveGrappleEventListener
-        {
-            public event Action<GrapplePoint, Vector3, float, bool, Action<bool>> GrappleRequestedEvent;
-            public event Action<GrapplePoint, float> GrappleStartedEvent;
-            public event Action GrappleArrivalEvent;
-            public event Action<Action<bool>> GrappleLaunchRequestedEvent;
-            public event Action GrappleLaunchLandedEvent;
-            public event Action<GrapplePoint, GrapplePoint, Vector3> GrapplePointTargetedEvent;
+        // public class CharacterGrappleAnimationEventListener : AnimationEventListener, IMoveGrappleEventListener
+        // {
+        //     public event Action<GrapplePoint, Vector3, float, bool, Action<bool>> GrappleRequestedEvent;
+        //     public event Action<GrapplePoint, float> GrappleStartedEvent;
+        //     public event Action GrappleArrivalEvent;
+        //     public event Action<Action<bool>> GrappleLaunchRequestedEvent;
+        //     public event Action GrappleLaunchLandedEvent;
+        //     public event Action<GrapplePoint, GrapplePoint, Vector3> GrapplePointTargetedEvent;
+        //
+        //     public CharacterGrappleAnimationEventListener(CharacterBaseEventBus eventBus) : base(eventBus)
+        //     {
+        //     }
+        //
+        //     public void OnGrappleRequested(GrapplePoint target, Vector3 grapplePosition, float grappleDistance,
+        //         bool isFar, Action<bool> funcStartGrapple)
+        //     {
+        //         GrappleRequestedEvent?.Invoke(target, grapplePosition, grappleDistance, isFar, funcStartGrapple);
+        //     }
+        //
+        //     public void OnGrappleStarted(GrapplePoint target, float grappleMoveTime)
+        //     {
+        //         GrappleStartedEvent?.Invoke(target, grappleMoveTime);
+        //     }
+        //
+        //     public void OnGrappleArrival()
+        //     {
+        //         GrappleArrivalEvent?.Invoke();
+        //     }
+        //
+        //     public void OnGrappleLaunchRequested(Action<bool> funcStartLaunch)
+        //     {
+        //         GrappleLaunchRequestedEvent?.Invoke(funcStartLaunch);
+        //     }
+        //
+        //     public void OnGrappleLaunchStarted()
+        //     {
+        //     }
+        //
+        //     public void OnGrappleLaunchLanding()
+        //     {
+        //         GrappleLaunchLandedEvent?.Invoke();
+        //     }
+        //
+        //     public void OnGrapplePointTargeted(GrapplePoint prev, GrapplePoint target, Vector3 grapplePosition)
+        //     {
+        //         GrapplePointTargetedEvent?.Invoke(prev, target, grapplePosition);
+        //     }
+        // }
 
-            public CharacterGrappleAnimationEventListener(CharacterBaseEventBus eventBus) : base(eventBus)
-            {
-            }
-
-            public void OnGrappleRequested(GrapplePoint target, Vector3 grapplePosition, float grappleDistance,
-                bool isFar, Action<bool> funcStartGrapple)
-            {
-                GrappleRequestedEvent?.Invoke(target, grapplePosition, grappleDistance, isFar, funcStartGrapple);
-            }
-
-            public void OnGrappleStarted(GrapplePoint target, float grappleMoveTime)
-            {
-                GrappleStartedEvent?.Invoke(target, grappleMoveTime);
-            }
-
-            public void OnGrappleArrival()
-            {
-                GrappleArrivalEvent?.Invoke();
-            }
-
-            public void OnGrappleLaunchRequested(Action<bool> funcStartLaunch)
-            {
-                GrappleLaunchRequestedEvent?.Invoke(funcStartLaunch);
-            }
-
-            public void OnGrappleLaunchStarted()
-            {
-            }
-
-            public void OnGrappleLaunchLanding()
-            {
-                GrappleLaunchLandedEvent?.Invoke();
-            }
-
-            public void OnGrapplePointTargeted(GrapplePoint prev, GrapplePoint target, Vector3 grapplePosition)
-            {
-                GrapplePointTargetedEvent?.Invoke(prev, target, grapplePosition);
-            }
-        }
-
-        public class CharacterGatheringAnimationEventListener : AnimationEventListener, IGatheringEventListener
-        {
-            public CharacterGatheringAnimationEventListener(CharacterBaseEventBus eventBus) : base(eventBus)
-            {
-            }
-
-            public event Action<EnumGathering, float> StartGatheringEvent;
-            public event Action StopGatheringEvent;
-            public event Action StartGatheringSuccessEvent;
-
-            public void OnStartGathering(EnumGathering gatheringType, float gatheringSpeed = 1f)
-            {
-                StartGatheringEvent?.Invoke(gatheringType, gatheringSpeed);
-            }
-
-            public void OnStopGathering()
-            {
-                StopGatheringEvent?.Invoke();
-            }
-
-            public void OnStartGatheringSuccess()
-            {
-                StartGatheringSuccessEvent?.Invoke();
-            }
-        }
+        // public class CharacterGatheringAnimationEventListener : AnimationEventListener, IGatheringEventListener
+        // {
+        //     public CharacterGatheringAnimationEventListener(CharacterBaseEventBus eventBus) : base(eventBus)
+        //     {
+        //     }
+        //
+        //     public event Action<EnumGathering, float> StartGatheringEvent;
+        //     public event Action StopGatheringEvent;
+        //     public event Action StartGatheringSuccessEvent;
+        //
+        //     public void OnStartGathering(EnumGathering gatheringType, float gatheringSpeed = 1f)
+        //     {
+        //         StartGatheringEvent?.Invoke(gatheringType, gatheringSpeed);
+        //     }
+        //
+        //     public void OnStopGathering()
+        //     {
+        //         StopGatheringEvent?.Invoke();
+        //     }
+        //
+        //     public void OnStartGatheringSuccess()
+        //     {
+        //         StartGatheringSuccessEvent?.Invoke();
+        //     }
+        // }
 
         public class CharacterFishingAnimationEventListener : AnimationEventListener, IFishingEventListener
         {

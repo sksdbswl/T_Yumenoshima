@@ -213,8 +213,8 @@ namespace REIW.Animations.Character
             }
             else if (!IsGrounded)
             {
-                if (VerticalSpeedParameter < _checkAirborneVerticalSpeed)
-                    IsAirborne = true;
+                // if (VerticalSpeedParameter < _checkAirborneVerticalSpeed)
+                //     IsAirborne = true;
             }
         }
     }

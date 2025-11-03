@@ -217,14 +217,14 @@ namespace REIW.Animations.Character
                     float footPower = _footStepBasePower * Mathf.Clamp01(t);
                     eKnownSfxSound soundType = eKnownSfxSound.None;
 
-                    if (hitCollider.CompareTag(ReIWTags.Ground))
-                        soundType = eKnownSfxSound.SE_Footstep_Run_Normal;
-                    else if (hitCollider.CompareTag(ReIWTags.Grass))
-                        soundType = eKnownSfxSound.SE_Footstep_Run_Grass;
-                    else if (hitCollider.CompareTag(ReIWTags.Metal))
-                        soundType = eKnownSfxSound.SE_Footstep_Run_Metal;
-                    else if (hitCollider.CompareTag(ReIWTags.Water))
-                        soundType = eKnownSfxSound.SE_Footstep_Run_Water;
+                    // if (hitCollider.CompareTag(ReIWTags.Ground))
+                    //     soundType = eKnownSfxSound.SE_Footstep_Run_Normal;
+                    // else if (hitCollider.CompareTag(ReIWTags.Grass))
+                    //     soundType = eKnownSfxSound.SE_Footstep_Run_Grass;
+                    // else if (hitCollider.CompareTag(ReIWTags.Metal))
+                    //     soundType = eKnownSfxSound.SE_Footstep_Run_Metal;
+                    // else if (hitCollider.CompareTag(ReIWTags.Water))
+                    //     soundType = eKnownSfxSound.SE_Footstep_Run_Water;
 
                     FootStepEvent?.Invoke(
                         (InFootIndex == LEFT_FOOT_INDEX ? AvatarIKGoal.LeftFoot : AvatarIKGoal.RightFoot,

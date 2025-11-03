@@ -28,25 +28,25 @@ namespace REIW
             Custom = 300,
         }
 
-        public static bool TryConvertToPartsType(EnumParts itemEnumParts, out PartsType partsType)
-        {
-            partsType = itemEnumParts switch
-            {
-                EnumParts.Top     => PartsType.UpperBody,
-                EnumParts.Bottom  => PartsType.LowBody,
-                EnumParts.Shoes   => PartsType.Foot,
-
-                EnumParts.Head    => PartsType.Head,
-                EnumParts.Back    => PartsType.Back,
-                EnumParts.Earring => PartsType.Earring,
-                EnumParts.Face1   => PartsType.Face1,
-                EnumParts.Face2   => PartsType.Face2,
-                EnumParts.Ring    => PartsType.Ring,
-
-                _ => PartsType.All
-            };
-            return (partsType != PartsType.All);
-        }
+        // public static bool TryConvertToPartsType(EnumParts itemEnumParts, out PartsType partsType)
+        // {
+        //     partsType = itemEnumParts switch
+        //     {
+        //         EnumParts.Top     => PartsType.UpperBody,
+        //         EnumParts.Bottom  => PartsType.LowBody,
+        //         EnumParts.Shoes   => PartsType.Foot,
+        //
+        //         EnumParts.Head    => PartsType.Head,
+        //         EnumParts.Back    => PartsType.Back,
+        //         EnumParts.Earring => PartsType.Earring,
+        //         EnumParts.Face1   => PartsType.Face1,
+        //         EnumParts.Face2   => PartsType.Face2,
+        //         EnumParts.Ring    => PartsType.Ring,
+        //
+        //         _ => PartsType.All
+        //     };
+        //     return (partsType != PartsType.All);
+        // }
         
         public class EnumOffsetPreviewAttribute : PropertyAttribute
         {
@@ -62,7 +62,7 @@ namespace REIW
         {
             ReleaseNewBones();
             ReleaseCacheTransform();
-            ReleaseMagicaCloth();
+            //ReleaseMagicaCloth();
         }
 
         private Dictionary<PartsType, SkinnedMeshRenderer> _mySkinnedMeshRenderers  = null;
@@ -86,7 +86,7 @@ namespace REIW
         public void RebuildCache(Transform target)
         {
             _mySkinnedMeshRenderers = GetSkinnedMeshRenderers(target, PartsType.All);
-            RebuildCacheMagicaCloth(target);
+            //RebuildCacheMagicaCloth(target);
             
             _originSkinnedMeshRenderers = new Dictionary<PartsType,SkinnedMeshRenderer>();
             Utilities.DeepCopy(_mySkinnedMeshRenderers, _originSkinnedMeshRenderers);
@@ -103,15 +103,15 @@ namespace REIW
             Save();
         }
 
-        public void RebuildDefaultParts(EnumGender gender)
-        {
-            IDictionary<PartsType, Transform> parts = GameDataModel.Singleton.EquipPartsDatas.DefulatParts(gender);
-            UnEquip();
-            foreach (var pair in parts)
-            {
-                SetEquip(pair.Value, pair.Key);
-            }
-        }
+        // public void RebuildDefaultParts(EnumGender gender)
+        // {
+        //     IDictionary<PartsType, Transform> parts = GameDataModel.Singleton.EquipPartsDatas.DefulatParts(gender);
+        //     UnEquip();
+        //     foreach (var pair in parts)
+        //     {
+        //         SetEquip(pair.Value, pair.Key);
+        //     }
+        // }
 
         public static Dictionary<PartsType, Transform> GetDefaultSkinnedMeshRenderers(GameObject target)
         {
@@ -184,29 +184,29 @@ namespace REIW
             return obj.AddComponent<SkinnedMeshRenderer>();
         }
 
-        public class EquipPartsInfo
-        {
-            public EquipPartsDataSO.DataInfo DataInfo { get; init; }
-            public EquipPartsDataSO.ObjectLOD LOD { get; init; } = EquipPartsDataSO.ObjectLOD.LOD1;
-            public GameObject LODObject => DataInfo.GetLODObject(LOD);
-        }
+        // public class EquipPartsInfo
+        // {
+        //     public EquipPartsDataSO.DataInfo DataInfo { get; init; }
+        //     public EquipPartsDataSO.ObjectLOD LOD { get; init; } = EquipPartsDataSO.ObjectLOD.LOD1;
+        //     public GameObject LODObject => DataInfo.GetLODObject(LOD);
+        // }
 
-        public void ApplyEquipmentParts(IList<EquipPartsInfo> equippartslist)
-        {
-            Dictionary<PartsType, SkinnedMeshRenderer> dic = new Dictionary<PartsType, SkinnedMeshRenderer>();
-            foreach (EquipPartsInfo info in equippartslist)
-            {
-                GameObject lodObject = info.LODObject;
-                if (lodObject == null)
-                    continue;
-                
-                Dictionary<PartsType, SkinnedMeshRenderer> targetlist = GetSkinnedMeshRenderers(lodObject.transform, info.DataInfo.Parts);
-                foreach (var pair in targetlist)
-                    dic[pair.Key] = pair.Value;
-            }
-
-            SetEquip(dic, PartsType.All);
-        }
+        // public void ApplyEquipmentParts(IList<EquipPartsInfo> equippartslist)
+        // {
+        //     Dictionary<PartsType, SkinnedMeshRenderer> dic = new Dictionary<PartsType, SkinnedMeshRenderer>();
+        //     foreach (EquipPartsInfo info in equippartslist)
+        //     {
+        //         GameObject lodObject = info.LODObject;
+        //         if (lodObject == null)
+        //             continue;
+        //         
+        //         Dictionary<PartsType, SkinnedMeshRenderer> targetlist = GetSkinnedMeshRenderers(lodObject.transform, info.DataInfo.Parts);
+        //         foreach (var pair in targetlist)
+        //             dic[pair.Key] = pair.Value;
+        //     }
+        //
+        //     SetEquip(dic, PartsType.All);
+        // }
 
         public IReadOnlyDictionary<PartsType, SkinnedMeshRenderer> ConvertPartsToRenderers(IDictionary<PartsType, Transform> srclist)
         {
@@ -257,13 +257,13 @@ namespace REIW
             OnPartsEquipped?.Invoke(settype);
         }
 
-        public void SetEquip(EquipPartsDataSO.DataInfo info, EquipPartsDataSO.ObjectLOD lod = EquipPartsDataSO.ObjectLOD.LOD1)
-        {
-            if (info == null)
-                return;
-            
-            SetEquip(info.GetLODObject(lod).transform, info.Parts);
-        }
+        // public void SetEquip(EquipPartsDataSO.DataInfo info, EquipPartsDataSO.ObjectLOD lod = EquipPartsDataSO.ObjectLOD.LOD1)
+        // {
+        //     if (info == null)
+        //         return;
+        //     
+        //     SetEquip(info.GetLODObject(lod).transform, info.Parts);
+        // }
         
         public void SetEquip(Transform srctarget, PartsType settype)
         {
@@ -347,7 +347,7 @@ namespace REIW
             else
                 _rebinders.RemoveAll(x => parts.Contains(x.CharacterPartsType));
 
-            UnEquipMagicaCloth(parts);
+            //UnEquipMagicaCloth(parts);
         }
 
         private void ReleaseNewBones()

@@ -9,8 +9,8 @@ namespace REIW.Animations.Character
             private List<AnimationEventListener> _eventListenerList;
             private CharacterAnimationEventListener _characterEventListener;
             private CharacterWallClimbAnimationEventListener _wallClimbEventListener;
-            private CharacterGrappleAnimationEventListener _grappleEventListener;
-            private CharacterGatheringAnimationEventListener _gatheringEventListener;
+            // private CharacterGrappleAnimationEventListener _grappleEventListener;
+            // private CharacterGatheringAnimationEventListener _gatheringEventListener;
             private CharacterFishingAnimationEventListener _fishingEventListener;
 
             protected override void InitializeAnimationEventListener()
@@ -55,65 +55,65 @@ namespace REIW.Animations.Character
                         (InWorldGravity) => Movement.GravityChange(InWorldGravity);
                 }
 
-                _grappleEventListener = new CharacterGrappleAnimationEventListener(Character.EventBus);
-                {
-                    _grappleEventListener.GrappleRequestedEvent += (InTarget, InGrapplePosition, InGrappleDistance,
-                        InFar, InStartGrappleCallback) =>
-                    {
-                        if (StateMachine.Grapple.IsEnableThrowGrapple)
-                        {
-                            Movement.IsGrappleInput = true;
-                            StateMachine.Grapple.SetGrappleInfo(
-                                GrappleAnimationState.GrappleInformation.Create(InTarget, InGrapplePosition,
-                                    InGrappleDistance, InFar, InStartGrappleCallback));
-                        }
-                        else
-                        {
-                            InStartGrappleCallback?.Invoke(false);
-                        }
-                    };
-
-                    _grappleEventListener.GrappleStartedEvent += (InTarget, InGrappleMoveTime) =>
-                    {
-                        StateMachine.Grapple.StartGrapple(InTarget, InGrappleMoveTime);
-                    };
-
-                    _grappleEventListener.GrappleArrivalEvent += () =>
-                    {
-                        StateMachine.Grapple.ArriveGrapple();
-                    };
-
-                    _grappleEventListener.GrappleLaunchRequestedEvent += (InStartLaunchCallback) =>
-                    {
-                        StateMachine.Grapple.LaunchRequested(InStartLaunchCallback);
-                    };
-
-                    _grappleEventListener.GrappleLaunchLandedEvent += () =>
-                    {
-                        StateMachine.Grapple.LandingLaunch();
-                    };
-                }
-
-                _gatheringEventListener = new CharacterGatheringAnimationEventListener(Character.EventBus);
-                {
-                    _gatheringEventListener.StartGatheringEvent += (InGatheringType, gatheringSpeed) =>
-                    {
-                        StateMachine.Gathering.PlayAnimationType =
-                            StateMachine.Gathering.ConvertToAnimationType(InGatheringType);
-                        StateMachine.Gathering.PlayAnimationSpeed = gatheringSpeed;
-                    };
-
-                    _gatheringEventListener.StopGatheringEvent += () =>
-                    {
-                        StateMachine.Gathering.PlayAnimationType = eAnimationType.NONE;
-                    };
-                    
-                    _gatheringEventListener.StartGatheringSuccessEvent += () =>
-                    {
-                        StateMachine.Gathering.PlayAnimationType = eAnimationType.GATHERING_SUCCESS;
-                        StateMachine.Gathering.PlayAnimationSpeed = 1f;
-                    };
-                }
+                // _grappleEventListener = new CharacterGrappleAnimationEventListener(Character.EventBus);
+                // {
+                //     _grappleEventListener.GrappleRequestedEvent += (InTarget, InGrapplePosition, InGrappleDistance,
+                //         InFar, InStartGrappleCallback) =>
+                //     {
+                //         if (StateMachine.Grapple.IsEnableThrowGrapple)
+                //         {
+                //             Movement.IsGrappleInput = true;
+                //             StateMachine.Grapple.SetGrappleInfo(
+                //                 GrappleAnimationState.GrappleInformation.Create(InTarget, InGrapplePosition,
+                //                     InGrappleDistance, InFar, InStartGrappleCallback));
+                //         }
+                //         else
+                //         {
+                //             InStartGrappleCallback?.Invoke(false);
+                //         }
+                //     };
+                //
+                //     _grappleEventListener.GrappleStartedEvent += (InTarget, InGrappleMoveTime) =>
+                //     {
+                //         StateMachine.Grapple.StartGrapple(InTarget, InGrappleMoveTime);
+                //     };
+                //
+                //     _grappleEventListener.GrappleArrivalEvent += () =>
+                //     {
+                //         StateMachine.Grapple.ArriveGrapple();
+                //     };
+                //
+                //     _grappleEventListener.GrappleLaunchRequestedEvent += (InStartLaunchCallback) =>
+                //     {
+                //         StateMachine.Grapple.LaunchRequested(InStartLaunchCallback);
+                //     };
+                //
+                //     _grappleEventListener.GrappleLaunchLandedEvent += () =>
+                //     {
+                //         StateMachine.Grapple.LandingLaunch();
+                //     };
+                // }
+                //
+                // _gatheringEventListener = new CharacterGatheringAnimationEventListener(Character.EventBus);
+                // {
+                //     _gatheringEventListener.StartGatheringEvent += (InGatheringType, gatheringSpeed) =>
+                //     {
+                //         StateMachine.Gathering.PlayAnimationType =
+                //             StateMachine.Gathering.ConvertToAnimationType(InGatheringType);
+                //         StateMachine.Gathering.PlayAnimationSpeed = gatheringSpeed;
+                //     };
+                //
+                //     _gatheringEventListener.StopGatheringEvent += () =>
+                //     {
+                //         StateMachine.Gathering.PlayAnimationType = eAnimationType.NONE;
+                //     };
+                //     
+                //     _gatheringEventListener.StartGatheringSuccessEvent += () =>
+                //     {
+                //         StateMachine.Gathering.PlayAnimationType = eAnimationType.GATHERING_SUCCESS;
+                //         StateMachine.Gathering.PlayAnimationSpeed = 1f;
+                //     };
+                // }
 
                 _fishingEventListener = new CharacterFishingAnimationEventListener(Character.EventBus);
                 {
@@ -134,8 +134,8 @@ namespace REIW.Animations.Character
                 {
                     _characterEventListener,
                     _wallClimbEventListener,
-                    _grappleEventListener,
-                    _gatheringEventListener,
+                    // _grappleEventListener,
+                    // _gatheringEventListener,
                     _fishingEventListener,
                 };
             }

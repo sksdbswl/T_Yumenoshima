@@ -23,69 +23,69 @@ namespace REIW
 
         private void OnGUI()
         {
-            GameObject fbx = _fbx;
-            _fbx = (GameObject)EditorGUILayout.ObjectField("FBX", _fbx, typeof(GameObject), false);
-            if (fbx != _fbx)
-                _clip = FbxClipExtractorTool.GetAnimationClipsInFBX(AssetDatabase.GetAssetPath(_fbx)).FirstOrDefault();
-            if (!_clip)
-            {
-                EditorGUILayout.Space(3);
-                EditorGUILayout.HelpBox("FBX 파일이 아니거나 Animation Clip이 포함돼 있지 않습니다.", MessageType.Error);
-                return;
-            }
-
-            AnimationClip clip = _clip;
-            _clip = (AnimationClip)EditorGUILayout.ObjectField("Animation Clip", _clip, typeof(AnimationClip), false);
-            if (!_clip)
-                return;
-
-            if (clip != _clip)
-                Reset();
-
-            EditorGUILayout.Space(5);
-
-            if (GUILayout.Button("Extract Root Motion Data", GUILayout.Height(30)))
-                ExtractRootMotionData();
-
-            EditorGUILayout.Space(5);
-
-            if (!_isExtract)
-                return;
-
-            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-            {
-                EditorGUILayout.Space(1);
-                EditorGUILayout.PrefixLabel("Result", EditorStyles.largeLabel);
-                EditorGUI.BeginDisabledGroup(true);
-                EditorGUILayout.FloatField("Root Motion Speed", _rootMotionSpeed);
-                EditorGUI.EndDisabledGroup();
-
-                if (_characterAnimationRotationData != null &&
-                    GUILayout.Button("Create Animation Rotation Data", GUILayout.Height(30)))
-                {
-                    string path = EditorUtility.OpenFolderPanel("생성 위치 선택", Application.dataPath, "");
-                    if (path.StartsWith(Application.dataPath))
-                    {
-                        path = AssetDatabase.GenerateUniqueAssetPath("Assets" +
-                                                                     path.Substring(Application.dataPath.Length) +
-                                                                     $"/AnimationRotationData_{_clip.name}.asset");
-                        AssetDatabase.CreateAsset(_characterAnimationRotationData, path);
-                        AssetDatabase.SaveAssets();
-                        AssetDatabase.Refresh();
-                        EditorUtility.FocusProjectWindow();
-                        Selection.activeObject = _characterAnimationRotationData;
-                    }
-                }
-
-                if (!string.IsNullOrEmpty(_samplingResultText))
-                {
-                    EditorGUILayout.Space(3);
-                    EditorGUILayout.HelpBox(_samplingResultText, MessageType.Info);
-                }
-
-                EditorGUILayout.Space(1);
-            }
-            EditorGUILayout.EndVertical();
+            // GameObject fbx = _fbx;
+            // _fbx = (GameObject)EditorGUILayout.ObjectField("FBX", _fbx, typeof(GameObject), false);
+            // if (fbx != _fbx)
+            //     _clip = FbxClipExtractorTool.GetAnimationClipsInFBX(AssetDatabase.GetAssetPath(_fbx)).FirstOrDefault();
+            // if (!_clip)
+            // {
+            //     EditorGUILayout.Space(3);
+            //     EditorGUILayout.HelpBox("FBX 파일이 아니거나 Animation Clip이 포함돼 있지 않습니다.", MessageType.Error);
+            //     return;
+            // }
+            //
+            // AnimationClip clip = _clip;
+            // _clip = (AnimationClip)EditorGUILayout.ObjectField("Animation Clip", _clip, typeof(AnimationClip), false);
+            // if (!_clip)
+            //     return;
+            //
+            // if (clip != _clip)
+            //     Reset();
+            //
+            // EditorGUILayout.Space(5);
+            //
+            // if (GUILayout.Button("Extract Root Motion Data", GUILayout.Height(30)))
+            //     ExtractRootMotionData();
+            //
+            // EditorGUILayout.Space(5);
+            //
+            // if (!_isExtract)
+            //     return;
+            //
+            // EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+            // {
+            //     EditorGUILayout.Space(1);
+            //     EditorGUILayout.PrefixLabel("Result", EditorStyles.largeLabel);
+            //     EditorGUI.BeginDisabledGroup(true);
+            //     EditorGUILayout.FloatField("Root Motion Speed", _rootMotionSpeed);
+            //     EditorGUI.EndDisabledGroup();
+            //
+            //     if (_characterAnimationRotationData != null &&
+            //         GUILayout.Button("Create Animation Rotation Data", GUILayout.Height(30)))
+            //     {
+            //         string path = EditorUtility.OpenFolderPanel("생성 위치 선택", Application.dataPath, "");
+            //         if (path.StartsWith(Application.dataPath))
+            //         {
+            //             path = AssetDatabase.GenerateUniqueAssetPath("Assets" +
+            //                                                          path.Substring(Application.dataPath.Length) +
+            //                                                          $"/AnimationRotationData_{_clip.name}.asset");
+            //             AssetDatabase.CreateAsset(_characterAnimationRotationData, path);
+            //             AssetDatabase.SaveAssets();
+            //             AssetDatabase.Refresh();
+            //             EditorUtility.FocusProjectWindow();
+            //             Selection.activeObject = _characterAnimationRotationData;
+            //         }
+            //     }
+            //
+            //     if (!string.IsNullOrEmpty(_samplingResultText))
+            //     {
+            //         EditorGUILayout.Space(3);
+            //         EditorGUILayout.HelpBox(_samplingResultText, MessageType.Info);
+            //     }
+            //
+            //     EditorGUILayout.Space(1);
+            // }
+            // EditorGUILayout.EndVertical();
         }
 
         private void Reset()
