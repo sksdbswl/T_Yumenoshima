@@ -40,14 +40,14 @@ namespace REIW
         [field: SerializeField] private float CameraBottomClmap { get; set; } = -60f;
 
         // 캐릭터 입력, 액션 상태 관리
-        public eInputCommandModeType CurrentInputCommandModeType { get; set; } = eInputCommandModeType.Character;
-        public eStaminaActionType CurrentExecuteActionTypeStateType { get; set; } = eStaminaActionType.Normal;
+        // public eInputCommandModeType CurrentInputCommandModeType { get; set; } = eInputCommandModeType.Character;
+        // public eStaminaActionType CurrentExecuteActionTypeStateType { get; set; } = eStaminaActionType.Normal;
 
         public Transform CurrentTarget => currentTarget;
         private Transform currentTarget;
-        [field: SerializeField] public InteractionSensor InteractionSensor { get; private set; }
+        //[field: SerializeField] public InteractionSensor InteractionSensor { get; private set; }
         public CharacterBaseEventBus EventBus => LinkedCharacter?.EventBus;
-        [SerializeField, ReadOnly] public InputActionStaminaValidator InputActionStaminaValidator; // Stamina Validator
+        //[SerializeField, ReadOnly] public InputActionStaminaValidator InputActionStaminaValidator; // Stamina Validator
 
         private bool jumpRequested = false;
         private bool jumpHold = false;
@@ -75,7 +75,7 @@ namespace REIW
         public bool IsSprinting => isSprinting;
         public bool IsRidingMount => isRidingMount;
 
-        private IngameCameraSystem cameraSystem;
+        //private IngameCameraSystem cameraSystem;
         private Camera mainCamera;
         private Transform cameraPivot;
         private float cameraTargetPitch;
@@ -87,14 +87,14 @@ namespace REIW
 
 
         private CharacterMoveWallClimb wallClimbComp;
-        private CharacterMoveGrapple grappleComp;
+        //private CharacterMoveGrapple grappleComp;
             
             
-        [Inject]
-        public void Construct(IngameCameraSystem cameraSystem)
-        {
-            this.cameraSystem = cameraSystem;
-        }
+        // [Inject]
+        // public void Construct(IngameCameraSystem cameraSystem)
+        // {
+        //     this.cameraSystem = cameraSystem;
+        // }
         
         protected virtual void OnDrawGizmos() { }
 
@@ -102,107 +102,107 @@ namespace REIW
         {
             #region Player Initialize
 
-            if (LocalCharacterPrefab)
-            {
-                LinkedCharacter = Instantiate(LocalCharacterPrefab,
-                    UserDataModel.Singleton.PlayerInfoData.SpawnPosition,
-                    Quaternion.LookRotation(UserDataModel.Singleton.PlayerInfoData.SpawnDirection, Vector3.up));
-                LinkedCharacter.CharacterLookDir = UserDataModel.Singleton.PlayerInfoData.SpawnDirection;
-            }
-
-            if (!LinkedCharacter)
-                return;
-            
-            OwnerPlayerNetObject component = LinkedCharacter.gameObject.GetComponent<OwnerPlayerNetObject>();
-            component.SetNetID(UserDataModel.UserCategory, UserDataModel.UserKIND, UserDataModel.UserSerial, UserDataModel.UserDataBaseID);
-            component.SetOwnerINFO_USER();
-            
-            // Register To Field Subject System
-            IngameFieldSubjectSystem.RegisterOwnerPlayer(component);
-            
-            // CharacterBase Initialize !!
-            LinkedCharacter.Initialize();
-
-            this.cameraPivot = LinkedCharacter.CameraTarget;
-            
-            mainCamera = cameraSystem.MainCamera;
-            cameraSystem.FollowTarget = this.cameraPivot;
-            UpdateCameraPlanarDirection(UserDataModel.Singleton.PlayerInfoData.SpawnDirection);
-            UpdateCameraTargetPitch();
-
-            cameraSystem.Brain.WorldUpOverride = LinkedCharacter.transform;
-
-            GameObject interactionSensorGo = new GameObject("REIW.Interaction Sensor");
-            interactionSensorGo.transform.SetParent(LinkedCharacter.transform);
-            interactionSensorGo.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-            InteractionSensor = interactionSensorGo.AddComponent<InteractionSensor>();
-
-            EventBus.Register(LinkedCharacter);
-            EventBus.Register(cameraSystem);
+            // if (LocalCharacterPrefab)
+            // {
+            //     LinkedCharacter = Instantiate(LocalCharacterPrefab,
+            //         UserDataModel.Singleton.PlayerInfoData.SpawnPosition,
+            //         Quaternion.LookRotation(UserDataModel.Singleton.PlayerInfoData.SpawnDirection, Vector3.up));
+            //     LinkedCharacter.CharacterLookDir = UserDataModel.Singleton.PlayerInfoData.SpawnDirection;
+            // }
+            //
+            // if (!LinkedCharacter)
+            //     return;
+            //
+            // OwnerPlayerNetObject component = LinkedCharacter.gameObject.GetComponent<OwnerPlayerNetObject>();
+            // component.SetNetID(UserDataModel.UserCategory, UserDataModel.UserKIND, UserDataModel.UserSerial, UserDataModel.UserDataBaseID);
+            // component.SetOwnerINFO_USER();
+            //
+            // // Register To Field Subject System
+            // IngameFieldSubjectSystem.RegisterOwnerPlayer(component);
+            //
+            // // CharacterBase Initialize !!
+            // LinkedCharacter.Initialize();
+            //
+            // this.cameraPivot = LinkedCharacter.CameraTarget;
+            //
+            // mainCamera = cameraSystem.MainCamera;
+            // cameraSystem.FollowTarget = this.cameraPivot;
+            // UpdateCameraPlanarDirection(UserDataModel.Singleton.PlayerInfoData.SpawnDirection);
+            // UpdateCameraTargetPitch();
+            //
+            // cameraSystem.Brain.WorldUpOverride = LinkedCharacter.transform;
+            //
+            // GameObject interactionSensorGo = new GameObject("REIW.Interaction Sensor");
+            // interactionSensorGo.transform.SetParent(LinkedCharacter.transform);
+            // interactionSensorGo.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+            // InteractionSensor = interactionSensorGo.AddComponent<InteractionSensor>();
+            //
+            // EventBus.Register(LinkedCharacter);
+            // EventBus.Register(cameraSystem);
 
             #endregion
 
-            #region Mount Initialize
-            foreach (var mount in PlayerMountPrefabs)
-            {
-                if ((object)mount.Value == null) continue;
-                var InstanceMount = Instantiate(mount.Value, Vector3.zero, Quaternion.identity);
-                InstanceMount.gameObject.SetActive(false);
-                PlayerMountList.Add(mount.Key, InstanceMount.gameObject);
-            }
-            #endregion
+            // #region Mount Initialize
+            // foreach (var mount in PlayerMountPrefabs)
+            // {
+            //     if ((object)mount.Value == null) continue;
+            //     var InstanceMount = Instantiate(mount.Value, Vector3.zero, Quaternion.identity);
+            //     InstanceMount.gameObject.SetActive(false);
+            //     PlayerMountList.Add(mount.Key, InstanceMount.gameObject);
+            // }
+            // #endregion
 
             // Stamina Validator
-            InputActionStaminaValidator = new InputActionStaminaValidator();
+            //InputActionStaminaValidator = new InputActionStaminaValidator();
 
-#if UNITY_EDITOR
-            LinkedCharacter?.transform.SetAsFirstSibling();
-            EquippedLocalMount?.transform.SetAsFirstSibling();
-#endif
+// #if UNITY_EDITOR
+//             LinkedCharacter?.transform.SetAsFirstSibling();
+//             EquippedLocalMount?.transform.SetAsFirstSibling();
+// #endif
 
             wallClimbComp = LinkedCharacter.CharacterMoveComponentsHandler.GetMoveComponent<CharacterMoveWallClimb>();
-            grappleComp = LinkedCharacter.CharacterMoveComponentsHandler.GetMoveComponent<CharacterMoveGrapple>();
+            //grappleComp = LinkedCharacter.CharacterMoveComponentsHandler.GetMoveComponent<CharacterMoveGrapple>();
             
             
             //TESTPet Code
-            if (!IsStandalone)
-            {
-                StartCoroutine(SpawnPetCo(UserDataModel.Singleton.PlayerInfoData.SpawnPosition, 
-                    Quaternion.LookRotation(UserDataModel.Singleton.PlayerInfoData.SpawnDirection, Vector3.up), OnPetSpawned));    
-            }
+            // if (!IsStandalone)
+            // {
+            //     StartCoroutine(SpawnPetCo(UserDataModel.Singleton.PlayerInfoData.SpawnPosition, 
+            //         Quaternion.LookRotation(UserDataModel.Singleton.PlayerInfoData.SpawnDirection, Vector3.up), OnPetSpawned));    
+            // }
         }
         
-        private void OnPetSpawned(DummyPet pet)
-        {
-            Debug.Log($"Pet spawned! name={pet.name}");
-            pet.SetTarget(LinkedCharacter.transform );
-            // 이후 로직...
-        }
+        // private void OnPetSpawned(DummyPet pet)
+        // {
+        //     Debug.Log($"Pet spawned! name={pet.name}");
+        //     pet.SetTarget(LinkedCharacter.transform );
+        //     // 이후 로직...
+        // }
         
-        private IEnumerator SpawnPetCo(Vector3 position, Quaternion rotation, Action<DummyPet> onSpawned)
-        {
-            var task = AssetManager.Singleton.SpawnTestPet(position, rotation); // UniTask<DummyPet>
-
-            // 코루틴이 Task 완료까지 대기
-            yield return new WaitUntil(() =>  task.GetAwaiter().IsCompleted);
-
-            DummyPet pet = default;
-            Exception ex = null;
-            try
-            {
-                // 완료 후 결과 꺼내기
-                pet = task.GetAwaiter().GetResult();
-            }
-            catch (Exception e) { ex = e; }
-
-            if (ex != null)
-                Debug.LogException(ex);
-            else
-                onSpawned?.Invoke(pet);
-        }
-        
-        
-        DummyPet _dummyPet =null;
+        // private IEnumerator SpawnPetCo(Vector3 position, Quaternion rotation, Action<DummyPet> onSpawned)
+        // {
+        //     var task = AssetManager.Singleton.SpawnTestPet(position, rotation); // UniTask<DummyPet>
+        //
+        //     // 코루틴이 Task 완료까지 대기
+        //     yield return new WaitUntil(() =>  task.GetAwaiter().IsCompleted);
+        //
+        //     DummyPet pet = default;
+        //     Exception ex = null;
+        //     try
+        //     {
+        //         // 완료 후 결과 꺼내기
+        //         pet = task.GetAwaiter().GetResult();
+        //     }
+        //     catch (Exception e) { ex = e; }
+        //
+        //     if (ex != null)
+        //         Debug.LogException(ex);
+        //     else
+        //         onSpawned?.Invoke(pet);
+        // }
+        //
+        //
+        // DummyPet _dummyPet =null;
 
         protected virtual void Awake()
         {
@@ -227,14 +227,14 @@ namespace REIW
             InputController.Singleton.OnSkillActionE += OnExecuteSpecialActionE;
             InputController.Singleton.OnSkillActionT += OnExecuteSpecialActionT;
             InputController.Singleton.OnToggleWalk += OnExecuteToggleWalk;
-            InputController.Singleton.OnCameraSwitch += OnCameraSwitch;
-            InputController.Singleton.OnCharacterStageEnter += OnExecuteCharacterStageEnter;
-            InputController.Singleton.OnInventoryOpen += OnExecuteInventoryOpen;
+            // InputController.Singleton.OnCameraSwitch += OnCameraSwitch;
+            // InputController.Singleton.OnCharacterStageEnter += OnExecuteCharacterStageEnter;
+            // InputController.Singleton.OnInventoryOpen += OnExecuteInventoryOpen;
             
             // [UserDataModel]
             //----------------------------------------------------------------------------------------------------
-            UserDataModel.Singleton.OnToolDestroyed += OnToolDestroyed;
-            UserDataModel.Singleton.PlayerInfoData.StaminaEvents.OnStaminaDepleted += OnStaminaDepleted;
+            // UserDataModel.Singleton.OnToolDestroyed += OnToolDestroyed;
+            // UserDataModel.Singleton.PlayerInfoData.StaminaEvents.OnStaminaDepleted += OnStaminaDepleted;
 
             // [Network Protocol]
             //----------------------------------------------------------------------------------------------------
@@ -261,18 +261,18 @@ namespace REIW
                 InputController.Singleton.OnSkillActionE -= OnExecuteSpecialActionE;
                 InputController.Singleton.OnSkillActionT -= OnExecuteSpecialActionT;
                 InputController.Singleton.OnToggleWalk -= OnExecuteToggleWalk;
-                InputController.Singleton.OnCameraSwitch -= OnCameraSwitch;
-                InputController.Singleton.OnInventoryOpen -= OnExecuteInventoryOpen;
+                // InputController.Singleton.OnCameraSwitch -= OnCameraSwitch;
+                // InputController.Singleton.OnInventoryOpen -= OnExecuteInventoryOpen;
             }
 
-            if (UserDataModel.Singleton != null)
-            {
-                UserDataModel.Singleton.OnToolDestroyed -= OnToolDestroyed;
-                UserDataModel.Singleton.PlayerInfoData.StaminaEvents.OnStaminaDepleted -= OnStaminaDepleted;
-            }
+            // if (UserDataModel.Singleton != null)
+            // {
+            //     UserDataModel.Singleton.OnToolDestroyed -= OnToolDestroyed;
+            //     UserDataModel.Singleton.PlayerInfoData.StaminaEvents.OnStaminaDepleted -= OnStaminaDepleted;
+            // }
 
             EventBus?.Unregister(LinkedCharacter);
-            EventBus?.Unregister(cameraSystem);
+            //EventBus?.Unregister(cameraSystem);
         }
 
         protected virtual void Update()
@@ -297,59 +297,59 @@ namespace REIW
                 dashHoldTimer = 0f;
             }
 
-            switch (CurrentInputCommandModeType)
-            {
-                case eInputCommandModeType.Character:
-                    var isGrappleRequested = UpdateGrappleRequested();
-                    var isWallClimbRequested = UpdateWallClimbRequested();
-                    
-                    // WallClimb 상태 + Snapping + Ground 상태가 아니면 MoveInput 을 Vector3.zero 값으로 통제
-                    if (wallClimbComp.IsActivateWallClimb && 
-                        (wallClimbComp.CurrentState == CharacterMoveWallClimb.ClimbState.Snapping || false == LinkedCharacter.IsStableOnCollider))
-                    {
-                        moveInput = Vector3.zero;
-                    }
-                    
-                    LinkedCharacter.SetInputs(new PlayerCharacterInputs()
-                    {
-                        Move = moveInput,
-                        Look = InputController.Singleton.Look,
-                        Jump = jumpRequested,
-                        JumpHold = jumpHold,
-                        Parkour = parkourRequested,
-                        Grapple = isGrappleRequested,
-                        Mount = isRidingMount,
-                        Dash = isDashRequested,
-                        Walk = isWalking,
-                        Sprint = isSprintRequested,
-                        WallClimb = isWallClimbRequested,
-                        MouseClickChecker = _mouseClickChecker,
-                    });
-                        
-                    EquippedLocalMount?.ResetInputs();
-                    jumpRequested = false;
-                    parkourRequested = false;
-                    specialActionE_Requested = false;
-                    specialActionT_Requested = false;
-                    break;
-                case eInputCommandModeType.Riding:
-                    EquippedLocalMount?.SetInputs(new MountInputs()
-                    {
-                        Move = InputController.Singleton.Move,
-                        Look = InputController.Singleton.Look,
-                        IsRiding = isRidingMount,
-                        IsSprint = isSprintRequested,
-                    });
-                    LinkedCharacter.ResetInputs();
-                    jumpRequested = false;
-                    jumpHold = false;
-                    parkourRequested = false;
-                    specialActionE_Requested = false;
-                    specialActionT_Requested = false;
-                    break;
-                case eInputCommandModeType.IgnoreMovement:
-                    break;
-            }
+            // switch (CurrentInputCommandModeType)
+            // {
+            //     case eInputCommandModeType.Character:
+            //         var isGrappleRequested = UpdateGrappleRequested();
+            //         var isWallClimbRequested = UpdateWallClimbRequested();
+            //         
+            //         // WallClimb 상태 + Snapping + Ground 상태가 아니면 MoveInput 을 Vector3.zero 값으로 통제
+            //         if (wallClimbComp.IsActivateWallClimb && 
+            //             (wallClimbComp.CurrentState == CharacterMoveWallClimb.ClimbState.Snapping || false == LinkedCharacter.IsStableOnCollider))
+            //         {
+            //             moveInput = Vector3.zero;
+            //         }
+            //         
+            //         LinkedCharacter.SetInputs(new PlayerCharacterInputs()
+            //         {
+            //             Move = moveInput,
+            //             Look = InputController.Singleton.Look,
+            //             Jump = jumpRequested,
+            //             JumpHold = jumpHold,
+            //             Parkour = parkourRequested,
+            //             Grapple = isGrappleRequested,
+            //             Mount = isRidingMount,
+            //             Dash = isDashRequested,
+            //             Walk = isWalking,
+            //             Sprint = isSprintRequested,
+            //             WallClimb = isWallClimbRequested,
+            //             MouseClickChecker = _mouseClickChecker,
+            //         });
+            //             
+            //         EquippedLocalMount?.ResetInputs();
+            //         jumpRequested = false;
+            //         parkourRequested = false;
+            //         specialActionE_Requested = false;
+            //         specialActionT_Requested = false;
+            //         break;
+            //     case eInputCommandModeType.Riding:
+            //         EquippedLocalMount?.SetInputs(new MountInputs()
+            //         {
+            //             Move = InputController.Singleton.Move,
+            //             Look = InputController.Singleton.Look,
+            //             IsRiding = isRidingMount,
+            //             IsSprint = isSprintRequested,
+            //         });
+            //         LinkedCharacter.ResetInputs();
+            //         jumpRequested = false;
+            //         jumpHold = false;
+            //         parkourRequested = false;
+            //         specialActionE_Requested = false;
+            //         specialActionT_Requested = false;
+            //         break;
+            //     case eInputCommandModeType.IgnoreMovement:
+            //         break;
+            // }
             
             isDashPressedThisFrame = false;
             isSprinting = isSprintRequested;
@@ -384,29 +384,29 @@ namespace REIW
             }
 
             // HUD 갱신
-            PlayerControlHUD.Instance?.SetActiveWidgetWallClimb(active);
-            PlayerControlHUD.Instance?.SetActiveWidgetWallClimbEffect(!active && possible);
+            // PlayerControlHUD.Instance?.SetActiveWidgetWallClimb(active);
+            // PlayerControlHUD.Instance?.SetActiveWidgetWallClimbEffect(!active && possible);
 
             return request;
         }
 
 
-        private bool UpdateGrappleRequested()
-        {
-            bool isDetectedGrapplePoint = grappleComp.IsPossibleGrapple;
-            bool isGrappleRequested = false;
-            if (isDetectedGrapplePoint && false == wallClimbComp.IsNotDownGravity)
-            {
-                PlayerControlHUD.Instance?.SetActiveWidgetGrapple(true);
-                isGrappleRequested = specialActionE_Requested;
-            }
-            else
-            {
-                PlayerControlHUD.Instance?.SetActiveWidgetGrapple(false);
-            }
-
-            return isGrappleRequested;
-        }
+        // private bool UpdateGrappleRequested()
+        // {
+        //     bool isDetectedGrapplePoint = grappleComp.IsPossibleGrapple;
+        //     bool isGrappleRequested = false;
+        //     if (isDetectedGrapplePoint && false == wallClimbComp.IsNotDownGravity)
+        //     {
+        //         PlayerControlHUD.Instance?.SetActiveWidgetGrapple(true);
+        //         isGrappleRequested = specialActionE_Requested;
+        //     }
+        //     else
+        //     {
+        //         PlayerControlHUD.Instance?.SetActiveWidgetGrapple(false);
+        //     }
+        //
+        //     return isGrappleRequested;
+        // }
         
         // CameraPlanarDir를 카메라 타겟이 바라보는 방향으로 업데이트
         public void UpdateCameraPlanarDirection(Vector3 direction)
@@ -418,7 +418,7 @@ namespace REIW
             Vector3 right = Vector3.Cross(worldUp, direction).normalized;
             Vector3 up = Vector3.Cross(direction, right);
             
-            Transform currentCameraTarget = isRidingMount ? EquippedLocalMount.CameraTarget : LinkedCharacter.CameraTarget;
+            Transform currentCameraTarget = LinkedCharacter.CameraTarget;
             currentCameraTarget.rotation = Quaternion.LookRotation(direction);
             
             Vector3 forward = Vector3.ProjectOnPlane(direction, up);
@@ -431,8 +431,8 @@ namespace REIW
         // CameraPlanarDir를 카메라 타겟이 바라보는 방향으로 업데이트
         public void UpdateCameraPlanarDirection()
         {
-            currentTarget = isRidingMount ? EquippedLocalMount.transform : LinkedCharacter.transform;
-            Transform currentCameraTarget = isRidingMount ? EquippedLocalMount.CameraTarget : LinkedCharacter.CameraTarget;
+            currentTarget = LinkedCharacter.transform;
+            Transform currentCameraTarget =LinkedCharacter.CameraTarget;
             Vector3 currentUpTarget = currentTarget.up;
 
             Vector3 forward = currentCameraTarget.forward;
@@ -446,8 +446,8 @@ namespace REIW
         // cameraTargetPitch를 카메라 타겟이 바라보는 방향의 Pitch로 업데이트
         public void UpdateCameraTargetPitch()
         {
-            currentTarget = isRidingMount ? EquippedLocalMount.transform : LinkedCharacter.transform;
-            Transform currentCameraTarget = isRidingMount ? EquippedLocalMount.CameraTarget : LinkedCharacter.CameraTarget;
+            currentTarget = LinkedCharacter.transform;
+            Transform currentCameraTarget = LinkedCharacter.CameraTarget;
             Vector3 up = currentTarget.up;
             Vector3 fwd = currentCameraTarget.forward;
         
@@ -479,10 +479,10 @@ namespace REIW
                 if (LinkedCharacter.IsEventLockType(eEventLockType.CameraRotate) == false)
                     CameraRotation(Time.deltaTime);
 
-                if (isRidingMount)
-                    EquippedLocalMount?.PostCameraUpdate();
-                else
-                    LinkedCharacter?.PostCameraUpdate();
+                // if (isRidingMount)
+                //     EquippedLocalMount?.PostCameraUpdate();
+                // else
+                //     LinkedCharacter?.PostCameraUpdate();
             }
         }
 
@@ -508,8 +508,8 @@ namespace REIW
             if (CameraInvertYAxis)
                 look.y = -look.y;
 
-            currentTarget = isRidingMount ? EquippedLocalMount.transform : LinkedCharacter.transform;
-            Transform currentCameraTarget = isRidingMount ? EquippedLocalMount.CameraTarget : LinkedCharacter.CameraTarget;
+            currentTarget = LinkedCharacter.transform;
+            Transform currentCameraTarget = LinkedCharacter.CameraTarget;
             Vector3 currentUpTarget = currentTarget.up;
 
             //
@@ -753,33 +753,33 @@ namespace REIW
             isWalking = !isWalking;
         }
 
-        void OnCameraSwitch()
-        {
-            // 3rd Person Camera / FPS Camera Switch
-            IngameCameraSystem.Instance?.TogglePlayerCameraView();
-        }
-
-        void OnExecuteCharacterStageEnter()
-        {
-            CharacterStageController.Instance?.ActiveCharacterStage(true);
-        }
-
-        void OnExecuteInventoryOpen()
-        {
-            UIManager.Show<InventoryUI>(UIList.InventoryUI);
-        }
-        
-        void OnToolDestroyed(ulong databaseID, ushort category , ushort kind, uint serial)
-        {
-            var itemData = GameDataModel.Singleton.ItemData.GetItemData(category, kind, serial);
-            var strItemName = LocalizationManager.Singleton.GetItemName(itemData.ItemDataSO.Name);
-            var toastText = LocalizationManager.Singleton.GetLocalizedString(
-                LocalizationManager.LzTableContents, "gathering_notice_durability", new Dictionary<string, object>
-                {
-                    { "item_name", strItemName }
-                });
-            ToastUI.ShowToast(toastText);
-        }
+        // void OnCameraSwitch()
+        // {
+        //     // 3rd Person Camera / FPS Camera Switch
+        //     IngameCameraSystem.Instance?.TogglePlayerCameraView();
+        // }
+        //
+        // void OnExecuteCharacterStageEnter()
+        // {
+        //     CharacterStageController.Instance?.ActiveCharacterStage(true);
+        // }
+        //
+        // void OnExecuteInventoryOpen()
+        // {
+        //     UIManager.Show<InventoryUI>(UIList.InventoryUI);
+        // }
+        //
+        // void OnToolDestroyed(ulong databaseID, ushort category , ushort kind, uint serial)
+        // {
+        //     var itemData = GameDataModel.Singleton.ItemData.GetItemData(category, kind, serial);
+        //     var strItemName = LocalizationManager.Singleton.GetItemName(itemData.ItemDataSO.Name);
+        //     var toastText = LocalizationManager.Singleton.GetLocalizedString(
+        //         LocalizationManager.LzTableContents, "gathering_notice_durability", new Dictionary<string, object>
+        //         {
+        //             { "item_name", strItemName }
+        //         });
+        //     ToastUI.ShowToast(toastText);
+        // }
         
         void OnStaminaDepleted()
         {

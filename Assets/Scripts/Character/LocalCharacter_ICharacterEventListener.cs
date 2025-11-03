@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cysharp.Threading.Tasks;
 using KinematicCharacterController;
 using REIW.Animations.Character;
 using UnityEditor;

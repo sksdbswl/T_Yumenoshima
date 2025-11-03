@@ -6,7 +6,7 @@ namespace REIW.Animations.Character
     public partial class CharacterAnimationMovement
     {
         [Header("InputBuffer Settings")]
-        //[SerializeField] private CharacterActionInputBuffer _actionInputBuffer;
+        [SerializeField] private CharacterActionInputBuffer _actionInputBuffer;
 
         public eCharacterActionInputType CurrentActionInputType => _actionInputBuffer.hasBuffer ? _actionInputBuffer.value : eCharacterActionInputType.NONE;
         public bool IsAnyMovementInput => IsMoveInput || IsAnyActionInput;

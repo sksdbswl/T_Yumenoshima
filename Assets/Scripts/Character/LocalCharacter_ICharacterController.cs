@@ -404,5 +404,15 @@ namespace REIW
         public void OnDiscreteCollisionDetected(Collider hitCollider)
         {
         }
+
+        public void OnWallClimbStarted()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnWallClimbFinished()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

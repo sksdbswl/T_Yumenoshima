@@ -2,15 +2,14 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
-using VContainer;
 
 namespace REIW
 {
     public class PlayerStandaloneController : PlayerController
     {
         [field: Header("Standalone Settings")]
-        [SerializeField] private EnumRace race;
-        [SerializeField] private EnumGender gender;
+        // [SerializeField] private EnumRace race;
+        // [SerializeField] private EnumGender gender;
 
         protected override void OnDrawGizmos()
         {
@@ -27,28 +26,28 @@ namespace REIW
         public override void Initialize()
         {
             LinkedCharacter = GetComponent<LocalCharacter>();
-            var cameraSystem = GetComponentInChildren<IngameCameraSystem>();
-            base.Construct(cameraSystem);
-            
-            var ownerPlayerNetObject = GetComponent<OwnerPlayerNetObject>();
-            ownerPlayerNetObject.ForceSetupGenderAndRace(this.gender, this.race);
-            
-            InputController.Singleton.Initialize();
-            InputController.Singleton.CurrentActionMap = InputController.InputActionMapType.Player;
-            SoundManager.Singleton.Initialize();
-            GameDataModel.Singleton.Initialize();
-            UserDataModel.Singleton.PlayerInfoData.Race = race;
-            UserDataModel.Singleton.PlayerInfoData.Gender = gender;
+            // var cameraSystem = GetComponentInChildren<IngameCameraSystem>();
+            // base.Construct(cameraSystem);
+            //
+            // var ownerPlayerNetObject = GetComponent<OwnerPlayerNetObject>();
+            // ownerPlayerNetObject.ForceSetupGenderAndRace(this.gender, this.race);
+            //
+            // InputController.Singleton.Initialize();
+            // InputController.Singleton.CurrentActionMap = InputController.InputActionMapType.Player;
+            // SoundManager.Singleton.Initialize();
+            // GameDataModel.Singleton.Initialize();
+            // UserDataModel.Singleton.PlayerInfoData.Race = race;
+            // UserDataModel.Singleton.PlayerInfoData.Gender = gender;
             
             base.Initialize();
             
-            Destroy(ownerPlayerNetObject);
+            //Destroy(ownerPlayerNetObject);
         }
 
         protected override void OnExecuteMount()
         {
-            if (!EquippedLocalMount)
-                return;
+            // if (!EquippedLocalMount)
+            //     return;
 
             if (!CanChangeMountState())
             {
