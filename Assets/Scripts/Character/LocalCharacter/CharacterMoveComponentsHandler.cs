@@ -85,7 +85,7 @@ namespace REIW
 
         private ICharacterMoveComponent CreateComponent(CharacterMoveType movetype) => movetype switch
         {
-            CharacterMoveType.Grapple   => new CharacterMoveGrapple(),
+            //CharacterMoveType.Grapple   => new CharacterMoveGrapple(),
             // CharacterMoveType.WallClimb => new CharacterMoveWallClimb(),
             CharacterMoveType.WallClimb => new CharacterMoveWallClimb(),
             CharacterMoveType.Gliding => new CharacterMoveGliding(),

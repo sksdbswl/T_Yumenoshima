@@ -35,7 +35,7 @@ namespace REIW.EventLock
 
     public interface ICameraEventType
     {
-        IngameCameraSystem_Event.CameraEventType CameraEventType { get; }
+        //IngameCameraSystem_Event.CameraEventType CameraEventType { get; }
         Vector3 CameraEventOffset { get; set; }
     }
 

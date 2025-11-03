@@ -79,8 +79,8 @@ namespace REIW
         {
             get
             {
-                if (_data == null)
-                    _data = AssetManager.Singleton.GetCharacterMovementDataSO<T>(true);
+                // if (_data == null)
+                //     _data = AssetManager.Singleton.GetCharacterMovementDataSO<T>(true);
                 return _data;
             }
         }
@@ -101,8 +101,8 @@ namespace REIW
         {
             if (_data != null)
             {
-                if (AssetManager.IsCreated)
-                    AssetManager.Singleton.ReleaseAsset(_data);
+                // if (AssetManager.IsCreated)
+                //     AssetManager.Singleton.ReleaseAsset(_data);
                 _data = null;
             }
             
