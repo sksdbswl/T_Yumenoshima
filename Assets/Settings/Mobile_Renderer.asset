@@ -13,11 +13,9 @@ MonoBehaviour:
   m_Name: Mobile_Renderer
   m_EditorClassIdentifier: 
   debugShaders:
-    debugReplacementPS: {fileID: 4800000, guid: cf852408f2e174538bcd9b7fda1c5ae7,
-      type: 3}
+    debugReplacementPS: {fileID: 4800000, guid: cf852408f2e174538bcd9b7fda1c5ae7, type: 3}
     hdrDebugViewPS: {fileID: 4800000, guid: 573620ae32aec764abd4d728906d2587, type: 3}
-    probeVolumeSamplingDebugComputeShader: {fileID: 7200000, guid: 53626a513ea68ce47b59dc1299fe3959,
-      type: 3}
+    probeVolumeSamplingDebugComputeShader: {fileID: 7200000, guid: 53626a513ea68ce47b59dc1299fe3959, type: 3}
   probeVolumeResources:
     probeVolumeDebugShader: {fileID: 0}
     probeVolumeFragmentationDebugShader: {fileID: 0}
@@ -26,11 +24,16 @@ MonoBehaviour:
     probeSamplingDebugMesh: {fileID: 0}
     probeSamplingDebugTexture: {fileID: 0}
     probeVolumeBlendStatesCS: {fileID: 0}
-  m_RendererFeatures: []
-  m_RendererFeatureMap: 
+  m_RendererFeatures:
+  - {fileID: 1836883913650984432}
+  m_RendererFeatureMap: f0d5cbee2fec7d19
   m_UseNativeRenderPass: 1
+  xrSystemData: {fileID: 0}
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
-  m_AssetVersion: 2
+  m_AssetVersion: 3
+  m_PrepassLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_OpaqueLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -48,5 +51,72 @@ MonoBehaviour:
   m_RenderingMode: 0
   m_DepthPrimingMode: 0
   m_CopyDepthMode: 0
+  m_DepthAttachmentFormat: 0
+  m_DepthTextureFormat: 0
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 0
+--- !u!114 &1836883913650984432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ad20adf61393c4428c8b31cf405bb26, type: 3}
+  m_Name: NiloToonAllInOneRendererFeature
+  m_EditorClassIdentifier: NiloToon.NiloToonURP.Runtime::NiloToon.NiloToonURP.NiloToonAllInOneRendererFeature
+  m_Active: 1
+  settings:
+    outlineSettings:
+      ShouldRenderOutline: 1
+      outlineWidthMultiplier: 1
+      outlineWidthExtraMultiplierForXR: 0.5
+      outlineTintColor: {r: 1, g: 1, b: 1, a: 1}
+      outlineWidthAutoAdjustToCameraDistanceAndFOV: 1
+      allowClassicOutlineInPlanarReflection: 0
+      AllowRenderScreenSpaceOutline: 0
+      AllowRenderScreenSpaceOutlineInSceneView: 0
+      extraThickOutlineRenderTiming: 500
+    MiscSettings:
+      ShouldReceiveURPShadows: 0
+      URPShadowIntensity: 1
+      URPShadowDepthBias: 0
+      URPShadowNormalBiasMultiplier: 1
+      EnableDepthTextureRimLigthAndShadow: 1
+      DepthTextureRimLightAndShadowWidthMultiplier: 1
+      DepthTexRimLightDepthDiffThresholdOffset: 0
+      EnableSkyboxDrawBeforeOpaque: 1
+      ForceMinimumShader: 0
+      ForceMinimumEnviShader: 0
+      ForceNoOutline: 0
+    sphereShadowTestSettings:
+      enableAverageShadow: 0
+    animePostProcessSettings:
+      allowRender: 1
+    uberPostProcessSettings:
+      renderPassEventTimingOffset: 0
+      allowRenderNiloToonBloom: 1
+    charSelfShadowSettings:
+      enableCharSelfShadow: 1
+      useMainLightAsCastShadowDirection: 1
+      shadowAngle: 30
+      shadowLRAngle: 0
+      shadowMapSize: 4096
+      useSoftShadow: 1
+      softShadowQuality: 2
+      useSoftShadowResharpen: 0
+      resharpenStregth: 0.5
+      shadowRange: 10
+      depthBias: 1
+      normalBias: 0.5
+      receiverDepthBias: 1
+      receiverNormalBias: 1
+      useNdotLFix: 1
+      perfectCullingForShadowCasters: 1
+      terrainCrashSafeGuard: 1
+    motionBlurSettings:
+      allowRender: 1
+    forceRenderPrepassBuffer: 0
+    shaderStrippingSettingSO: {fileID: 0}

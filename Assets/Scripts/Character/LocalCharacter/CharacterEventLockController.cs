@@ -60,17 +60,17 @@ namespace REIW.EventLock
             if (character == null)
                 return;
 
-            character.CharacterAnimation.Movement.AddInputBufferAction(eCharacterActionInputType.GRAPPLE, (value) =>
-            {
-                if (value == false)
-                    character.CurrentInputs.Grapple = false;
-                else
-                {
-                    character.CurrentInputs.Jump = false;
-                    character.CurrentInputs.Dash = false;
-                    character.CurrentInputs.Parkour = false;
-                }
-            });
+            // character.CharacterAnimation.Movement.AddInputBufferAction(eCharacterActionInputType.GRAPPLE, (value) =>
+            // {
+            //     if (value == false)
+            //         character.CurrentInputs.Grapple = false;
+            //     else
+            //     {
+            //         character.CurrentInputs.Jump = false;
+            //         character.CurrentInputs.Dash = false;
+            //         character.CurrentInputs.Parkour = false;
+            //     }
+            // });
             character.CharacterAnimation.Movement.AddInputBufferAction(eCharacterActionInputType.DASH, (value) =>
             {
                 if (value == false)
@@ -93,17 +93,17 @@ namespace REIW.EventLock
                     character.CurrentInputs.Parkour = false;
                 }
             });
-            character.CharacterAnimation.Movement.AddInputBufferAction(eCharacterActionInputType.PARKOUR, (value) =>
-            {
-                if (value == false)
-                    character.CurrentInputs.Parkour = false;
-                else
-                {
-                    character.CurrentInputs.Jump = false;
-                    character.CurrentInputs.Grapple = false;
-                    character.CurrentInputs.Dash = false;
-                }
-            });
+            // character.CharacterAnimation.Movement.AddInputBufferAction(eCharacterActionInputType.PARKOUR, (value) =>
+            // {
+            //     if (value == false)
+            //         character.CurrentInputs.Parkour = false;
+            //     else
+            //     {
+            //         character.CurrentInputs.Jump = false;
+            //         character.CurrentInputs.Grapple = false;
+            //         character.CurrentInputs.Dash = false;
+            //     }
+            // });
         }
 
         public void AddEventLockState(ICheckEventLockState state)
