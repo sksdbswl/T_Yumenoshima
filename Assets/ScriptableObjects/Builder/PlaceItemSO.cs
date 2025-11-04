@@ -2,7 +2,7 @@ using UnityEngine;
 
 public enum PlaceCategory { Road, Deco, Building }
 
-[CreateAssetMenu(menuName="LoneGarden/Item")]
+[CreateAssetMenu(menuName="Builder/Item")]
 public class PlaceItemSO : ScriptableObject
 {
     public string itemName;
