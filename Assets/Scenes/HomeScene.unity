@@ -556,6 +556,9 @@ MonoBehaviour:
   okMat: {fileID: 8486936951020155453, guid: 51a5fd5fe07f1f5489ea9da1d6b6c6f0, type: 3}
   badMat: {fileID: 4737706778084857842, guid: 51a5fd5fe07f1f5489ea9da1d6b6c6f0, type: 3}
   grid: {fileID: 1471875485}
+  selectedItems:
+  - {fileID: 11400000, guid: fed16d46700cd7849a01316331c1738d, type: 2}
+  - {fileID: 11400000, guid: 3a113abe2833b454e97781e4107cb04f, type: 2}
   selectedItem: {fileID: 11400000, guid: fed16d46700cd7849a01316331c1738d, type: 2}
 --- !u!4 &1806543494
 Transform:

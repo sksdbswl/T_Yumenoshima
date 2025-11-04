@@ -13,15 +13,23 @@ public class HomeController : MonoBehaviour
     public HomeGrid grid;    
 
     [Header("Runtime")]
+    public PlaceItemSO[] selectedItems;
     public PlaceItemSO selectedItem;
-
+    
     GameObject _ghost;
     Renderer[] _ghostRenderers;
     bool _valid;
     float _yaw;
 
+    private void Awake()
+    {
+        selectedItem = selectedItems[0];
+    }
+    
     void Update()
     {
+        ChangeSelectedItem();
+        
         if (selectedItem == null || grid == null) return;
         if (EventSystem.current && EventSystem.current.IsPointerOverGameObject()) return;
 
@@ -102,6 +110,35 @@ public class HomeController : MonoBehaviour
         return gx >= 0 && gy >= 0 &&
                gx + fp.x <= grid.Width &&
                gy + fp.y <= grid.Height;
+    }
+    
+    private void ChangeSelectedItem()
+    {
+        // 간단 입력 예시(프로토타입):
+        // 1~5 : 아이템 선택
+        for (int i = 0; i < 2; i++)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1 + i))
+            {
+                selectedItem = selectedItems[i];
+                previewGhost(selectedItem);
+            }
+        }
+    }
+
+    private void previewGhost(PlaceItemSO selectedItem)
+    {
+        _ghost = null;
+       
+        _ghost = Instantiate(selectedItem.prefab);
+        _ghost.layer = LayerMask.NameToLayer("Ignore Raycast");
+        foreach (Transform t in _ghost.GetComponentsInChildren<Transform>(true))
+            t.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+
+        _ghostRenderers = _ghost.GetComponentsInChildren<Renderer>(true);
+        SetGhostMaterial(okMat);
+        _yaw = 0f;
+        
     }
 
     /// <summary>

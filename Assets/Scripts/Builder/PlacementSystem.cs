@@ -103,54 +103,174 @@ public class PlacementSystem : MonoBehaviour
         _gizmo.transform.position = pos;
     }
 
+    // private bool TryGetPlacementPosition(out Vector3 result)
+    // {
+    //     result = default;
+    //
+    //     Ray ray = useMouse
+    //         ? _cam.ScreenPointToRay(Input.mousePosition)
+    //         : _cam.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
+    //
+    //     // 1) 스냅만 무시하고 “첫 충돌”을 구함 (Road/Building/Deco도 막아야 하니 포함!)
+    //     int firstHitMask = ~BuilderLayers.MASK_SNAP;
+    //     if (!Physics.Raycast(ray, out RaycastHit first, maxRayDistance, firstHitMask, QueryTriggerInteraction.Collide))
+    //         return false;
+    //
+    //     int layer = first.collider.gameObject.layer;
+    //
+    //     // 2) 첫 충돌이 배치 가능한 표면인지 검사
+    //     if (layer != BuilderLayers.LAYER_GROUND && layer != BuilderLayers.LAYER_TILE)
+    //         return false;
+    //
+    //     // 3) 여기서부터는 배치 OK
+    //     Vector3 pos = first.point;
+    //
+    //     // 근처 스냅 포인트 탐색(스냅 전용 레이어만)
+    //     // int count = Physics.OverlapSphereNonAlloc(
+    //     //     pos, snapSearchRadius, _snapBuffer, BuilderLayers.MASK_SNAP, QueryTriggerInteraction.Collide
+    //     // );
+    //
+    //     pos = ApplyGrid(pos, gridSize);
+    //     // if (count > 0)
+    //     // {
+    //     //     float min = float.MaxValue;
+    //     //     int best = -1;
+    //     //     for (int i = 0; i < count; i++)
+    //     //     {
+    //     //         float d2 = (pos - _snapBuffer[i].transform.position).sqrMagnitude;
+    //     //         if (d2 < min) { min = d2; best = i; }
+    //     //     }
+    //     //     if (best >= 0) pos = _snapBuffer[best].transform.position;
+    //     // }
+    //     // else if (useGrid)
+    //     // {
+    //     //     pos = ApplyGrid(pos, gridSize);
+    //     // }
+    //
+    //     pos.y = Mathf.Max(0f, pos.y);
+    //     result = pos;
+    //     return true;
+    // }
+    
     private bool TryGetPlacementPosition(out Vector3 result)
     {
         result = default;
 
+        // 1) 화면 → 레이
         Ray ray = useMouse
             ? _cam.ScreenPointToRay(Input.mousePosition)
             : _cam.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
 
-        // 1) 스냅만 무시하고 “첫 충돌”을 구함 (Road/Building/Deco도 막아야 하니 포함!)
-        int firstHitMask = ~BuilderLayers.MASK_SNAP;
-        if (!Physics.Raycast(ray, out RaycastHit first, maxRayDistance, firstHitMask, QueryTriggerInteraction.Collide))
+        // 2) 첫 충돌을 구함 (Road/Building/Deco도 포함, Snap만 제외)
+        if (!Physics.Raycast(ray, out RaycastHit firstHit, maxRayDistance, ~BuilderLayers.MASK_SNAP, QueryTriggerInteraction.Collide))
             return false;
 
-        int layer = first.collider.gameObject.layer;
-
-        // 2) 첫 충돌이 배치 가능한 표면인지 검사
-        if (layer != BuilderLayers.LAYER_GROUND && layer != BuilderLayers.LAYER_TILE)
+        // 3) 첫 충돌이 Ground/Tile이 아니면 배치 불가
+        int l = firstHit.collider.gameObject.layer;
+        if (l != BuilderLayers.LAYER_GROUND && l != BuilderLayers.LAYER_TILE)
             return false;
 
-        // 3) 여기서부터는 배치 OK
-        Vector3 pos = first.point;
+        Vector3 pos = firstHit.point;
 
-        // 근처 스냅 포인트 탐색(스냅 전용 레이어만)
-        // int count = Physics.OverlapSphereNonAlloc(
-        //     pos, snapSearchRadius, _snapBuffer, BuilderLayers.MASK_SNAP, QueryTriggerInteraction.Collide
-        // );
+        // 4) SnapPoint 우선
+        int count = Physics.OverlapSphereNonAlloc(
+            pos, snapSearchRadius, _snapBuffer, BuilderLayers.MASK_SNAP, QueryTriggerInteraction.Collide
+        );
+        bool snapped = false;
+        if (count > 0)
+        {
+            float min = float.MaxValue;
+            int best = -1;
+            for (int i = 0; i < count; i++)
+            {
+                float d2 = (pos - _snapBuffer[i].transform.position).sqrMagnitude;
+                if (d2 < min) { min = d2; best = i; }
+            }
+            if (best >= 0)
+            {
+                pos = _snapBuffer[best].transform.position;
+                snapped = true;
+            }
+        }
 
-        pos = ApplyGrid(pos, gridSize);
-        // if (count > 0)
-        // {
-        //     float min = float.MaxValue;
-        //     int best = -1;
-        //     for (int i = 0; i < count; i++)
-        //     {
-        //         float d2 = (pos - _snapBuffer[i].transform.position).sqrMagnitude;
-        //         if (d2 < min) { min = d2; best = i; }
-        //     }
-        //     if (best >= 0) pos = _snapBuffer[best].transform.position;
-        // }
-        // else if (useGrid)
-        // {
-        //     pos = ApplyGrid(pos, gridSize);
-        // }
+        // 5) 벽 스냅(스냅포인트가 없을 때만)
+        if (!snapped)
+        {
+            // 배치 프리팹 크기에 맞춰 반가로/반폭 전달(예: 0.5f)
+            if (TrySnapToBuildingWall(pos, halfSize: 0.5f, out var wallPos, out var wallRot))
+            {
+                pos = wallPos;
+                // 필요 시 여기서 회전 적용(예: _preview.rotation = wallRot)
+                snapped = true;
+            }
+        }
 
-        pos.y = Mathf.Max(0f, pos.y);
+        // 6) 스냅이 전혀 안 됐으면 그리드
+        if (!snapped && useGrid) pos = ApplyGrid(pos, gridSize);
+
+        // 7) Ground 경계 클램프 (항상 마지막에)
+        if (groundArea != null) pos = ClampToGroundBounds(pos);
+
         result = pos;
         return true;
     }
+    
+    [SerializeField] private Collider groundArea; // Ground에 붙은 Collider (권장: BoxCollider)
+
+    private Vector3 ClampToGroundBounds(Vector3 p)
+    {
+        var b = groundArea.bounds;
+        p.x = Mathf.Clamp(p.x, b.min.x, b.max.x);
+        p.z = Mathf.Clamp(p.z, b.min.z, b.max.z);
+        // 높이는 강제로 ground 높이에 맞추거나, 기존 y 유지
+        p.y = Mathf.Max(p.y, b.min.y);
+        return p;
+    }
+
+    
+    // 배치물이 벽에 어느 정도 접근하면 붙이기
+    [SerializeField] private float wallSnapRadius = 0.6f; // 탐색 반경
+    [SerializeField] private float wallGap = 0.05f;       // 살짝 띄우기(겹침 방지)
+    private static readonly Collider[] _wallBuffer = new Collider[8];
+
+    private bool TrySnapToBuildingWall(Vector3 basePos, float halfSize, out Vector3 snappedPos, out Quaternion snappedRot)
+    {
+        snappedPos = basePos;
+        snappedRot = Quaternion.identity;
+
+        // 주변에 Building 콜라이더가 있는지 찾기
+        int n = Physics.OverlapSphereNonAlloc(
+            basePos, wallSnapRadius, _wallBuffer, 1 << BuilderLayers.LAYER_BUILDING, QueryTriggerInteraction.Ignore
+        );
+        if (n <= 0) return false;
+
+        // 가장 가까운 빌딩 콜라이더 선택
+        float min = float.MaxValue;
+        int best = -1;
+        for (int i = 0; i < n; i++)
+        {
+            float d2 = (basePos - _wallBuffer[i].ClosestPoint(basePos)).sqrMagnitude;
+            if (d2 < min) { min = d2; best = i; }
+        }
+        if (best < 0) return false;
+
+        var col = _wallBuffer[best];
+        // 벽 표면의 가장 가까운 점
+        Vector3 wallPoint = col.ClosestPoint(basePos);
+
+        // 표면 법선 추정: basePos → wallPoint 방향의 반대
+        Vector3 normal = (basePos - wallPoint);
+        normal.y = 0f;
+        if (normal.sqrMagnitude < 1e-6f) normal = (basePos - col.bounds.center); // 특이 케이스
+        normal = normal.normalized;
+
+        // 오브젝트를 벽에서 반대 방향으로 halfSize+gap 만큼 띄워 놓기
+        snappedPos = wallPoint + normal * (halfSize + wallGap);
+        // 회전도 벽을 바라보도록 정렬(필요 없으면 제거)
+        snappedRot = Quaternion.LookRotation(-normal, Vector3.up);
+        return true;
+    }
+
 
     
     bool IsPlaceableSurface(Vector3 p)

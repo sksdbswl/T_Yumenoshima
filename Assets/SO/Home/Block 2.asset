@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0c55e1f1e310b14eb449c0099c1ed48, type: 3}
+  m_Name: Block 2
+  m_EditorClassIdentifier: Assembly-CSharp::PlaceItemSO
+  itemName: Boad
+  category: 2
+  prefab: {fileID: 3086324132455425473, guid: 98d9c878e8e105d44b5b366a14b88ca9, type: 3}
+  footprint: {x: 2, y: 1}
+  requireGrid: 1

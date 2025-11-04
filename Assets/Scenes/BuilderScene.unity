@@ -405,6 +405,9 @@ MonoBehaviour:
   maxRayDistance: 100
   gizmoSize: 0.25
   gizmoColor: {r: 0, g: 1, b: 0, a: 0.4}
+  groundArea: {fileID: 161658917}
+  wallSnapRadius: 0.6
+  wallGap: 0.05
 --- !u!4 &1870071144
 Transform:
   m_ObjectHideFlags: 0
