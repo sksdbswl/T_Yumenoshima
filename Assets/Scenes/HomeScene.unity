@@ -491,7 +491,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -508,12 +508,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf8327b4ad598774daba50e230cbd30a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::REIW.LoneGarden.BuildGrid
-  width: 20
-  height: 20
+  width: 10
+  height: 10
   cellSize: 1
+  origin: {fileID: 1471875484}
   groundMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   allowedMat: {fileID: 4737706778084857842, guid: 51a5fd5fe07f1f5489ea9da1d6b6c6f0, type: 3}
   blockedMat: {fileID: 8486936951020155453, guid: 51a5fd5fe07f1f5489ea9da1d6b6c6f0, type: 3}
 --- !u!1 &1806543492
@@ -552,9 +553,9 @@ MonoBehaviour:
   blockMask:
     serializedVersion: 2
     m_Bits: 128
-  gridSize: 1
   okMat: {fileID: 8486936951020155453, guid: 51a5fd5fe07f1f5489ea9da1d6b6c6f0, type: 3}
   badMat: {fileID: 4737706778084857842, guid: 51a5fd5fe07f1f5489ea9da1d6b6c6f0, type: 3}
+  grid: {fileID: 1471875485}
   selectedItem: {fileID: 11400000, guid: fed16d46700cd7849a01316331c1738d, type: 2}
 --- !u!4 &1806543494
 Transform:
