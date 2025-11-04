@@ -1,8 +1,8 @@
 namespace REIW.LoneGarden
 {
-    public class BuilderManager
+    public class HomeManager
     {
-        public static BuilderManager Instance { get; private set; }
+        public static HomeManager Instance { get; private set; }
         
         private void Start()
         {

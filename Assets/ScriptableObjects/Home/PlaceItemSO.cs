@@ -13,3 +13,15 @@ public class PlaceItemSO : ScriptableObject
     [Tooltip("건물은 그리드 필수, 장식은 자유 배치 허용 등")]
     public bool requireGrid = true;
 }
+
+public enum PlaceableRole { Road, Deco, Building }
+
+[CreateAssetMenu(menuName = "Builder/Placeable", fileName = "PlaceableItem")]
+public class PlaceableItem : ScriptableObject
+{
+    public string DisplayName;
+    public PlaceableRole Role;
+    public GameObject Prefab;
+    public Sprite Thumbnail;
+}
+

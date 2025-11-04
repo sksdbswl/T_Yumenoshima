@@ -2,7 +2,7 @@ using REIW.LoneGarden;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class BuilderController : MonoBehaviour
+public class HomeController : MonoBehaviour
 {
     [Header("Setup")]
     public Camera cam;
@@ -10,7 +10,7 @@ public class BuilderController : MonoBehaviour
     public LayerMask blockMask;      // 배치물 레이어
     public Material okMat;
     public Material badMat;
-    public BuildGrid grid;    
+    public HomeGrid grid;    
 
     [Header("Runtime")]
     public PlaceItemSO selectedItem;

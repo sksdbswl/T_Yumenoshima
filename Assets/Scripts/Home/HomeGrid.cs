@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace REIW.LoneGarden
 {
-    public class BuildGrid : MonoBehaviour
+    public class HomeGrid : MonoBehaviour
     {
         [Header("Grid (Plane 10x10 중심 기준)")]
         [SerializeField] int width = 10;     // 셀 개수 (X)
