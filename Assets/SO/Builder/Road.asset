@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlaceableItem
   DisplayName: Road
   Role: 0
-  Prefab: {fileID: 7343237592989818435, guid: 3608c7df840bc964388ce439b89ac9cd, type: 3}
+  Prefab: {fileID: 4662052247883202228, guid: 2027b564d5cb0734e82f052262f28863, type: 3}
   Thumbnail: {fileID: 21300000, guid: ad4148593b05d0f47980774815c325fe, type: 3}

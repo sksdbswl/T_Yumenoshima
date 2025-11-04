@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 326d8bce7f3eb974c897678ba127e754, type: 3}
-  m_Name: Block
+  m_Name: Tile
   m_EditorClassIdentifier: Assembly-CSharp::PlaceableItem
-  DisplayName: Block
-  Role: 0
-  Prefab: {fileID: 213080566223597661, guid: 91657ab66ee3c134bb8a683d6aa38e76, type: 3}
+  DisplayName: Tile
+  Role: 1
+  Prefab: {fileID: 4662052247883202228, guid: dcb3a6d116658a7488bf4429dedafea0, type: 3}
   Thumbnail: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
