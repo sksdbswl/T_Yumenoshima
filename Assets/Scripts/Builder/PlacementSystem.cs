@@ -105,20 +105,28 @@ public class PlacementSystem : MonoBehaviour
 
     private bool TryGetPlacementPosition(out Vector3 result)
     {
+        // 기본값(0,0,0)
         result = default;
-
+        
+        // useMouse가 true면 마우스 위치 기준으로 Ray(광선) false면 화면 중앙에서 쏨
         Ray ray = useMouse
             ? _cam.ScreenPointToRay(Input.mousePosition)
             : _cam.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
 
-        if (!Physics.Raycast(ray, out RaycastHit hit, maxRayDistance, ~BuilderLayers.MASK_SNAP))
-            return false;
 
+        //~BuilderLayers.MASK_SNAP → MASK_SNAP 레이어만 무시
+        // if (!Physics.Raycast(ray, out RaycastHit hit, maxRayDistance, ~BuilderLayers.MASK_SNAP))
+        //     return false;
+
+        // 변경 Ground, Tile만 제외하고 전체 true
+        if (!Physics.Raycast(ray, out RaycastHit hit, maxRayDistance, BuilderLayers.MASK_RAYCAST_PLACEMENT))
+            return false;
+        
         Vector3 pos = hit.point;
         int count = Physics.OverlapSphereNonAlloc(
             pos, snapSearchRadius, _snapBuffer, BuilderLayers.MASK_SNAP, QueryTriggerInteraction.Collide
         );
-
+        
         if (count > 0)
         {
             // 가장 가까운 스냅 포인트로 이동
@@ -135,7 +143,7 @@ public class PlacementSystem : MonoBehaviour
         {
             pos = ApplyGrid(pos, gridSize);
         }
-
+        
         pos.y = Mathf.Max(0f, pos.y); // 바닥 아래로 안 내려가게
         result = pos;
         return true;

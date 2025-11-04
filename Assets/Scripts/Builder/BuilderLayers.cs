@@ -13,17 +13,16 @@ public static class BuilderLayers
     public static readonly int MASK_SURFACE_PLACEMENT =
         (1 << LAYER_GROUND) | (1 << LAYER_TILE);
 
+    // 무시할 레이어 (Road, Deco, Building)
+    public static readonly int MASK_UNPLACEABLE =
+        (1 << LAYER_ROAD) | (1 << LAYER_DECO) | (1 << LAYER_BUILDING);
+    
     // 스냅 전용
     public static readonly int MASK_SNAP = 1 << LAYER_SNAP;
 
-    // Raycast시 스냅 제외하고 표면만 맞추기
+    // Raycast시 스냅 제외하고 표면만 맞추기 :  배치 가능한 표면만 포함
     public static readonly int MASK_RAYCAST_PLACEMENT = MASK_SURFACE_PLACEMENT;
 
-    public static void SetLayerRecursive(Transform transform, int layer)
-    {
-        transform.gameObject.layer = layer;
-    }
-    
     // 각 Role에 따른 Layer 지정
     public static int LayerFromRole(PlaceableRole role)
     {
@@ -35,5 +34,10 @@ public static class BuilderLayers
             case PlaceableRole.Building: return LAYER_BUILDING;
             default:                     return LAYER_GROUND;
         }
+    }
+    
+    public static void SetLayerRecursive(Transform transform, int layer)
+    {
+        transform.gameObject.layer = layer;
     }
 }
