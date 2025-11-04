@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 326d8bce7f3eb974c897678ba127e754, type: 3}
-  m_Name: Building
+  m_Name: Bridge
   m_EditorClassIdentifier: Assembly-CSharp::PlaceableItem
-  DisplayName: Building
+  DisplayName: Bridge
   Role: 3
-  Prefab: {fileID: 2183983995791420318, guid: e51ccb2ac9862e34887da36163810553, type: 3}
+  Prefab: {fileID: 8557122740473273917, guid: 72e98c603b091f846acc4b4d1255e6ad, type: 3}
   UseHalfOffset: 1
   Thumbnail: {fileID: 21300000, guid: ab6db91373811284caeba2e9472fa9c2, type: 3}
   FootprintX: 2
-  FootprintZ: 2
+  FootprintZ: 1

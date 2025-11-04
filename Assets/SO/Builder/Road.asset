@@ -15,4 +15,7 @@ MonoBehaviour:
   DisplayName: Road
   Role: 0
   Prefab: {fileID: 4662052247883202228, guid: 2027b564d5cb0734e82f052262f28863, type: 3}
+  UseHalfOffset: 0
   Thumbnail: {fileID: 21300000, guid: ad4148593b05d0f47980774815c325fe, type: 3}
+  FootprintX: 1
+  FootprintZ: 1
