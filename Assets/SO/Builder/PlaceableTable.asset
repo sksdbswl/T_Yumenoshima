@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d6901df28888634f879c1f89c918f97, type: 3}
+  m_Name: PlaceableTable
+  m_EditorClassIdentifier: Assembly-CSharp::PlaceableCatalogTable
+  Items:
+  - {fileID: 11400000, guid: ab131df05e07774468dbffe94e7d8da9, type: 2}
+  - {fileID: 11400000, guid: 71a661ed6f067444e8ec244d874d1e02, type: 2}
+  - {fileID: 11400000, guid: 2983396e49d1c7941a5aef2d2de97dd9, type: 2}
+  - {fileID: 11400000, guid: 7f90b5b80969dba4e804a990813f11f1, type: 2}
