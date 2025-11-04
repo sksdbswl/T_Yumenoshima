@@ -36,7 +36,7 @@ public class PlacementSystem : MonoBehaviour
         ChangeSelectedItem();
 
         // 배치 시작(현재 선택된 아이템이 있고, 클릭 지점이 유효하면)
-        if (_currentItem != null && Input.GetMouseButtonDown(0))
+        if (_currentItem != null && Input.GetMouseButtonDown(0) && TryGetPlacementPosition(out Vector3 pos))
         {
             SpawnCurrentAtGizmo();
         }
@@ -105,48 +105,58 @@ public class PlacementSystem : MonoBehaviour
 
     private bool TryGetPlacementPosition(out Vector3 result)
     {
-        // 기본값(0,0,0)
         result = default;
-        
-        // useMouse가 true면 마우스 위치 기준으로 Ray(광선) false면 화면 중앙에서 쏨
+
         Ray ray = useMouse
             ? _cam.ScreenPointToRay(Input.mousePosition)
             : _cam.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
 
-
-        //~BuilderLayers.MASK_SNAP → MASK_SNAP 레이어만 무시
-        // if (!Physics.Raycast(ray, out RaycastHit hit, maxRayDistance, ~BuilderLayers.MASK_SNAP))
-        //     return false;
-
-        // 변경 Ground, Tile만 제외하고 전체 true
-        if (!Physics.Raycast(ray, out RaycastHit hit, maxRayDistance, BuilderLayers.MASK_RAYCAST_PLACEMENT))
+        // 1) 스냅만 무시하고 “첫 충돌”을 구함 (Road/Building/Deco도 막아야 하니 포함!)
+        int firstHitMask = ~BuilderLayers.MASK_SNAP;
+        if (!Physics.Raycast(ray, out RaycastHit first, maxRayDistance, firstHitMask, QueryTriggerInteraction.Collide))
             return false;
-        
-        Vector3 pos = hit.point;
+
+        int layer = first.collider.gameObject.layer;
+
+        // 2) 첫 충돌이 배치 가능한 표면인지 검사
+        if (layer != BuilderLayers.LAYER_GROUND && layer != BuilderLayers.LAYER_TILE)
+            return false;
+
+        // 3) 여기서부터는 배치 OK
+        Vector3 pos = first.point;
+
+        // 근처 스냅 포인트 탐색(스냅 전용 레이어만)
         int count = Physics.OverlapSphereNonAlloc(
             pos, snapSearchRadius, _snapBuffer, BuilderLayers.MASK_SNAP, QueryTriggerInteraction.Collide
         );
-        
+
         if (count > 0)
         {
-            // 가장 가까운 스냅 포인트로 이동
             float min = float.MaxValue;
-            int best = 0;
+            int best = -1;
             for (int i = 0; i < count; i++)
             {
                 float d2 = (pos - _snapBuffer[i].transform.position).sqrMagnitude;
                 if (d2 < min) { min = d2; best = i; }
             }
-            pos = _snapBuffer[best].transform.position;
+            if (best >= 0) pos = _snapBuffer[best].transform.position;
         }
         else if (useGrid)
         {
             pos = ApplyGrid(pos, gridSize);
         }
-        
-        pos.y = Mathf.Max(0f, pos.y); // 바닥 아래로 안 내려가게
+
+        pos.y = Mathf.Max(0f, pos.y);
         result = pos;
         return true;
+    }
+
+    
+    bool IsPlaceableSurface(Vector3 p)
+    {
+        Vector3 origin = p + Vector3.up * 2f;
+        int mask = (1 << BuilderLayers.LAYER_GROUND) | (1 << BuilderLayers.LAYER_TILE);
+        return Physics.Raycast(origin, Vector3.down, out _, 5f, mask);
     }
 
     private Vector3 ApplyGrid(Vector3 p, float size)

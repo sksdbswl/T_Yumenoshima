@@ -13,7 +13,7 @@ public static class BuilderLayers
     public static readonly int MASK_SURFACE_PLACEMENT =
         (1 << LAYER_GROUND) | (1 << LAYER_TILE);
 
-    // 무시할 레이어 (Road, Deco, Building)
+    // Road, Building, Deco 레이어만 레이캐스트
     public static readonly int MASK_UNPLACEABLE =
         (1 << LAYER_ROAD) | (1 << LAYER_DECO) | (1 << LAYER_BUILDING);
     
