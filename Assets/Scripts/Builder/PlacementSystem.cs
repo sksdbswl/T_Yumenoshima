@@ -126,25 +126,26 @@ public class PlacementSystem : MonoBehaviour
         Vector3 pos = first.point;
 
         // 근처 스냅 포인트 탐색(스냅 전용 레이어만)
-        int count = Physics.OverlapSphereNonAlloc(
-            pos, snapSearchRadius, _snapBuffer, BuilderLayers.MASK_SNAP, QueryTriggerInteraction.Collide
-        );
+        // int count = Physics.OverlapSphereNonAlloc(
+        //     pos, snapSearchRadius, _snapBuffer, BuilderLayers.MASK_SNAP, QueryTriggerInteraction.Collide
+        // );
 
-        if (count > 0)
-        {
-            float min = float.MaxValue;
-            int best = -1;
-            for (int i = 0; i < count; i++)
-            {
-                float d2 = (pos - _snapBuffer[i].transform.position).sqrMagnitude;
-                if (d2 < min) { min = d2; best = i; }
-            }
-            if (best >= 0) pos = _snapBuffer[best].transform.position;
-        }
-        else if (useGrid)
-        {
-            pos = ApplyGrid(pos, gridSize);
-        }
+        pos = ApplyGrid(pos, gridSize);
+        // if (count > 0)
+        // {
+        //     float min = float.MaxValue;
+        //     int best = -1;
+        //     for (int i = 0; i < count; i++)
+        //     {
+        //         float d2 = (pos - _snapBuffer[i].transform.position).sqrMagnitude;
+        //         if (d2 < min) { min = d2; best = i; }
+        //     }
+        //     if (best >= 0) pos = _snapBuffer[best].transform.position;
+        // }
+        // else if (useGrid)
+        // {
+        //     pos = ApplyGrid(pos, gridSize);
+        // }
 
         pos.y = Mathf.Max(0f, pos.y);
         result = pos;
