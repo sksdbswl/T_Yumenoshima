@@ -15,8 +15,5 @@ public class PlaceableItem : ScriptableObject
     public string DisplayName;
     public PlaceableRole Role;
     public GameObject Prefab;
-    public bool UseHalfOffset;
     public Sprite Thumbnail;
-    public int FootprintX = 1; // X방향 몇 칸
-    public int FootprintZ = 1; // Z방향 몇 칸
 }
