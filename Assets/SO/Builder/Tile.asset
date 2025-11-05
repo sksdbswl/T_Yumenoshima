@@ -16,3 +16,4 @@ MonoBehaviour:
   Role: 1
   Prefab: {fileID: 4662052247883202228, guid: dcb3a6d116658a7488bf4429dedafea0, type: 3}
   Thumbnail: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  IsStack: 1

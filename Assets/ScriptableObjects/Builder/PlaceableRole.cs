@@ -16,4 +16,5 @@ public class PlaceableItem : ScriptableObject
     public PlaceableRole Role;
     public GameObject Prefab;
     public Sprite Thumbnail;
+    public bool IsStack;
 }

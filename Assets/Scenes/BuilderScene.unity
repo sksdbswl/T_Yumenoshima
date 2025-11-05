@@ -398,15 +398,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::REIW.LoneGarden.PlacementSystem
   catalog: {fileID: 11400000, guid: 6c5049bdb41959641807338ffd546f87, type: 2}
-  useMouse: 1
-  useGrid: 1
   gridSize: 1
-  snapSearchRadius: 0.25
-  maxRayDistance: 100
-  previewMaterial: {fileID: 2100000, guid: 1a1606a7d23d28949b8e7f9b9993d701, type: 2}
-  gizmoSize: 0.25
-  gizmoColor: {r: 0, g: 1, b: 0, a: 0.4}
   groundArea: {fileID: 161658917}
+  maxRayDistance: 100
+  useMouse: 1
+  previewMaterial: {fileID: 2100000, guid: 1a1606a7d23d28949b8e7f9b9993d701, type: 2}
+  blockedMaterial: {fileID: 4737706778084857842, guid: 51a5fd5fe07f1f5489ea9da1d6b6c6f0, type: 3}
 --- !u!4 &1870071144
 Transform:
   m_ObjectHideFlags: 0

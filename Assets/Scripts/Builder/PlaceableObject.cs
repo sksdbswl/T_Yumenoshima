@@ -9,10 +9,12 @@ public class PlaceableObject : MonoBehaviour
     // SnapPoint 레이어가 할당된 child collider 권장
 
     public PlaceableRole Role { get; private set; }
-
-    public void Initialize(PlaceableRole role, int wallIdx = 0)
+    public PlaceableItem SourceItem { get; private set; }
+    
+    public void Initialize(PlaceableRole role, PlaceableItem item)
     {
         Role = role;
+        SourceItem = item;
         
         //오브젝트의 레이어를 역할에 맞게 설정
         int layer = BuilderLayers.LayerFromRole(role);
