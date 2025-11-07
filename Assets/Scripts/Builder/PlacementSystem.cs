@@ -113,13 +113,43 @@ public class PlacementSystem : MonoBehaviour
         Collider[] cols = Physics.OverlapBox(cellCenter, half);
         foreach (var c in cols)
         {
-            var po = c.GetComponentInParent<PlaceableObject>();
-            if (po != null && po.SourceItem != null && !po.SourceItem.IsStack)
+            var po = c ? c.GetComponentInParent<PlaceableObject>() : null;
+            if (po == null) continue;
+
+            var otherItem = po.SourceItem;
+            // if (otherItem == null)
+            //     continue; // 소스 아이템이 없으면 비교 불가이므로 스킵 (혹은 배치 불가로 처리)
+
+            // 1) 스택 불가 아이템이면 해당 위치 차단
+            if (!otherItem.IsStack)
             {
                 canPlace = false;
                 return true; // 위치는 있지만 배치 불가(미리보기는 빨간색)
             }
+            
+            // 2) IsStack = true이지만 두개 이상은 차단
+            if (otherItem.Role == _currentItem.Role)
+            {
+                canPlace = false;
+                return true; 
+            }
         }
+        
+        // foreach (var c in cols)
+        // {
+        //     var po = c.GetComponentInParent<PlaceableObject>();
+        //     if (po != null && po.SourceItem != null && !po.SourceItem.IsStack)
+        //     {
+        //         canPlace = false;
+        //         return true; // 위치는 있지만 배치 불가(미리보기는 빨간색)
+        //     }
+        //
+        //     if (po.SourceItem.Role == _currentItem.Role)
+        //     {
+        //         canPlace = false;
+        //         return true; // 위치는 있지만 배치 불가(미리보기는 빨간색)
+        //     }
+        // }
 
         canPlace = true;
         return true;
