@@ -64,29 +64,40 @@ public class PlacementSystem : MonoBehaviour
         if (_cam == null || groundArea == null) return false;
 
         // 마우스/중앙 레이
+        //* 0.5f (또는 / 2f) 를 해주면 x = 960, y = 540 즉 화면의 가운데 좌표
         Ray ray = useMouse
-            ? _cam.ScreenPointToRay(Input.mousePosition)
-            : _cam.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
+            ? _cam.ScreenPointToRay(Input.mousePosition) // 마우스 기준 레이
+            : _cam.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f)); //카메라의 중심으로 방향으로 레이 생성 
 
         // 오직 groundMask에만 히트, 그리고 반드시 groundArea여야 함
         if (!Physics.Raycast(ray, out var hitInfo, maxRayDistance, groundMask)) return false;
         if (hitInfo.collider != groundArea) return false;
 
         // 히트 지점 기준으로 그리드 스냅
-        var bounds = groundArea.bounds;
-        Vector2 origin = new Vector2(bounds.min.x, bounds.min.z);
-        float gy = hitInfo.point.y; // 실제 지면 y
-
-        float u = (hitInfo.point.x - origin.x) / gridSize;
+        var bounds = groundArea.bounds; // groundArea(바닥 콜라이더)의 전체 범위를 가져옴
+        
+        // origin: 그리드 계산을 어디서부터 시작할지를 알려주는 기준점(base point)
+        Vector2 origin = new Vector2(bounds.min.x, bounds.min.z); // 바닥의 왼쪽-뒤 코너(min.x, min.z)를 그리드의 기준점(origin) 으로 설정.
+        float gy = hitInfo.point.y; // 실제 지면 y :  hitInfo.point.y는 바닥의 실제 높이(y축 값).
+        
+        
+        // hitInfo.point.x - origin.x → 바닥의 시작점으로부터 얼마나 떨어졌나 (x축 방향)
+        // gridSize → 그걸 그리드 칸 단위로 변환
+        float u = (hitInfo.point.x - origin.x) / gridSize; // 이 좌표가 그리드 기준으로 몇 칸 위치인지
         float v = (hitInfo.point.z - origin.y) / gridSize;
 
+        //칸 번호를 다시 실제 거리로 환산 : 월드 좌표 기준
         float xCorner = Mathf.Round(u) * gridSize + origin.x;
         float zCorner = Mathf.Round(v) * gridSize + origin.y;
         corner = new Vector3(xCorner, gy, zCorner);
 
         // (선택) 바운즈 밖 스냅 차단: 코너+오프셋이 영역 밖이면 배치 불가/미리보기 끔
-        Vector3 footprintMin = corner + _offsetFromCorner - new Vector3(gridSize * 0.5f, 0f, gridSize * 0.5f);
-        Vector3 footprintMax = corner + _offsetFromCorner + new Vector3(gridSize * 0.5f, 0f, gridSize * 0.5f);
+        Vector3 footprintMin = corner + _offsetFromCorner - new Vector3(gridSize * 0.5f, 0f, gridSize * 0.5f); // footprintMin: 오브젝트의 왼쪽-뒤 코너 (x, z 최소값)
+        Vector3 footprintMax = corner + _offsetFromCorner + new Vector3(gridSize * 0.5f, 0f, gridSize * 0.5f); //  footprintMax: 오브젝트의 오른쪽-앞 코너 (x, z 최대값)
+        
+        // bounds.Contains(point) → 주어진 점이 groundArea의 범위 안에 있으면 true
+        // 두 점(footprintMin, footprintMax)이 둘 다 영역 안에 있어야 “완전히 포함”
+        // 하나라도 밖이면 배치 불가 → return false
         if (!bounds.Contains(new Vector3(footprintMin.x, gy, footprintMin.z)) ||
             !bounds.Contains(new Vector3(footprintMax.x, gy, footprintMax.z)))
         {
@@ -181,7 +192,7 @@ public class PlacementSystem : MonoBehaviour
         obj.Initialize(_currentItem.Role, _currentItem);
     }
 
-    // (선택) 디버그: OverlapBox 시각화
+    // 디버그: OverlapBox 시각화
     private void OnDrawGizmosSelected()
     {
         if (_previewObj == null) return;
