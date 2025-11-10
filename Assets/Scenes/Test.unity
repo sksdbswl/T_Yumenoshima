@@ -156,7 +156,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 552360159}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!114 &220608121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
-    TrackingTarget: {fileID: 703778892}
+    TrackingTarget: {fileID: 3851483537924606286}
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
@@ -305,7 +305,7 @@ MonoBehaviour:
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
-    TrackingTarget: {fileID: 703778892}
+    TrackingTarget: {fileID: 3851483537924606286}
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
@@ -508,7 +508,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::REIW.CameraMovement
   tpsCamera: {fileID: 220608122}
   fpsCamera: {fileID: 237110266}
-  followTarget: {fileID: 6017500531015432308}
+  followTarget: {fileID: 3851483537924606286}
   targetRigidbody: {fileID: 1345025854}
   velocityProvider: {fileID: 0}
   originDamping: {x: 0.2, y: 0.2, z: 0.2}
