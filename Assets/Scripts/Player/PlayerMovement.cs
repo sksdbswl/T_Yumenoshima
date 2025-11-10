@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float jumpForce = 5f;
-    [SerializeField] private Transform cameraPivot;
+    //[SerializeField] private Transform cameraPivot;
 
     [Header("Animancer")]
     [SerializeField] private AnimancerComponent animancer;
@@ -50,13 +50,13 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
-        if (cameraPivot)
-        {
-            Vector3 camForward = cameraPivot.forward;
-            camForward.y = 0;
-            Quaternion camRot = Quaternion.LookRotation(camForward);
-            move = camRot * move;
-        }
+        // if (cameraPivot)
+        // {
+        //     Vector3 camForward = cameraPivot.forward;
+        //     camForward.y = 0;
+        //     Quaternion camRot = Quaternion.LookRotation(camForward);
+        //     move = camRot * move;
+        // }
 
         Vector3 targetVel = move * moveSpeed;
         Vector3 vel = rb.linearVelocity;
