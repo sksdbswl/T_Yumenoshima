@@ -17,6 +17,8 @@ namespace REIW
         INTERACTION,
         GATHERING,
         FISHING,
+        RUN,
+        WALK
     }
 
     public static class CharacterActionInputTypeExtensions
