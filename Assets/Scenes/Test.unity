@@ -506,18 +506,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 210264173043215458a021c860ad5e48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::REIW.CameraMovement
-  tpsCamera: {fileID: 220608122}
-  fpsCamera: {fileID: 237110266}
-  followTarget: {fileID: 3851483537924606286}
-  targetRigidbody: {fileID: 1345025854}
-  velocityProvider: {fileID: 0}
-  originDamping: {x: 0.2, y: 0.2, z: 0.2}
-  movingDamping: {x: 0.5, y: 0.5, z: 0.5}
-  dampingLerpSpeed: 10
-  stopSnapLerpSpeed: 18
-  movingSpeedThreshold: 0.15
-  maxConsideredSpeed: 6
-  toggleKey: 325
+  cmCamera: {fileID: 220608122}
+  trackingTarget: {fileID: 1806997414}
+  pitch: 40
+  yaw: 0
+  yawSnapStep: 45
+  yawLerpSpeed: 7
+  height: 6
+  distance: 10
+  distanceRange: {x: 6, y: 14}
+  zoomStep: 1.5
+  dampingX: 1
+  dampingY: 1.5
+  dampingZ: 1
+  yawLeftKey: 113
+  yawRightKey: 101
+  zoomInKey: 122
+  zoomOutKey: 120
 --- !u!1001 &635457145
 PrefabInstance:
   m_ObjectHideFlags: 0
