@@ -47,6 +47,14 @@ public class PlayerMovement : MonoBehaviour
         jumpAction.action.Disable();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            CameraSystem.Singleton.SetActiveCam();
+        }
+    }
+    
     private void FixedUpdate()
     {
         Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
