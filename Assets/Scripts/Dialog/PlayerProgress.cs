@@ -11,10 +11,10 @@ public static class PlayerProgress
         PlayerPrefs.Save();
     }
 
-    public static bool IsStorySeen(int key) =>
+    public static bool IsStorySeen(string key) =>
         PlayerPrefs.GetInt($"seen_{key}", 0) == 1;
 
-    public static void MarkStorySeen(int key)
+    public static void MarkStorySeen(string key)
     {
         PlayerPrefs.SetInt($"seen_{key}", 1);
         PlayerPrefs.Save();

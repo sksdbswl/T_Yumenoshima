@@ -15,13 +15,12 @@ public class DialogRepository : MonoBehaviour
     public class DialogData
     {
         public string Category { get; set; }
-        public int Id { get; set; }
-        public int Key { get; set; }
+        public int Id { get; set; }       // CSV의 Id 컬럼 (정수)
+        public string Key { get; set; }   // 스토리/대사 고유키
         public string Kor { get; set; }
-        public string NPC { get; set; }
+        public string NPC { get; set; }   // 이름 (문자열)
         public bool IsStory { get; set; }
         public int Stage { get; set; }
-        // 필요하면 public int Order { get; set; }
     }
 
     private List<DialogData> _all;
@@ -50,29 +49,32 @@ public class DialogRepository : MonoBehaviour
     }
 
     public bool HasStory(int npcId, int stage) =>
-        _all.Any(d => int.Parse(d.NPC) == npcId && d.IsStory && d.Stage == stage && !PlayerProgress.IsStorySeen(int.Parse(d.NPC)));
+        _all.Any(d => d.Id == npcId &&
+                      d.IsStory &&
+                      d.Stage == stage &&
+                      !PlayerProgress.IsStorySeen(d.Key)); // Key로 본 여부 체크
 
     public bool HasAmbient(int npcId) =>
-        _all.Any(d => int.Parse(d.NPC) == npcId && !d.IsStory);
+        _all.Any(d => d.Id == npcId && !d.IsStory);
 
     public DialogData PickNext(int npcId, int stage)
     {
         // 1) 현재 단계 스토리 중 아직 안 본 것
         var story = _all
-            // .OrderBy(d => d.Order)
-            .FirstOrDefault(d => int.Parse(d.NPC) == npcId && d.IsStory && d.Stage == stage && !PlayerProgress.IsStorySeen(int.Parse(d.NPC)));
+            .FirstOrDefault(d => d.Id == npcId && d.IsStory && d.Stage == stage && !PlayerProgress.IsStorySeen(d.Key));
         if (story != null) return story;
 
         // 2) 일상 랜덤
-        var ambientPool = _all.Where(d => int.Parse(d.NPC) == npcId && !d.IsStory).ToList();
+        var ambientPool = _all.Where(d => d.Id == npcId && !d.IsStory).ToList();
         if (ambientPool.Count == 0) return null;
         return ambientPool[Random.Range(0, ambientPool.Count)];
     }
 
     public bool IsStageCleared(int npcId, int stage)
     {
-        var stageStories = _all.Where(d => int.Parse(d.NPC) == npcId && d.IsStory && d.Stage == stage).ToList();
-        if (stageStories.Count == 0) return true;
-        return stageStories.All(d => PlayerProgress.IsStorySeen(int.Parse(d.NPC)));
+        var set = _all.Where(d => d.Id == npcId && d.IsStory && d.Stage == stage).ToList();
+        if (set.Count == 0) return true;
+        return set.All(d => PlayerProgress.IsStorySeen(d.Key)); // Key 기준
     }
+
 }

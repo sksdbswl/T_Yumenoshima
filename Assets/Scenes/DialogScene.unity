@@ -701,6 +701,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3230296690685413184, guid: df4963e23b325544db985cd139e21309, type: 3}
+      propertyPath: typer
+      value: 
+      objectReference: {fileID: 412445923}
     - target: {fileID: 3475936365782130447, guid: df4963e23b325544db985cd139e21309, type: 3}
       propertyPath: m_Name
       value: Player
@@ -745,7 +749,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 4897737618883491724, guid: df4963e23b325544db985cd139e21309, type: 3}
+      propertyPath: typer
+      value: 
+      objectReference: {fileID: 354568424}
+    - target: {fileID: 5490110093253497336, guid: df4963e23b325544db985cd139e21309, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8200024788581673984, guid: df4963e23b325544db985cd139e21309, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 4897737618883491724, guid: df4963e23b325544db985cd139e21309, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1228,6 +1245,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 653423506151751679, guid: 57ff1e42f08177247b3ceac370fb0be4, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5045971256373533630, guid: 57ff1e42f08177247b3ceac370fb0be4, type: 3}
       propertyPath: m_Name
       value: Shin

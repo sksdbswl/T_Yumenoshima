@@ -10,23 +10,36 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isTalking && Input.GetKeyDown(KeyCode.Space))
+        if (isTalking && Input.GetKeyDown(KeyCode.E))
         {
+            Debug.Log("대화 시작");
             currentNpc.TryTalk(currentNpc.npcSO,typer);
         }
     }
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<NpcInteraction>())
+        var npc = other.GetComponent<NpcInteraction>();
+        if (npc != null)
         {
-            var npc = other.GetComponent<NpcInteraction>();
-            Debug.Log(npc.npcSO.Name);
+            currentNpc = npc;                
+            Debug.Log(currentNpc.npcSO.Name);
 
             if (!isTalking)
             {
-                isTalking = true; 
+                Debug.Log("use Talking");
+                isTalking = true;
             }
+        }
+    }
+    
+    private void OnTriggerExit(Collider other)
+    {
+        var npc = other.GetComponent<NpcInteraction>();
+        if (npc != null && npc == currentNpc)
+        {
+            currentNpc = null;
+            isTalking = false;
         }
     }
 }
