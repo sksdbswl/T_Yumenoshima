@@ -152,6 +152,8 @@ MonoBehaviour:
   textComponent: {fileID: 1411432935}
   currentNpcId: "\uD0C0\uB204\uD0A4"
   currentStage: 1
+  secondsPerChar: 0.04
+  lineGap: 0.8
 --- !u!4 &354568425
 Transform:
   m_ObjectHideFlags: 0
@@ -353,8 +355,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0612d776dc0aa73439dec574f73c8026, type: 2}
+  m_sharedMaterial: {fileID: -4204307734464406673, guid: 0612d776dc0aa73439dec574f73c8026, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -602,8 +604,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0612d776dc0aa73439dec574f73c8026, type: 2}
+  m_sharedMaterial: {fileID: -4204307734464406673, guid: 0612d776dc0aa73439dec574f73c8026, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
