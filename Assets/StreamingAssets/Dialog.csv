@@ -1,6 +1,7 @@
-Category,Key,Kor,NPC,IsStory,Stage
-일상,greet_01,안녕! 오늘도 좋은 하루야.,타누키,false,0
-일상,greet_02,밖에 날씨가 정말 좋아!,타누키,false,0
-스토리,story_1_01,드디어 네가 왔구나…,타누키,true,1
-스토리,story_1_02,이제 본격적으로 준비를 시작하자.,타누키,true,1
-스토리,story_2_01,다음 단계로 넘어갈 시간이야.,타누키,true,2
+Category,Id,Key,Kor,NPC,IsStory,Stage
+일상,0,greet_01,안녕! 오늘도 좋은 하루야.,Shin,false,0
+일상,0,greet_02,밖에 날씨가 정말 좋아!,Shin,false,0
+스토리,0,story_1_01,드디어 네가 왔구나…,Shin,true,1
+스토리,0,story_1_02,이제 본격적으로 준비를 시작하자.,Shin,true,1
+스토리,0,story_2_01,다음 단계로 넘어갈 시간이야.,Shin,true,2
+일상,1,story_2_02,나구모라고해.,Nagumo,false,0
