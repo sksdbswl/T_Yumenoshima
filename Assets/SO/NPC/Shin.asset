@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c98d2d94c174a62b4d79243c9a268e3, type: 3}
   m_Name: Shin
   m_EditorClassIdentifier: Assembly-CSharp::Npc
-  Id: 1
+  Id: 0
   Name: Shin
   Role: 1
   Prefab: {fileID: 5045971256373533630, guid: 57ff1e42f08177247b3ceac370fb0be4, type: 3}

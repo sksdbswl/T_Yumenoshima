@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c98d2d94c174a62b4d79243c9a268e3, type: 3}
   m_Name: Nagumo
   m_EditorClassIdentifier: Assembly-CSharp::Npc
-  Id: 0
+  Id: 1
   Name: Nagumo
   Role: 0
   Prefab: {fileID: 2485838302621793980, guid: aa4a1910300cd4e4397e080c74797deb, type: 3}
