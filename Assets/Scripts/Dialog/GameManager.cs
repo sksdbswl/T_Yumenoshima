@@ -23,6 +23,7 @@ public class GameManager : SingletonBase<GameManager>
             if (npcData.Stage != stage)
                 continue;
 
+            
             var npcObj = AssetManager.Singleton.InstantiateNpcModel(npcData.Prefab);
             npcObj.transform.position = npcData.spawnPoint;
 

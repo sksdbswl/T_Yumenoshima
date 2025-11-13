@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-
+using Cysharp.Threading.Tasks;
 
 public class AssetManager : SingletonBase<AssetManager>
 {
@@ -27,6 +27,7 @@ public class AssetManager : SingletonBase<AssetManager>
     public GameObject InstantiateNpcModel(GameObject prefab)
     {
         // Addressables에서 직접 instantiate 가능
+     
         return Instantiate(prefab);
     }
     
@@ -67,6 +68,28 @@ public class AssetManager : SingletonBase<AssetManager>
 
         // SO든 Prefab이든 전부 Object.Instantiate로 복제
         return Object.Instantiate(original);
+    }
+    
+    
+    /// <summary>
+    /// 리소스 다운 로직
+    /// </summary>
+    /// <param name="stage"></param>
+    public async UniTask DownloadStageResourcesAsync(int stage)
+    {
+        string label = $"Npc";
+        Debug.Log($"[AssetManager] Download Stage Resources: {label}");
+
+        var handle = Addressables.DownloadDependenciesAsync(label);
+        await handle.Task; // 에러처리 필요하면 try/catch 추가
+
+        Debug.Log($"[AssetManager] Download Stage Resources Done: {label}");
+    }
+
+    public void UnloadStageResources(int stage)
+    {
+        string label = $"Stage_{stage}";
+        Addressables.ClearDependencyCacheAsync(label); 
     }
 }
 
