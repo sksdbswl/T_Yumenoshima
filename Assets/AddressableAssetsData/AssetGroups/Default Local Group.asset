@@ -16,14 +16,22 @@ MonoBehaviour:
   m_GUID: 1877706794bc2e5458ef3d1a10e5858b
   m_SerializeEntries:
   - m_GUID: 57ff1e42f08177247b3ceac370fb0be4
-    m_Address: Assets/Prefab/NPC/Shin.prefab
+    m_Address: Assets/Prefab/NPC/Shin
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Npc
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: aa4a1910300cd4e4397e080c74797deb
-    m_Address: Assets/Prefab/NPC/Nagumo.prefab
+    m_Address: Assets/GameData/NPC/NpcSO
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Npc
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e955520c7c8eb5940a636801a53c4308
+    m_Address: Assets/SoData/NPC/NpcSo
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Npc
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: bb85cb47c081ac14f9b4aa9a13c8d03e, type: 2}

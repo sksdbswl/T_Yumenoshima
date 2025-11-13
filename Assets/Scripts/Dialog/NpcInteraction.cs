@@ -3,9 +3,20 @@ using UnityEngine;
 
 public class NpcInteraction : MonoBehaviour
 {
-    public Npc npcSO;
+    public int id = 0;
+    public NpcSO npcSO;
 
-    public void TryTalk(Npc cfg, DialogTyper typer)
+    void Awake()
+    {
+        var data = AssetManager.Singleton.GetNpcDataSO(); 
+        if (!data.Items.TryGetValue(id, out npcSO))
+        {
+            Debug.LogError($"[NpcInteraction] NPC id {id} not found in NpcDataSO");
+            npcSO = data.Items[id];
+        }
+    }
+    
+    public void TryTalk(NpcSO cfg, DialogTyper typer)
     {
         var npcId = cfg.Id;
         var stage = PlayerProgress.GetStage(npcId);

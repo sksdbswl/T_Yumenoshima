@@ -17,3 +17,5 @@ MonoBehaviour:
   Role: 1
   Prefab: {fileID: 5045971256373533630, guid: 57ff1e42f08177247b3ceac370fb0be4, type: 3}
   Thumbnail: {fileID: 21300000, guid: 5b56d9fa0e8bd6e409ed188db38a692c, type: 3}
+  spawnPoint: {x: 3, y: 1, z: 0}
+  Stage: 0
