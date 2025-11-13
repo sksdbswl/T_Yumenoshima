@@ -15,6 +15,20 @@ public class Player : MonoBehaviour
             Debug.Log("대화 시작");
             currentNpc.TryTalk(currentNpc.npcSO,typer);
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            isTalking = false;
+            OnDialogClosed(currentNpc.npcSO);
+        }
+    }
+    
+    public void OnDialogClosed(NpcSO cfg)
+    {
+        int npcId = cfg.Id;
+        int stage = PlayerProgress.GetStage(npcId);
+
+        PlayerProgress.ResetOrder(npcId, stage);
     }
     
     private void OnTriggerEnter(Collider other)

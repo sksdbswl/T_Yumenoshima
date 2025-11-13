@@ -19,4 +19,20 @@ public static class PlayerProgress
         PlayerPrefs.SetInt($"seen_{key}", 1);
         PlayerPrefs.Save();
     }
+    
+    // 현재 진행 중인 Order
+    public static int GetOrder(int npcId, int stage) =>
+        PlayerPrefs.GetInt($"order_{npcId}_{stage}", 0);
+
+    public static void SetOrder(int npcId, int stage, int order)
+    {
+        PlayerPrefs.SetInt($"order_{npcId}_{stage}", order);
+        PlayerPrefs.Save();
+    }
+
+    public static void ResetOrder(int npcId, int stage)
+    {
+        PlayerPrefs.SetInt($"order_{npcId}_{stage}", 0);
+        PlayerPrefs.Save();
+    }
 }
