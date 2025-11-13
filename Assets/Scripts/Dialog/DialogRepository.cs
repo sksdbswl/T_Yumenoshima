@@ -15,13 +15,14 @@ public class DialogRepository : MonoBehaviour
     public class DialogData
     {
         public string Category { get; set; }
-        public int Id { get; set; }       // CSV의 Id 컬럼 (정수)
-        public string Key { get; set; }   // 스토리/대사 고유키
-        public string Kor { get; set; }
-        public string NPC { get; set; }   // 이름 (문자열)
-        public bool IsStory { get; set; }
-        public int Stage { get; set; }
-        public int Order { get; set; }
+        public int Id { get; set; }         // NPC Id
+        public string Key { get; set; }     // 외부용 라벨 (진행에는 안씀)
+        public string Kor { get; set; }     // 실제 대사
+        public string NPC { get; set; }     // NPC 이름
+        public bool IsStory { get; set; }   // true = 스토리, false = 일상
+        public int Stage { get; set; }      // 스테이지 번호
+        public int Order { get; set; }      // 해당 Stage 내 순서
+        public string Speaker { get; set; } // "NPC" or "Player"
     }
 
     private List<DialogData> _all;
@@ -29,7 +30,8 @@ public class DialogRepository : MonoBehaviour
     void Awake()
     {
         if (I != null) { Destroy(gameObject); return; }
-        I = this; DontDestroyOnLoad(gameObject);
+        I = this;
+        DontDestroyOnLoad(gameObject);
         _all = LoadAllDialogs();
     }
 
@@ -45,12 +47,14 @@ public class DialogRepository : MonoBehaviour
                 MissingFieldFound = null,
                 TrimOptions = TrimOptions.Trim,
             };
+
             string path = Path.Combine(Application.streamingAssetsPath, "Dialog.csv");
             Debug.Log($"[DialogRepository] Load from: {path}");
-        
+
             using var sr = new StreamReader(path);
             using var cr = new CsvReader(sr, cfg);
             var list = cr.GetRecords<DialogData>().ToList();
+
             Debug.Log($"[DialogRepository] Loaded {list.Count} lines.");
             return list;
         }
@@ -61,69 +65,47 @@ public class DialogRepository : MonoBehaviour
         }
     }
 
-
-    public bool HasStory(int npcId, int stage) =>
-        _all.Any(d => d.Id == npcId &&
-                      d.IsStory &&
-                      d.Stage == stage &&
-                      !PlayerProgress.IsStorySeen(d.Key)); // Key로 본 여부 체크
-
-    public bool HasAmbient(int npcId) =>
-        _all.Any(d => d.Id == npcId && !d.IsStory);
-
-    // public DialogData PickNext(int npcId, int stage)
-    // {
-    //     // 1) 현재 단계 스토리 중 아직 안 본 것
-    //     var story = _all
-    //         .FirstOrDefault(d => d.Id == npcId && d.IsStory && d.Stage == stage && !PlayerProgress.IsStorySeen(d.Key));
-    //     if (story != null) return story;
-    //
-    //     // 2) 일상 랜덤
-    //     var ambientPool = _all.Where(d => d.Id == npcId && !d.IsStory).ToList();
-    //     if (ambientPool.Count == 0) return null;
-    //     return ambientPool[Random.Range(0, ambientPool.Count)];
-    // }
-    
+    /// <summary>
+    /// 현재 NPC / Stage / Order 기준으로 다음 대사 한 줄 가져오기
+    /// </summary>
     public DialogData PickNext(int npcId, int stage)
     {
+        if (_all == null)
+        {
+            Debug.LogError("[DialogRepository] _all is null! Check CSV load.");
+            return null;
+        }
+
         int order = PlayerProgress.GetOrder(npcId, stage);
 
-        // 1) 현재 order 찾기
+        // 1) Story에서 (Id, Stage, Order) 딱 맞는 줄 찾기
         var story = _all.FirstOrDefault(d =>
             d.Id == npcId && d.IsStory && d.Stage == stage && d.Order == order);
 
         if (story != null)
             return story;
 
-        // 2) 스토리 끝 → 일상 랜덤
+        // 2) 해당 Stage 스토리가 더 이상 없으면 → 일상 랜덤
         var ambients = _all.Where(d => d.Id == npcId && !d.IsStory).ToList();
         if (ambients.Count == 0) return null;
 
         return ambients[Random.Range(0, ambients.Count)];
     }
 
+    /// <summary>
+    /// 이 Stage의 Story가 모두 끝났는지 확인
+    /// nextOrder: 방금 대사(line.Order)를 처리한 후 다음 Order값
+    /// </summary>
     public bool IsStageCleared(int npcId, int stage, int nextOrder)
     {
-        // 현재 스테이지의 모든 스토리 리스트
         var storySet = _all
             .Where(d => d.Id == npcId && d.IsStory && d.Stage == stage)
             .ToList();
 
         if (storySet.Count == 0)
-            return true; // 스토리가 없다면 자동 완료
+            return true; // 이 Stage에 스토리 자체가 없으면 자동 완료
 
-        // 마지막 스토리 Order (예: 0,1,2 중 2가 마지막)
         int maxOrder = storySet.Max(s => s.Order);
-
-        // nextOrder가 maxOrder보다 크면 → 스테이지 끝
-        return nextOrder > maxOrder;
+        return nextOrder > maxOrder; // 마지막 Order보다 크면 Stage 종료
     }
-    
-    // public bool IsStageCleared(int npcId, int stage)
-    // {
-    //     var set = _all.Where(d => d.Id == npcId && d.IsStory && d.Stage == stage).ToList();
-    //     if (set.Count == 0) return true;
-    //     return set.All(d => PlayerProgress.IsStorySeen(d.Key)); // Key 기준
-    // }
-
 }

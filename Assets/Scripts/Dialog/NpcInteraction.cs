@@ -1,70 +1,58 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class NpcInteraction : MonoBehaviour
 {
-    public int id = 0;
-    public NpcSO npcSO;
+    public int id = 0;   // NpcDataSO에서 사용되는 NPC Id
+    public NpcSO npcSO; 
 
     void Awake()
     {
-        var data = AssetManager.Singleton.GetNpcDataSO(); 
+        var data = AssetManager.Singleton.GetNpcDataSO();
         if (!data.Items.TryGetValue(id, out npcSO))
         {
             Debug.LogError($"[NpcInteraction] NPC id {id} not found in NpcDataSO");
-            npcSO = data.Items[id];
+            return;
         }
     }
-    
-    public void TryTalk(NpcSO cfg, DialogTyper typer)
+
+    /// <summary>
+    /// 플레이어가 이 NPC와 대화 시도할 때 호출
+    /// </summary>
+    public void TryTalk(DialogTyper typer)
     {
-        int npcId = cfg.Id;
+        if (npcSO == null)
+        {
+            Debug.LogError("[NpcInteraction] npcSO is null.");
+            return;
+        }
+
+        int npcId = npcSO.Id;
         int stage = PlayerProgress.GetStage(npcId);
 
         var line = DialogRepository.I.PickNext(npcId, stage);
         if (line == null) return;
+        
+        string speakerName = line.Speaker == "Player"
+            ? "Player"        
+            : npcSO.Name;     // NPC 이름 사용 (CSV의 NPC와 동일)
 
-        typer.PlayLine(cfg.Name, line.Kor);
+        // 대사 재생
+        typer.PlayLine(speakerName, line.Kor);
 
+        // 스토리 진행 로직
         if (line.IsStory)
         {
-            // 다음 순서로 진행
             int nextOrder = line.Order + 1;
+            // 아직 Stage 끝 아니면 Order만 증가
             PlayerProgress.SetOrder(npcId, stage, nextOrder);
 
-            // 마지막 스토리면 Stage++ 하고 Order 초기화
+            // Stage 끝났는지 체크
             if (DialogRepository.I.IsStageCleared(npcId, stage, nextOrder))
             {
+                // Stage+1로 넘어가고, 새 Stage의 Order를 0으로 초기화
                 PlayerProgress.SetStage(npcId, stage + 1);
                 PlayerProgress.ResetOrder(npcId, stage + 1);
             }
         }
     }
-
-    
-    // public void TryTalk(NpcSO cfg, DialogTyper typer)
-    // {
-    //     var npcId = cfg.Id;
-    //     var stage = PlayerProgress.GetStage(npcId);
-    //
-    //     // 있나 체크
-    //     if (!DialogRepository.I.HasStory(npcId, stage) &&
-    //         !DialogRepository.I.HasAmbient(npcId))
-    //         return;
-    //
-    //     // 하나 뽑기
-    //     var line = DialogRepository.I.PickNext(npcId, stage);
-    //     if (line == null) return;
-    //
-    //     // 재생
-    //     typer.PlayLine(cfg.Name, line.Kor);
-    //
-    //     // 스토리면 소진/승급
-    //     if (line.IsStory)
-    //     {
-    //         PlayerProgress.MarkStorySeen(line.Key);
-    //         if (DialogRepository.I.IsStageCleared(npcId, stage))
-    //             PlayerProgress.SetStage(npcId, stage + 1);
-    //     }
-    // }
 }
