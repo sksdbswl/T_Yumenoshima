@@ -1,19 +1,46 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.SceneManagement;
 
 public class GameManager : SingletonBase<GameManager>
 {
-    private int Stage = 0;
+    public int Stage = 0;
 
-    private void Awake()
+    public async UniTask<bool> CheckAndDownloadStageResourcesAsync(int stage)
     {
+        string label = "Npc";
+
+        long size = await Addressables.GetDownloadSizeAsync(label).Task;
+        Debug.Log($"[AssetManager] Required download size: {size} bytes");
+
+        if (size <= 0)
+        {
+            Debug.Log("[AssetManager] All resources already downloaded.");
+            return true;
+        }
+
+        var handle = Addressables.DownloadDependenciesAsync(label);
+        await handle.Task;
+
+        Debug.Log("[AssetManager] Resource download complete.");
+        return true;
+    }
+
+    /// 인게임 진입 전체 흐름 (다운로드 → 씬 로드 → NPC 스폰)
+    public async UniTask EnterIngameAsync()
+    {
+        // 1. 리소스 체크 & 다운로드
+        bool ok = await CheckAndDownloadStageResourcesAsync(Stage);
+        if (!ok) return;
+
+        // 2. 씬 로드
+        await SceneManager.LoadSceneAsync("DialogScene").ToUniTask();
+
+        // 3. 씬 로드 끝난 뒤 NPC 스폰
         SpawnNpcForStage(Stage);
     }
-    
-    
-    /// <summary>
-    /// 스테이지 별 npc 스폰
-    /// </summary>
-    /// <param name="stage"></param>
+
     public void SpawnNpcForStage(int stage)
     {
         var table = AssetManager.Singleton.GetNpcDataSO();
@@ -23,10 +50,8 @@ public class GameManager : SingletonBase<GameManager>
             if (npcData.Stage != stage)
                 continue;
 
-            
             var npcObj = AssetManager.Singleton.InstantiateNpcModel(npcData.Prefab);
             npcObj.transform.position = npcData.spawnPoint;
-
             npcObj.GetComponent<NpcInteraction>().npcSO = npcData;
         }
     }

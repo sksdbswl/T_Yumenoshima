@@ -77,6 +77,7 @@ public class AssetManager : SingletonBase<AssetManager>
     /// <param name="stage"></param>
     public async UniTask DownloadStageResourcesAsync(int stage)
     {
+        // 임시 npc만 리소스 다운
         string label = $"Npc";
         Debug.Log($"[AssetManager] Download Stage Resources: {label}");
 
