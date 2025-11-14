@@ -17,7 +17,18 @@ public class UIManager:SingletonBase<UIManager>
     public void OnPlacementReset()
     {
         PlacementSaveManager.Singleton.ClearAll();
-        PlacementSaveManager.Singleton.Save();
+        
+        var objects = FindObjectsOfType<PlaceableObject>();
+        foreach (var obj in objects)
+            Destroy(obj.gameObject);
+        
+        PlacementSystem placement = FindObjectOfType<PlacementSystem>();
+        placement.RebuildFromSave(PlacementSaveManager.Singleton.PlacedObjects);
+    }
+    
+    public void OnPlacementReload()
+    {
+        PlacementSaveManager.Singleton.Load();
     }
     
     public async void OnClickGameStart()

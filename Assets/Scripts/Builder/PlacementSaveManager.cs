@@ -12,7 +12,8 @@ public class PlacementSaveManager : SingletonBase<PlacementSaveManager>
 {
     
     private List<PlacedObjectData> _placedObjects = new List<PlacedObjectData>();
-
+    public List<PlacedObjectData> PlacedObjects => _placedObjects;
+    
     private string SavePath =>
         Path.Combine(Application.persistentDataPath, "placement.json");
 
