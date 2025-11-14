@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 326d8bce7f3eb974c897678ba127e754, type: 3}
   m_Name: Road
   m_EditorClassIdentifier: Assembly-CSharp::PlaceableItem
+  BuilderID: 3
   DisplayName: Road
   Role: 0
   Prefab: {fileID: 4662052247883202228, guid: 2027b564d5cb0734e82f052262f28863, type: 3}
-  UseHalfOffset: 0
   Thumbnail: {fileID: 21300000, guid: ad4148593b05d0f47980774815c325fe, type: 3}
-  FootprintX: 1
-  FootprintZ: 1
+  IsStack: 0

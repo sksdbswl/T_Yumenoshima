@@ -3,6 +3,25 @@ using UnityEngine;
 public static class PlayerProgress
 {
     // ─────────────────────
+    // Builder 관리 (Object)
+    // ─────────────────────
+    private const string BUILDER_ID_KEY = "builder_total_cnt";
+
+    public static int GetBuilder()
+    {
+        return PlayerPrefs.GetInt(BUILDER_ID_KEY, 0);
+    }
+
+    public static int GenerateBuilderId()
+    {
+        int current = PlayerPrefs.GetInt(BUILDER_ID_KEY, 0);
+        int next = current + 1;
+        PlayerPrefs.SetInt(BUILDER_ID_KEY, next);
+        PlayerPrefs.Save();
+        return next;
+    }
+    
+    // ─────────────────────
     // Stage 관리 (NPC별)
     // ─────────────────────
     public static int GetStage(int npcId) =>

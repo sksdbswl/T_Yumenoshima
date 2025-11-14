@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlacementSystem : MonoBehaviour
@@ -46,7 +47,7 @@ public class PlacementSystem : MonoBehaviour
             }
 
             if (canPlace && Input.GetMouseButtonDown(0))
-                Place(pos);
+                Place(pos, true);
         }
         else if (_previewObj)
         {
@@ -213,13 +214,13 @@ public class PlacementSystem : MonoBehaviour
     }
 
     // ---------------- Place ----------------
-    private void Place(Vector3 pos)
+    private void Place(Vector3 pos, bool force = false)
     {
         if (_currentItem == null || _currentItem.Prefab == null) return;
 
         GameObject go = Instantiate(_currentItem.Prefab, pos, Quaternion.identity);
         var obj = go.AddComponent<PlaceableObject>();
-        obj.Initialize(_currentItem.Role, _currentItem);
+        obj.Initialize(_currentItem.Role, _currentItem, pos, force);
     }
 
     // 디버그: OverlapBox 시각화
@@ -231,5 +232,31 @@ public class PlacementSystem : MonoBehaviour
         Gizmos.matrix = Matrix4x4.identity;
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(cellCenter, half * 2f);
+    }
+    
+    public void RebuildFromSave(List<PlacedObjectData> datas)
+    {
+        // 기존 배치 오브젝트 싹 지우고 시작하려면 여기서 정리
+        // ex) 현재 필드에 있는 PlaceableObject.FindObjectsOfType<PlaceableObject>() 제거
+
+        Debug.Log($"저장된 오브젝트 수량 ::{datas.Count}");
+        
+        foreach (var data in datas)
+        {
+            // role로 PlaceableItem 찾기
+            var item = catalog.GetByRole(data.role);
+            if (item == null || item.Prefab == null)
+                continue;
+
+            // gridX, gridZ는 이미 월드 좌표로 저장돼 있다고 가정
+            Vector3 worldPos = new Vector3(data.gridX, 0, data.gridZ);
+            //Quaternion rot = Quaternion.Euler(0f, data.rotationY, 0f);
+
+            _currentItem = item;
+                
+            Place(worldPos);
+        }
+
+        _currentItem = null;
     }
 }

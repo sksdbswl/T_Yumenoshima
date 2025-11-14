@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 326d8bce7f3eb974c897678ba127e754, type: 3}
   m_Name: Building
   m_EditorClassIdentifier: Assembly-CSharp::PlaceableItem
+  BuilderID: 1
   DisplayName: Building
   Role: 3
   Prefab: {fileID: 2183983995791420318, guid: e51ccb2ac9862e34887da36163810553, type: 3}

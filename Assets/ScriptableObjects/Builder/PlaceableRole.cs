@@ -12,6 +12,7 @@ public enum PlaceableRole { Road, Tile, Deco, Building }
 [CreateAssetMenu(menuName = "Builder/Placeable", fileName = "PlaceableItem")]
 public class PlaceableItem : ScriptableObject
 {
+    public int BuilderID;
     public string DisplayName;
     public PlaceableRole Role;
     public GameObject Prefab;
