@@ -40,8 +40,11 @@ public class MiniMap2D : MonoBehaviour
         Vector2 playerMapPos = WorldToMiniMapPos(player.position);
 
         // 플레이어를 가운데 두기 위해 배경/아이콘 전체를 반대로 이동
+        // Vector2.Lerp(bgRect.anchoredPosition, -playerMapPos, Time.deltaTime * 2f);
+        // Vector2.Lerp( iconRootRect.anchoredPosition, -playerMapPos, Time.deltaTime * 2f);
+        
         bgRect.anchoredPosition = -playerMapPos;
-        iconRootRect.anchoredPosition = -playerMapPos;
+        iconRootRect.anchoredPosition= -playerMapPos;
         // PlayerIcon 은 anchoredPosition = (0,0) 그대로
     }
 
