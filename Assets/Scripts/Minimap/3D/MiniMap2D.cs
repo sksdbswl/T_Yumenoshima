@@ -1,65 +1,67 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class MiniMap2D : MonoBehaviour
 {
-    [Header("뷰포트 / 배경 / 아이콘 부모")]
-    [SerializeField] private RectTransform viewportRect;   // MiniMapViewport
-    [SerializeField] private RectTransform bgRect;         // MiniMapBg
-    [SerializeField] private RectTransform iconRootRect;   // IconRoot
+    public RectTransform viewportRect;
+    public RectTransform bgRect;
+    public RectTransform iconRootRect;
 
-    [Header("플레이어")]
-    [SerializeField] private Transform player;             // 플레이어 Transform
-    [SerializeField] private RectTransform playerIconRect; // PlayerIcon (중앙 고정)
+    public Transform player;
+    public RectTransform playerIconRect;
 
-    [Header("월드 범위 (미니맵이 커버하는 실제 좌표)")]
-    // 예: X:-50~50, Z:-50~50 이면
-    public float worldMinX = -50f;
-    public float worldMaxX =  50f;
-    public float worldMinZ = -50f;
-    public float worldMaxZ =  50f;
+    public Camera minimapCamera; // 구울 때 사용한 카메라
 
-    private Vector2 bgSize;
+    float worldMinX, worldMaxX;
+    float worldMinZ, worldMaxZ;
 
-    private void Awake()
+    Vector2 bgSize;
+    Vector2 viewportSize;
+
+    void Awake()
     {
-        if (bgRect != null)
-            bgSize = bgRect.sizeDelta;
+        bgSize = bgRect.sizeDelta;
+        viewportSize = viewportRect.sizeDelta;
 
-        // 플레이어 아이콘은 뷰포트 중앙에 고정
-        if (playerIconRect != null)
-            playerIconRect.anchoredPosition = Vector2.zero;
+        playerIconRect.anchoredPosition = Vector2.zero;
+
+        ComputeWorldBounds();
     }
 
-    private void LateUpdate()
+    void ComputeWorldBounds()
     {
-        if (player == null || bgRect == null || iconRootRect == null)
-            return;
+        float size = minimapCamera.orthographicSize;
+        float aspect = minimapCamera.aspect;
 
-        // 플레이어 월드 좌표 → 미니맵 좌표
-        Vector2 playerMapPos = WorldToMiniMapPos(player.position);
+        Vector3 c = minimapCamera.transform.position;
 
-        // 플레이어를 가운데 두기 위해 배경/아이콘 전체를 반대로 이동
-        // Vector2.Lerp(bgRect.anchoredPosition, -playerMapPos, Time.deltaTime * 2f);
-        // Vector2.Lerp( iconRootRect.anchoredPosition, -playerMapPos, Time.deltaTime * 2f);
-        
-        bgRect.anchoredPosition = -playerMapPos;
-        iconRootRect.anchoredPosition= -playerMapPos;
-        // PlayerIcon 은 anchoredPosition = (0,0) 그대로
+        // 카메라가 찍은 실제 월드 범위
+        worldMinX = c.x - size * aspect;
+        worldMaxX = c.x + size * aspect;
+
+        worldMinZ = c.z - size;
+        worldMaxZ = c.z + size;
+
+        Debug.Log($"World Bounds: X({worldMinX},{worldMaxX}), Z({worldMinZ},{worldMaxZ})");
     }
 
-    /// <summary>
-    /// 월드(XZ) 좌표를 미니맵 내 로컬 좌표로 변환
-    /// </summary>
-    public Vector2 WorldToMiniMapPos(Vector3 worldPos)
+    void LateUpdate()
     {
-        // 0~1 비율로 변환
-        float xNorm = Mathf.InverseLerp(worldMinX, worldMaxX, worldPos.x); // 0~1
-        float zNorm = Mathf.InverseLerp(worldMinZ, worldMaxZ, worldPos.z); // 0~1
+        Vector2 p = WorldToMiniMapPos(player.position);
 
-        // -0.5 ~ 0.5 로 이동 후, 배경 사이즈 곱
-        float x = (xNorm - 0.5f) * bgSize.x;
-        float y = (zNorm - 0.5f) * bgSize.y;
+        // 플레이어 중앙 고정 → 배경 이동
+        bgRect.anchoredPosition = -p;
+
+        if (iconRootRect != null)
+            iconRootRect.anchoredPosition = -p;
+    }
+
+    Vector2 WorldToMiniMapPos(Vector3 worldPos)
+    {
+        float xNormalized = Mathf.InverseLerp(worldMinX, worldMaxX, worldPos.x);
+        float zNormalized = Mathf.InverseLerp(worldMinZ, worldMaxZ, worldPos.z);
+
+        float x = (xNormalized - 0.5f) * bgSize.x;
+        float y = (zNormalized - 0.5f) * bgSize.y;
 
         return new Vector2(x, y);
     }
