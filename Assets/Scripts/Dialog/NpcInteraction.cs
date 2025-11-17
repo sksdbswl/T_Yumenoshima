@@ -2,18 +2,18 @@ using UnityEngine;
 
 public class NpcInteraction : MonoBehaviour
 {
-    public int id = 0;   // NpcDataSO에서 사용되는 NPC Id
+    public int id;   // NpcDataSO에서 사용되는 NPC Id
     public NpcSO npcSO; 
 
-    void Awake()
-    {
-        var data = AssetManager.Singleton.GetNpcDataSO();
-        if (!data.Items.TryGetValue(id, out npcSO))
-        {
-            Debug.LogError($"[NpcInteraction] NPC id {id} not found in NpcDataSO");
-            return;
-        }
-    }
+    // void Awake()
+    // {
+    //     var data = AssetManager.Singleton.GetNpcDataSO();
+    //     if (!data.Items.TryGetValue(id, out npcSO))
+    //     {
+    //         Debug.LogError($"[NpcInteraction] NPC id {id} not found in NpcDataSO");
+    //         return;
+    //     }
+    // }
 
     /// <summary>
     /// 플레이어가 이 NPC와 대화 시도할 때 호출

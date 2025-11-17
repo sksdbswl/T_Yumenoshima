@@ -2,20 +2,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Npc/NpcData", fileName = "NpcData")]
-public class NpcDataSO : ScriptableObject, ISerializationCallbackReceiver
+public class NpcDataSO : ScriptableObject
 {
-        public List<NpcSO> Values = new();          // 인스펙터에서 채움
-        public Dictionary<int, NpcSO> Items = new();// Id로 빠르게 조회용
+        public List<NpcSO> Values = new();
+        public Dictionary<int, NpcSO> Items = new();
 
-        public void OnBeforeSerialize() { }
-
-        public void OnAfterDeserialize()
+        // Addressables 로드 직후 이 함수를 반드시 호출해야 한다.
+        public void BuildDictionary()
         {
                 Items.Clear();
                 foreach (var npc in Values)
                 {
                         if (npc == null) continue;
-                        Items.TryAdd(npc.Id, npc);
+                        Items[npc.Id] = npc;
                 }
         }
 }

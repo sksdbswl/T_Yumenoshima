@@ -22,7 +22,7 @@ MonoBehaviour:
     - Npc
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: aa4a1910300cd4e4397e080c74797deb
-    m_Address: Assets/GameData/NPC/NpcSO
+    m_Address: Assets/Prefab/NPC/Nagumo
     m_ReadOnly: 0
     m_SerializedLabels:
     - Npc

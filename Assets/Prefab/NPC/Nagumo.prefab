@@ -126,5 +126,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ef3cd31217fb3344b2adc62a5098f0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcInteraction
-  id: 0
-  npcSO: {fileID: 11400000, guid: 8487b060d586f2f47b9819fcf80178f2, type: 2}
+  id: 1
+  npcSO: {fileID: 0}

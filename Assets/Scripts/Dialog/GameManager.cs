@@ -44,13 +44,13 @@ public class GameManager : SingletonBase<GameManager>
     public void SpawnNpcForStage(int stage)
     {
         var table = AssetManager.Singleton.GetNpcDataSO();
-
+        
         foreach (var npcData in table.Items.Values)
         {
             if (npcData.Stage != stage)
                 continue;
 
-            var npcObj = AssetManager.Singleton.InstantiateNpcModel(npcData.Prefab);
+            var npcObj = AssetManager.Singleton.InstantiateNpcModel(npcData.Name);
             npcObj.transform.position = npcData.spawnPoint;
             npcObj.GetComponent<NpcInteraction>().npcSO = npcData;
         }
@@ -63,21 +63,20 @@ public class GameManager : SingletonBase<GameManager>
     public void SpawnNpc(int id)
     {
         var table = AssetManager.Singleton.GetNpcDataSO();
-
+    
         if (!table.Items.TryGetValue(id, out var npcSO))
         {
             Debug.LogError($"NPC ID {id} not found");
             return;
         }
-
+    
         if (Stage != npcSO.Stage)
             return;
-
+    
         var npcObj = AssetManager.Singleton.InstantiateNpcModel(npcSO.Prefab);
-
+    
         npcObj.transform.position = npcSO.spawnPoint;
-
+    
         npcObj.GetComponent<NpcInteraction>().npcSO = npcSO;
     }
-
 }

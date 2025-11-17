@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 
 public class AssetManager : SingletonBase<AssetManager>
 {
+    private NpcDataSO _cacheNpcData;
     public NpcSO GetNpcSO()
     {
         LoadDataScript<NpcSO>(AssetConstant.AddressNpcData, out var result);
@@ -12,10 +13,19 @@ public class AssetManager : SingletonBase<AssetManager>
     
     public NpcDataSO GetNpcDataSO()
     {
-        LoadDataScript<NpcDataSO>(AssetConstant.AddressNpcData, out var result);
-        return result;
+        if (_cacheNpcData == null)
+        {
+            _cacheNpcData = Addressables.LoadAssetAsync<NpcDataSO>(AssetConstant.AddressNpcData).WaitForCompletion();
+            _cacheNpcData.BuildDictionary();  
+        }
+        return _cacheNpcData;
     }
-
+    
+    // public NpcDataSO GetNpcDataSO()
+    // {
+    //     LoadDataScript<NpcDataSO>(AssetConstant.AddressNpcData, out var result);
+    //     return result;
+    // }
 
     public GameObject InstantiateNpcModel(string prefabName)
     {
