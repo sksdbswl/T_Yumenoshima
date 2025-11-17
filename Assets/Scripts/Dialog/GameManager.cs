@@ -35,7 +35,7 @@ public class GameManager : SingletonBase<GameManager>
         if (!ok) return;
 
         // 2. 씬 로드
-        await SceneManager.LoadSceneAsync("DialogScene").ToUniTask();
+        //await SceneManager.LoadSceneAsync("DialogScene").ToUniTask();
 
         // 3. 씬 로드 끝난 뒤 NPC 스폰
         SpawnNpcForStage(Stage);

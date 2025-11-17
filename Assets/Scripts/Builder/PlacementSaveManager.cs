@@ -10,7 +10,6 @@ public class PlacementSaveData
 
 public class PlacementSaveManager : SingletonBase<PlacementSaveManager>
 {
-    
     private List<PlacedObjectData> _placedObjects = new List<PlacedObjectData>();
     public List<PlacedObjectData> PlacedObjects => _placedObjects;
     
@@ -61,5 +60,13 @@ public class PlacementSaveManager : SingletonBase<PlacementSaveManager>
         {
             placement.RebuildFromSave(_placedObjects);
         }
+
+        // 임시로 npc 바로 스폰 적용, 추후 제거 필요
+        OnGameStart();
+    }
+    
+    public async void OnGameStart()
+    {
+        await GameManager.Singleton.EnterIngameAsync();
     }
 }
