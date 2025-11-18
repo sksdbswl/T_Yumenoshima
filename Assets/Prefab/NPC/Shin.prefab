@@ -13,7 +13,9 @@ GameObject:
   - component: {fileID: 4690896677299479426}
   - component: {fileID: 653423506151751679}
   - component: {fileID: 4678856965534007708}
+  - component: {fileID: -4088909943968582322}
   - component: {fileID: 485477637640873001}
+  - component: {fileID: -7746451919893173681}
   m_Layer: 0
   m_Name: Shin
   m_TagString: Untagged
@@ -137,6 +139,19 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-4088909943968582322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5045971256373533630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab340a28598542d2ae83baa8ed8cafc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Npc
+  Agent: {fileID: 0}
 --- !u!114 &485477637640873001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,5 +165,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcMovement
   npcSO: {fileID: 0}
-  agent: {fileID: 0}
-  homeHouseId: 0
+--- !u!114 &-7746451919893173681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5045971256373533630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64954e52621e4164900d6efa370c663a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NpcAnimationStateMachine
+  animator: {fileID: 0}
+  walkSpeedThreshold: 0.1
+  runSpeedThreshold: 2.5

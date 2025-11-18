@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.AI;
 
 public enum NpcRoutineState
 {
@@ -10,8 +9,8 @@ public enum NpcRoutineState
 
 public class NpcMovement : NpcInteraction
 {
-    public NavMeshAgent agent;
-    private NpcSO Npc => npcSO;
+    private Npc Npc;
+    private NpcSO NpcData => npcSO;
     public int HouseId => npcSO.BuilderId;
 
     private NpcRoutineState _routineState;
@@ -19,11 +18,10 @@ public class NpcMovement : NpcInteraction
 
     private void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
-        
+        Npc = GetComponent<Npc>();
         //TODO:: 시간 체크해서 SetRoutineState()
     }
-
+    
     private void Start()
     {
         GoHome();
@@ -71,26 +69,26 @@ public class NpcMovement : NpcInteraction
     public void GoTo(Transform target, System.Action onArrived)
     {
         _onArrived = onArrived;
-        agent.isStopped = false;
-        agent.SetDestination(target.position);
+        Npc.Agent.isStopped = false;
+        Npc.Agent.SetDestination(target.position);
         // Update에서 목적지 도달 체크 → 도착하면 _onArrived 호출
     }
 
     public void Pause()
     {
-        agent.isStopped = true;
+        Npc.Agent.isStopped = true;
     }
 
     public void Resume()
     {
-        agent.isStopped = false;
+        Npc.Agent.isStopped = false;
     }
 
     private void Update()
     {
-        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+        if (!Npc.Agent.pathPending && Npc.Agent.remainingDistance <= Npc.Agent.stoppingDistance)
         {
-            if (!_agentHasArrived) // 적당히 플래그 체크
+            if (!_agentHasArrived) 
             {
                 _agentHasArrived = true;
                 _onArrived?.Invoke();

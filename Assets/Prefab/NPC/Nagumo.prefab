@@ -13,7 +13,9 @@ GameObject:
   - component: {fileID: 3482620377437545877}
   - component: {fileID: 7989998483251874821}
   - component: {fileID: -7712094483847441101}
+  - component: {fileID: 2339670037743712719}
   - component: {fileID: 2373386199275914767}
+  - component: {fileID: 8618727520670704734}
   m_Layer: 0
   m_Name: Nagumo
   m_TagString: Untagged
@@ -137,6 +139,19 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &2339670037743712719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2485838302621793980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab340a28598542d2ae83baa8ed8cafc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Npc
+  Agent: {fileID: 0}
 --- !u!114 &2373386199275914767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,5 +165,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcMovement
   npcSO: {fileID: 0}
-  agent: {fileID: 0}
-  homeHouseId: 0
+--- !u!114 &8618727520670704734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2485838302621793980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64954e52621e4164900d6efa370c663a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NpcAnimationStateMachine
+  animator: {fileID: 0}
+  walkSpeedThreshold: 0.1
+  runSpeedThreshold: 2.5
