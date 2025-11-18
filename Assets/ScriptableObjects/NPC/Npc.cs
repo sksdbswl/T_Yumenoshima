@@ -16,10 +16,10 @@ public class Npc : MonoBehaviour
         Agent = GetComponent<NavMeshAgent>();
     }
     
-    
     private void OnEnable()
     {
         GameManager.Singleton.OnRoutineChanged += HandleRoutineChange;
+        HandleRoutineChange(GameManager.Singleton.CurrentState);
     }
     
     private void OnDisable()
@@ -33,7 +33,7 @@ public class Npc : MonoBehaviour
         {
             case RoutineState.Morning:
                 Debug.Log("아침 입니다. 일어나세요");
-                //Movement.GoToWorkOrWander();
+                Movement.StartWanderLoop();
                 //Anim.IsWorking = false;
                 break;
 
@@ -46,7 +46,7 @@ public class Npc : MonoBehaviour
 
             case RoutineState.Night:
                 Debug.Log("저녁 입니다. 귀가하세요");
-
+                Movement.StopWanderLoop();
                 Movement.GoHome();
                 //Anim.IsWorking = false;
                 break;

@@ -106,7 +106,7 @@ public class GameManager : SingletonBase<GameManager>
         while (true)
         {
             SetState(RoutineState.Morning);
-            yield return new WaitForSeconds(10f); // 300f = 5분
+            yield return new WaitForSeconds(300f); // 300f = 5분
 
             SetState(RoutineState.Noon);
             yield return new WaitForSeconds(10f);

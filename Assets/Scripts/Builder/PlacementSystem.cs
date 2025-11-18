@@ -221,7 +221,7 @@ public class PlacementSystem : MonoBehaviour
         GameObject go = Instantiate(_currentItem.Prefab, pos, Quaternion.identity);
         var obj = go.AddComponent<PlaceableObject>();
         
-        Debug.Log($"Placed {_currentItem.DisplayName} at {_currentItem.BuilderId}");
+        //Debug.Log($"Placed {_currentItem.DisplayName} at {_currentItem.BuilderId}");
         
         obj.Initialize(_currentItem.Role, _currentItem, pos, save);
     }
@@ -243,11 +243,11 @@ public class PlacementSystem : MonoBehaviour
         // 기존 배치 오브젝트 싹 지우고 시작하려면 여기서 정리
         // ex) 현재 필드에 있는 PlaceableObject.FindObjectsOfType<PlaceableObject>() 제거
 
-        Debug.Log($"저장된 오브젝트 수량 ::{datas.Count}");
+        //Debug.Log($"저장된 오브젝트 수량 ::{datas.Count}");
         
         foreach (var data in datas)
         {
-            Debug.Log($"data.id:: {data.id}");
+            //Debug.Log($"data.id:: {data.id}");
             // role로 PlaceableItem 찾기
             var item = catalog.GetByBuilderId(data.id);
             if (item == null || item.Prefab == null)
