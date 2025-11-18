@@ -1,8 +1,6 @@
 using UnityEngine;
 
-namespace REIW
-{
-    public class LogUtil
+public class LogUtil
     {
         public static bool IsDebugBuild => UnityEngine.Debug.isDebugBuild;
 
@@ -66,4 +64,3 @@ namespace REIW
             if (!condition) throw new System.Exception(message);
         }
     }
-}
