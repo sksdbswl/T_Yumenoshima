@@ -31,7 +31,7 @@ public class PlacementSystem : MonoBehaviour
     void Update()
     {
         // 숫자 1~5 단축키로 카탈로그 선택
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 6; i++)
             if (Input.GetKeyDown(KeyCode.Alpha1 + i))
                 SelectCatalogIndex(i);
 
@@ -214,7 +214,7 @@ public class PlacementSystem : MonoBehaviour
     }
 
     // ---------------- Place ----------------
-    private void Place(Vector3 pos, bool force = false)
+    private void Place(Vector3 pos, bool save = false)
     {
         if (_currentItem == null || _currentItem.Prefab == null) return;
 
@@ -223,9 +223,10 @@ public class PlacementSystem : MonoBehaviour
         
         Debug.Log($"Placed {_currentItem.DisplayName} at {_currentItem.BuilderId}");
         
-        obj.Initialize(_currentItem.Role, _currentItem, pos, force);
+        obj.Initialize(_currentItem.Role, _currentItem, pos, save);
     }
-
+    
+    
     // 디버그: OverlapBox 시각화
     private void OnDrawGizmosSelected()
     {
@@ -254,10 +255,9 @@ public class PlacementSystem : MonoBehaviour
 
             // gridX, gridZ는 이미 월드 좌표로 저장돼 있다고 가정
             Vector3 worldPos = new Vector3(data.gridX, 0, data.gridZ);
-            //Quaternion rot = Quaternion.Euler(0f, data.rotationY, 0f);
-
+            Quaternion rot = Quaternion.Euler(0f, data.rotationY, 0f);
+            
             _currentItem = item;
-                
             Place(worldPos);
         }
 

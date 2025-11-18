@@ -6,9 +6,9 @@ public class NpcController : NpcInteraction
 {
     public int NpcId => npcSO.BuilderId;
     public JobType JobType => npcSO.Job;
-    public PlaceableObject Home => npcSO.BuilderId >= 0 ? PlaceableRegistry.Instance.GetById(npcSO.BuilderId) : null;
     private NavMeshAgent _agent;
     
+    //public PlaceableObject Home => npcSO.;
     //private INpcJobBehaviour _jobBehaviour;
 
     private void Awake()
@@ -52,8 +52,8 @@ public class NpcController : NpcInteraction
         return false;
     }
 
-    public Vector3 GetHomePosition()
-    {
-        return Home != null ? Home.transform.position : transform.position;
-    }
+    // public Vector3 GetHomePosition()
+    // {
+    //     return Home != null ? Home.transform.position : transform.position;
+    // }
 }
