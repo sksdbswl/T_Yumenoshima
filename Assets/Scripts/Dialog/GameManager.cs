@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
 
 public enum RoutineState
@@ -20,26 +23,81 @@ public class GameManager : SingletonBase<GameManager>
     {
         //StartCoroutine(DayRoutineCoroutine());
     }
-    
-    public async UniTask<bool> CheckAndDownloadStageResourcesAsync(int stage)
-    {
-        string label = "Npc";
 
-        long size = await Addressables.GetDownloadSizeAsync(label).Task;
-        Debug.Log($"[AssetManager] Required download size: {size} bytes");
+    public async UniTask<bool> CheckAndDownloadStageResourcesAsync(
+        int stage,
+        Action<float> onProgress = null // 0 ~ 1
+    )
+    {
+        // 0스테이지에서 필요한 라벨들
+        // 나중엔 stage에 따라 리스트 구성 다르게 하면 됨
+        var labels = new List<object>
+        {
+            "Npc",
+            "Builder"
+        };
+
+        // 1) 두 라벨 전체의 다운로드 필요 용량 체크
+        var sizeHandle = Addressables.GetDownloadSizeAsync(labels);
+        long size = await sizeHandle.Task;
+        Addressables.Release(sizeHandle);
+
+        Debug.Log($"[AssetManager] Required download size (Npc + Builder): {size} bytes");
 
         if (size <= 0)
         {
             Debug.Log("[AssetManager] All resources already downloaded.");
+            onProgress?.Invoke(1f); // 혹시 로딩바 쓰고 있으면 바로 100%
             return true;
         }
 
-        var handle = Addressables.DownloadDependenciesAsync(label);
-        await handle.Task;
+        // 2) 두 라벨의 의존성(번들)을 한 번에 다운로드
+        var downloadHandle = Addressables.DownloadDependenciesAsync(labels);
 
-        Debug.Log("[AssetManager] Resource download complete.");
-        return true;
+        // 3) 로딩바 업데이트 루프
+        while (!downloadHandle.IsDone)
+        {
+            float progress = downloadHandle.PercentComplete; // 0 ~ 1
+            onProgress?.Invoke(progress);
+            await UniTask.Yield(); // 다음 프레임까지 대기
+        }
+
+        // 다운로드 결과 확인 (보통 성공이면 Status == Succeeded)
+        if (downloadHandle.Status == AsyncOperationStatus.Succeeded)
+        {
+            Debug.Log("[AssetManager] Resource download complete. (Npc + Builder)");
+            onProgress?.Invoke(1f);
+            Addressables.Release(downloadHandle);
+            return true;
+        }
+        else
+        {
+            Debug.LogError("[AssetManager] Resource download failed.");
+            Addressables.Release(downloadHandle);
+            return false;
+        }
     }
+    
+    // public async UniTask<bool> CheckAndDownloadStageResourcesAsync(int stage)
+    // {
+    //     string npc = "Npc";
+    //     string builder = "Builder";
+    //
+    //     long size = await Addressables.GetDownloadSizeAsync(npc).Task;
+    //     Debug.Log($"[AssetManager] Required download size: {size} bytes");
+    //
+    //     if (size <= 0)
+    //     {
+    //         Debug.Log("[AssetManager] All resources already downloaded.");
+    //         return true;
+    //     }
+    //
+    //     var handle = Addressables.DownloadDependenciesAsync(npc);
+    //     await handle.Task;
+    //
+    //     Debug.Log("[AssetManager] Resource download complete.");
+    //     return true;
+    // }
 
     /// 인게임 진입 전체 흐름 (다운로드 → 씬 로드 → NPC 스폰)
     public async UniTask EnterIngameAsync()
