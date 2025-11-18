@@ -1,19 +1,12 @@
 using UnityEngine;
 
-public enum NpcRoutineState
-{
-    Morning,
-    Noon,
-    Night,
-}
-
 public class NpcMovement : NpcInteraction
 {
     private Npc Npc;
     private NpcSO NpcData => npcSO;
     public int HouseId => npcSO.BuilderId;
 
-    private NpcRoutineState _routineState;
+    private RoutineState _routineState;
     private System.Action _onArrived;
 
     private void Awake()
@@ -27,7 +20,7 @@ public class NpcMovement : NpcInteraction
         GoHome();
     }
     
-    public void SetRoutineState(NpcRoutineState state)
+    public void SetRoutineState(RoutineState state)
     {
         _routineState = state;
     }

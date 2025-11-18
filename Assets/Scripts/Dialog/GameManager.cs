@@ -3,6 +3,13 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 
+public enum RoutineState
+{
+    Morning,
+    Noon,
+    Night,
+}
+
 public class GameManager : SingletonBase<GameManager>
 {
     public int Stage = 0;
