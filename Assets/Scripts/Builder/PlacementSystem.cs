@@ -220,6 +220,9 @@ public class PlacementSystem : MonoBehaviour
 
         GameObject go = Instantiate(_currentItem.Prefab, pos, Quaternion.identity);
         var obj = go.AddComponent<PlaceableObject>();
+        
+        Debug.Log($"Placed {_currentItem.DisplayName} at {_currentItem.BuilderId}");
+        
         obj.Initialize(_currentItem.Role, _currentItem, pos, force);
     }
 
@@ -243,6 +246,7 @@ public class PlacementSystem : MonoBehaviour
         
         foreach (var data in datas)
         {
+            Debug.Log($"data.id:: {data.id}");
             // role로 PlaceableItem 찾기
             var item = catalog.GetByBuilderId(data.id);
             if (item == null || item.Prefab == null)

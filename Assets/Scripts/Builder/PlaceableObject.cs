@@ -13,7 +13,7 @@ public class PlacedObjectData
 
 public class PlaceableObject : MonoBehaviour
 {
-    public int HomeId { get; private set; }
+    //public int HomeId { get; private set; }
     public PlaceableRole Role { get; private set; }
     public PlaceableItem SourceItem { get; private set; }
     
@@ -24,18 +24,19 @@ public class PlaceableObject : MonoBehaviour
 
         PlacedObjectData data = new PlacedObjectData();
 
-        data.id = PlayerProgress.GenerateBuilderId(); 
+        data.id = item.BuilderId; 
+        // data.id = PlayerProgress.GetBuilder(); 
         data.role = role;
         data.gridX = position.x;
         data.gridZ = position.z;
         data.rotationY = transform.eulerAngles.y;
 
-        HomeId = data.id;
+        //HomeId = data.id;
 
         int layer = BuilderLayers.LayerFromRole(role);
         BuilderLayers.SetLayerRecursive(transform, layer);
 
-        PlaceableRegistry.Singleton.Register(this, HomeId);
+        PlaceableRegistry.Singleton.Register(this, data.id);
 
         if (force)
             PlacementSaveManager.Singleton.RegisterPlacedObject(data);

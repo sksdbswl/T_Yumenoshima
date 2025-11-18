@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 326d8bce7f3eb974c897678ba127e754, type: 3}
   m_Name: Hospital
   m_EditorClassIdentifier: Assembly-CSharp::PlaceableItem
-  BuilderId: 1
+  BuilderId: 3
   DisplayName: Hospital
   Role: 3
   Prefab: {fileID: 2183983995791420318, guid: 1d68fea489488964baf07852f905a3c8, type: 3}
