@@ -18,7 +18,7 @@ public class GameManager : SingletonBase<GameManager>
     
     private void Start()
     {
-        StartCoroutine(DayRoutineCoroutine());
+        //StartCoroutine(DayRoutineCoroutine());
     }
     
     public async UniTask<bool> CheckAndDownloadStageResourcesAsync(int stage)
@@ -101,7 +101,7 @@ public class GameManager : SingletonBase<GameManager>
     public event System.Action<RoutineState> OnRoutineChanged;
     public RoutineState CurrentState { get; private set; }
 
-    IEnumerator DayRoutineCoroutine()
+    public IEnumerator DayRoutineCoroutine()
     {
         while (true)
         {

@@ -19,7 +19,7 @@ public class Npc : MonoBehaviour
     private void OnEnable()
     {
         GameManager.Singleton.OnRoutineChanged += HandleRoutineChange;
-        HandleRoutineChange(GameManager.Singleton.CurrentState);
+        //HandleRoutineChange(GameManager.Singleton.CurrentState);
     }
     
     private void OnDisable()
@@ -27,6 +27,11 @@ public class Npc : MonoBehaviour
         GameManager.Singleton.OnRoutineChanged -= HandleRoutineChange;
     }
 
+    private void Start()
+    {
+        StartCoroutine(GameManager.Singleton.DayRoutineCoroutine());
+    }
+    
     private void HandleRoutineChange(RoutineState state)
     {
         switch (state)
