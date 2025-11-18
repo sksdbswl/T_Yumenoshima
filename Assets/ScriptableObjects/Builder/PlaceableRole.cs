@@ -18,4 +18,5 @@ public class PlaceableItem : ScriptableObject
     public GameObject Prefab;
     public Sprite Thumbnail;
     public bool IsStack;
+    public bool IsFire;
 }
