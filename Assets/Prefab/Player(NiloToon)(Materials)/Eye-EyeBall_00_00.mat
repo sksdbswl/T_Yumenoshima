@@ -36,6 +36,7 @@ Material:
   stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
+  - NiloToonOutline
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3

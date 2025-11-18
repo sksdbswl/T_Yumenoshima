@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 6765807332198108661}
   - component: {fileID: 3482620377437545877}
   - component: {fileID: 7989998483251874821}
-  - component: {fileID: 443346603930494585}
   - component: {fileID: -7712094483847441101}
+  - component: {fileID: 6281568002911342738}
   m_Layer: 0
   m_Name: Nagumo
   m_TagString: Untagged
@@ -115,20 +115,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &443346603930494585
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2485838302621793980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ef3cd31217fb3344b2adc62a5098f0c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NpcInteraction
-  id: 1
-  npcSO: {fileID: 0}
 --- !u!195 &-7712094483847441101
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -151,3 +137,16 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &6281568002911342738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2485838302621793980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88a01be301ba4a1284bfba141f645e9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NpcController
+  npcSO: {fileID: 0}
