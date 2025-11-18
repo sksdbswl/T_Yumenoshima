@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+
 public class NpcInteraction : MonoBehaviour
 {
     public NpcSO npcSO; 
-
+    
     /// <summary>
     /// 플레이어가 이 NPC와 대화 시도할 때 호출
     /// </summary>

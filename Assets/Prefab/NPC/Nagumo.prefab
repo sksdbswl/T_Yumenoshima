@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3482620377437545877}
   - component: {fileID: 7989998483251874821}
   - component: {fileID: -7712094483847441101}
-  - component: {fileID: 6281568002911342738}
+  - component: {fileID: 2373386199275914767}
   m_Layer: 0
   m_Name: Nagumo
   m_TagString: Untagged
@@ -137,7 +137,7 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &6281568002911342738
+--- !u!114 &2373386199275914767
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,7 +146,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2485838302621793980}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88a01be301ba4a1284bfba141f645e9d, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e28a8e03d78459cb980ca3b692fdc4e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NpcController
+  m_EditorClassIdentifier: Assembly-CSharp::NpcMovement
   npcSO: {fileID: 0}
+  agent: {fileID: 0}
+  homeHouseId: 0

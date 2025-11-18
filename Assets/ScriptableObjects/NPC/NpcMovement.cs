@@ -8,14 +8,27 @@ public enum NpcRoutineState
     Night,
 }
 
-public class NpcMovement : MonoBehaviour
+public class NpcMovement : NpcInteraction
 {
     public NavMeshAgent agent;
-    public int homeHouseId;
+    private NpcSO Npc => npcSO;
+    public int HouseId => npcSO.BuilderId;
 
     private NpcRoutineState _routineState;
     private System.Action _onArrived;
 
+    private void Awake()
+    {
+        agent = GetComponent<NavMeshAgent>();
+        
+        //TODO:: 시간 체크해서 SetRoutineState()
+    }
+
+    private void Start()
+    {
+        GoHome();
+    }
+    
     public void SetRoutineState(NpcRoutineState state)
     {
         _routineState = state;
@@ -23,15 +36,31 @@ public class NpcMovement : MonoBehaviour
 
     public void GoHome()
     {
-        var entrance = 0;
-        // var entrance = HouseRegistry.I.GetEntrance(homeHouseId);
-        if (entrance == null)
+        // ================================
+        // 1) 집 빌딩 인스턴스 찾기
+        // ================================
+        var house = PlaceableObject.GetByInstanceId(HouseId);
+
+        if (house == null)
         {
+            Debug.LogWarning($"NPC {name} :: homeHouseId={HouseId} 찾을 수 없음 → Wandering");
             StartWander();
             return;
         }
-        
-        //GoTo(entrance, null);
+
+        // ================================
+        // 2) Entrance 찾기 (없으면 건물 중심)
+        // ================================
+        Transform target = house.transform;
+
+        // ================================
+        // 3) NavMesh 이동
+        // ================================
+        GoTo(target, () =>
+        {
+            Debug.Log($"{name} arrived home: {house.name}");
+            // 도착 후 원하는 루틴 실행 (예: Idle, Sleep 등)
+        });
     }
 
     public void StartWander()

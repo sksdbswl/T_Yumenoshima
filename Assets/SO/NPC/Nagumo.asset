@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c98d2d94c174a62b4d79243c9a268e3, type: 3}
   m_Name: Nagumo
   m_EditorClassIdentifier: Assembly-CSharp::Npc
-  Id: 1
+  BuilderId: 3
   Name: Nagumo
-  Role: 0
+  Job: 1
   Prefab: {fileID: 2485838302621793980, guid: aa4a1910300cd4e4397e080c74797deb, type: 3}
   Thumbnail: {fileID: 21300000, guid: 5b56d9fa0e8bd6e409ed188db38a692c, type: 3}
   spawnPoint: {x: -1, y: 1, z: 0}
