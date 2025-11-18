@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
 
     public void OnDialogClosed(NpcSO cfg)
     {
-        int npcId = cfg.Id;
+        int npcId = cfg.BuilderId;
         int stage = PlayerProgress.GetStage(npcId);
 
         // ESC로 종료 시, 현재 Stage의 진행중이던 Order를 0으로 리셋

@@ -14,7 +14,7 @@ public class NpcDataSO : ScriptableObject
                 foreach (var npc in Values)
                 {
                         if (npc == null) continue;
-                        Items[npc.Id] = npc;
+                        Items[npc.BuilderId] = npc;
                 }
         }
 }

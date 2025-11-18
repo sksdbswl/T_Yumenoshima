@@ -1,19 +1,9 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class NpcInteraction : MonoBehaviour
 {
-    public int id;   // NpcDataSO에서 사용되는 NPC Id
     public NpcSO npcSO; 
-
-    // void Awake()
-    // {
-    //     var data = AssetManager.Singleton.GetNpcDataSO();
-    //     if (!data.Items.TryGetValue(id, out npcSO))
-    //     {
-    //         Debug.LogError($"[NpcInteraction] NPC id {id} not found in NpcDataSO");
-    //         return;
-    //     }
-    // }
 
     /// <summary>
     /// 플레이어가 이 NPC와 대화 시도할 때 호출
@@ -26,7 +16,7 @@ public class NpcInteraction : MonoBehaviour
             return;
         }
 
-        int npcId = npcSO.Id;
+        int npcId = npcSO.BuilderId;
         int stage = PlayerProgress.GetStage(npcId);
 
         var line = DialogRepository.I.PickNext(npcId, stage);

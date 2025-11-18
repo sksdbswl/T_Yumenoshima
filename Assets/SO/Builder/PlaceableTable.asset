@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: PlaceableTable
   m_EditorClassIdentifier: Assembly-CSharp::PlaceableCatalogTable
   Items:
-  - {fileID: 11400000, guid: ab131df05e07774468dbffe94e7d8da9, type: 2}
+  - {fileID: 11400000, guid: 198c4ab3bd58d8f46b01d487c7ae3a5d, type: 2}
   - {fileID: 11400000, guid: 71a661ed6f067444e8ec244d874d1e02, type: 2}
+  - {fileID: 11400000, guid: ab131df05e07774468dbffe94e7d8da9, type: 2}
   - {fileID: 11400000, guid: 2983396e49d1c7941a5aef2d2de97dd9, type: 2}
   - {fileID: 11400000, guid: 7f90b5b80969dba4e804a990813f11f1, type: 2}
+  - {fileID: 11400000, guid: 511994f514c82704d825fe31028f6273, type: 2}
   - {fileID: 11400000, guid: 511994f514c82704d825fe31028f6273, type: 2}

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4595112325421657097}
   - component: {fileID: 6989482028301475220}
   m_Layer: 0
-  m_Name: Buillding
+  m_Name: Hospital
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

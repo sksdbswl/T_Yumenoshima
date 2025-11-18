@@ -244,7 +244,7 @@ public class PlacementSystem : MonoBehaviour
         foreach (var data in datas)
         {
             // role로 PlaceableItem 찾기
-            var item = catalog.GetByRole(data.role);
+            var item = catalog.GetByBuilderId(data.id);
             if (item == null || item.Prefab == null)
                 continue;
 
