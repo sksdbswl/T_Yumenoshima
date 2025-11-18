@@ -47,7 +47,7 @@ public class Npc : MonoBehaviour
             case RoutineState.Night:
                 Debug.Log("저녁 입니다. 귀가하세요");
 
-                //Movement.GoHome();
+                Movement.GoHome();
                 //Anim.IsWorking = false;
                 break;
         }

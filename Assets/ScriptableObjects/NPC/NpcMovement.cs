@@ -15,11 +15,6 @@ public class NpcMovement : NpcInteraction
         //TODO:: 시간 체크해서 SetRoutineState()
     }
     
-    private void Start()
-    {
-        GoHome();
-    }
-    
     public void SetRoutineState(RoutineState state)
     {
         _routineState = state;
