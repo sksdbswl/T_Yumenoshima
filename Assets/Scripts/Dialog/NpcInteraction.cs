@@ -2,11 +2,16 @@ using UnityEngine;
 
 public class NpcInteraction : MonoBehaviour, IInteractable
 {
-    public NpcMovement movement;
+    private NpcMovement movement;
     public NpcSO npcSO;
     public Player player;
     public bool isTalkable = false;
     private bool canTalk = false;
+
+    public void Awake()
+    {
+        movement = GetComponent<NpcMovement>();
+    }
     
     // =======================
     // 대화 구현부
