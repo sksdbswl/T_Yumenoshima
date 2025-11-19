@@ -4,9 +4,10 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
-public class DialogTyper : MonoBehaviour
+public class DialogTyper:SingletonBase<DialogTyper>
 {
     [Header("UI")]
+    public GameObject DialogUI;
     public TMP_Text nameComponent;
     public TMP_Text textComponent;
 

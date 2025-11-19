@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class UIManager:SingletonBase<UIManager>
 {
-    [SerializeField] public GameObject DialogUI;
-
     void Awake()
     {
         base.Awake();

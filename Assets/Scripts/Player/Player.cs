@@ -3,7 +3,6 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     NpcMovement currentNpc;
-    [SerializeField] public DialogTyper typer;
 
     void Update()
     {
@@ -13,7 +12,7 @@ public class Player : MonoBehaviour
             if (currentNpc.isTalkable)
             {
                 // 다음 대화
-                var checkTalk = currentNpc.TryTalk(typer);
+                var checkTalk = currentNpc.TryTalk();
 
                 if (!checkTalk)
                 {
