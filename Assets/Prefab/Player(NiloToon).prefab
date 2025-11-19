@@ -53,6 +53,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7702860056692130276, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     - target: {fileID: 3230296690685413184, guid: df4963e23b325544db985cd139e21309, type: 3}
+      propertyPath: inputHandler
+      value: 
+      objectReference: {fileID: 5715685004379321578}
+    - target: {fileID: 3230296690685413184, guid: df4963e23b325544db985cd139e21309, type: 3}
       propertyPath: interactAction
       value: 
       objectReference: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
@@ -187,12 +191,36 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3475936365782130447, guid: df4963e23b325544db985cd139e21309, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2085106997259665798}
+    - targetCorrespondingSourceObject: {fileID: 6969971790750076245, guid: df4963e23b325544db985cd139e21309, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5715685004379321578}
   m_SourcePrefab: {fileID: 100100000, guid: df4963e23b325544db985cd139e21309, type: 3}
 --- !u!23 &47771258965849709 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 7234943460181916572, guid: df4963e23b325544db985cd139e21309, type: 3}
   m_PrefabInstance: {fileID: 7263770781263089137}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &320962150403834020 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6969971790750076245, guid: df4963e23b325544db985cd139e21309, type: 3}
+  m_PrefabInstance: {fileID: 7263770781263089137}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5715685004379321578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320962150403834020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c64008cd4ae4c1bb63920bba35db6b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInputHandler
+  moveAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  jumpAction: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  interactAction: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  cancelAction: {fileID: 7702860056692130276, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!23 &351553729766613665 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 6930724590775676752, guid: df4963e23b325544db985cd139e21309, type: 3}

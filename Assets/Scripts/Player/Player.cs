@@ -4,34 +4,35 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    [Header("Input")]
-    [SerializeField] public InputActionReference moveAction;
-    [SerializeField] public InputActionReference jumpAction;
-    [SerializeField] public InputActionReference interactAction;
-    [SerializeField] public InputActionReference cancelAction;
-
+    public PlayerInputHandler inputHandler;
     private IInteractable currentInteractable;
 
+    private void OnEnable()
+    {
+        inputHandler.OnInteract += HandleInteract;
+        inputHandler.OnCancel   += HandleCancel;
+    }
+    
+    private void OnDisable()
+    {
+        inputHandler.OnInteract -= HandleInteract;
+        inputHandler.OnCancel   -= HandleCancel;
+    }
+    
     /// <summary>
     /// 상호작용 시작 / 진행 
     /// </summary>
-    public void OnInteractPerformed(InputAction.CallbackContext ctx)
+    public void HandleInteract()
     {
-        if (currentInteractable == null) return;
-
-        Debug.Log("Interact");
-        // 여기서는 단순히 상호작용 요청만 처리
-        currentInteractable.BeginInteract(this);
+        currentInteractable?.BeginInteract(this);
     }
 
     /// <summary>
     /// 상호작용 종료 (ESC 등)
     /// </summary>
-    public void OnInteractCanceled(InputAction.CallbackContext ctx)
+    public void HandleCancel()
     {
-        if (currentInteractable == null) return;
-
-        currentInteractable.EndInteract(this);
+        currentInteractable?.EndInteract(this);
     }
 
     /// <summary>
