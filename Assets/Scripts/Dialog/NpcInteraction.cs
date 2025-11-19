@@ -38,6 +38,7 @@ public class NpcInteraction : MonoBehaviour
         
         movement.StartWanderLoop();
         movement = null;
+        UIManager.Singleton.DialogUI.gameObject.SetActive(false);
     }
     
     /// <summary>
@@ -46,6 +47,8 @@ public class NpcInteraction : MonoBehaviour
     /// </summary>
     public bool TryTalk(DialogTyper typer)
     {
+        UIManager.Singleton.DialogUI.gameObject.SetActive(true);
+        
         if (npcSO == null)
         {
             Debug.LogError("[NpcInteraction] npcSO is null.");
