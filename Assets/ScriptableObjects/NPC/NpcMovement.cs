@@ -32,7 +32,7 @@ public class NpcMovement : NpcInteraction
     }
 
     // =======================
-    // 집 가는 로직 (그대로)
+    // 집 가는 로직
     // =======================
     public void GoHome()
     {

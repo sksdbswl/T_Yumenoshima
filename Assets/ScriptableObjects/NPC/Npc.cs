@@ -21,7 +21,6 @@ public class Npc : MonoBehaviour
     private void OnEnable()
     {
         GameManager.Singleton.OnRoutineChanged += HandleRoutineChange;
-        //HandleRoutineChange(GameManager.Singleton.CurrentState);
     }
     
     private void OnDisable()
@@ -59,19 +58,4 @@ public class Npc : MonoBehaviour
                 break;
         }
     }
-    
-    // public void GoHome()
-    // {
-    //     Movement.GoHome();
-    // }
-    //
-    // public void StartWander()
-    // {
-    //     Movement.StartWander();
-    // }
-    //
-    // public void SetWorking(bool working)
-    // {
-    //     Anim.IsWorking = working;
-    // }
 }
