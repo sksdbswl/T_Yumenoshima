@@ -62,6 +62,8 @@ public class PlacementSystem : MonoBehaviour
     {
         corner = default;
         canPlace = false;
+        
+        if (_currentItem ==null) return false;
         if (_cam == null || groundArea == null) return false;
 
         // 마우스/중앙 레이

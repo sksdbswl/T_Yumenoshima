@@ -5,8 +5,9 @@ public class NpcMovement : NpcInteraction
 {
     private Npc Npc;
     private NpcSO NpcData => npcSO;
-    public int HouseId => npcSO.BuilderId;
-
+    private int HouseId => npcSO.BuilderId;
+    private bool IsTalk => isTalkable;
+    
     [Header("Wander Settings")]
     [SerializeField] private float wanderRadius = 10f;
     [SerializeField] private float idleTimeMin = 1.0f;
@@ -156,14 +157,14 @@ public class NpcMovement : NpcInteraction
 
     public void Pause()
     {
-        Npc.Agent.isStopped = true;
-        SetIdleAnim();
+        // Npc.Agent.isStopped = true;
+        // SetIdleAnim();
     }
 
     public void Resume()
     {
-        Npc.Agent.isStopped = false;
-        SetRunAnim();
+        // Npc.Agent.isStopped = false;
+        // SetRunAnim();
     }
 
     private void Update()
@@ -186,7 +187,7 @@ public class NpcMovement : NpcInteraction
     }
 
     // =======================
-    // 애니메이션 헬퍼 (여긴 네 구조에 맞게만 수정)
+    // 애니메이션 헬퍼
     // =======================
     private void SetIdleAnim()
     {

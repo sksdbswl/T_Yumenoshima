@@ -2,30 +2,45 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    bool isTalking = false;
-    NpcInteraction currentNpc;
-    [SerializeField] private DialogTyper typer;
+    NpcMovement currentNpc;
+    [SerializeField] public DialogTyper typer;
 
     void Update()
     {
-        // E 키: 현재 NPC와 대화 시도
-        if (isTalking && currentNpc != null && Input.GetKeyDown(KeyCode.E))
+        // E: 대화 요청
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            Debug.Log("대화 시작");
-            currentNpc.TryTalk(typer);
-        }
+            if (currentNpc.isTalkable)
+            {
+                // 다음 대화
+                var checkTalk = currentNpc.TryTalk(typer);
 
-        // TODO :: UI 온오프 적용 필요
-        // ESC: 대화 종료 + 스토리 Order 리셋
+                if (!checkTalk)
+                {
+                    Debug.Log($"[NpcInteraction] 다음 대사 없음으로 대화 종료함");
+                    currentNpc.RequestEndTalk();
+                }
+            }
+            else
+            {
+                // 첫 대화 시작
+                if (currentNpc != null)
+                    currentNpc.RequestTalk(this, currentNpc);
+            }
+        }
+        
+        // ESC: 대화 강제 종료 + 스토리 Order 리셋
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (currentNpc != null && currentNpc.npcSO != null)
+            if (currentNpc != null)
             {
-                OnDialogClosed(currentNpc.npcSO);
-                currentNpc = null;
-            }
+                // 스토리 진행 중이던 거 처음부터 시작하도록 리셋
+                if (currentNpc.npcSO != null)
+                    OnDialogClosed(currentNpc.npcSO);
 
-            isTalking = false;
+                currentNpc.RequestEndTalk();
+                // 필요하다면 여기서 currentNpc = null; 할지 말지는 너 구조에 따라 결정
+            }
         }
     }
 
@@ -37,31 +52,28 @@ public class Player : MonoBehaviour
         // ESC로 종료 시, 현재 Stage의 진행중이던 Order를 0으로 리셋
         PlayerProgress.ResetOrder(npcId, stage);
     }
-
+    
+    
     private void OnTriggerEnter(Collider other)
     {
-        var npc = other.GetComponent<NpcInteraction>();
+        var npc = other.GetComponent<NpcMovement>();
         if (npc != null)
         {
             currentNpc = npc;
-            Debug.Log($"Enter NPC: {currentNpc.npcSO.Name}");
-
-            if (!isTalking)
-            {
-                isTalking = true;
-                Debug.Log("Talking ON");
-            }
+            npc.SetInteractionAvailable(true);  // 플레이어가 근처에 있다
+            Debug.Log($"Enter NPC: {npc.npcSO.Name}");
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        var npc = other.GetComponent<NpcInteraction>();
+        var npc = other.GetComponent<NpcMovement>();
         if (npc != null && npc == currentNpc)
         {
+            npc.SetInteractionAvailable(false); // 플레이어가 멀어졌다
             currentNpc = null;
-            isTalking = false;
             Debug.Log("Talking OFF");
         }
     }
+
 }

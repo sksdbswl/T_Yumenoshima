@@ -7,10 +7,8 @@ using CsvHelper.Configuration;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class DialogRepository : MonoBehaviour
+public class DialogRepository : SingletonBase<DialogRepository>
 {
-    public static DialogRepository I { get; private set; }
-
     [System.Serializable]
     public class DialogData
     {
@@ -29,9 +27,6 @@ public class DialogRepository : MonoBehaviour
 
     void Awake()
     {
-        if (I != null) { Destroy(gameObject); return; }
-        I = this;
-        DontDestroyOnLoad(gameObject);
         _all = LoadAllDialogs();
     }
 

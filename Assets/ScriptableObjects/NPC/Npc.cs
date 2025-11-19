@@ -1,7 +1,9 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(NpcMovement))]
+[RequireComponent(typeof(NpcInteraction))]
 [RequireComponent(typeof(NpcAnimationStateMachine))]
 public class Npc : MonoBehaviour
 {
