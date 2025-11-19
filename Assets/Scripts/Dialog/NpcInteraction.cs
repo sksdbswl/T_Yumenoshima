@@ -8,6 +8,14 @@ public class NpcInteraction : MonoBehaviour, IInteractable
     public bool isTalkable = false;
     private bool canTalk = false;
     
+    // =======================
+    // 대화 구현부
+    // =======================
+    
+    /// <summary>
+    ///  setTrigger 설정
+    /// </summary>
+    /// <param name="available"></param>
     public void SetInteractionAvailable(bool available)
     {
         canTalk = available;
@@ -18,6 +26,10 @@ public class NpcInteraction : MonoBehaviour, IInteractable
         RequestEndTalk();
     }
 
+    /// <summary>
+    /// 대화 시작 설정
+    /// </summary>
+    /// <param name="pl"></param>
     public void RequestTalk(Player pl)
     {
         
@@ -36,6 +48,9 @@ public class NpcInteraction : MonoBehaviour, IInteractable
         TryTalk();
     }
 
+    /// <summary>
+    /// 대화 종료 설정
+    /// </summary>
     public void RequestEndTalk()
     {
         Debug.Log("EndTalk");
@@ -50,7 +65,7 @@ public class NpcInteraction : MonoBehaviour, IInteractable
     }
     
     /// <summary>
-    /// 플레이어가 이 NPC와 대화 시도할 때 호출
+    /// 실제 대화시작 : 플레이어가 이 NPC와 대화 시도할 때 호출
     /// 반환값이 false: 다음 대화 없음 / true : 다음 대사 있음
     /// </summary>
     public bool TryTalk()
