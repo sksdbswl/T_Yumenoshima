@@ -18,8 +18,8 @@ public class MinimapBaker : MonoBehaviour
     public string fileName = "minimap.png";
 
     private void Start()
-    {
-            Bake();
+    { 
+        Bake();
     }
     
     public void Bake()
@@ -28,6 +28,14 @@ public class MinimapBaker : MonoBehaviour
         {
             Debug.LogWarning("[MinimapBaker] 세팅이 안 됨");
             return;
+        }
+        
+        string[] ignoreLayers = { "Npc", "Player"};
+
+        foreach (var layerName in ignoreLayers)
+        {
+            int layer = LayerMask.NameToLayer(layerName);
+            minimapCamera.cullingMask &= ~(1 << layer);
         }
 
         // 카메라가 RT로 렌더하게 설정

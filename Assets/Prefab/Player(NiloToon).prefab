@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player(NiloToon)
       objectReference: {fileID: 0}
+    - target: {fileID: 3475936365782130447, guid: df4963e23b325544db985cd139e21309, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 3509014586421296078, guid: df4963e23b325544db985cd139e21309, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
