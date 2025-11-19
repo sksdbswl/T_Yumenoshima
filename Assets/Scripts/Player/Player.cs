@@ -18,16 +18,10 @@ public class Player : MonoBehaviour
     /// </summary>
     public void OnInteractPerformed(InputAction.CallbackContext ctx)
     {
-        Debug.Log("Interact");
-        
-        if (currentNpc == null)
-            return;
+        if (currentNpc == null) return;
         
         if (currentNpc.isTalkable)
         {
-            Debug.Log("대화 시작");
-            
-            // 다음 대화
             bool hasNext = currentNpc.TryTalk();
             if (!hasNext)
             {
@@ -72,12 +66,9 @@ public class Player : MonoBehaviour
     {
         // npc 처리
         var npc = other.GetComponent<NpcMovement>();
-        if (npc != null)
+        if (npc != null && currentNpc == null)
         {
-            //nearbyNpcs.Add(npc);
             currentNpc = npc;
-            
-            Debug.Log($"Npc 감지::{currentNpc.npcSO.Name}");
             
             npc.SetInteractionAvailable(true);  // 플레이어가 근처에 있다
             Debug.Log($"Enter NPC: {npc.npcSO.Name}");
