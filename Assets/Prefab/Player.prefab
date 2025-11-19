@@ -3331,10 +3331,10 @@ GameObject:
   - component: {fileID: 4325729051539761525}
   - component: {fileID: 6298307527962568632}
   - component: {fileID: 6199500075520168205}
+  - component: {fileID: 3230296690685413184}
   - component: {fileID: 9058502052061406966}
   - component: {fileID: 5490110093253497336}
   - component: {fileID: 8200024788581673984}
-  - component: {fileID: 3230296690685413184}
   m_Layer: 0
   m_Name: PlayerModel
   m_TagString: Untagged
@@ -3443,6 +3443,22 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &3230296690685413184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6969971790750076245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0672ea380bca9aa48a591edef3d58504, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player
+  moveAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  jumpAction: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  interactAction: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  cancelAction: {fileID: 7702860056692130276, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!114 &9058502052061406966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3455,8 +3471,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d8e1cce88551764f8913235bf9acd77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  moveAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  jumpAction: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   moveSpeed: 4
   jumpForce: 5
   animancer: {fileID: 4325729051539761525}
@@ -3513,19 +3527,6 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0.6, z: 0}
---- !u!114 &3230296690685413184
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6969971790750076245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0672ea380bca9aa48a591edef3d58504, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Player
-  typer: {fileID: 0}
 --- !u!1 &7062646172762943154
 GameObject:
   m_ObjectHideFlags: 0

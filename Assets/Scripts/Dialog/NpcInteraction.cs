@@ -11,6 +11,9 @@ public class NpcInteraction : MonoBehaviour
     public void SetInteractionAvailable(bool available)
     {
         canTalk = available;
+
+        if (available) return;
+        
         player?.OnDialogClosed(movement.npcSO);
         RequestEndTalk();
     }

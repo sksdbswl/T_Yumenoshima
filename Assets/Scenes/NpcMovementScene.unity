@@ -309,10 +309,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5195545057861618353, guid: eb5b47ab59fa9b54c91d050c2d19dd17, type: 3}
-      propertyPath: typer
-      value: 
-      objectReference: {fileID: 599087463}
     - target: {fileID: 6121263527199118078, guid: eb5b47ab59fa9b54c91d050c2d19dd17, type: 3}
       propertyPath: m_Name
       value: Player(NiloToon)

@@ -6,10 +6,8 @@ using Animancer;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Input")]
-    [SerializeField] private InputActionReference moveAction;
-    [SerializeField] private InputActionReference jumpAction;
-
+    Player player;
+    
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float jumpForce = 5f;
@@ -27,25 +25,54 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        player = GetComponent<Player>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
     }
 
     private void OnEnable()
     {
-        moveAction.action.Enable();
-        jumpAction.action.Enable();
-
-        moveAction.action.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
-        moveAction.action.canceled += ctx => moveInput = Vector2.zero;
-        jumpAction.action.performed += _ => TryJump();
+        player.moveAction.action.Enable();
+        player.jumpAction.action.Enable();
+        player.interactAction.action.Enable();
+        player.cancelAction.action.Enable();
+    
+        player.moveAction.action.performed += OnMovePerformed;
+        player.moveAction.action.canceled  += OnMoveCanceled;
+        player.jumpAction.action.performed += OnJumpPerformed;
+        player.interactAction.action.performed += player.OnInteractPerformed;
+        player.cancelAction.action.performed   += player.OnInteractCanceled;
     }
 
     private void OnDisable()
     {
-        moveAction.action.Disable();
-        jumpAction.action.Disable();
+        player.moveAction.action.performed -= OnMovePerformed;
+        player.moveAction.action.canceled  -= OnMoveCanceled;
+        player.jumpAction.action.performed -= OnJumpPerformed;
+        player.interactAction.action.performed -= player.OnInteractPerformed;
+        player.cancelAction.action.performed   -= player.OnInteractCanceled;
+
+        player.moveAction.action.Disable();
+        player.jumpAction.action.Disable();
+        player.interactAction.action.Disable();
+        player.cancelAction.action.Disable();
     }
+
+    private void OnMovePerformed(InputAction.CallbackContext ctx)
+    {
+        moveInput = ctx.ReadValue<Vector2>();
+    }
+
+    private void OnMoveCanceled(InputAction.CallbackContext ctx)
+    {
+        moveInput = Vector2.zero;
+    }
+
+    private void OnJumpPerformed(InputAction.CallbackContext ctx)
+    {
+        TryJump();
+    }
+
 
     private void Update()
     {
