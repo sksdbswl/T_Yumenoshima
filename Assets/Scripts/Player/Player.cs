@@ -10,20 +10,17 @@ public class Player : MonoBehaviour
     [SerializeField] public InputActionReference interactAction;
     [SerializeField] public InputActionReference cancelAction;
 
-    // 기존: NpcMovement currentNpc;
     private IInteractable currentInteractable;
-    // 필요하면 나중에 여러 개 관리용으로 확장
-    private readonly List<IInteractable> nearbyInteractables = new List<IInteractable>();
 
     /// <summary>
-    /// 상호작용 시작 / 진행 (키 입력시)
+    /// 상호작용 시작 / 진행 
     /// </summary>
     public void OnInteractPerformed(InputAction.CallbackContext ctx)
     {
-        if (currentInteractable == null)
-            return;
+        if (currentInteractable == null) return;
 
-        // 여기서는 단순히 "상호작용 요청"만 던짐
+        Debug.Log("Interact");
+        // 여기서는 단순히 상호작용 요청만 처리
         currentInteractable.BeginInteract(this);
     }
 
@@ -32,14 +29,13 @@ public class Player : MonoBehaviour
     /// </summary>
     public void OnInteractCanceled(InputAction.CallbackContext ctx)
     {
-        if (currentInteractable == null)
-            return;
+        if (currentInteractable == null) return;
 
         currentInteractable.EndInteract(this);
     }
 
     /// <summary>
-    /// 대화 UI가 닫힐 때(ESC 종료 등) 플레이어 진행도 정리
+    /// 대화 진행도 리셋 : npc 대화 강제 종료시 사용
     /// </summary>
     public void OnDialogClosed(NpcSO cfg)
     {
@@ -52,15 +48,14 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // 어떤 오브젝트든 IInteractable이면 처리
+        // 상호작용 가능한 모든 IInteractable 처리
         var interactable = other.GetComponent<IInteractable>();
         if (interactable != null && currentInteractable == null)
         {
             currentInteractable = interactable;
-            nearbyInteractables.Add(interactable);
 
-            // NPC라면 기존처럼 표시 처리
-            if (interactable is NpcMovement npc)
+            // NPC라면
+            if (interactable is NpcInteraction npc)
             {
                 npc.SetInteractionAvailable(true);  // 플레이어가 근처에 있다
                 Debug.Log($"Enter NPC: {npc.npcSO.Name}");
@@ -73,16 +68,12 @@ public class Player : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         var interactable = other.GetComponent<IInteractable>();
-        if (interactable == null)
-            return;
-
-        if (nearbyInteractables.Contains(interactable))
-            nearbyInteractables.Remove(interactable);
+        if (interactable == null) return;
 
         if (interactable == currentInteractable)
         {
-            // NPC라면 기존처럼 표시 처리
-            if (interactable is NpcMovement npc)
+            // NPC라면
+            if (interactable is NpcInteraction npc)
             {
                 npc.SetInteractionAvailable(false); // 플레이어가 멀어졌다
                 Debug.Log("Talking OFF");

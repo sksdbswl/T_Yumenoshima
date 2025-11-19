@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class NpcInteraction : MonoBehaviour
+public class NpcInteraction : MonoBehaviour, IInteractable
 {
-    private NpcMovement movement;
+    public NpcMovement movement;
     public NpcSO npcSO;
     public Player player;
     public bool isTalkable = false;
-    private bool canTalk = false;    
+    private bool canTalk = false;
     
     public void SetInteractionAvailable(bool available)
     {
@@ -14,20 +14,23 @@ public class NpcInteraction : MonoBehaviour
 
         if (available) return;
         
-        player?.OnDialogClosed(movement.npcSO);
+        player?.OnDialogClosed(npcSO);
         RequestEndTalk();
     }
 
-    public void RequestTalk(Player pl, NpcMovement npc)
+    public void RequestTalk(Player pl)
     {
+        
         Debug.Log("Talk");
         
         if (!canTalk) return;      // 근처에 있어야 대화 가능
         if (isTalkable) return;     // 이미 대화 중이면 시작 X
         isTalkable = true;
-
         player = pl;
-        movement = npc;
+        
+        //movement = npc;
+        
+        Debug.Log($"==========[NpcInteraction] RequestTalk: {pl.name}, {movement}");
         movement.StopWanderLoop(); 
 
         TryTalk();
@@ -41,7 +44,7 @@ public class NpcInteraction : MonoBehaviour
         isTalkable = false;
         
         movement.StartWanderLoop();
-        movement = null;
+        //movement = null;
         player = null;
         DialogTyper.Singleton.DialogUI.gameObject.SetActive(false);
     }
@@ -91,5 +94,47 @@ public class NpcInteraction : MonoBehaviour
         
         Debug.Log($"[NpcInteraction] 다음 대사 있음");
         return true;
+    }
+    
+    // =======================
+    // IInteractable 구현부
+    // =======================
+
+    /// <summary>
+    /// 상호작용 시작 / 대화 한 줄 진행
+    /// Player.OnInteractPerformed 에서 호출
+    /// </summary>
+    public void BeginInteract(Player player)
+    {
+        if (isTalkable)
+        {
+            bool hasNext = TryTalk();
+            if (!hasNext)
+            {
+                Debug.Log("[NpcInteraction] 다음 대사 없음, 대화 종료함");
+                RequestEndTalk();
+            }
+        }
+        else
+        {
+            // 첫 대화 시작
+            RequestTalk(player);
+        }
+    }
+    
+    public void ContinueInteract(Player player) {}
+
+    /// <summary>
+    /// 상호작용 강제 종료 (ESC 등)
+    /// Player.OnInteractCanceled 에서 호출
+    /// </summary>
+    public void EndInteract(Player player)
+    {
+        Debug.Log("Interact 강제 종료");
+
+        if (npcSO != null)
+            player.OnDialogClosed(npcSO); 
+
+        RequestEndTalk();
     }
 }

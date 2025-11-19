@@ -1,12 +1,10 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NpcMovement : NpcInteraction, IInteractable
+public class NpcMovement : NpcInteraction
 {
     private Npc Npc;
-    private NpcSO NpcData => npcSO;
     private int HouseId => npcSO.BuilderId;
-    private bool IsTalk => isTalkable;
 
     [Header("Wander Settings")]
     [SerializeField] private float wanderRadius = 10f;
@@ -22,6 +20,7 @@ public class NpcMovement : NpcInteraction, IInteractable
 
     private void Awake()
     {
+        movement = this;
         Npc = GetComponent<Npc>();
         // TODO: 시간 체크해서 SetRoutineState()
     }
@@ -29,60 +28,6 @@ public class NpcMovement : NpcInteraction, IInteractable
     public void SetRoutineState(RoutineState state)
     {
         _routineState = state;
-    }
-
-    // =======================
-    // IInteractable 구현부
-    // =======================
-
-    /// <summary>
-    /// 상호작용 시작 / 대화 한 줄 진행
-    /// Player.OnInteractPerformed 에서 호출
-    /// </summary>
-    public void BeginInteract(Player player)
-    {
-        if (isTalkable)
-        {
-            // 이미 대화 중 → 다음 대사 시도
-            bool hasNext = TryTalk();
-            if (!hasNext)
-            {
-                Debug.Log("[NpcInteraction] 다음 대사 없음으로 대화 종료함");
-                RequestEndTalk();
-                // 자연 종료이므로 ESC 종료용 OnDialogClosed는 호출하지 않음 (기존 로직 유지)
-            }
-        }
-        else
-        {
-            // 첫 대화 시작
-            RequestTalk(player, this);
-        }
-    }
-
-    /// <summary>
-    /// 필요하면 "누르고 있는 동안" 등 추가 로직에 사용 가능
-    /// 지금은 Begin과 동일하게 동작시키거나 비워둬도 된다.
-    /// </summary>
-    public void ContinueInteract(Player player)
-    {
-        // 프로젝트 정책에 따라:
-        // BeginInteract와 동일하게 "다음 대사"로 써도 되고,
-        // 또는 아무 것도 안 해도 됨.
-        // 여기서는 일단 비워둠.
-    }
-
-    /// <summary>
-    /// 상호작용 강제 종료 (ESC 등)
-    /// Player.OnInteractCanceled 에서 호출
-    /// </summary>
-    public void EndInteract(Player player)
-    {
-        Debug.Log("Interact 강제 종료");
-
-        if (npcSO != null)
-            player.OnDialogClosed(npcSO);  // 기존 Player.OnInteractCanceled 로직을 여기로 이동
-
-        RequestEndTalk();
     }
 
     // =======================
@@ -202,18 +147,6 @@ public class NpcMovement : NpcInteraction, IInteractable
 
         Npc.Agent.isStopped = false;
         Npc.Agent.SetDestination(destination);
-    }
-
-    public void Pause()
-    {
-        // Npc.Agent.isStopped = true;
-        // SetIdleAnim();
-    }
-
-    public void Resume()
-    {
-        // Npc.Agent.isStopped = false;
-        // SetRunAnim();
     }
 
     private void Update()

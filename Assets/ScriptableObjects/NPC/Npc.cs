@@ -3,12 +3,10 @@ using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(NpcMovement))]
-[RequireComponent(typeof(NpcInteraction))]
 [RequireComponent(typeof(NpcAnimationStateMachine))]
 public class Npc : MonoBehaviour
 {
     public NavMeshAgent Agent;
-    
     public NpcMovement Movement { get; private set; }
     public NpcAnimationStateMachine Anim { get; private set; }
 
