@@ -8,6 +8,7 @@ using UnityEngine.AI;
 public class Npc : MonoBehaviour
 {
     public NavMeshAgent Agent;
+    
     public NpcMovement Movement { get; private set; }
     public NpcAnimationStateMachine Anim { get; private set; }
 

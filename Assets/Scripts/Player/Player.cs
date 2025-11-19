@@ -9,50 +9,38 @@ public class Player : MonoBehaviour
     [SerializeField] public InputActionReference jumpAction;
     [SerializeField] public InputActionReference interactAction;
     [SerializeField] public InputActionReference cancelAction;
-    
-    NpcMovement currentNpc;
-    readonly List<NpcMovement> nearbyNpcs = new List<NpcMovement>();
-    
+
+    // 기존: NpcMovement currentNpc;
+    private IInteractable currentInteractable;
+    // 필요하면 나중에 여러 개 관리용으로 확장
+    private readonly List<IInteractable> nearbyInteractables = new List<IInteractable>();
+
     /// <summary>
-    /// 상호작용 시작 : npc대화, item 상호작용 등
+    /// 상호작용 시작 / 진행 (키 입력시)
     /// </summary>
     public void OnInteractPerformed(InputAction.CallbackContext ctx)
     {
-        if (currentNpc == null) return;
-        
-        if (currentNpc.isTalkable)
-        {
-            bool hasNext = currentNpc.TryTalk();
-            if (!hasNext)
-            {
-                Debug.Log("[NpcInteraction] 다음 대사 없음으로 대화 종료함");
-                currentNpc.RequestEndTalk();
-            }
-        }
-        else
-        {
-            // 첫 대화 시작
-            currentNpc.RequestTalk(this, currentNpc);
-        }
+        if (currentInteractable == null)
+            return;
+
+        // 여기서는 단순히 "상호작용 요청"만 던짐
+        currentInteractable.BeginInteract(this);
     }
 
     /// <summary>
-    /// 상호작용 종료
+    /// 상호작용 종료 (ESC 등)
     /// </summary>
     public void OnInteractCanceled(InputAction.CallbackContext ctx)
     {
-        Debug.Log("Interact 강제 종료");
-        
-        if (currentNpc == null)
+        if (currentInteractable == null)
             return;
 
-        if (currentNpc.npcSO != null)
-            OnDialogClosed(currentNpc.npcSO);
-
-        currentNpc.RequestEndTalk();
+        currentInteractable.EndInteract(this);
     }
 
-    
+    /// <summary>
+    /// 대화 UI가 닫힐 때(ESC 종료 등) 플레이어 진행도 정리
+    /// </summary>
     public void OnDialogClosed(NpcSO cfg)
     {
         int npcId = cfg.BuilderId;
@@ -61,32 +49,48 @@ public class Player : MonoBehaviour
         // ESC로 종료 시, 현재 Stage의 진행중이던 Order를 0으로 리셋
         PlayerProgress.ResetOrder(npcId, stage);
     }
-    
+
     private void OnTriggerEnter(Collider other)
     {
-        // npc 처리
-        var npc = other.GetComponent<NpcMovement>();
-        if (npc != null && currentNpc == null)
+        // 어떤 오브젝트든 IInteractable이면 처리
+        var interactable = other.GetComponent<IInteractable>();
+        if (interactable != null && currentInteractable == null)
         {
-            currentNpc = npc;
-            
-            npc.SetInteractionAvailable(true);  // 플레이어가 근처에 있다
-            Debug.Log($"Enter NPC: {npc.npcSO.Name}");
+            currentInteractable = interactable;
+            nearbyInteractables.Add(interactable);
+
+            // NPC라면 기존처럼 표시 처리
+            if (interactable is NpcMovement npc)
+            {
+                npc.SetInteractionAvailable(true);  // 플레이어가 근처에 있다
+                Debug.Log($"Enter NPC: {npc.npcSO.Name}");
+            }
+
+            // TODO:: 다른 타입의 상호작용 오브젝트도 여기에 분기 가능
         }
-        // Todo:: 상호작용 아이템 처리
     }
-    
+
     private void OnTriggerExit(Collider other)
     {
-        var npc = other.GetComponent<NpcMovement>();
-        if (npc != null && npc == currentNpc)
+        var interactable = other.GetComponent<IInteractable>();
+        if (interactable == null)
+            return;
+
+        if (nearbyInteractables.Contains(interactable))
+            nearbyInteractables.Remove(interactable);
+
+        if (interactable == currentInteractable)
         {
-            npc.SetInteractionAvailable(false); // 플레이어가 멀어졌다
-            
-            currentNpc = null;
-            Debug.Log("Talking OFF");
+            // NPC라면 기존처럼 표시 처리
+            if (interactable is NpcMovement npc)
+            {
+                npc.SetInteractionAvailable(false); // 플레이어가 멀어졌다
+                Debug.Log("Talking OFF");
+            }
+
+            currentInteractable = null;
         }
 
-        // TODO:: 상호작용 아이템 처리
+        // TODO:: 다른 상호작용 오브젝트 처리
     }
 }
