@@ -118,13 +118,13 @@ MonoBehaviour:
     m_Start: 0.5666666666666667
     m_ClipIn: 0
     m_Asset: {fileID: -7963662717914699037}
-    m_Duration: 1.3333333333333333
+    m_Duration: 1.6166666666666665
     m_TimeScale: 1
     m_ParentTrack: {fileID: -8041451835441420240}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: -1
-    m_BlendOutDuration: -1
+    m_BlendOutDuration: 0.2833333333333332
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -187,13 +187,13 @@ MonoBehaviour:
     m_Start: 1.9
     m_ClipIn: 0
     m_Asset: {fileID: 950864465865896410}
-    m_Duration: 1.3333333333333333
+    m_Duration: 1.6
     m_TimeScale: 1
     m_ParentTrack: {fileID: -8041451835441420240}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: -1
-    m_BlendOutDuration: -1
+    m_BlendInDuration: 0.2833333333333332
+    m_BlendOutDuration: 0.2666666666666666
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -256,13 +256,13 @@ MonoBehaviour:
     m_Start: 3.2333333333333334
     m_ClipIn: 0
     m_Asset: {fileID: 3391206027042655521}
-    m_Duration: 2.5166666666666666
+    m_Duration: 2.833333333333333
     m_TimeScale: 1
     m_ParentTrack: {fileID: -8041451835441420240}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: -1
-    m_BlendOutDuration: -1
+    m_BlendInDuration: 0.2666666666666666
+    m_BlendOutDuration: 0.31666666666666643
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -289,7 +289,25 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -312,11 +330,29 @@ MonoBehaviour:
     m_ParentTrack: {fileID: -8041451835441420240}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: -1
-    m_BlendOutDuration: -1
+    m_BlendInDuration: 0.31666666666666643
+    m_BlendOutDuration: 0.3000000000000007
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -355,15 +391,15 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: Cook_Pot_Stir@Loop
   - m_Version: 1
-    m_Start: 8.8
+    m_Start: 8.5
     m_ClipIn: 0
     m_Asset: {fileID: 2471046018257768971}
-    m_Duration: 1.6666666666666667
+    m_Duration: 1.9666666666666668
     m_TimeScale: 1
     m_ParentTrack: {fileID: -8041451835441420240}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: -1
+    m_BlendInDuration: 0.3000000000000007
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
@@ -391,25 +427,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -436,25 +454,7 @@ MonoBehaviour:
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
