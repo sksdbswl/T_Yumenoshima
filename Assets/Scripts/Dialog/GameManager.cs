@@ -17,13 +17,22 @@ public enum RoutineState
 public class GameManager : SingletonBase<GameManager>
 {
     // 씬에 대한 정보, 이름 변경해줘도 좋을 듯 :: 해당 값을 이용해서 npc spawn
-    public int Stage = 0;
+    public int Stage = 1;
     
     private void Start()
     {
         //StartCoroutine(DayRoutineCoroutine());
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Stage++;
+            Debug.Log($"Stage Changed: {Stage}");
+        }
+    }
+    
     public async UniTask<bool> CheckAndDownloadStageResourcesAsync(
         int stage,
         Action<float> onProgress = null // 0 ~ 1
@@ -77,27 +86,6 @@ public class GameManager : SingletonBase<GameManager>
             return false;
         }
     }
-    
-    // public async UniTask<bool> CheckAndDownloadStageResourcesAsync(int stage)
-    // {
-    //     string npc = "Npc";
-    //     string builder = "Builder";
-    //
-    //     long size = await Addressables.GetDownloadSizeAsync(npc).Task;
-    //     Debug.Log($"[AssetManager] Required download size: {size} bytes");
-    //
-    //     if (size <= 0)
-    //     {
-    //         Debug.Log("[AssetManager] All resources already downloaded.");
-    //         return true;
-    //     }
-    //
-    //     var handle = Addressables.DownloadDependenciesAsync(npc);
-    //     await handle.Task;
-    //
-    //     Debug.Log("[AssetManager] Resource download complete.");
-    //     return true;
-    // }
 
     /// 인게임 진입 전체 흐름 (다운로드 → 씬 로드 → NPC 스폰)
     public async UniTask EnterIngameAsync()
@@ -113,25 +101,47 @@ public class GameManager : SingletonBase<GameManager>
         SpawnNpcForStage(Stage);
     }
 
-    public void SpawnNpcForStage(int stage)
+    public void SpawnNpcForStage(int worldStage)
     {
         var table = AssetManager.Singleton.GetNpcDataSO();
         
         foreach (var npcData in table.Items.Values)
         {
-            if (npcData.Stage != stage)
+            // 이 스테이지에 등장 가능한 NPC인가?
+            if (worldStage < npcData.WorldStageMin || worldStage > npcData.WorldStageMax)
                 continue;
 
+            // 실제 프리팹 생성
             var npcObj = AssetManager.Singleton.InstantiateNpcModel(npcData.Name);
             npcObj.transform.position = npcData.spawnPoint;
-            npcObj.GetComponent<NpcInteraction>().npcSO = npcData;
+
+            var interaction = npcObj.GetComponent<NpcInteraction>();
+            interaction.npcSO = npcData;
         }
     }
+
+    // public void SpawnNpcForStage(int stage)
+    // {
+    //     var table = AssetManager.Singleton.GetNpcDataSO();
+    //     
+    //     foreach (var npcData in table.Items.Values)
+    //     {
+    //         if (npcData.Stage != stage)
+    //             continue;
+    //
+    //         var npcObj = AssetManager.Singleton.InstantiateNpcModel(npcData.Name);
+    //         npcObj.transform.position = npcData.spawnPoint;
+    //         npcObj.GetComponent<NpcInteraction>().npcSO = npcData;
+    //     }
+    // }
 
     /// <summary>
     /// 특정 npc 스폰
     /// </summary>
     /// <param name="stage"></param>
+    /// <summary>
+    /// 특정 npc 스폰
+    /// </summary>
     public void SpawnNpc(int id)
     {
         var table = AssetManager.Singleton.GetNpcDataSO();
@@ -141,16 +151,20 @@ public class GameManager : SingletonBase<GameManager>
             Debug.LogError($"NPC ID {id} not found");
             return;
         }
-    
-        if (Stage != npcSO.Stage)
+
+        int worldStage = Stage; // GameManager의 현재 월드 스테이지
+
+        // 현재 스테이지에서 등장 가능한 NPC인지 체크
+        if (worldStage < npcSO.WorldStageMin || worldStage > npcSO.WorldStageMax)
             return;
-    
+
         var npcObj = AssetManager.Singleton.InstantiateNpcModel(npcSO.Prefab);
     
         npcObj.transform.position = npcSO.spawnPoint;
     
         npcObj.GetComponent<NpcInteraction>().npcSO = npcSO;
     }
+
     
     /// <summary>
     /// 인게임 루틴 전환 : npc 상태 변경 또는 player 행동 제약 ( 임시 5분마다 변경 )

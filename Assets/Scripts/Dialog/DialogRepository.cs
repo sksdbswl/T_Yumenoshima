@@ -13,14 +13,19 @@ public class DialogRepository : SingletonBase<DialogRepository>
     public class DialogData
     {
         public string Category { get; set; }
-        public int Id { get; set; }         // NPC Id
-        public string Key { get; set; }     // 외부용 라벨 (진행에는 안씀)
-        public string Kor { get; set; }     // 실제 대사
-        public string NPC { get; set; }     // NPC 이름
-        public bool IsStory { get; set; }   // true = 스토리, false = 일상
-        public int Stage { get; set; }      // 스테이지 번호
-        public int Order { get; set; }      // 해당 Stage 내 순서
-        public string Speaker { get; set; } // "NPC" or "Player"
+        public int Id { get; set; }             // NPC Id
+        public string Key { get; set; }         // 외부용 라벨 (진행에는 안씀)
+        public string Kor { get; set; }         // 실제 대사
+        public string NPC { get; set; }         // NPC 이름
+        public bool IsStory { get; set; }       // true = 스토리, false = 일상
+
+        // 새 CSV 필드들
+        public int WorldStageMin { get; set; }  // 등장 가능한 최소 월드 스테이지
+        public int WorldStageMax { get; set; }  // 등장 가능한 최대 월드 스테이지
+        public int NpcStoryStage { get; set; }  // NPC 개인 스토리 스테이지
+
+        public int Order { get; set; }          // 해당 NpcStoryStage 내 순서
+        public string Speaker { get; set; }     // "NPC" or "Player"
     }
 
     private List<DialogData> _all;
@@ -61,9 +66,9 @@ public class DialogRepository : SingletonBase<DialogRepository>
     }
 
     /// <summary>
-    /// 현재 NPC / Stage / Order 기준으로 다음 대사 한 줄 가져오기
+    /// 현재 NPC / 월드 스테이지 / NPC 스토리 스테이지 / Order 기준으로 다음 대사 한 줄 가져오기
     /// </summary>
-    public DialogData PickNext(int npcId, int stage)
+    public DialogData PickNext(int npcId, int worldStage, int npcStoryStage)
     {
         if (_all == null)
         {
@@ -71,30 +76,43 @@ public class DialogRepository : SingletonBase<DialogRepository>
             return null;
         }
 
-        int order = PlayerProgress.GetOrder(npcId, stage);
+        int order = PlayerProgress.GetOrder(npcId, npcStoryStage);
 
-        // 1) Story에서 (Id, Stage, Order) 딱 맞는 줄 찾기
+        // 1) Story에서 (Id, NpcStoryStage, Order, WorldStage범위) 딱 맞는 줄 찾기
         var story = _all.FirstOrDefault(d =>
-            d.Id == npcId && d.IsStory && d.Stage == stage && d.Order == order);
+            d.Id == npcId &&
+            d.IsStory &&
+            d.NpcStoryStage == npcStoryStage &&
+            d.Order == order &&
+            worldStage >= d.WorldStageMin &&
+            worldStage <= d.WorldStageMax
+        );
 
         if (story != null)
             return story;
 
-        // 2) 해당 Stage 스토리가 더 이상 없으면 → 일상 랜덤
-        var ambients = _all.Where(d => d.Id == npcId && !d.IsStory).ToList();
+        // 2) 해당 월드 스테이지에서 사용 가능한 일상 대사 랜덤
+        var ambients = _all
+            .Where(d =>
+                d.Id == npcId &&
+                !d.IsStory &&
+                worldStage >= d.WorldStageMin &&
+                worldStage <= d.WorldStageMax)
+            .ToList();
+
         if (ambients.Count == 0) return null;
 
         return ambients[Random.Range(0, ambients.Count)];
     }
 
     /// <summary>
-    /// 이 Stage의 Story가 모두 끝났는지 확인
+    /// 이 NPC 스토리 스테이지의 Story가 모두 끝났는지 확인
     /// nextOrder: 방금 대사(line.Order)를 처리한 후 다음 Order값
     /// </summary>
-    public bool IsStageCleared(int npcId, int stage, int nextOrder)
+    public bool IsStageCleared(int npcId, int npcStoryStage, int nextOrder)
     {
         var storySet = _all
-            .Where(d => d.Id == npcId && d.IsStory && d.Stage == stage)
+            .Where(d => d.Id == npcId && d.IsStory && d.NpcStoryStage == npcStoryStage)
             .ToList();
 
         if (storySet.Count == 0)

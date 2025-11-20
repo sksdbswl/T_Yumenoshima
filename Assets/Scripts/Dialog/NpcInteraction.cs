@@ -20,7 +20,6 @@ public class NpcInteraction : MonoBehaviour, IInteractable
     /// <summary>
     ///  setTrigger 설정
     /// </summary>
-    /// <param name="available"></param>
     public void SetInteractionAvailable(bool available)
     {
         canTalk = available;
@@ -34,18 +33,14 @@ public class NpcInteraction : MonoBehaviour, IInteractable
     /// <summary>
     /// 대화 시작 설정
     /// </summary>
-    /// <param name="pl"></param>
     public void RequestTalk(Player pl)
     {
-        
         Debug.Log("Talk");
         
         if (!canTalk) return;      // 근처에 있어야 대화 가능
-        if (isTalkable) return;     // 이미 대화 중이면 시작 X
+        if (isTalkable) return;    // 이미 대화 중이면 시작 X
         isTalkable = true;
         player = pl;
-        
-        //movement = npc;
         
         Debug.Log($"==========[NpcInteraction] RequestTalk: {pl.name}, {movement}");
         movement.StopWanderLoop(); 
@@ -64,7 +59,6 @@ public class NpcInteraction : MonoBehaviour, IInteractable
         isTalkable = false;
         
         movement.StartWanderLoop();
-        //movement = null;
         player = null;
         DialogTyper.Singleton.DialogUI.gameObject.SetActive(false);
     }
@@ -84,31 +78,40 @@ public class NpcInteraction : MonoBehaviour, IInteractable
         }
 
         int npcId = npcSO.BuilderId;
-        int stage = PlayerProgress.GetStage(npcId);
 
-        var line = DialogRepository.Singleton.PickNext(npcId, stage);
-        if (line == null) return false;;
+        // 1) 월드(메인) 스테이지 : GameManager에서 관리
+        // TODO: GameManager의 실제 필드/프로퍼티 이름에 맞게 수정 (예: CurrentStage, WorldStage 등)
+        int worldStage = GameManager.Singleton.Stage;
+
+        // 2) NPC 개인 스토리 스테이지 : PlayerProgress에서 관리
+        int npcStoryStage = PlayerProgress.GetNpcStoryStage(npcId);
+
+        // 3) Repository에서 다음 대사 한 줄 가져오기
+        var line = DialogRepository.Singleton.PickNext(npcId, worldStage, npcStoryStage);
+        if (line == null) return false;
         
         string speakerName = line.Speaker == "Player"
-            ? "Player"        
-            : npcSO.Name;     // NPC 이름 사용 (CSV의 NPC와 동일)
+            ? "Player"
+            : npcSO.Name; // CSV의 NPC와 동일한 이름 사용
 
         // 대사 재생
         DialogTyper.Singleton.PlayLine(speakerName, line.Kor);
         
-        // 스토리 진행 로직
+        // 스토리 진행 로직 (NPC 스토리 기준)
         if (line.IsStory)
         {
             int nextOrder = line.Order + 1;
-            // 아직 Stage 끝 아니면 Order만 증가
-            PlayerProgress.SetOrder(npcId, stage, nextOrder);
 
-            // Stage 끝났는지 체크
-            if (DialogRepository.Singleton.IsStageCleared(npcId, stage, nextOrder))
+            // 아직 이 NPC 스토리 Stage 안이라면 Order만 증가
+            PlayerProgress.SetOrder(npcId, npcStoryStage, nextOrder);
+
+            // 이 NPC 스토리 Stage가 끝났는지 체크
+            if (DialogRepository.Singleton.IsStageCleared(npcId, npcStoryStage, nextOrder))
             {
-                // Stage+1로 넘어가고, 새 Stage의 Order를 0으로 초기화
-                PlayerProgress.SetStage(npcId, stage + 1);
-                PlayerProgress.ResetOrder(npcId, stage + 1);
+                int nextNpcStoryStage = npcStoryStage + 1;
+
+                PlayerProgress.SetNpcStoryStage(npcId, nextNpcStoryStage);
+                PlayerProgress.ResetOrder(npcId, nextNpcStoryStage);
             }
         }
         

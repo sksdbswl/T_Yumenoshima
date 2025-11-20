@@ -17,5 +17,7 @@ public class NpcSO:ScriptableObject
     public GameObject Prefab;
     public Sprite Thumbnail;
     public Vector3 spawnPoint;
-    public int Stage;
+    //public int Stage;
+    public int WorldStageMin = 1;
+    public int WorldStageMax = 1;
 }
