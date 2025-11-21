@@ -112,6 +112,9 @@ public class NpcInteraction : MonoBehaviour, IInteractable
 
                 PlayerProgress.SetNpcStoryStage(npcId, nextNpcStoryStage);
                 PlayerProgress.ResetOrder(npcId, nextNpcStoryStage);
+                
+                // 이 챕터 클리어 → 보상 체크
+                StoryRewardManager.Singleton.TryGrantStoryReward(npcId, npcStoryStage);
             }
         }
         
