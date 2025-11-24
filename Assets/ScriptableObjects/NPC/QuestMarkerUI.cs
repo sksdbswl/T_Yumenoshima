@@ -13,6 +13,7 @@ public class QuestMarkerUI : MonoBehaviour
     {
         _mainCam = Camera.main;
         target = gameObject.transform;
+        markerRect = GetComponent<RectTransform>();
     }
 
     private void LateUpdate()
@@ -27,11 +28,11 @@ public class QuestMarkerUI : MonoBehaviour
         Vector3 screenPos = _mainCam.WorldToScreenPoint(worldPos);
 
         // 카메라 뒤에 있으면 안 보이도록 처리
-        if (screenPos.z < 0f)
-        {
-            markerRect.gameObject.SetActive(false);
-            return;
-        }
+        // if (screenPos.z < 0f)
+        // {
+        //     gameObject.SetActive(false);
+        //     return;
+        // }
 
         // 3. 스크린 좌표를 그대로 RectTransform의 position에 넣으면
         //    Screen Space - Overlay 캔버스 기준으로 잘 따라감
@@ -42,8 +43,8 @@ public class QuestMarkerUI : MonoBehaviour
     /// 퀘스트가 있을 때 UI 켜고/끄는 함수
     /// </summary>
     public void SetQuestActive(bool isActive)
-    {
-        if (markerRect != null)
-            markerRect.gameObject.SetActive(isActive);
+    { 
+        gameObject.SetActive(isActive);
+        //if (markerRect != null)
     }
 }

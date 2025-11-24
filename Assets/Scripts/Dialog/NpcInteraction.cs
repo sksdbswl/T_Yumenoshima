@@ -13,6 +13,7 @@ public class NpcInteraction : MonoBehaviour, IInteractable
     public void Awake()
     {
         movement = GetComponent<NpcMovement>();
+        questMarkerUI = DialogRepository.Singleton.SpawnMarker();
         GameManager.Singleton.OnStageChanged += CheckInteract;
     }
 
@@ -157,13 +158,6 @@ public class NpcInteraction : MonoBehaviour, IInteractable
             .HasStoryQuest(npcId, worldStage, npcStoryStage, currentOrder);
 
         Debug.Log($"[NpcInteraction] CheckInteract: {hasStoryQuest}");
-        
-        // 초기에 npc별 마크 할당
-        if (hasStoryQuest && questMarkerUI == null)
-        {
-            var marker = DialogRepository.Singleton.SpawnMarker();
-            questMarkerUI = marker;
-        }
         
         // 머리 위 UI 토글
         questMarkerUI.SetQuestActive(hasStoryQuest);
