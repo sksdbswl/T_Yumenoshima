@@ -24,10 +24,9 @@ public class DialogRepository : SingletonBase<DialogRepository>
         public string Speaker { get; set; }     // "NPC" or "Player"
     }
 
-    [SerializeField]
-    private DialogSO _dialogSO; // JsonImporterSOEditor로 채워진 SO를 인스펙터에서 할당
-
-    private List<DialogData> _all;
+    [SerializeField] private DialogSO _dialogSO; // JsonImporterSOEditor로 채워진 SO를 인스펙터에서 할당
+    [SerializeField] private List<DialogData> _all;
+    [SerializeField] private QuestMarkerUI _questMarkerUIPrefab;
 
     void Awake()
     {
@@ -129,6 +128,46 @@ public class DialogRepository : SingletonBase<DialogRepository>
 
         int maxOrder = storySet.Max(s => s.Order);
         return nextOrder > maxOrder; // 마지막 Order보다 크면 Stage 종료
+    }
+    
+    /// <summary>
+    /// 현재 진행도 기준으로, 남아 있는 스토리 대사가 하나라도 있는지 체크
+    /// (머리 위 퀘스트 마커 표시용)
+    /// </summary>
+    public bool HasStoryQuest(int npcId, int worldStage, int npcStoryStage, int currentOrder)
+    {
+        foreach (var line in _all)
+        {
+            // 1) 이 NPC 대사인가?
+            if (line.Id != npcId)
+                continue;
+
+            // 2) 스토리 대사만 대상
+            if (!line.IsStory)
+                continue;
+
+            // 3) 현재 월드 스테이지에서 열려 있는 대사인가?
+            if (worldStage < line.WorldStageMin || worldStage > line.WorldStageMax)
+                continue;
+
+            // 4) 현재 NPC 스토리 스테이지와 일치?
+            if (line.NpcStoryStage != npcStoryStage)
+                continue;
+
+            // 5) 아직 보지 않은 순번인가? (현재 order 이후)
+            if (line.Order >= currentOrder)
+            {
+                return true; // 남은 스토리 대사 있음 → 퀘스트 마커 ON
+            }
+        }
+
+        return false; // 남은 스토리 대사 없음 → 퀘스트 마커 OFF
+    }
+
+    public QuestMarkerUI SpawnMarker()
+    {
+        var marker = Instantiate(_questMarkerUIPrefab, Vector3.zero, Quaternion.identity, transform);
+        return marker;
     }
 }
 

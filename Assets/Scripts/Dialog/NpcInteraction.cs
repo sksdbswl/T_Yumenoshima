@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class NpcInteraction : MonoBehaviour, IInteractable
@@ -7,12 +8,20 @@ public class NpcInteraction : MonoBehaviour, IInteractable
     public Player player;
     public bool isTalkable = false;
     private bool canTalk = false;
-
+    private QuestMarkerUI questMarkerUI;
+    
     public void Awake()
     {
         movement = GetComponent<NpcMovement>();
+        GameManager.Singleton.OnStageChanged += CheckInteract;
     }
-    
+
+    public void Start()
+    {
+        // 초기에만 스테이지 확인
+        CheckInteract(GameManager.Singleton.Stage);
+    }
+
     // =======================
     // 대화 구현부
     // =======================
@@ -69,13 +78,13 @@ public class NpcInteraction : MonoBehaviour, IInteractable
     /// </summary>
     public bool TryTalk()
     {
-        DialogTyper.Singleton.DialogUI.gameObject.SetActive(true);
-        
         if (npcSO == null)
         {
             Debug.LogError("[NpcInteraction] npcSO is null.");
             return false;
         }
+        
+        DialogTyper.Singleton.DialogUI.gameObject.SetActive(true);
 
         int npcId = npcSO.BuilderId;
 
@@ -126,6 +135,40 @@ public class NpcInteraction : MonoBehaviour, IInteractable
     // IInteractable 구현부
     // =======================
 
+    /// <summary>
+    /// 상호작용 시작전 스토리 진행 퀘스트 여부 확인
+    /// </summary>
+    public void CheckInteract(int stage)
+    {
+        if (npcSO == null)
+            return;
+
+        int npcId = npcSO.BuilderId;
+        int worldStage = stage;
+
+        // 플레이어가 이 NPC에 대해 어디까지 진행했는지
+        int npcStoryStage = PlayerProgress.GetNpcStoryStage(npcId);
+        int currentOrder   = PlayerProgress.GetOrder(npcId, npcStoryStage); 
+
+        // 현재 월드/스토리 진행도 기준으로
+        // 남아 있는 스토리 대사가 있는지 체크
+        bool hasStoryQuest = DialogRepository
+            .Singleton
+            .HasStoryQuest(npcId, worldStage, npcStoryStage, currentOrder);
+
+        Debug.Log($"[NpcInteraction] CheckInteract: {hasStoryQuest}");
+        
+        // 초기에 npc별 마크 할당
+        if (hasStoryQuest && questMarkerUI == null)
+        {
+            var marker = DialogRepository.Singleton.SpawnMarker();
+            questMarkerUI = marker;
+        }
+        
+        // 머리 위 UI 토글
+        questMarkerUI.SetQuestActive(hasStoryQuest);
+    }
+        
     /// <summary>
     /// 상호작용 시작 / 대화 한 줄 진행
     /// Player.OnInteractPerformed 에서 호출

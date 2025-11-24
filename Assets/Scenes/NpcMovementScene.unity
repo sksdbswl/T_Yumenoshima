@@ -332,6 +332,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1344885791}
   - {fileID: 96122268}
   - {fileID: 471298921}
   m_Father: {fileID: 0}
@@ -1563,6 +1564,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogRepository
   _dialogSO: {fileID: 11400000, guid: ed66031b1cede3c418b7abe98c192c59, type: 2}
+  _all: []
+  _questMarkerUIPrefab: {fileID: 8760670009883498812, guid: 99ce3d394f1bddc4e941b920821fe604, type: 3}
 --- !u!4 &1344885791
 Transform:
   m_ObjectHideFlags: 0
@@ -1571,12 +1574,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1344885789}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -960, y: -540, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 367029953}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1570403777
 GameObject:
@@ -2827,7 +2830,6 @@ SceneRoots:
   - {fileID: 831018041}
   - {fileID: 639143940}
   - {fileID: 438736592}
-  - {fileID: 1344885791}
   - {fileID: 599087462}
   - {fileID: 1900624701}
   - {fileID: 1570403779}

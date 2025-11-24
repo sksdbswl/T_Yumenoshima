@@ -56,7 +56,7 @@ public class StoryManager : SingletonBase<StoryManager>
         Debug.Log("[StoryManager] Shin 2장 클리어 → 이후 흐름 처리");
 
         // 예: 튜토리얼 끝, 자유 탐험 시작, 신규 기능 오픈 등
-        GameManager.Singleton.Stage = 4;
+        //GameManager.Singleton.Stage = 4;
         await UniTask.Yield();
     }
 }

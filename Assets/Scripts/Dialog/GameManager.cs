@@ -17,7 +17,22 @@ public enum RoutineState
 public class GameManager : SingletonBase<GameManager>
 {
     // 씬에 대한 정보, 이름 변경해줘도 좋을 듯 :: 해당 값을 이용해서 npc spawn
-    public int Stage = 1;
+    private int _stage = 1;
+    public int Stage
+    {
+        get => _stage;
+        private set
+        {
+            if (_stage == value) return;
+            _stage = value;
+            OnStageChanged?.Invoke(_stage);
+            Debug.Log($"Stage Changed: {_stage}");
+        }
+    }
+
+    public event System.Action<int> OnStageChanged;
+    
+    //public int Stage = 1;
     
     private void Start()
     {

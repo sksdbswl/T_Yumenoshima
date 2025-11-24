@@ -97,7 +97,7 @@ public class MiniMapController : MonoBehaviour
         float xNorm = Mathf.InverseLerp(worldMinX, worldMaxX, worldPlayerPos.x); // Mathf.InverseLerp(-20, +20, 0) :: 결과 = 0.5
         float zNorm = Mathf.InverseLerp(worldMinZ, worldMaxZ, worldPlayerPos.z); // Mathf.InverseLerp(-20, +20, 0) :: 결과 = 0.5
 
-        Debug.Log(xNorm + " " + zNorm);
+        //Debug.Log(xNorm + " " + zNorm);
 
         // 1) xNorm - 0.5f : 중앙 맞추기
         // 2) (1) * mapSize.x : 픽셀 값으로 변환
