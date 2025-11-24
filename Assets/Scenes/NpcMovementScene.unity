@@ -1562,6 +1562,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: add6b2bb5f7de7e4f920aa8787e796cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogRepository
+  _dialogSO: {fileID: 11400000, guid: ed66031b1cede3c418b7abe98c192c59, type: 2}
 --- !u!4 &1344885791
 Transform:
   m_ObjectHideFlags: 0
