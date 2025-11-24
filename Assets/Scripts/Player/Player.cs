@@ -7,6 +7,10 @@ public class Player : MonoBehaviour
     public PlayerInputHandler inputHandler;
     private IInteractable currentInteractable;
 
+    [Header("Player Settings")]
+    bool Gather = false;
+    bool Fishing = false;
+    
     private void OnEnable()
     {
         inputHandler.OnInteract += HandleInteract;
