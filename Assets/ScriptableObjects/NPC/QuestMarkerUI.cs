@@ -12,7 +12,6 @@ public class QuestMarkerUI : MonoBehaviour
     private void Awake()
     {
         _mainCam = Camera.main;
-        target = gameObject.transform;
         markerRect = GetComponent<RectTransform>();
     }
 

@@ -14,6 +14,7 @@ public class NpcInteraction : MonoBehaviour, IInteractable
     {
         movement = GetComponent<NpcMovement>();
         questMarkerUI = DialogRepository.Singleton.SpawnMarker();
+        questMarkerUI.target = transform;
         GameManager.Singleton.OnStageChanged += CheckInteract;
     }
 
@@ -71,6 +72,7 @@ public class NpcInteraction : MonoBehaviour, IInteractable
         movement.StartWanderLoop();
         player = null;
         DialogTyper.Singleton.DialogUI.gameObject.SetActive(false);
+        questMarkerUI.SetQuestActive(false);
     }
     
     /// <summary>
