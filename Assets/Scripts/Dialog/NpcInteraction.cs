@@ -72,7 +72,7 @@ public class NpcInteraction : MonoBehaviour, IInteractable
         movement.StartWanderLoop();
         player = null;
         DialogTyper.Singleton.DialogUI.gameObject.SetActive(false);
-        questMarkerUI.SetQuestActive(false);
+        CheckInteract(GameManager.Singleton.Stage);
     }
     
     /// <summary>
