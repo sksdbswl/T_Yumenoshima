@@ -16,7 +16,5 @@ public enum UIList
     POPUP_MAX, // Popup Max
     PANEL_START, // Panel Start
         
-    TestUI,
-    
     PANEL_MAX,
 }
