@@ -67,6 +67,6 @@ public class PlacementSaveManager : SingletonBase<PlacementSaveManager>
     
     public async void OnGameStart()
     {
-        await GameManager.Singleton.EnterIngameAsync();
+        //await GameManager.Singleton.EnterIngameAsync();
     }
 }

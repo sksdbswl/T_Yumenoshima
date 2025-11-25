@@ -1,46 +1,43 @@
+using System;
+using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using Cysharp.Threading.Tasks;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using Object = UnityEngine.Object;
 
 public class AssetManager : SingletonBase<AssetManager>
 {
     private NpcDataSO _cacheNpcData;
+
     public NpcSO GetNpcSO()
     {
         LoadDataScript<NpcSO>(AssetConstant.AddressNpcData, out var result);
         return result;
     }
-    
+
     public NpcDataSO GetNpcDataSO()
     {
         if (_cacheNpcData == null)
         {
             _cacheNpcData = Addressables.LoadAssetAsync<NpcDataSO>(AssetConstant.AddressNpcData).WaitForCompletion();
-            _cacheNpcData.BuildDictionary();  
+            _cacheNpcData.BuildDictionary();
         }
+
         return _cacheNpcData;
     }
-    
-    // public NpcDataSO GetNpcDataSO()
-    // {
-    //     LoadDataScript<NpcDataSO>(AssetConstant.AddressNpcData, out var result);
-    //     return result;
-    // }
 
     public GameObject InstantiateNpcModel(string prefabName)
     {
-        // Addressables Address와 동일해야 함
         string address = $"{AssetConstant.AddressPrefixNpcModel}{prefabName}";
-        return LoadAssetClone<GameObject>(address); 
+        return LoadAssetClone<GameObject>(address);
     }
 
     public GameObject InstantiateNpcModel(GameObject prefab)
     {
-        // Addressables에서 직접 instantiate 가능
-     
-        return Instantiate(prefab);
+        return UnityEngine.Object.Instantiate(prefab);
     }
-    
+
     // ──────────────────────────────
     // SO 전용 로더
     // ──────────────────────────────
@@ -53,7 +50,6 @@ public class AssetManager : SingletonBase<AssetManager>
             return;
         }
 
-        // 데이터 테이블 계속 들고 갈지 결정
         result = LoadAssetClone<T>(address, false);
     }
 
@@ -74,17 +70,14 @@ public class AssetManager : SingletonBase<AssetManager>
         var original = Addressables.LoadAssetAsync<T>(address).WaitForCompletion();
 
         if (!instantiate)
-            return original;      // 읽기 전용으로 쓸 때
+            return original;
 
-        // SO든 Prefab이든 전부 Object.Instantiate로 복제
-        return Object.Instantiate(original);
+        return UnityEngine.Object.Instantiate(original);
     }
-    
-    
+
     /// <summary>
     /// 리소스 다운 로직
     /// </summary>
-    /// <param name="stage"></param>
     public async UniTask DownloadStageResourcesAsync(int stage)
     {
         // 임시 npc만 리소스 다운
@@ -92,7 +85,7 @@ public class AssetManager : SingletonBase<AssetManager>
         Debug.Log($"[AssetManager] Download Stage Resources: {label}");
 
         var handle = Addressables.DownloadDependenciesAsync(label);
-        await handle.Task; // 에러처리 필요하면 try/catch 추가
+        await handle.Task;
 
         Debug.Log($"[AssetManager] Download Stage Resources Done: {label}");
     }
@@ -100,18 +93,113 @@ public class AssetManager : SingletonBase<AssetManager>
     public void UnloadStageResources(int stage)
     {
         string label = $"Stage_{stage}";
-        Addressables.ClearDependencyCacheAsync(label); 
+        Addressables.ClearDependencyCacheAsync(label);
+    }
+
+    // ───────────────── UI 전용 Addressables 설정 ─────────────────
+
+    [Header("UI Addressables")]
+    [SerializeField]
+    private List<UIPrefabEntry> uiPrefabs = new();
+
+    /// <summary>
+    /// UIList → Addressables 프리팹 레퍼런스
+    /// </summary>
+    private readonly Dictionary<UIList, AssetReferenceGameObject> _uiPrefabLookup =
+        new Dictionary<UIList, AssetReferenceGameObject>();
+
+    private void BuildUiLookupIfNeeded()
+    {
+        if (_uiPrefabLookup.Count > 0)
+            return;
+
+        foreach (var entry in uiPrefabs)
+        {
+            if (entry == null || entry.prefab == null)
+                continue;
+
+            if (!_uiPrefabLookup.ContainsKey(entry.key))
+            {
+                _uiPrefabLookup.Add(entry.key, entry.prefab);
+            }
+        }
+    }
+
+    /// <summary>
+    /// UI 프리팹 Addressables Instantiate (동기, UIManager에서 사용)
+    /// </summary>
+    public bool InstantiateUIPrefabSync(UIList key, out GameObject loadedUI)
+    {
+        BuildUiLookupIfNeeded();
+        loadedUI = null;
+
+        if (!_uiPrefabLookup.TryGetValue(key, out var reference) || reference == null)
+        {
+            Debug.LogError($"[AssetManager] UIList {key} 에 대한 UI Addressable 설정이 없습니다.");
+            return false;
+        }
+
+        try
+        {
+            AsyncOperationHandle<GameObject> handle = reference.InstantiateAsync();
+            var instance = handle.WaitForCompletion();
+
+            if (instance == null)
+            {
+                Debug.LogError($"[AssetManager] UI {key} Instantiate 실패");
+                return false;
+            }
+
+            loadedUI = instance;
+            return true;
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"[AssetManager] UI {key} Instantiate 중 예외 발생");
+            Debug.LogException(e);
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// 필요하면 쓸 수 있는 비동기 버전
+    /// </summary>
+    public async UniTask<GameObject> InstantiateUIPrefabAsync(UIList key, Transform parent)
+    {
+        BuildUiLookupIfNeeded();
+
+        if (!_uiPrefabLookup.TryGetValue(key, out var reference) || reference == null)
+        {
+            Debug.LogError($"[AssetManager] UIList {key} 에 대한 UI Addressable 설정이 없습니다.");
+            return null;
+        }
+
+        var instance = await reference.InstantiateAsync(parent).ToUniTask();
+        if (!instance)
+        {
+            Debug.LogError($"[AssetManager] UI {key} Instantiate 실패");
+            return null;
+        }
+
+        return instance;
     }
 }
 
-
 public static class AssetConstant
 {
-    // NpcSO 주소 (Addressables 창에 Address를 이렇게 맞춰야 함)
+    // NpcSO 주소
     public const string AddressNpcData = "Assets/SoData/NPC/NpcSo";
 
     // NPC 프리팹 Prefix
-    // 예: Addressables Address가 "Assets/Prefab/NPC/Shin" 이면
-    // InstantiateNpcModel("Shin") -> "Assets/Prefab/NPC/Shin"
     public const string AddressPrefixNpcModel = "Assets/Prefab/NPC/";
+
+    // UI 관련 prefix가 필요하면 여기 추가해서 써도 됨
+    public const string AddressUIModel = "Assets/UI/";
+}
+
+[Serializable]
+public class UIPrefabEntry
+{
+    public UIList key;                       // 어떤 UI인지 (enum)
+    public AssetReferenceGameObject prefab;  // Addressables 참조
 }
