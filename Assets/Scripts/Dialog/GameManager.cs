@@ -37,7 +37,6 @@ public class GameManager : SingletonBase<GameManager>
     private void Start()
     {
         //StartCoroutine(DayRoutineCoroutine());
-        //UIManager.Singleton.Show<BuilderUI>(UIList.BuilderUI);
     }
 
     private void Update()
@@ -59,7 +58,8 @@ public class GameManager : SingletonBase<GameManager>
         var labels = new List<object>
         {
             "Npc",
-            "Builder"
+            "Builder",
+            "UI"
         };
 
         // 1) 두 라벨 전체의 다운로드 필요 용량 체크
@@ -108,8 +108,12 @@ public class GameManager : SingletonBase<GameManager>
     {
         // 1. 리소스 체크 & 다운로드
         bool ok = await CheckAndDownloadStageResourcesAsync(Stage);
+        
+        Debug.Log($"[GameManager] CheckAndDownloadStageResourcesAsync: {ok}");
         if (!ok) return;
 
+        await UIManager.Show<BuilderUI>(UIList.BuilderUI);
+        
         // 2. 씬 로드
         //await SceneManager.LoadSceneAsync("DialogScene").ToUniTask();
 

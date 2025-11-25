@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-public partial class UIManager : SingletonBase<UIManager>
+public partial class UIManager
 {
     public bool IsPopupOpened =>
         popups.Values.Any(popup => popup != null && popup.gameObject.activeSelf);
@@ -18,16 +18,16 @@ public partial class UIManager : SingletonBase<UIManager>
     [field: SerializeField] public Camera UICamera { get; private set; } = null;
 
     /// <summary> 2D Panel UI Container </summary>
-    private readonly Dictionary<UIList, UIBase> panels = new Dictionary<UIList, UIBase>();
+    private readonly Dictionary<UIList, UIBase> panels = new();
 
     /// <summary> 2D Popup UI Container </summary>
-    private readonly Dictionary<UIList, UIBase> popups = new Dictionary<UIList, UIBase>();
+    private readonly Dictionary<UIList, UIBase> popups = new();
 
     [SerializeField] internal Transform panelRoot;
     [SerializeField] internal Transform popupRoot;
 
-    internal readonly List<UIBase> activatedUIs = new List<UIBase>(30);
-    internal readonly List<GameObject> cachedUIsForOnlyOneRender = new List<GameObject>();
+    internal readonly List<UIBase> activatedUIs = new(30);
+    internal readonly List<GameObject> cachedUIsForOnlyOneRender = new();
     public bool IsInitialized { get; private set; } = false;
 
     public static event Action OnEscapeWithNoMorePopups;
@@ -44,43 +44,10 @@ public partial class UIManager : SingletonBase<UIManager>
     {
     };
 
-    // ------------------------------------------------
-    // Input 연결
-    // ------------------------------------------------
-    // private void Start()
-    // {
-    //     if (InputController.Singleton)
-    //     {
-    //         InputController.Singleton.OnEscape += OnEscapeCallback;
-    //         InputController.Singleton.OnTabForNext += OnTabForNext;
-    //         InputController.Singleton.OnTabForPrevious += OnTabForPrevious;
-    //     }
-    // }
-    //
-    // private void OnDestroy()
-    // {
-    //     if (InputController.Singleton)
-    //     {
-    //         InputController.Singleton.OnEscape -= OnEscapeCallback;
-    //         InputController.Singleton.OnTabForNext -= OnTabForNext;
-    //         InputController.Singleton.OnTabForPrevious -= OnTabForPrevious;
-    //     }
-    // }
-
     private void OnEscapeCallback()
     {
         HideLastPopup();
     }
-
-    // private void OnTabForNext()
-    // {
-    //     MoveTabFocus(false);
-    // }
-    //
-    // private void OnTabForPrevious()
-    // {
-    //     MoveTabFocus(true);
-    // }
 
     // ------------------------------------------------
     // ESC 로 맨 위 팝업 닫기
@@ -110,7 +77,6 @@ public partial class UIManager : SingletonBase<UIManager>
         var last = candidates.OrderByDescending(x => x.canvas.sortingOrder).FirstOrDefault();
         if (last?.ui != null)
         {
-            // 이 Hide는 다른 partial에서 정의된 static Hide(UIBase) 사용
             Hide(last.ui);
         }
     }
@@ -126,41 +92,6 @@ public partial class UIManager : SingletonBase<UIManager>
 
         return false;
     }
-
-    /// <summary> Tab 입력이 들어왔을 때 호출 (reverse = Shift+Tab) </summary>
-    // public void MoveTabFocus(bool reverse)
-    // {
-    //     var current = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
-    //
-    //     // 1. 현재 선택된 오브젝트 기준으로 처리
-    //     if (current != null)
-    //     {
-    //         var group = current.GetComponentInParent<UIFocusGroup>(true);
-    //         if (group != null)
-    //         {
-    //             group.MoveFocus(reverse);
-    //             return;
-    //         }
-    //     }
-    //
-    //     // 2. currentSelected == null인 경우
-    //     //    → 활성 UI 중 가장 위 UI에서 FocusGroup을 찾아서 첫 포커스 활성화
-    //     for (int i = activatedUIs.Count - 1; i >= 0; i--)
-    //     {
-    //         var ui = activatedUIs[i];
-    //         if (ui == null || !ui.gameObject.activeInHierarchy)
-    //             continue;
-    //
-    //         var fg = ui.GetComponentInChildren<UIFocusGroup>(true);
-    //         if (fg != null)
-    //         {
-    //             fg.FocusFirst();
-    //             return;
-    //         }
-    //     }
-    //
-    //     // 3. FocusGroup이 하나도 없는 경우 → 아무 것도 하지 않음
-    // }
 
     // ------------------------------------------------
     // 초기화 / Root & Camera 생성
@@ -187,6 +118,9 @@ public partial class UIManager : SingletonBase<UIManager>
         }
 
         IsInitialized = true;
+
+        // 인게임 진입을 여기서 바로 시작하고 싶다면:
+        _ = GameManager.Singleton.EnterIngameAsync();
     }
 
     private void CreatePopupRoot()
@@ -240,7 +174,7 @@ public partial class UIManager : SingletonBase<UIManager>
     // ------------------------------------------------
     // UI 로드 / 캐싱 (Addressables → AssetManager 사용)
     // ------------------------------------------------
-    public T GetUI<T>(UIList uiName, bool reload = false) where T : UIBase
+    public async UniTask<T> GetUI<T>(UIList uiName, bool reload = false) where T : UIBase
     {
         // Panel / Popup 컨테이너 & Root 결정
         Dictionary<UIList, UIBase> container =
@@ -248,51 +182,46 @@ public partial class UIManager : SingletonBase<UIManager>
         Transform root =
             uiName is > UIList.POPUP_START and < UIList.POPUP_MAX ? popupRoot : panelRoot;
 
-        if (!container.ContainsKey(uiName))
+        // reload 처리: 기존 인스턴스를 파괴하고 다시 로드
+        if (reload && container.TryGetValue(uiName, out var oldUi) && oldUi)
         {
-            return null;
-        }
-
-        // reload 요청 시 기존 인스턴스 제거
-        if (reload && container[uiName])
-        {
-            UnityEngine.Object.Destroy(container[uiName].gameObject);
+            UnityEngine.Object.Destroy(oldUi.gameObject);
             container[uiName] = null;
         }
 
         // 아직 로드 안됐으면 Addressables 통해 로드
-        if (!container[uiName])
+        if (!container.TryGetValue(uiName, out var uiBase) || uiBase == null)
         {
-            if (!AssetManager.Singleton.InstantiateUIPrefabSync(uiName, out GameObject loadedUI) || !loadedUI)
+            var loadedUI = await AssetManager.Singleton.InstantiateUIPrefabAsync(uiName, root);
+            if (loadedUI == null)
                 return null;
 
-            loadedUI.transform.SetParent(root, false);
             var component = loadedUI.GetComponent<T>();
-            container[uiName] = component;
+            if (component == null)
+            {
+                Debug.LogError($"[{nameof(UIManager)}] {uiName} 프리팹에 {typeof(T).Name}가 없습니다.");
+                UnityEngine.Object.Destroy(loadedUI);
+                return null;
+            }
 
-            if (container[uiName])
-                container[uiName].gameObject.SetActive(false);
+            container[uiName] = component;
+            uiBase = component;
+
+            uiBase.gameObject.SetActive(false);
 
             // Depth UI 설정
-            if (container[uiName].TryGetComponent(out UIBase ui))
+            if (uiBase.IsDepthUI)
             {
-                if (ui.IsDepthUI)
+                var canvas = uiBase.GetComponent<Canvas>();
+                if (canvas != null)
                 {
-                    Canvas canvas = container[uiName].gameObject.GetComponent<Canvas>();
                     canvas.renderMode = RenderMode.ScreenSpaceCamera;
                     canvas.worldCamera = this.UICamera;
                 }
             }
-
-            // child TextMeshProUGUI Font 세팅
-            // var texts = container[uiName].gameObject.GetComponentsInChildren<TextMeshProUGUI>(true);
-            // foreach (var text in texts)
-            // {
-            //     text.font = AssetManager.Singleton.LoadedMainFont;
-            // }
         }
 
-        return (T)container[uiName];
+        return (T)uiBase;
     }
 
     public void ReleaseUI<T>(T instance, UIList uiName) where T : UIBase
@@ -302,7 +231,7 @@ public partial class UIManager : SingletonBase<UIManager>
 
         container[uiName] = null;
         UnityEngine.Object.Destroy(instance.gameObject);
-        // 필요하다면 여기서 Addressables.ReleaseInstance(instance.gameObject) 도 같이 호출 가능
+        // 필요하다면 Addressables.ReleaseInstance(instance.gameObject) 도 여기서 호출 가능
     }
 
     public void HideAllUI()
@@ -360,13 +289,13 @@ public partial class UIManager : SingletonBase<UIManager>
         if (go == null)
             return null;
 
-        if (recursive == false)
+        if (!recursive)
         {
             for (int i = 0; i < go.transform.childCount; i++)
             {
                 Transform transform = go.transform.GetChild(i);
 
-                if (string.IsNullOrEmpty(name) || (transform.name == name))
+                if (string.IsNullOrEmpty(name) || transform.name == name)
                 {
                     T component = transform.GetComponent<T>();
 
@@ -379,7 +308,7 @@ public partial class UIManager : SingletonBase<UIManager>
         {
             foreach (T component in go.GetComponentsInChildren<T>(true))
             {
-                if (string.IsNullOrEmpty(name) || (component.name == name))
+                if (string.IsNullOrEmpty(name) || component.name == name)
                     return component;
             }
         }
@@ -387,9 +316,6 @@ public partial class UIManager : SingletonBase<UIManager>
         return null;
     }
 
-    // ------------------------------------------------
-    // 씬에서 미리 배치된 UI를 Manager에 등록
-    // ------------------------------------------------
     public void RegisterToManagerSceneInstancedUI(UIList uiName, UIBase instance)
     {
         Dictionary<UIList, UIBase> container =
@@ -398,7 +324,7 @@ public partial class UIManager : SingletonBase<UIManager>
         if (container[uiName] != null)
         {
             UnityEngine.Object.Destroy(instance.gameObject);
-            LogUtil.LogWarning(
+            Debug.LogWarning(
                 $"Already Registered UI Instance. Received Instance will be Auto Destroy Object. UIList:{uiName}, Type:{instance.GetType()}");
             return;
         }
@@ -421,41 +347,9 @@ public partial class UIManager : SingletonBase<UIManager>
                 activatedUIs.Add(instance);
             }
 
-            //InputController.Singleton.CurrentActionMap = InputController.InputActionMapType.UI;
+            // InputController.Singleton.CurrentActionMap = InputController.InputActionMapType.UI;
         }
     }
-
-    // ------------------------------------------------
-    // 폰트 변경
-    // ------------------------------------------------
-    private const string _fontNameFixBold = "Bold";
-    private const string _fontNameFixDynamic = "Dynamic";
-
-    // public void SetChangeAllUIFont()
-    // {
-    //     var mainFont = AssetManager.Singleton.LoadedMainFont;
-    //
-    //     TextMeshProUGUI[] panelTexts = panelRoot.GetComponentsInChildren<TextMeshProUGUI>(true);
-    //     TextMeshProUGUI[] popupTexts = popupRoot.GetComponentsInChildren<TextMeshProUGUI>(true);
-    //
-    //     void ApplyFont(TextMeshProUGUI text)
-    //     {
-    //         if (text.font == null)
-    //         {
-    //             text.font = mainFont;
-    //             return;
-    //         }
-    //
-    //         // 기존 폰트가 Dynamic 폰트가 아니라면, 대응되는 언어의 폰트로 교체
-    //         if (!text.font.name.Contains(_fontNameFixDynamic))
-    //         {
-    //             text.font = mainFont;
-    //         }
-    //     }
-    //
-    //     foreach (var text in panelTexts) ApplyFont(text);
-    //     foreach (var text in popupTexts) ApplyFont(text);
-    // }
 
     public bool IsRegisteredUI(UIList uiName)
     {
@@ -463,45 +357,4 @@ public partial class UIManager : SingletonBase<UIManager>
             uiName is > UIList.POPUP_START and < UIList.POPUP_MAX ? popups : panels;
         return container.ContainsKey(uiName) && container[uiName] != null;
     }
-
-    // ------------------------------------------------
-    // 씬 Flow 의존 UI 정리
-    // ------------------------------------------------
-    // public async UniTask ReleaseDependencyUI(ISceneFlow prevScene, ISceneFlow nextScene)
-    // {
-    //     if (prevScene == null)
-    //         return;
-    //
-    //     Type nextSceneType = nextScene?.GetType();
-    //     var uiListToRelease = new List<(UIBase ui, UIList uiList)>();
-    //
-    //     foreach (UIList uiList in Enum.GetValues(typeof(UIList)))
-    //     {
-    //         if (!UIManager.Singleton.IsRegisteredUI(uiList))
-    //             continue;
-    //
-    //         var ui = UIManager.Singleton.GetUI<UIBase>(uiList);
-    //         if (ui == null)
-    //             continue;
-    //
-    //         // 글로벌 UI → DependencySceneFlowTypes 없으면 스킵
-    //         var deps = ui.DependencySceneFlowTypes;
-    //         if (deps == null || deps.Count == 0)
-    //             continue;
-    //
-    //         // nextScene에서도 사용하는 경우는 유지
-    //         if (!deps.Contains(nextSceneType))
-    //         {
-    //             uiListToRelease.Add((ui, uiList));
-    //         }
-    //     }
-    //
-    //     // 실제 릴리즈 처리
-    //     foreach (var (ui, uiList) in uiListToRelease)
-    //     {
-    //         UIManager.Release(ui, uiList);
-    //     }
-    //
-    //     await UniTask.Yield();
-    // }
 }

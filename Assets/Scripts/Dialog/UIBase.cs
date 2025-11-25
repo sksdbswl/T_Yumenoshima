@@ -13,12 +13,12 @@ public class UIBase : MonoBehaviour
     public virtual bool IsNeedOnlyOneRenderUI => false;
     
     /// <summary> Hide 애니메이션을 사용하는 경우 완료 시 호출됨 </summary>
-    public event Action<UIBase, UnityAction> OnHideAnimationCompleted;
-
-    protected void NotifyHideAnimationCompleted(UnityAction callback = null)
-    {
-        OnHideAnimationCompleted?.Invoke(this, callback);
-    }
+    // public event Action<UIBase, UnityAction> OnHideAnimationCompleted;
+    //
+    // protected void NotifyHideAnimationCompleted(UnityAction callback = null)
+    // {
+    //     OnHideAnimationCompleted?.Invoke(this, callback);
+    // }
 
     /// <summary>
     /// UI 표시 (필요 시 오버라이드)

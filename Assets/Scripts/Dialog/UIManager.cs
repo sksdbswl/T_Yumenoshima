@@ -1,9 +1,10 @@
 using System;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
-public partial class UIManager:SingletonBase<UIManager>
+public partial class UIManager : SingletonBase<UIManager>
 {
     void Awake()
     {
@@ -11,34 +12,35 @@ public partial class UIManager:SingletonBase<UIManager>
         PlacementSaveManager.Singleton.Load();
         Initialize();
     }
-    
+
     public void OnPlacementSave()
     {
         PlacementSaveManager.Singleton.Save();
     }
-    
+
     public void OnPlacementReset()
     {
         PlacementSaveManager.Singleton.ClearAll();
-        
+
         var objects = FindObjectsOfType<PlaceableObject>();
         foreach (var obj in objects)
             Destroy(obj.gameObject);
-        
+
         PlacementSystem placement = FindObjectOfType<PlacementSystem>();
         placement.RebuildFromSave(PlacementSaveManager.Singleton.PlacedObjects);
     }
-    
+
     public void OnPlacementReload()
     {
         PlacementSaveManager.Singleton.Load();
     }
-    
+
     public async void OnClickGameStart()
     {
-        await GameManager.Singleton.EnterIngameAsync();
+        // 버튼에서 직접 호출하고 싶다면 여기를 사용
+        // await GameManager.Singleton.EnterIngameAsync();
     }
-    
+
     public static void ShowIngameFieldUI()
     {
     }
@@ -47,70 +49,17 @@ public partial class UIManager:SingletonBase<UIManager>
     {
     }
 
-    /// <summary>
-    /// 항상 새로운 인스턴스를 생성해서 사용하는 UI (예: 임시 팝업 등)
-    /// </summary>
-    public static T ShowNewInstanceUI<T>(UIList uiName, UnityAction showCallback = null) where T : UIBase
-    {
-        // PANEL
-        if (uiName is > UIList.PANEL_START and < UIList.PANEL_MAX)
-        {
-            if (!AssetManager.Singleton.InstantiateUIPrefabSync(uiName, out GameObject loadedUI) || loadedUI == null)
-                return null;
-
-            loadedUI.transform.SetParent(Singleton.panelRoot, false);
-
-            if (loadedUI.TryGetComponent(out T result))
-            {
-                Singleton.activatedUIs.Add(result);
-
-                if (Singleton.IsNeedVisibleCursor)
-                {
-                    //InputController.Singleton.CurrentActionMap = InputController.InputActionMapType.UI;
-                }
-
-                result.Show(showCallback);
-                return result;
-            }
-
-            UnityEngine.Object.Destroy(loadedUI);
-            return null;
-        }
-
-        // POPUP
-        if (uiName is > UIList.POPUP_START and < UIList.POPUP_MAX)
-        {
-            if (!AssetManager.Singleton.InstantiateUIPrefabSync(uiName, out GameObject loadedUI) || loadedUI == null)
-                return null;
-
-            loadedUI.transform.SetParent(Singleton.popupRoot, false);
-
-            if (loadedUI.TryGetComponent(out T result))
-            {
-                Singleton.activatedUIs.Add(result);
-
-                if (Singleton.IsNeedVisibleCursor)
-                {
-                    //InputController.Singleton.CurrentActionMap = InputController.InputActionMapType.UI;
-                }
-
-                result.Show(showCallback);
-                return result;
-            }
-
-            UnityEngine.Object.Destroy(loadedUI);
-            return null;
-        }
-
-        return null;
-    }
-
     public static void Release<T>(T instance, UIList uiName) where T : UIBase =>
         Singleton.ReleaseUI(instance, uiName);
 
-    public static T Show<T>(UIList ui, UnityAction showCallback = null, bool isReload = false) where T : UIBase
+    /// <summary>
+    /// UI 표시 (Addressables 로딩 + 캐싱 후 Show 호출)
+    /// </summary>
+    public static async UniTask<T> Show<T>(UIList ui, UnityAction showCallback = null, bool isReload = false)
+        where T : UIBase
     {
-        var newUI = Singleton.GetUI<T>(ui, isReload);
+        // GetUI 가 Addressables 로부터 로드 + Dictionary 캐싱까지 처리
+        var newUI = await Singleton.GetUI<T>(ui, isReload);
         if (!newUI)
             return null;
 
@@ -123,7 +72,7 @@ public partial class UIManager:SingletonBase<UIManager>
 
         if (Singleton.IsNeedVisibleCursor)
         {
-            //InputController.Singleton.CurrentActionMap = InputController.InputActionMapType.UI;
+            // InputController.Singleton.CurrentActionMap = InputController.InputActionMapType.UI;
         }
 
         if (newUI.IsNeedOnlyOneRenderUI)
@@ -134,14 +83,25 @@ public partial class UIManager:SingletonBase<UIManager>
         return newUI;
     }
 
+    /// <summary>
+    /// 이미 로드되어 캐싱된 UI를 숨김. (Addressables 새 로드는 하지 않음)
+    /// </summary>
     public static T Hide<T>(UIList ui, UnityAction hideCallback = null) where T : UIBase
     {
-        var targetUI = Singleton.GetUI<T>(ui);
-        if (!targetUI)
+        // Panel / Popup 컨테이너 선택
+        var container =
+            ui is > UIList.POPUP_START and < UIList.POPUP_MAX
+                ? Singleton.popups
+                : Singleton.panels;
+
+        if (!container.TryGetValue(ui, out var uiBase) || uiBase == null)
             return null;
 
-        Hide(targetUI, hideCallback);
-        return targetUI;
+        if (uiBase is not T targetTyped)
+            return null;
+
+        Hide(targetTyped, hideCallback);
+        return targetTyped;
     }
 
     private static void Hide(UIBase targetUI, UnityAction hideCallback = null)
@@ -157,11 +117,12 @@ public partial class UIManager:SingletonBase<UIManager>
 
             void Handler(UIBase _, UnityAction cb)
             {
-                capturedTarget.OnHideAnimationCompleted -= Handler;
+                // 애니메이션용 이벤트를 쓰고 싶으면 이 부분을 열어서 사용
+                // capturedTarget.OnHideAnimationCompleted -= Handler;
                 FinalizeHide(capturedTarget);
             }
 
-            targetUI.OnHideAnimationCompleted += Handler;
+            // targetUI.OnHideAnimationCompleted += Handler;
         }
     }
 

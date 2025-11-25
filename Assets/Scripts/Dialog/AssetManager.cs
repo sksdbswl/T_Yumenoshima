@@ -10,6 +10,8 @@ public class AssetManager : SingletonBase<AssetManager>
 {
     private NpcDataSO _cacheNpcData;
 
+    // ───────────────── NPC 관련 ─────────────────
+
     public NpcSO GetNpcSO()
     {
         LoadDataScript<NpcSO>(AssetConstant.AddressNpcData, out var result);
@@ -20,7 +22,10 @@ public class AssetManager : SingletonBase<AssetManager>
     {
         if (_cacheNpcData == null)
         {
-            _cacheNpcData = Addressables.LoadAssetAsync<NpcDataSO>(AssetConstant.AddressNpcData).WaitForCompletion();
+            _cacheNpcData = Addressables
+                .LoadAssetAsync<NpcDataSO>(AssetConstant.AddressNpcData)
+                .WaitForCompletion();
+
             _cacheNpcData.BuildDictionary();
         }
 
@@ -35,12 +40,11 @@ public class AssetManager : SingletonBase<AssetManager>
 
     public GameObject InstantiateNpcModel(GameObject prefab)
     {
-        return UnityEngine.Object.Instantiate(prefab);
+        return Object.Instantiate(prefab);
     }
 
-    // ──────────────────────────────
-    // SO 전용 로더
-    // ──────────────────────────────
+    // ───────────────── SO 전용 로더 ─────────────────
+
     private void LoadDataScript<T>(string address, out T result, bool fromcache = false)
         where T : ScriptableObject
     {
@@ -53,17 +57,15 @@ public class AssetManager : SingletonBase<AssetManager>
         result = LoadAssetClone<T>(address, false);
     }
 
-    // ──────────────────────────────
-    // 공통 캐시 로드 (SO, GameObject 모두 가능)
-    // ──────────────────────────────
+    // ───────────────── 공통 캐시 로드 ─────────────────
+
     private T LoadAssetFromCache<T>(string address) where T : Object
     {
         return Addressables.LoadAssetAsync<T>(address).WaitForCompletion();
     }
 
-    // ──────────────────────────────
-    // 공통 클론 로드 (SO, GameObject 모두 가능)
-    // ──────────────────────────────
+    // ───────────────── 공통 클론 로드 ─────────────────
+
     public T LoadAssetClone<T>(string address, bool instantiate = true)
         where T : Object
     {
@@ -72,16 +74,17 @@ public class AssetManager : SingletonBase<AssetManager>
         if (!instantiate)
             return original;
 
-        return UnityEngine.Object.Instantiate(original);
+        return Object.Instantiate(original);
     }
 
+    // ───────────────── 리소스 다운로드 ─────────────────
+
     /// <summary>
-    /// 리소스 다운 로직
+    /// stage에 필요한 리소스 다운로드 (임시로 "Npc" 라벨만 사용)
     /// </summary>
     public async UniTask DownloadStageResourcesAsync(int stage)
     {
-        // 임시 npc만 리소스 다운
-        string label = $"Npc";
+        const string label = "Npc";
         Debug.Log($"[AssetManager] Download Stage Resources: {label}");
 
         var handle = Addressables.DownloadDependenciesAsync(label);
@@ -96,92 +99,27 @@ public class AssetManager : SingletonBase<AssetManager>
         Addressables.ClearDependencyCacheAsync(label);
     }
 
-    // ───────────────── UI 전용 Addressables 설정 ─────────────────
-
-    [Header("UI Addressables")]
-    [SerializeField]
-    private List<UIPrefabEntry> uiPrefabs = new();
+    // ───────────────── UI 전용 Addressables ─────────────────
+    // Addressables Name 을 UIList enum 이름과 동일하게 맞춰서 사용
+    //   예) UIList.BuilderUI  ->  Addressable Name: "BuilderUI"
 
     /// <summary>
-    /// UIList → Addressables 프리팹 레퍼런스
+    /// UI 프리팹 Addressables Instantiate (비동기)
+    /// Addressables Name 은 key.ToString() 사용.
     /// </summary>
-    private readonly Dictionary<UIList, AssetReferenceGameObject> _uiPrefabLookup =
-        new Dictionary<UIList, AssetReferenceGameObject>();
-
-    private void BuildUiLookupIfNeeded()
+    public async UniTask<GameObject> InstantiateUIPrefabAsync(UIList key, Transform parent = null)
     {
-        if (_uiPrefabLookup.Count > 0)
-            return;
+        string address = $"{AssetConstant.AddressUIModel}{key}";
 
-        foreach (var entry in uiPrefabs)
+        var handle = Addressables.InstantiateAsync(address, parent);
+        var go = await handle.Task;
+
+        if (go == null)
         {
-            if (entry == null || entry.prefab == null)
-                continue;
-
-            if (!_uiPrefabLookup.ContainsKey(entry.key))
-            {
-                _uiPrefabLookup.Add(entry.key, entry.prefab);
-            }
-        }
-    }
-
-    /// <summary>
-    /// UI 프리팹 Addressables Instantiate (동기, UIManager에서 사용)
-    /// </summary>
-    public bool InstantiateUIPrefabSync(UIList key, out GameObject loadedUI)
-    {
-        BuildUiLookupIfNeeded();
-        loadedUI = null;
-
-        if (!_uiPrefabLookup.TryGetValue(key, out var reference) || reference == null)
-        {
-            Debug.LogError($"[AssetManager] UIList {key} 에 대한 UI Addressable 설정이 없습니다.");
-            return false;
+            Debug.LogError($"[AssetManager] UI {key} 로드/생성 실패. Addressables 키를 확인하세요. (Key: {address})");
         }
 
-        try
-        {
-            AsyncOperationHandle<GameObject> handle = reference.InstantiateAsync();
-            var instance = handle.WaitForCompletion();
-
-            if (instance == null)
-            {
-                Debug.LogError($"[AssetManager] UI {key} Instantiate 실패");
-                return false;
-            }
-
-            loadedUI = instance;
-            return true;
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"[AssetManager] UI {key} Instantiate 중 예외 발생");
-            Debug.LogException(e);
-            return false;
-        }
-    }
-
-    /// <summary>
-    /// 필요하면 쓸 수 있는 비동기 버전
-    /// </summary>
-    public async UniTask<GameObject> InstantiateUIPrefabAsync(UIList key, Transform parent)
-    {
-        BuildUiLookupIfNeeded();
-
-        if (!_uiPrefabLookup.TryGetValue(key, out var reference) || reference == null)
-        {
-            Debug.LogError($"[AssetManager] UIList {key} 에 대한 UI Addressable 설정이 없습니다.");
-            return null;
-        }
-
-        var instance = await reference.InstantiateAsync(parent).ToUniTask();
-        if (!instance)
-        {
-            Debug.LogError($"[AssetManager] UI {key} Instantiate 실패");
-            return null;
-        }
-
-        return instance;
+        return go;
     }
 }
 
