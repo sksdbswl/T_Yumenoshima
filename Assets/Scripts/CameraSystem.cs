@@ -12,7 +12,7 @@ public class CameraSystem : SingletonBase<CameraSystem>
     {
         base.Init();
         useCamera = tpsCamera;
-        Debug.Log("CameraSystem Initialized");
+        //Debug.Log("CameraSystem Initialized");
     }
     
     public void SetActiveCam()
