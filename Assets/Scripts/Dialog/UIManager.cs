@@ -22,7 +22,7 @@ public partial class UIManager : SingletonBase<UIManager>
     {
         PlacementSaveManager.Singleton.ClearAll();
 
-        var objects = FindObjectsOfType<PlaceableObject>();
+        var objects = FindObjectsOfType<PlaceableInteraction>();
         foreach (var obj in objects)
             Destroy(obj.gameObject);
 

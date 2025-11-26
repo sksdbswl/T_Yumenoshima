@@ -35,7 +35,7 @@ public class NpcMovement : NpcInteraction
     // =======================
     public void GoHome()
     {
-        var house = PlaceableObject.GetByInstanceId(HouseId);
+        var house = PlaceableInteraction.GetByInstanceId(HouseId);
 
         if (house == null)
         {

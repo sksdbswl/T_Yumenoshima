@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 /// <summary>
 /// JSON에 저장될때 사용될 데이터 형식
 /// </summary>
@@ -15,19 +14,19 @@ public class PlacedObjectData
     public float rotationY;
 }
 
-public class PlaceableObject: InteractionTarget, IInteractable
+public class PlaceableInteraction: InteractionTarget, IInteractable
 {
     // ==== 정적 레지스트리 (씬에 존재하는 인스턴스들) ====
-    private static Dictionary<int, PlaceableObject> _instances = new Dictionary<int, PlaceableObject>();
-    private static List<PlaceableObject> _buildingInstances = new List<PlaceableObject>();
+    private static Dictionary<int, PlaceableInteraction> _instances = new Dictionary<int, PlaceableInteraction>();
+    private static List<PlaceableInteraction> _buildingInstances = new List<PlaceableInteraction>();
 
-    public static PlaceableObject GetByInstanceId(int instanceId)
+    public static PlaceableInteraction GetByInstanceId(int instanceId)
     {
         _instances.TryGetValue(instanceId, out var obj);
         return obj;
     }
 
-    public static IReadOnlyList<PlaceableObject> GetBuildings()
+    public static IReadOnlyList<PlaceableInteraction> GetBuildings()
     {
         return _buildingInstances;
     }
@@ -35,7 +34,8 @@ public class PlaceableObject: InteractionTarget, IInteractable
     // ==== 인스턴스 정보 ====
     public PlaceableRole Role { get; private set; }
     public PlaceableItem SourceItem { get; private set; }
-
+    public DoorInteraction Door { get; private set; }
+    
     public int BuilderId => SourceItem != null ? SourceItem.BuilderId : -1;
 
     // ==== 초기화 ====
@@ -44,6 +44,12 @@ public class PlaceableObject: InteractionTarget, IInteractable
         Role = role;
         SourceItem = item;
 
+        if (item.Door)
+        {
+            Door = GetComponentInChildren<DoorInteraction>();
+            Door.Place = this;
+        }
+        
         int layer = BuilderLayers.LayerFromRole(role);
         BuilderLayers.SetLayerRecursive(transform, layer);
 
@@ -94,7 +100,15 @@ public class PlaceableObject: InteractionTarget, IInteractable
     
     public void CheckInteract(int stage) { }
 
-    public void BeginInteract(Player player) { }
+    public void BeginInteract(Player player)
+    {
+        // TODO:: 건물 상호작용 (예: 건물 정보창, 상점 UI 등)
+        Debug.Log($"[PlaceableObject] Building Interact: {SourceItem?.DisplayName} (Role: {Role})");
+    }
 
-    public void EndInteract(Player player) { }
+    public void EndInteract(Player player)
+    {
+        // TODO:: 건물 상호작용 종료 시 처리 (필요하다면)
+        Debug.Log($"[PlaceableObject] EndInteract: {SourceItem?.DisplayName}");
+    }
 }

@@ -116,7 +116,7 @@ public class PlacementSystem : MonoBehaviour
         Collider[] cols = Physics.OverlapBox(cellCenter, half);
         foreach (var c in cols)
         {
-            var po = c ? c.GetComponentInParent<PlaceableObject>() : null;
+            var po = c ? c.GetComponentInParent<PlaceableInteraction>() : null;
             if (po == null) continue;
 
             var otherItem = po.SourceItem;
@@ -221,7 +221,7 @@ public class PlacementSystem : MonoBehaviour
         if (_currentItem == null || _currentItem.Prefab == null) return;
 
         GameObject go = Instantiate(_currentItem.Prefab, pos, Quaternion.identity);
-        var obj = go.AddComponent<PlaceableObject>();
+        var obj = go.AddComponent<PlaceableInteraction>();
         
         //Debug.Log($"Placed {_currentItem.DisplayName} at {_currentItem.BuilderId}");
         

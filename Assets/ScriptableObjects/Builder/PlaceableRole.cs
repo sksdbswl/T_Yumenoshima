@@ -18,5 +18,5 @@ public class PlaceableItem : ScriptableObject
     public GameObject Prefab;
     public bool IsStack;
     public bool IsFire;
-    public InteractionTarget Door;
+    public bool Door;
 }

@@ -7,7 +7,10 @@ public class InteractionTarget : MonoBehaviour
         var p = other.GetComponent<Player>();
         if (p == null) return;
 
-        p.currentInteractable = gameObject.GetComponent<IInteractable>();
+        var interactable = gameObject.GetComponent<IInteractable>();
+        if (interactable == null) return;
+
+        p.AddInteractable(interactable);
     }
 
     private void OnTriggerExit(Collider other)
@@ -15,6 +18,14 @@ public class InteractionTarget : MonoBehaviour
         var p = other.GetComponent<Player>();
         if (p == null) return;
 
-        p.HandleCancel();
+        var interactable = gameObject.GetComponent<IInteractable>();
+        if (interactable == null) return;
+
+        if (p.currentInteractable == interactable)
+        {
+            p.HandleCancel(); 
+        }
+
+        p.RemoveInteractable(interactable);
     }
 }
