@@ -38,7 +38,7 @@ public partial class UIManager : SingletonBase<UIManager>
     public async void OnClickGameStart()
     {
         // 버튼에서 직접 호출하고 싶다면 여기를 사용
-        // await GameManager.Singleton.EnterIngameAsync();
+        await GameManager.Singleton.EnterIngameAsync();
     }
 
     public static void ShowIngameFieldUI()

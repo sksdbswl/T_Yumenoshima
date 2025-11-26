@@ -16,7 +16,7 @@ public class PlaceableItem : ScriptableObject
     public string DisplayName;
     public PlaceableRole Role;
     public GameObject Prefab;
-    public Sprite Thumbnail;
     public bool IsStack;
     public bool IsFire;
+    public InteractionTarget Door;
 }

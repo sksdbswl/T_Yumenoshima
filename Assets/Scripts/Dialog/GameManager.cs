@@ -36,7 +36,7 @@ public class GameManager : SingletonBase<GameManager>
     
     private void Start()
     {
-        //StartCoroutine(DayRoutineCoroutine());
+        StartCoroutine(DayRoutineCoroutine());
     }
 
     private void Update()
@@ -118,7 +118,7 @@ public class GameManager : SingletonBase<GameManager>
         //await SceneManager.LoadSceneAsync("DialogScene").ToUniTask();
 
         // 3. 씬 로드 끝난 뒤 NPC 스폰
-        //SpawnNpcForStage(Stage);
+        SpawnNpcForStage(Stage);
     }
 
     public void SpawnNpcForStage(int worldStage)

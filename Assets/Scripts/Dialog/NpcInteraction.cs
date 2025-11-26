@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class NpcInteraction : MonoBehaviour, IInteractable
+public class NpcInteraction : InteractionTarget, IInteractable
 {
     private NpcMovement movement;
     public NpcSO npcSO;
@@ -112,6 +112,8 @@ public class NpcInteraction : MonoBehaviour, IInteractable
     /// </summary>
     public void BeginInteract(Player player)
     {
+        SetInteractionAvailable(true); 
+        
         if (isTalkable)
         {
             bool hasNext = npcSO.TryTalk();
@@ -141,35 +143,38 @@ public class NpcInteraction : MonoBehaviour, IInteractable
         if (npcSO != null)
             player.OnDialogClosed(npcSO); 
 
+        SetInteractionAvailable(false);
+        player.currentInteractable = null;
+        
         RequestEndTalk();
     }
     
-    private void OnTriggerEnter(Collider other)
-    {
-        var player = other.GetComponent<Player>();
-        if (player != null && player.currentInteractable == null)
-        {
-            player.currentInteractable = this;
-
-            SetInteractionAvailable(true);  // 플레이어가 근처에 있다
-            Debug.Log($"Enter NPC: {npcSO.Name}");
-
-            // TODO:: 다른 타입의 상호작용 오브젝트도 여기에 분기 가능
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        var player = other.GetComponent<Player>();
-        if (player == null) return;
-        
-        if (player.currentInteractable == this)
-        {
-            SetInteractionAvailable(false); // 플레이어가 멀어졌다
-            Debug.Log("Talking OFF");
-            player.currentInteractable = null;
-        }
-
-        // TODO:: 다른 상호작용 오브젝트 처리
-    }
+    // private void OnTriggerEnter(Collider other)
+    // {
+    //     var player = other.GetComponent<Player>();
+    //     if (player != null && player.currentInteractable == null)
+    //     {
+    //         player.currentInteractable = this;
+    //
+    //         SetInteractionAvailable(true);  // 플레이어가 근처에 있다
+    //         Debug.Log($"Enter NPC: {npcSO.Name}");
+    //
+    //         // TODO:: 다른 타입의 상호작용 오브젝트도 여기에 분기 가능
+    //     }
+    // }
+    //
+    // private void OnTriggerExit(Collider other)
+    // {
+    //     var player = other.GetComponent<Player>();
+    //     if (player == null) return;
+    //     
+    //     if (player.currentInteractable == this)
+    //     {
+    //         SetInteractionAvailable(false); // 플레이어가 멀어졌다
+    //         Debug.Log("Talking OFF");
+    //         player.currentInteractable = null;
+    //     }
+    //
+    //     // TODO:: 다른 상호작용 오브젝트 처리
+    // }
 }

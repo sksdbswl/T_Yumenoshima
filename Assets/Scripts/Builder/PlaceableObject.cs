@@ -15,7 +15,7 @@ public class PlacedObjectData
     public float rotationY;
 }
 
-public class PlaceableObject : MonoBehaviour
+public class PlaceableObject: InteractionTarget, IInteractable
 {
     // ==== 정적 레지스트리 (씬에 존재하는 인스턴스들) ====
     private static Dictionary<int, PlaceableObject> _instances = new Dictionary<int, PlaceableObject>();
@@ -36,7 +36,6 @@ public class PlaceableObject : MonoBehaviour
     public PlaceableRole Role { get; private set; }
     public PlaceableItem SourceItem { get; private set; }
 
-    //public int InstanceId { get; private set; }
     public int BuilderId => SourceItem != null ? SourceItem.BuilderId : -1;
 
     // ==== 초기화 ====
@@ -44,9 +43,6 @@ public class PlaceableObject : MonoBehaviour
     {
         Role = role;
         SourceItem = item;
-
-        // 인스턴스 ID 부여
-        //InstanceId = PlayerProgress.GenerateBuilderId();
 
         int layer = BuilderLayers.LayerFromRole(role);
         BuilderLayers.SetLayerRecursive(transform, layer);
@@ -58,7 +54,6 @@ public class PlaceableObject : MonoBehaviour
         if (save)
         {
             PlacedObjectData data = new PlacedObjectData();
-            //data.instanceId = InstanceId;
             data.id  = item.BuilderId;
             data.role       = role;
             data.gridX      = position.x;
@@ -91,5 +86,24 @@ public class PlaceableObject : MonoBehaviour
         {
             _buildingInstances.Remove(this);
         }
+    }
+
+    // =======================
+    // IInteractable 구현부
+    // =======================
+    
+    public void CheckInteract(int stage)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void BeginInteract(Player player)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void EndInteract(Player player)
+    {
+        throw new System.NotImplementedException();
     }
 }
