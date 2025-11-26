@@ -148,33 +148,4 @@ public class NpcInteraction : InteractionTarget, IInteractable
         
         RequestEndTalk();
     }
-    
-    // private void OnTriggerEnter(Collider other)
-    // {
-    //     var player = other.GetComponent<Player>();
-    //     if (player != null && player.currentInteractable == null)
-    //     {
-    //         player.currentInteractable = this;
-    //
-    //         SetInteractionAvailable(true);  // 플레이어가 근처에 있다
-    //         Debug.Log($"Enter NPC: {npcSO.Name}");
-    //
-    //         // TODO:: 다른 타입의 상호작용 오브젝트도 여기에 분기 가능
-    //     }
-    // }
-    //
-    // private void OnTriggerExit(Collider other)
-    // {
-    //     var player = other.GetComponent<Player>();
-    //     if (player == null) return;
-    //     
-    //     if (player.currentInteractable == this)
-    //     {
-    //         SetInteractionAvailable(false); // 플레이어가 멀어졌다
-    //         Debug.Log("Talking OFF");
-    //         player.currentInteractable = null;
-    //     }
-    //
-    //     // TODO:: 다른 상호작용 오브젝트 처리
-    // }
 }
