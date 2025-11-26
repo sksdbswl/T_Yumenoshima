@@ -5,10 +5,10 @@ using UnityEngine.InputSystem;
 public class PlayerInputHandler : MonoBehaviour
 {
     [Header("Input")]
-    [SerializeField] public InputActionReference moveAction;
-    [SerializeField] public InputActionReference jumpAction;
-    [SerializeField] public InputActionReference interactAction;
-    [SerializeField] public InputActionReference cancelAction;
+    [SerializeField] public InputActionReference moveAction; // WASD
+    [SerializeField] public InputActionReference jumpAction; // Space
+    [SerializeField] public InputActionReference interactAction; // E
+    [SerializeField] public InputActionReference cancelAction; // Escape
 
     public Vector2 MoveInput { get; private set; }
 

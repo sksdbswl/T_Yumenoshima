@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     public PlayerInputHandler inputHandler;
-    private IInteractable currentInteractable;
+    public IInteractable currentInteractable;
 
     [Header("Player Settings")]
     bool Gather = false;
@@ -51,42 +51,7 @@ public class Player : MonoBehaviour
         PlayerProgress.ResetOrder(npcId, stage);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        // 상호작용 가능한 모든 IInteractable 처리
-        var interactable = other.GetComponent<IInteractable>();
-        if (interactable != null && currentInteractable == null)
-        {
-            currentInteractable = interactable;
-
-            // NPC라면
-            if (interactable is NpcInteraction npc)
-            {
-                npc.SetInteractionAvailable(true);  // 플레이어가 근처에 있다
-                Debug.Log($"Enter NPC: {npc.npcSO.Name}");
-            }
-
-            // TODO:: 다른 타입의 상호작용 오브젝트도 여기에 분기 가능
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        var interactable = other.GetComponent<IInteractable>();
-        if (interactable == null) return;
-
-        if (interactable == currentInteractable)
-        {
-            // NPC라면
-            if (interactable is NpcInteraction npc)
-            {
-                npc.SetInteractionAvailable(false); // 플레이어가 멀어졌다
-                Debug.Log("Talking OFF");
-            }
-
-            currentInteractable = null;
-        }
-
-        // TODO:: 다른 상호작용 오브젝트 처리
-    }
+    private void OnTriggerEnter(Collider other) { }
+    
+    private void OnTriggerExit(Collider other) { }
 }
