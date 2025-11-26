@@ -30,6 +30,12 @@ public abstract class BTNode : ScriptableObject
         return state;
     }
 
+    public void ResetState()
+    {
+        state = BTNodeState.Failure;
+        _started = false;
+    }
+    
     protected virtual void OnStart() { }
     protected virtual void OnStop() { }
     protected abstract BTNodeState OnUpdate();

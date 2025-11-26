@@ -29,4 +29,13 @@ public class AttackPlayerNode : ActionNode
         }
         return BTNodeState.Running;
     }
+    
+    protected override void OnStop()
+    {
+        if (agent == null && runner != null)
+            agent = runner.GetComponent<NavMeshAgent>();
+
+        if (agent != null)
+            agent.isStopped = false;
+    }
 }

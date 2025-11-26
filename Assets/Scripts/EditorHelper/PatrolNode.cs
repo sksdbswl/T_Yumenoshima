@@ -6,7 +6,7 @@ public class PatrolNode : ActionNode
 {
     [System.NonSerialized] public BehaviourTreeRunner runner;
     private NavMeshAgent agent;
-    public float patrolRadius = 8f;
+    public float patrolRadius = 5f;
 
     protected override void OnStart()
     {
@@ -21,6 +21,7 @@ public class PatrolNode : ActionNode
 
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
         {
+            Debug.Log("Reached destination");
             SetRandomDestination();
         }
 

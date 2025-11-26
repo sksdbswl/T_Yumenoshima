@@ -194,19 +194,43 @@ public class BehaviourTreeEditor : EditorWindow
         }
 
         // 선택 테두리
-        if (selectedNode == node)
+        // ==== 여기부터 상태 표시 ====
+        if (Application.isPlaying)
         {
-            Handles.BeginGUI();
-            Handles.color = Color.yellow;
-            Handles.DrawAAPolyLine(3,
-                rect.min,
-                new Vector3(rect.xMax, rect.y),
-                rect.max,
-                new Vector3(rect.x, rect.yMax),
-                rect.min);
-            Handles.color = Color.white;
-            Handles.EndGUI();
+            Color c = Color.clear;
+
+            switch (node.state)
+            {
+                case BTNodeState.Running:
+                    c = Color.yellow;
+                    break;
+                case BTNodeState.Success:
+                    c = Color.green;
+                    break;
+                case BTNodeState.Failure:
+                    c = Color.red;
+                    break;
+            }
+
+            if (c.a > 0f)
+            {
+                DrawNodeOutline(rect, c, 2f);
+            }
         }
+        
+        // if (selectedNode == node)
+        // {
+        //     Handles.BeginGUI();
+        //     Handles.color = Color.yellow;
+        //     Handles.DrawAAPolyLine(3,
+        //         rect.min,
+        //         new Vector3(rect.xMax, rect.y),
+        //         rect.max,
+        //         new Vector3(rect.x, rect.yMax),
+        //         rect.min);
+        //     Handles.color = Color.white;
+        //     Handles.EndGUI();
+        // }
 
         // 클릭/드래그
         var e = Event.current;
@@ -282,6 +306,20 @@ public class BehaviourTreeEditor : EditorWindow
         });
 
         menu.ShowAsContext();
+    }
+    
+    private void DrawNodeOutline(Rect rect, Color color, float thickness)
+    {
+        Handles.BeginGUI();
+        Handles.color = color;
+        Vector3 p1 = new Vector3(rect.x, rect.y);
+        Vector3 p2 = new Vector3(rect.xMax, rect.y);
+        Vector3 p3 = new Vector3(rect.xMax, rect.yMax);
+        Vector3 p4 = new Vector3(rect.x, rect.yMax);
+
+        Handles.DrawAAPolyLine(thickness, p1, p2, p3, p4, p1);
+        Handles.color = Color.white;
+        Handles.EndGUI();
     }
 
     private void DrawConnections()
