@@ -92,18 +92,9 @@ public class PlaceableObject: InteractionTarget, IInteractable
     // IInteractable 구현부
     // =======================
     
-    public void CheckInteract(int stage)
-    {
-        throw new System.NotImplementedException();
-    }
+    public void CheckInteract(int stage) { }
 
-    public void BeginInteract(Player player)
-    {
-        throw new System.NotImplementedException();
-    }
+    public void BeginInteract(Player player) { }
 
-    public void EndInteract(Player player)
-    {
-        throw new System.NotImplementedException();
-    }
+    public void EndInteract(Player player) { }
 }

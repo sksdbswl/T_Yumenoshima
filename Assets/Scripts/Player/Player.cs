@@ -50,8 +50,4 @@ public class Player : MonoBehaviour
         // ESC로 종료 시, 현재 Stage의 진행중이던 Order를 0으로 리셋
         PlayerProgress.ResetOrder(npcId, stage);
     }
-
-    private void OnTriggerEnter(Collider other) { }
-    
-    private void OnTriggerExit(Collider other) { }
 }

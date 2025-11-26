@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 public class InteractionTarget : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
