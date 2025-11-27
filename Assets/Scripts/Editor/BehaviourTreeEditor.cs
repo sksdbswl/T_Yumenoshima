@@ -217,20 +217,6 @@ public class BehaviourTreeEditor : EditorWindow
                 DrawNodeOutline(rect, c, 2f);
             }
         }
-        
-        // if (selectedNode == node)
-        // {
-        //     Handles.BeginGUI();
-        //     Handles.color = Color.yellow;
-        //     Handles.DrawAAPolyLine(3,
-        //         rect.min,
-        //         new Vector3(rect.xMax, rect.y),
-        //         rect.max,
-        //         new Vector3(rect.x, rect.yMax),
-        //         rect.min);
-        //     Handles.color = Color.white;
-        //     Handles.EndGUI();
-        // }
 
         // 클릭/드래그
         var e = Event.current;

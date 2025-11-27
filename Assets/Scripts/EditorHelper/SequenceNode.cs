@@ -14,7 +14,7 @@ public class SequenceNode : BTNode
     {
         if (children.Count == 0) return BTNodeState.Failure;
 
-        //_current = 0; 
+        _current = 0; 
         
         while (_current < children.Count)
         {
