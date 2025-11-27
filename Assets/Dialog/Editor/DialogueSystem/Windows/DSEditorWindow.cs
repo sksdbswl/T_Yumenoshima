@@ -12,7 +12,8 @@ namespace DS.Windows
     {
         private DSGraphView graphView;
 
-        private readonly string defaultFileName = "DialoguesFileName";
+        // 기본 파일 이름
+        private readonly string defaultFileName = "DialoguesName";
 
         private static TextField fileNameTextField;
         private Button saveButton;
@@ -28,14 +29,12 @@ namespace DS.Windows
         {
             AddGraphView();
             AddToolbar();
-
             AddStyles();
         }
 
         private void AddGraphView()
         {
             graphView = new DSGraphView(this);
-
             graphView.StretchToParentSize();
 
             rootVisualElement.Add(graphView);
@@ -45,18 +44,23 @@ namespace DS.Windows
         {
             Toolbar toolbar = new Toolbar();
 
-            fileNameTextField = DSElementUtility.CreateTextField(defaultFileName, "File Name:", callback =>
-            {
-                fileNameTextField.value = callback.newValue.RemoveWhitespaces().RemoveSpecialCharacters();
-            });
+            // 파일 이름 입력 필드
+            fileNameTextField = DSElementUtility.CreateTextField(
+                defaultFileName,
+                "File Name:",
+                callback =>
+                {
+                    fileNameTextField.value = callback.newValue
+                        .RemoveWhitespaces()
+                        .RemoveSpecialCharacters();
+                });
 
-            saveButton = DSElementUtility.CreateButton("Save", () => Save());
-
-            Button loadButton = DSElementUtility.CreateButton("Load", () => Load());
-            Button clearButton = DSElementUtility.CreateButton("Clear", () => Clear());
-            Button resetButton = DSElementUtility.CreateButton("Reset", () => ResetGraph());
-
-            miniMapButton = DSElementUtility.CreateButton("Minimap", () => ToggleMiniMap());
+            // 버튼들
+            saveButton  = DSElementUtility.CreateButton("Save",  () => Save());
+            Button loadButton   = DSElementUtility.CreateButton("Load",   () => Load());
+            Button clearButton  = DSElementUtility.CreateButton("Clear",  () => Clear());
+            Button resetButton  = DSElementUtility.CreateButton("Reset",  () => ResetGraph());
+            miniMapButton       = DSElementUtility.CreateButton("Minimap", () => ToggleMiniMap());
 
             toolbar.Add(fileNameTextField);
             toolbar.Add(saveButton);
@@ -65,32 +69,48 @@ namespace DS.Windows
             toolbar.Add(resetButton);
             toolbar.Add(miniMapButton);
 
-            toolbar.AddStyleSheets("Assets/Dialog/Editor Default Resources/DialogueSystem/DSToolbarStyles.uss");
+            // Toolbar 스타일 – 실제 경로
+            toolbar.AddStyleSheets(
+                "Assets/Dialog/Editor Default Resources/DialogueSystem/DSToolbarStyles.uss"
+            );
 
             rootVisualElement.Add(toolbar);
         }
 
         private void AddStyles()
         {
-            rootVisualElement.AddStyleSheets("Assets/Dialog/Editor Default Resources/DialogueSystem/DSVariables.uss");
+            // 전역 변수 / 색상 등 스타일
+            rootVisualElement.AddStyleSheets(
+                "Assets/Dialog/Editor Default Resources/DialogueSystem/DSVariables.uss"
+            );
         }
 
         private void Save()
         {
             if (string.IsNullOrEmpty(fileNameTextField.value))
             {
-                EditorUtility.DisplayDialog("Invalid file name.", "Please ensure the file name you've typed in is valid.", "Roger!");
+                EditorUtility.DisplayDialog(
+                    "Invalid file name.",
+                    "Please ensure the file name you've typed in is valid.",
+                    "Roger!"
+                );
 
                 return;
             }
 
+            // Graph 이름 기준으로 IO 유틸 초기화 후 저장
             DSIOUtility.Initialize(graphView, fileNameTextField.value);
             DSIOUtility.Save();
         }
 
         private void Load()
         {
-            string filePath = EditorUtility.OpenFilePanel("Dialogue Graphs", "Assets/Editor/DialogueSystem/Graphs", "asset");
+            // 🔹 실제 Graph 저장 위치와 동일한 폴더 사용
+            string filePath = EditorUtility.OpenFilePanel(
+                "Dialogue Graphs",
+                "Assets/Dialog/Editor/DialogueSystem/Graphs",
+                "asset"
+            );
 
             if (string.IsNullOrEmpty(filePath))
             {
@@ -99,7 +119,9 @@ namespace DS.Windows
 
             Clear();
 
-            DSIOUtility.Initialize(graphView, Path.GetFileNameWithoutExtension(filePath));
+            string fileName = Path.GetFileNameWithoutExtension(filePath);
+
+            DSIOUtility.Initialize(graphView, fileName);
             DSIOUtility.Load();
         }
 
@@ -111,14 +133,12 @@ namespace DS.Windows
         private void ResetGraph()
         {
             Clear();
-
             UpdateFileName(defaultFileName);
         }
 
         private void ToggleMiniMap()
         {
             graphView.ToggleMiniMap();
-
             miniMapButton.ToggleInClassList("ds-toolbar__button__selected");
         }
 

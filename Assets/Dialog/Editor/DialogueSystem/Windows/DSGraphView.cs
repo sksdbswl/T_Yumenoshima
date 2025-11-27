@@ -25,6 +25,7 @@ namespace DS.Windows
 
         private int nameErrorsAmount;
 
+        // 이름 오류 확인
         public int NameErrorsAmount
         {
             get
@@ -57,24 +58,26 @@ namespace DS.Windows
             groupedNodes = new SerializableDictionary<Group, SerializableDictionary<string, DSNodeErrorData>>();
 
             AddManipulators();
-            AddGridBackground();
             AddSearchWindow();
             AddMiniMap();
 
             OnElementsDeleted();
             OnGroupElementsAdded();
             OnGroupElementsRemoved();
-            OnGroupRenamed();
-            OnGraphViewChanged();
+            OnGroupRenamed(); 
+            OnGraphViewChanged(); // GraphView Changes
 
-            AddStyles();
-            AddMiniMapStyles();
+            AddGridBackground(); // Grid Background
+            AddStyles(); // GraphView Styles
+            AddMiniMapStyles(); // MiniMap Styles
         }
 
+        // GetCompatiblePorts : 유니티에서 제공하는 연결 가능한(compatible) 포트가 무엇인지 판단해주는 필터링 함수
         public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
         {
             List<Port> compatiblePorts = new List<Port>();
 
+            // ports : 사용할 수 있는 모든 포트 제공
             ports.ForEach(port =>
             {
                 if (startPort == port)
@@ -98,13 +101,15 @@ namespace DS.Windows
             return compatiblePorts;
         }
 
-        private void AddManipulators()
+        private void   AddManipulators()
         {
+            // 줌아웃 기능
             SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
 
-            this.AddManipulator(new ContentDragger());
-            this.AddManipulator(new SelectionDragger());
-            this.AddManipulator(new RectangleSelector());
+            // 유니티에서 제공하는 기능 : GraphView 에서 거의 필수로 쓰는 기본 조작 기능
+            this.AddManipulator(new ContentDragger()); // 그래프 전체 드래그 선택 이동
+            this.AddManipulator(new SelectionDragger()); // 선택된 노드 드래그 선택
+            this.AddManipulator(new RectangleSelector()); // 박스형태의 드래그 영역 생성 -> 영역안에 있는 노드 선택
 
             this.AddManipulator(CreateNodeContextualMenu("Add Node (Single Choice)", DSDialogueType.SingleChoice));
             this.AddManipulator(CreateNodeContextualMenu("Add Node (Multiple Choice)", DSDialogueType.MultipleChoice));
@@ -155,7 +160,7 @@ namespace DS.Windows
 
         public DSNode CreateNode(string nodeName, DSDialogueType dialogueType, Vector2 position, bool shouldDraw = true)
         {
-            Type nodeType = Type.GetType($"DS.Elements.DS{dialogueType}Node");
+            Type nodeType = Type.GetType($"DS.Elements.DS{dialogueType}Node"); // 열겨형의 nameSpace 사용
 
             DSNode node = (DSNode) Activator.CreateInstance(nodeType);
 
@@ -580,6 +585,7 @@ namespace DS.Windows
 
         private void AddStyles()
         {
+            // 해당 경로의 파일을 로드하여 스타일 적용 
             this.AddStyleSheets(
                 "Assets/Dialog/Editor Default Resources/DialogueSystem/DSGraphViewStyles.uss",
                 "Assets/Dialog/Editor Default Resources/DialogueSystem/DSNodeStyles.uss"

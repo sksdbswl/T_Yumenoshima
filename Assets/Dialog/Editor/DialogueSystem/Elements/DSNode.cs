@@ -15,7 +15,7 @@ namespace DS.Elements
     public class DSNode : Node
     {
         public string ID { get; set; }
-        public string DialogueName { get; set; }
+        public string DialogueName { get; set; } // 다이얼로그에서 사용될 각 노드의 이름
         public List<DSChoiceSaveData> Choices { get; set; }
         public string Text { get; set; }
         public DSDialogueType DialogueType { get; set; }

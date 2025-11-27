@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0202a3095b7477a4091d56344f0af6b3, type: 3}
+  m_Name: SelectJobDialoguesGraph
+  m_EditorClassIdentifier: Assembly-CSharp-Editor::DS.Data.Save.DSGraphSaveDataSO
+  <FileName>k__BackingField: SelectJobDialogues
+  <Groups>k__BackingField:
+  - <ID>k__BackingField: 36d8697c-4084-4791-a120-7a02893d789b
+    <Name>k__BackingField: Chapter1
+    <Position>k__BackingField: {x: -620.99994, y: -12.9999695}
+  - <ID>k__BackingField: 14952eeb-de33-4e1e-8106-8391ab1600b6
+    <Name>k__BackingField: Chapter2
+    <Position>k__BackingField: {x: -599, y: 383.00003}
+  <Nodes>k__BackingField:
+  - <ID>k__BackingField: 93e80f15-a56a-4a97-b6d9-6b0831c2817d
+    <Name>k__BackingField: Hello
+    <Text>k__BackingField: "\uC548\uB155 !"
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 8696171f-b65f-4d2e-a281-5932379f0343
+    <GroupID>k__BackingField: 36d8697c-4084-4791-a120-7a02893d789b
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: -596, y: 46}
+  - <ID>k__BackingField: 8696171f-b65f-4d2e-a281-5932379f0343
+    <Name>k__BackingField: Select
+    <Text>k__BackingField: "\uC9C1\uC5C5\uC744 \uC120\uD0DD\uD574\uC918"
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: "\uC804\uC0AC"
+      <NodeID>k__BackingField: 
+    - <Text>k__BackingField: "\uD574\uC801"
+      <NodeID>k__BackingField: 
+    - <Text>k__BackingField: "\uB3C4\uC801"
+      <NodeID>k__BackingField: 
+    <GroupID>k__BackingField: 36d8697c-4084-4791-a120-7a02893d789b
+    <DialogueType>k__BackingField: 1
+    <Position>k__BackingField: {x: -209, y: 46}
+  - <ID>k__BackingField: 1e2030b1-0220-4e19-aa99-34baccfceb7b
+    <Name>k__BackingField: "\uC120\uD0DD"
+    <Text>k__BackingField: "\uD018\uC2A4\uD2B8\uB97C \uC120\uD0DD\uD574\uC918"
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: "\uC0AC\uB0E5"
+      <NodeID>k__BackingField: a034fdeb-483f-4a24-a865-3a3180dea401
+    - <Text>k__BackingField: "\uCC44\uC9D1"
+      <NodeID>k__BackingField: c0ea9246-ab9e-43ab-ac34-2cbcfcc6def6
+    <GroupID>k__BackingField: 14952eeb-de33-4e1e-8106-8391ab1600b6
+    <DialogueType>k__BackingField: 1
+    <Position>k__BackingField: {x: -574, y: 497}
+  - <ID>k__BackingField: a034fdeb-483f-4a24-a865-3a3180dea401
+    <Name>k__BackingField: "\uC0AC\uB0E5"
+    <Text>k__BackingField: "\uBAAC\uC2A4\uD130\uB97C 10\uB9C8\uB9AC \uC7A1\uC544\uC918"
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 
+    <GroupID>k__BackingField: 14952eeb-de33-4e1e-8106-8391ab1600b6
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: -235, y: 442}
+  - <ID>k__BackingField: c0ea9246-ab9e-43ab-ac34-2cbcfcc6def6
+    <Name>k__BackingField: "\uCC44\uC9D1"
+    <Text>k__BackingField: "\uB098\uBB47\uAC00\uC9C0\uB97C 10\uAC1C \uAD6C\uD574\uC918"
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 
+    <GroupID>k__BackingField: 14952eeb-de33-4e1e-8106-8391ab1600b6
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: -235, y: 663}
+  <OldGroupNames>k__BackingField:
+  - Chapter1
+  - Chapter2
+  <OldUngroupedNodeNames>k__BackingField: []
+  <OldGroupedNodeNames>k__BackingField:
+    list:
+    - Key: Chapter1
+      Value:
+      - Hello
+      - Select
+    - Key: Chapter2
+      Value:
+      - "\uC120\uD0DD"
+      - "\uC0AC\uB0E5"
+      - "\uCC44\uC9D1"

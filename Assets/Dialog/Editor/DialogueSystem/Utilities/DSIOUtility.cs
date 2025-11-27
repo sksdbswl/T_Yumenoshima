@@ -375,7 +375,7 @@ namespace DS.Utilities
         {
             CreateFolder("Assets/Dialog/Editor/DialogueSystem", "Graphs");
 
-            CreateFolder("Assets", "DialogueSystem");
+            CreateFolder("Assets/Dialog", "DialogueSystem");
             CreateFolder("Assets/Dialog/DialogueSystem", "Dialogues");
 
             CreateFolder("Assets/Dialog/DialogueSystem/Dialogues", graphFileName);

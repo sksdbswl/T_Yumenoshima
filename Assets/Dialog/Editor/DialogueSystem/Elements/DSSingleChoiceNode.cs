@@ -8,6 +8,7 @@ namespace DS.Elements
     using Utilities;
     using Windows;
 
+    // 선택지가 없는 대사를 표현하는 노드
     public class DSSingleChoiceNode : DSNode
     {
         public override void Initialize(string nodeName, DSGraphView dsGraphView, Vector2 position)

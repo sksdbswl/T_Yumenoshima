@@ -9,6 +9,7 @@ namespace DS.Elements
     using Utilities;
     using Windows;
 
+    //플레이어에게 여러 개의 선택지(대답/질문)를 보여주는 노드
     public class DSMultipleChoiceNode : DSNode
     {
         public override void Initialize(string nodeName, DSGraphView dsGraphView, Vector2 position)
