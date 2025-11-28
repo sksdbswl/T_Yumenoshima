@@ -30,6 +30,7 @@ MonoBehaviour:
     <GroupID>k__BackingField: 36d8697c-4084-4791-a120-7a02893d789b
     <DialogueType>k__BackingField: 0
     <Position>k__BackingField: {x: -596, y: 46}
+    <AnimationClip>k__BackingField: {fileID: 0}
   - <ID>k__BackingField: 8696171f-b65f-4d2e-a281-5932379f0343
     <Name>k__BackingField: Select
     <Text>k__BackingField: "\uC9C1\uC5C5\uC744 \uC120\uD0DD\uD574\uC918"
@@ -43,6 +44,7 @@ MonoBehaviour:
     <GroupID>k__BackingField: 36d8697c-4084-4791-a120-7a02893d789b
     <DialogueType>k__BackingField: 1
     <Position>k__BackingField: {x: -209, y: 46}
+    <AnimationClip>k__BackingField: {fileID: 0}
   - <ID>k__BackingField: 1e2030b1-0220-4e19-aa99-34baccfceb7b
     <Name>k__BackingField: "\uC120\uD0DD"
     <Text>k__BackingField: "\uD018\uC2A4\uD2B8\uB97C \uC120\uD0DD\uD574\uC918"
@@ -54,6 +56,7 @@ MonoBehaviour:
     <GroupID>k__BackingField: 14952eeb-de33-4e1e-8106-8391ab1600b6
     <DialogueType>k__BackingField: 1
     <Position>k__BackingField: {x: 213, y: 153}
+    <AnimationClip>k__BackingField: {fileID: 0}
   - <ID>k__BackingField: a034fdeb-483f-4a24-a865-3a3180dea401
     <Name>k__BackingField: "\uC0AC\uB0E5"
     <Text>k__BackingField: "\uBAAC\uC2A4\uD130\uB97C 10\uB9C8\uB9AC \uC7A1\uC544\uC918"
@@ -63,6 +66,7 @@ MonoBehaviour:
     <GroupID>k__BackingField: 14952eeb-de33-4e1e-8106-8391ab1600b6
     <DialogueType>k__BackingField: 0
     <Position>k__BackingField: {x: 552, y: 98}
+    <AnimationClip>k__BackingField: {fileID: 0}
   - <ID>k__BackingField: c0ea9246-ab9e-43ab-ac34-2cbcfcc6def6
     <Name>k__BackingField: "\uCC44\uC9D1"
     <Text>k__BackingField: "\uB098\uBB47\uAC00\uC9C0\uB97C 10\uAC1C \uAD6C\uD574\uC918"
@@ -72,6 +76,7 @@ MonoBehaviour:
     <GroupID>k__BackingField: 14952eeb-de33-4e1e-8106-8391ab1600b6
     <DialogueType>k__BackingField: 0
     <Position>k__BackingField: {x: 552, y: 319}
+    <AnimationClip>k__BackingField: {fileID: 7400000, guid: a28bc0d5d74e942599e839179dae8546, type: 3}
   <OldGroupNames>k__BackingField:
   - Chapter1
   - Chapter2

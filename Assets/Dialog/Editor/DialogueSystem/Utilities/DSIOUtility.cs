@@ -165,7 +165,8 @@ namespace DS.Utilities
                 Text = node.Text,
                 GroupID = node.Group?.ID,
                 DialogueType = node.DialogueType,
-                Position = node.GetPosition().position
+                Position = node.GetPosition().position,
+                AnimationClip = node.NpcAnimationClip
             };
 
             graphData.Nodes.Add(nodeData);
@@ -325,7 +326,8 @@ namespace DS.Utilities
                 node.ID = nodeData.ID;
                 node.Choices = choices;
                 node.Text = nodeData.Text;
-
+                node.NpcAnimationClip = nodeData.AnimationClip;
+                
                 node.Draw();
 
                 graphView.AddElement(node);

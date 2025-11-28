@@ -14,14 +14,17 @@ namespace DS.ScriptableObjects
         [field: SerializeField] public List<DSDialogueChoiceData> Choices { get; set; } // 선택지 텍스트 리스트
         [field: SerializeField] public DSDialogueType DialogueType { get; set; } // SingleChoice, MultipleChoice
         [field: SerializeField] public bool IsStartingDialogue { get; set; }
+        
+        [field: SerializeField] public AnimationClip NpcAnimationClip { get; set; } // 재생할 애니메이션
 
-        public void Initialize(string dialogueName, string text, List<DSDialogueChoiceData> choices, DSDialogueType dialogueType, bool isStartingDialogue)
+        public void Initialize(string dialogueName, string text, List<DSDialogueChoiceData> choices, DSDialogueType dialogueType, bool isStartingDialogue, AnimationClip npcAnimationClip = null)
         {
             DialogueName = dialogueName;
             Text = text;
             Choices = choices;
             DialogueType = dialogueType;
             IsStartingDialogue = isStartingDialogue;
+            NpcAnimationClip = npcAnimationClip;
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using UnityEditor.Experimental.GraphView;
+using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 
 namespace DS.Utilities
@@ -62,5 +63,36 @@ namespace DS.Utilities
 
             return textArea;
         }
+        
+        
+        public static ObjectField CreateObjectField<T>(
+            string label,
+            T value,
+            EventCallback<ChangeEvent<UnityEngine.Object>> onValueChanged = null
+        ) where T : UnityEngine.Object
+        {
+            ObjectField field = new ObjectField(label)
+            {
+                objectType = typeof(T),
+                allowSceneObjects = false,
+                value = value   // T는 UnityEngine.Object를 상속하므로 OK
+            };
+
+            if (onValueChanged != null)
+            {
+                field.RegisterValueChangedCallback(onValueChanged);
+            }
+
+            return field;
+        }
+
+        // value 를 생략하고 싶을 때 쓰는 오버로드
+        // public static ObjectField CreateObjectField<T>(
+        //     string label,
+        //     EventCallback<ChangeEvent<UnityEngine.Object>> onValueChanged = null
+        // ) where T : UnityEngine.Object
+        // {
+        //     return CreateObjectField<T>(label, null, onValueChanged);
+        // }
     }
 }

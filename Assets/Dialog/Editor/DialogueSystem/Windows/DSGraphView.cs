@@ -101,6 +101,7 @@ namespace DS.Windows
             return compatiblePorts;
         }
 
+        // 노드 생성 또는 그룹 생성 
         private void   AddManipulators()
         {
             // 줌아웃 기능

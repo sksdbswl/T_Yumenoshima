@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor.Experimental.GraphView;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -19,8 +20,9 @@ namespace DS.Elements
         public List<DSChoiceSaveData> Choices { get; set; }
         public string Text { get; set; }
         public DSDialogueType DialogueType { get; set; }
+        public AnimationClip NpcAnimationClip { get; set; }
         public DSGroup Group { get; set; }
-
+        
         protected DSGraphView graphView;
         private Color defaultBackgroundColor;
 
@@ -126,6 +128,24 @@ namespace DS.Elements
             textFoldout.Add(textTextField);
 
             customDataContainer.Add(textFoldout);
+
+            
+            /* Animation Clip */
+            
+            ObjectField animField = DSElementUtility.CreateObjectField<AnimationClip>(
+                "NPC Animation",
+                NpcAnimationClip,
+                evt =>
+                {
+                    NpcAnimationClip = evt.newValue as AnimationClip;
+                }
+            );
+
+            // 스타일이 필요하면 클래스 추가도 가능
+            //animField.AddToClassList("ds-node__object-field");
+
+            customDataContainer.Add(animField);
+            // ─────────────────────────────────────────
 
             extensionContainer.Add(customDataContainer);
         }

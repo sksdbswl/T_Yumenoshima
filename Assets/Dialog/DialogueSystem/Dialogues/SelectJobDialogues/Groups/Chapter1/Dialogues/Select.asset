@@ -23,3 +23,4 @@ MonoBehaviour:
     <NextDialogue>k__BackingField: {fileID: 11400000, guid: 2de6f299e4bc1d642b40526303232230, type: 2}
   <DialogueType>k__BackingField: 1
   <IsStartingDialogue>k__BackingField: 0
+  <NpcAnimationClip>k__BackingField: {fileID: 0}
