@@ -3,8 +3,7 @@ using DS.Enumerations;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
-using DS.ScriptableObjects;  
+using DS.ScriptableObjects;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -17,35 +16,44 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private Transform choicesParent;
     [SerializeField] private Button choiceButtonPrefab;
 
-    [Header("Data")]
+    [Header("Data (debug only)")]
     [SerializeField] private DSDialogueContainerSO dialogueContainer;
 
-    // NodeID -> DSDialogueSO 매핑
     private Dictionary<string, DSDialogueSO> nodeLookup;
 
     private DSDialogueSO currentNode;
     private DialogueActor currentActor;
-    
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
 
-        BuildNodeLookup();
         dialoguePanel.SetActive(false);
+    }
+
+    // NPC 쪽에서 컨테이너 바꿔줄 때 사용
+    public void SetContainer(DSDialogueContainerSO container)
+    {
+        dialogueContainer = container;
+        BuildNodeLookup();
     }
 
     private void BuildNodeLookup()
     {
         nodeLookup = new Dictionary<string, DSDialogueSO>();
 
-        // 컨테이너 구조는 실제 프로젝트 SO 정의에 맞게 수정
-        // 여기는 "그룹 + 비그룹" 둘 다에서 다이얼로그 긁어오는 예시
+        if (dialogueContainer == null)
+        {
+            Debug.LogWarning("DialogueManager: dialogueContainer is null");
+            return;
+        }
+
         foreach (var pair in dialogueContainer.DialogueGroups)
         {
             foreach (var dialogue in pair.Value)
             {
-                nodeLookup[dialogue.name] = dialogue;   // ID 필드가 따로 있으면 그걸 쓰면 됨
+                nodeLookup[dialogue.name] = dialogue;
             }
         }
 
@@ -59,6 +67,7 @@ public class DialogueManager : MonoBehaviour
     {
         currentActor = actor;
         currentNode = startNode;
+
         dialoguePanel.SetActive(true);
         ShowCurrentNode();
     }
@@ -78,13 +87,11 @@ public class DialogueManager : MonoBehaviour
 
         if (currentNode.DialogueType == DSDialogueType.SingleChoice)
         {
-            // 다음 버튼 하나 생성해서 첫 번째 choice 따라가기
-            var button = Instantiate(choiceButtonPrefab, choicesParent);
+            var button = Object.Instantiate(choiceButtonPrefab, choicesParent);
             button.GetComponentInChildren<TextMeshProUGUI>().text = "다음";
 
             button.onClick.AddListener(() =>
             {
-                // choice 리스트 중 첫 번째의 NodeID / NextDialogue로 이동
                 if (currentNode.Choices.Count == 0)
                 {
                     EndDialogue();
@@ -93,14 +100,6 @@ public class DialogueManager : MonoBehaviour
 
                 var choice = currentNode.Choices[0];
 
-                // 1) NodeID 문자열을 사용하는 경우
-                // if (!string.IsNullOrEmpty(choice.NodeID) && nodeLookup.TryGetValue(choice.NodeID, out var nextNodeById))
-                // {
-                //     currentNode = nextNodeById;
-                //     ShowCurrentNode();
-                // }
-                
-                // 2) DSDialogueSO 참조를 직접 들고 있는 경우
                 if (choice.NextDialogue != null)
                 {
                     currentNode = choice.NextDialogue;
@@ -119,19 +118,13 @@ public class DialogueManager : MonoBehaviour
                 int index = i;
                 var choiceData = currentNode.Choices[index];
 
-                var button = Instantiate(choiceButtonPrefab, choicesParent);
+                var button = Object.Instantiate(choiceButtonPrefab, choicesParent);
                 button.GetComponentInChildren<TextMeshProUGUI>().text = choiceData.Text;
                 button.gameObject.SetActive(true);
                 button.onClick.AddListener(() =>
                 {
-                    // 선택한 choice의 다음 노드로 이동
                     DSDialogueSO nextNode = null;
 
-                    // if (!string.IsNullOrEmpty(choiceData.NodeID))
-                    // {
-                    //     nodeLookup.TryGetValue(choiceData.NodeID, out nextNode);
-                    // }
-                    
                     if (choiceData.NextDialogue != null)
                     {
                         nextNode = choiceData.NextDialogue;
@@ -143,21 +136,10 @@ public class DialogueManager : MonoBehaviour
             }
         }
 
-        Debug.Log(
-            $"Node '{currentNode.DialogueName}' ({currentNode.name}) has clip: " +
-            $"{(currentNode.NpcAnimationClip != null ? currentNode.NpcAnimationClip.name : "NULL")}",
-            currentNode
-        );
-
-        // 만약 클립이 있는 노드라면
-        if (currentNode.NpcAnimationClip)
+        // 애니메이션 재생
+        if (currentNode.NpcAnimationClip != null && currentActor != null)
         {
-            Debug.Log($"Playing clip {currentNode.NpcAnimationClip.name}");
             currentActor.PlayClip(currentNode.NpcAnimationClip);
-        }
-        else
-        {
-            Debug.Log($"No Playing clip");
         }
     }
 
@@ -165,7 +147,7 @@ public class DialogueManager : MonoBehaviour
     {
         foreach (Transform child in choicesParent)
         {
-            Destroy(child.gameObject);
+            Object.Destroy(child.gameObject);
         }
     }
 
@@ -175,7 +157,7 @@ public class DialogueManager : MonoBehaviour
         currentNode = null;
         ClearChoices();
 
-        // 여기서 플레이어 컨트롤 다시 켜주거나,
-        // NPC 상호작용 다시 가능하게 만드는 로직 등 넣으면 됨
+        // TODO: 필요하면 여기서 진행도 갱신 (예: NPC 스토리 stage 올리기)
+        // PlayerProgress.Instance.SetNpcStoryStage(currentNpcId, newStage);
     }
 }

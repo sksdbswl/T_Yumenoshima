@@ -1,50 +1,49 @@
+using System.Collections.Generic;
 using UnityEngine;
-using DS.ScriptableObjects;
 
 public class NPCDialogueTrigger : MonoBehaviour
 {
-    [SerializeField] private DSDialogueContainerSO dialogueContainer;
-    [SerializeField] private DSDialogueSO startingDialogue;
-    private DialogueActor Actor;
-    
+    [SerializeField] private string npcId;
+    [SerializeField] private DialogueActor actor;
+    [SerializeField] private DialogueDatabaseSO database;
+
     private bool playerInRange;
 
-    private void Awake()
+    void Update()
     {
-        Actor = GetComponent<DialogueActor>();
+        if (!playerInRange) return;
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            StartDialogueAuto();
+        }
     }
-    
+
+    private void StartDialogueAuto()
+    {
+        int stage = PlayerDialogueProgress.Instance.GetNpcStoryStage(npcId);
+
+        if (!database.TryGetDialogue(npcId, stage,
+                out var container, out var startNode))
+        {
+            Debug.Log($"[NPC {npcId}] no dialogue for stage {stage}");
+            return;
+        }
+
+        DialogueManager.Instance.SetContainer(container);
+        DialogueManager.Instance.StartDialogue(startNode, actor);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-        {
             playerInRange = true;
-            // "E키를 눌러 대화하기" 같은 UI 표시
-        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
-        {
             playerInRange = false;
-            // 힌트 UI 끄기
-        }
-    }
-
-    private void Update()
-    {
-        if (!playerInRange) return;
-
-        // 예: E 키로 대화 시작
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            // 컨테이너를 DialogueManager에도 전달하고 싶으면
-            //DialogueManager.Instance.SetContainer(dialogueContainer);
-
-            DialogueManager.Instance.StartDialogue(startingDialogue , Actor);
-
-            // 플레이어 움직임 잠그고 싶으면 여기에서 비활성화
-        }
     }
 }
+

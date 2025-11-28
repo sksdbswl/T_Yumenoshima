@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5fab774af4a4350bedd35e0745f68ee, type: 3}
+  m_Name: Dialogue Database SO
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueDatabaseSO
+  entries:
+  - npcId: Shin
+    minStage: 0
+    maxStage: 0
+    container: {fileID: 11400000, guid: 61c961db866490f4190956c659ab9b3b, type: 2}
+  - npcId: Shin
+    minStage: 1
+    maxStage: 1
+    container: {fileID: 11400000, guid: 64988a3af8f937e489f063e12838331b, type: 2}

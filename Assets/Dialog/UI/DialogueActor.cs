@@ -1,7 +1,7 @@
-using Animancer;
 using UnityEngine;
+using Animancer;
 
-public class DialogueActor: MonoBehaviour
+public class DialogueActor : MonoBehaviour
 {
     [SerializeField] private AnimancerComponent animancer;
 
