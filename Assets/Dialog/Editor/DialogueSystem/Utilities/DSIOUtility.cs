@@ -194,7 +194,8 @@ namespace DS.Utilities
                 node.Text,
                 ConvertNodeChoicesToDialogueChoices(node.Choices),
                 node.DialogueType,
-                node.IsStartingNode()
+                node.IsStartingNode(),
+                node.NpcAnimationClip
             );
 
             createdDialogues.Add(node.ID, dialogue);

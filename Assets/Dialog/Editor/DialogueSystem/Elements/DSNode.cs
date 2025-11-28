@@ -145,8 +145,7 @@ namespace DS.Elements
             //animField.AddToClassList("ds-node__object-field");
 
             customDataContainer.Add(animField);
-            // ─────────────────────────────────────────
-
+            
             extensionContainer.Add(customDataContainer);
         }
 

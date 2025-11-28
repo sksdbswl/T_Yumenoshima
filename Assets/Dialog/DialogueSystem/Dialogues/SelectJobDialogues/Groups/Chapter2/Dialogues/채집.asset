@@ -19,4 +19,4 @@ MonoBehaviour:
     <NextDialogue>k__BackingField: {fileID: 0}
   <DialogueType>k__BackingField: 0
   <IsStartingDialogue>k__BackingField: 0
-  <NpcAnimationClip>k__BackingField: {fileID: 0}
+  <NpcAnimationClip>k__BackingField: {fileID: 7400000, guid: a28bc0d5d74e942599e839179dae8546, type: 3}

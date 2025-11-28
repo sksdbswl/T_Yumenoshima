@@ -30,7 +30,7 @@ MonoBehaviour:
     <GroupID>k__BackingField: 36d8697c-4084-4791-a120-7a02893d789b
     <DialogueType>k__BackingField: 0
     <Position>k__BackingField: {x: -596, y: 46}
-    <AnimationClip>k__BackingField: {fileID: 0}
+    <AnimationClip>k__BackingField: {fileID: 1827226128182048838, guid: df7066cb95b024b4295159063e763b8c, type: 3}
   - <ID>k__BackingField: 8696171f-b65f-4d2e-a281-5932379f0343
     <Name>k__BackingField: Select
     <Text>k__BackingField: "\uC9C1\uC5C5\uC744 \uC120\uD0DD\uD574\uC918"

@@ -24,7 +24,8 @@ public class DialogueManager : MonoBehaviour
     private Dictionary<string, DSDialogueSO> nodeLookup;
 
     private DSDialogueSO currentNode;
-
+    private DialogueActor currentActor;
+    
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -54,8 +55,9 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void StartDialogue(DSDialogueSO startNode)
+    public void StartDialogue(DSDialogueSO startNode, DialogueActor actor)
     {
+        currentActor = actor;
         currentNode = startNode;
         dialoguePanel.SetActive(true);
         ShowCurrentNode();
@@ -76,7 +78,7 @@ public class DialogueManager : MonoBehaviour
 
         if (currentNode.DialogueType == DSDialogueType.SingleChoice)
         {
-            // "다음" 버튼 하나 생성해서 첫 번째 choice 따라가기
+            // 다음 버튼 하나 생성해서 첫 번째 choice 따라가기
             var button = Instantiate(choiceButtonPrefab, choicesParent);
             button.GetComponentInChildren<TextMeshProUGUI>().text = "다음";
 
@@ -139,6 +141,23 @@ public class DialogueManager : MonoBehaviour
                     ShowCurrentNode();
                 });
             }
+        }
+
+        Debug.Log(
+            $"Node '{currentNode.DialogueName}' ({currentNode.name}) has clip: " +
+            $"{(currentNode.NpcAnimationClip != null ? currentNode.NpcAnimationClip.name : "NULL")}",
+            currentNode
+        );
+
+        // 만약 클립이 있는 노드라면
+        if (currentNode.NpcAnimationClip)
+        {
+            Debug.Log($"Playing clip {currentNode.NpcAnimationClip.name}");
+            currentActor.PlayClip(currentNode.NpcAnimationClip);
+        }
+        else
+        {
+            Debug.Log($"No Playing clip");
         }
     }
 

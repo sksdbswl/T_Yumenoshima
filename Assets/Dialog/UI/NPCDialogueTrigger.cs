@@ -5,9 +5,15 @@ public class NPCDialogueTrigger : MonoBehaviour
 {
     [SerializeField] private DSDialogueContainerSO dialogueContainer;
     [SerializeField] private DSDialogueSO startingDialogue;
-
+    private DialogueActor Actor;
+    
     private bool playerInRange;
 
+    private void Awake()
+    {
+        Actor = GetComponent<DialogueActor>();
+    }
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -36,7 +42,7 @@ public class NPCDialogueTrigger : MonoBehaviour
             // 컨테이너를 DialogueManager에도 전달하고 싶으면
             //DialogueManager.Instance.SetContainer(dialogueContainer);
 
-            DialogueManager.Instance.StartDialogue(startingDialogue);
+            DialogueManager.Instance.StartDialogue(startingDialogue , Actor);
 
             // 플레이어 움직임 잠그고 싶으면 여기에서 비활성화
         }
