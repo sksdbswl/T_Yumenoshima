@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DialogueName
   m_EditorClassIdentifier: Assembly-CSharp::DS.ScriptableObjects.DSDialogueSO
   <DialogueName>k__BackingField: DialogueName
-  <Text>k__BackingField: "\uC9C1\uC5C5\uC744 \uC120\uD0DD\uD574\uC918"
+  <Text>k__BackingField: "\uC544\uC774\uD15C\uC744 \uC120\uD0DD\uD574\uC918"
   <Choices>k__BackingField:
   - <Text>k__BackingField: "\uC804\uC0AC"
     <NextDialogue>k__BackingField: {fileID: 0}

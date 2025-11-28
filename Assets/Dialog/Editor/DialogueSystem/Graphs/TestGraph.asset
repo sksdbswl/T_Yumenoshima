@@ -15,9 +15,18 @@ MonoBehaviour:
   <FileName>k__BackingField: test
   <Groups>k__BackingField: []
   <Nodes>k__BackingField:
+  - <ID>k__BackingField: 93e80f15-a56a-4a97-b6d9-6b0831c2817d
+    <Name>k__BackingField: Test
+    <Text>k__BackingField: "\uC548\uB155 !"
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 8696171f-b65f-4d2e-a281-5932379f0343
+    <GroupID>k__BackingField: 
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 154, y: 164}
   - <ID>k__BackingField: 8696171f-b65f-4d2e-a281-5932379f0343
     <Name>k__BackingField: DialogueName
-    <Text>k__BackingField: "\uC9C1\uC5C5\uC744 \uC120\uD0DD\uD574\uC918"
+    <Text>k__BackingField: "\uC544\uC774\uD15C\uC744 \uC120\uD0DD\uD574\uC918"
     <Choices>k__BackingField:
     - <Text>k__BackingField: "\uC804\uC0AC"
       <NodeID>k__BackingField: 
@@ -28,18 +37,9 @@ MonoBehaviour:
     <GroupID>k__BackingField: 
     <DialogueType>k__BackingField: 1
     <Position>k__BackingField: {x: 524, y: 164}
-  - <ID>k__BackingField: 93e80f15-a56a-4a97-b6d9-6b0831c2817d
-    <Name>k__BackingField: Test
-    <Text>k__BackingField: "\uC548\uB155 !"
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: Next Dialogue
-      <NodeID>k__BackingField: 8696171f-b65f-4d2e-a281-5932379f0343
-    <GroupID>k__BackingField: 
-    <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: 154, y: 164}
   <OldGroupNames>k__BackingField: []
   <OldUngroupedNodeNames>k__BackingField:
-  - DialogueName
   - Test
+  - DialogueName
   <OldGroupedNodeNames>k__BackingField:
     list: []

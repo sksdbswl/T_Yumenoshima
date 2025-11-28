@@ -5,6 +5,7 @@ namespace DS.Data
 {
     using ScriptableObjects;
 
+    //선택지 텍스트
     [Serializable]
     public class DSDialogueChoiceData
     {

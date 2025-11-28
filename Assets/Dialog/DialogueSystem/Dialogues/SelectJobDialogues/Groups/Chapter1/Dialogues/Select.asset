@@ -16,10 +16,10 @@ MonoBehaviour:
   <Text>k__BackingField: "\uC9C1\uC5C5\uC744 \uC120\uD0DD\uD574\uC918"
   <Choices>k__BackingField:
   - <Text>k__BackingField: "\uC804\uC0AC"
-    <NextDialogue>k__BackingField: {fileID: 0}
+    <NextDialogue>k__BackingField: {fileID: 11400000, guid: 2de6f299e4bc1d642b40526303232230, type: 2}
   - <Text>k__BackingField: "\uD574\uC801"
-    <NextDialogue>k__BackingField: {fileID: 0}
+    <NextDialogue>k__BackingField: {fileID: 11400000, guid: 2de6f299e4bc1d642b40526303232230, type: 2}
   - <Text>k__BackingField: "\uB3C4\uC801"
-    <NextDialogue>k__BackingField: {fileID: 0}
+    <NextDialogue>k__BackingField: {fileID: 11400000, guid: 2de6f299e4bc1d642b40526303232230, type: 2}
   <DialogueType>k__BackingField: 1
   <IsStartingDialogue>k__BackingField: 0

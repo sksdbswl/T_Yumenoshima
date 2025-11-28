@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace DS.ScriptableObjects
 {
+    // 한 그래프 전체를 저장하는 SO
     public class DSDialogueContainerSO : ScriptableObject
     {
         [field: SerializeField] public string FileName { get; set; }
