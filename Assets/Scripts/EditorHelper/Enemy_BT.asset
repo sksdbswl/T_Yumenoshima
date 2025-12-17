@@ -70,7 +70,7 @@ MonoBehaviour:
   parent: {fileID: 6236132632017995628}
   children: []
   position: {x: 697, y: 201.5}
-  attackTime: 0.6
+  attackTime: 1.5
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,11 +88,11 @@ MonoBehaviour:
   - {fileID: -8299008505066463973}
   - {fileID: 6236132632017995628}
   - {fileID: -6698180823069302380}
-  - {fileID: 8048523686564700664}
   - {fileID: 3750213599624902743}
+  - {fileID: -8310587953197052687}
+  - {fileID: 8048523686564700664}
   - {fileID: 6767603082054590646}
   - {fileID: -6036644370899169437}
-  - {fileID: -8310587953197052687}
 --- !u!114 &3750213599624902743
 MonoBehaviour:
   m_ObjectHideFlags: 0

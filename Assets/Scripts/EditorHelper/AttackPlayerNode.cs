@@ -5,7 +5,7 @@ using UnityEngine.AI;
 public class AttackPlayerNode : ActionNode
 {
     [System.NonSerialized] public BehaviourTreeRunner runner;
-    public float attackTime = 0.6f;
+    public float attackTime = 1.5f;
     private float timer;
     private NavMeshAgent agent;
 

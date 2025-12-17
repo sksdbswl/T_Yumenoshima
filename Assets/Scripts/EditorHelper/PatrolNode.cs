@@ -26,7 +26,7 @@ public class PatrolNode : ActionNode
             //Debug.Log("Reached destination");
             SetRandomDestination();
         }
-
+        
         return BTNodeState.Running;
     }
 
