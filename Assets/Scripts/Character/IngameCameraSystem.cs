@@ -121,15 +121,15 @@ public class IngameCameraSystem : MonoBehaviour,
     [SerializeField] private CinemachineCamera menuCamera;
 
     [Header("TPS Camera Config")]
-    [SerializeField] private Vector3 onGravityChangeCamOffset = new(0, -.3f, .7f);
-    [SerializeField] private float gravityChangeCamInSharpness = 8f;
-    [SerializeField] private float gravityChangeCamOutSharpness = 2f;
+    [SerializeField] private Vector3 onGravityChangeCamOffset = new (0, -.3f, .7f); // 중력 변환 중 카메라 오프셋 변경값
+    [SerializeField] private float gravityChangeCamInSharpness = 8f;                // 중력 변환 중 카메라 오프셋 변경 속도
+    [SerializeField] private float gravityChangeCamOutSharpness = 2f;               // 중력 변환 중 카메라 오프셋 복구 속도
 
     [Header("Velocity Damping (optional)")]
-    [SerializeField] private Vector3 fastVelocity = new(6f, 6f, 6f);
-    [SerializeField] private Vector3 maxVelocity = new(12f, 12f, 12f);
-    [SerializeField] private Vector3 fastDamping = new(0.05f, 0.05f, 0.05f);
-    [SerializeField] private float dampingChangeSpeed = 10f;
+    [SerializeField] private Vector3 fastVelocity;                          // 캐릭터 velocity가 빠른 상태로 판정하는 값
+    [SerializeField] private Vector3 maxVelocity;                           // 빠른 기준의 velocity max 값
+    [SerializeField] private Vector3 fastDamping;                           // 캐릭터 velocity가 빠른 경우 적용 damping 값
+    [SerializeField] private float dampingChangeSpeed = 10f;                // damping 변경 스피드
 
     private CinemachineThirdPersonFollow thirdPersonFollow;
     private CinemachineDecollider decollider;
