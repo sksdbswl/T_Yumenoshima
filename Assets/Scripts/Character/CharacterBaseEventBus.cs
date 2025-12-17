@@ -56,6 +56,15 @@ public interface IMoveParkourEventListener : ICharacterEventListener
     void OnParkourFinished();
 }
 
+/// <summary>
+/// 인터페이스
+/// IMoveWallClimbEventListener (중력 변화/월클라임 시작/끝/실패지점 등)
+/// IMoveParkourEventListener (파쿠르 요청/시작/끝)
+/// CharacterBaseEventBus 자체는 단순 List 기반으로:
+/// Register / Unregister
+/// Post<T>(Action<T>) 형태로 유지
+///    → “리스너 중 T를 구현한 애들만 호출”하는 가장 단순한 버전
+/// </summary>
 public class CharacterBaseEventBus
 {
     private readonly List<ICharacterEventListener> listeners = new();

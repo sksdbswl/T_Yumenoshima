@@ -4,6 +4,13 @@ using REIW;
 using Unity.Cinemachine;
 using UnityEngine;
 
+
+/// <summary>
+/// Cinemachine 기반 카메라 구성(Brain / vcam 참조 / TPS 시점 토글 등)
+/// IMoveWallClimbEventListener, IMoveParkourEventListener 이벤트에 반응하는 카메라 연출 포인트
+/// (예: 중력 변화 시 카메라 오프셋/회전/댐핑을 다르게 주는 훅)
+/// MainCamera, Brain 등 “씬에서 찾을 수 있게” getter 캐시 유지
+/// </summary>
 public class IngameCameraSystem : MonoBehaviour,
     IMoveWallClimbEventListener,
     IMoveParkourEventListener

@@ -39,8 +39,13 @@ namespace REIW
     }
 
     /// <summary>
-    /// Minimal character base for a dummy/offline project.
-    /// Network / data model / asset streaming dependencies removed.
+    /// 캐릭터 공통 최소 뼈대
+    /// 로컬 캐릭터가 입력 받아 이동 방향/속도 값을 가지는 것 + 카메라가 참고할 값만 유지
+    /// 캐릭터가 가져야 할 기본 데이터/상태값 (예: moveDir, lookDir, 중력방향, 루트모션 모드)
+    /// 바닥 체크용 최소 리포트 구조체 CharacterSurfaceContactReport
+    /// 입력 컨테이너 PlayerCharacterInputs(로컬에서 채워 넣는 용도)
+    /// 더미 제어를 위한 헬퍼 SetMoveData(moveDir, velocity)
+    ///    → “내가 캐릭터를 움직였다”는 값을 외부(혹은 Update)에서 주입 가능
     /// </summary>
     public class CharacterBase : MonoBehaviour
     {
