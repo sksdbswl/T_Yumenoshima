@@ -17,6 +17,7 @@ public class ChasePlayerNode : ActionNode
 
     protected override BTNodeState OnUpdate()
     {
+        // 추격은 딱 한번 OnStart이후에 update만 체크된다
         if (agent == null) return BTNodeState.Failure;
 
         var player = GameObject.FindGameObjectWithTag("Player");
@@ -27,24 +28,4 @@ public class ChasePlayerNode : ActionNode
 
         return BTNodeState.Running;
     }
-
-    
-    // protected override BTNodeState OnUpdate()
-    // {
-    //     if (agent == null) return BTNodeState.Failure;
-    //
-    //     var player = GameObject.FindGameObjectWithTag("Player");
-    //     if (player == null) return BTNodeState.Failure;
-    //
-    //     agent.stoppingDistance = stopDistance;
-    //     agent.SetDestination(player.transform.position);
-    //
-    //     float dist = Vector3.Distance(runner.transform.position, player.transform.position);
-    //     if (dist <= stopDistance)
-    //     {
-    //         return BTNodeState.Success; // 공격 시퀀스로 넘어가게
-    //     }
-    //
-    //     return BTNodeState.Running;
-    // }
 }

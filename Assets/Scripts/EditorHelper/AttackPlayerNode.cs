@@ -27,7 +27,7 @@ public class AttackPlayerNode : ActionNode
         if (timer >= attackTime)
         {
             if (agent != null) agent.isStopped = false;
-            return BTNodeState.Success;
+            return BTNodeState.Failure;
         }
         return BTNodeState.Running;
     }
