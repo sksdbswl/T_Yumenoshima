@@ -966,7 +966,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCDialogueTrigger
   npcId: Shin
   actor: {fileID: 717101211}
-  dialogues: []
+  database: {fileID: 11400000, guid: 55c183b65aec7ff458f74781bf9feefa, type: 2}
 --- !u!95 &717101209 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 8592876449711865404, guid: 6b5d591dbb72ac04a80d42bbb710cb7a, type: 3}
