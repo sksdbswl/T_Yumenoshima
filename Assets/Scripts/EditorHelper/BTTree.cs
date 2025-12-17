@@ -1,11 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// SO로 관리될 대상에게 적용할 정보
+/// Behaviour Tree 자체를 ScriptableObject로 저장하는 클래스
+/// </summary>
 [CreateAssetMenu(menuName = "AI/Behaviour Tree")]
 public class BTTree : ScriptableObject
 {
-    public BTNode rootNode;
-    public List<BTNode> nodes = new List<BTNode>();
+    public BTNode rootNode;// selectorNode
+    public List<BTNode> nodes = new List<BTNode>(); //포함된 모든 노드 목록
 
     public BTNodeState Update()
     {

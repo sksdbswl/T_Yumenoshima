@@ -10,6 +10,8 @@ public class PatrolNode : ActionNode
 
     protected override void OnStart()
     {
+        Debug.Log("PatrolNode OnStart :: 순찰 중");
+        
         agent = runner.GetComponent<NavMeshAgent>();
         if (agent != null)
             SetRandomDestination();
@@ -21,7 +23,7 @@ public class PatrolNode : ActionNode
 
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
         {
-            Debug.Log("Reached destination");
+            //Debug.Log("Reached destination");
             SetRandomDestination();
         }
 

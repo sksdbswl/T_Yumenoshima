@@ -4,7 +4,7 @@ using UnityEngine;
 public class IsPlayerInRangeNode : ConditionNode
 {
     public float range = 5f;
-    [System.NonSerialized] public BehaviourTreeRunner runner;
+    [System.NonSerialized] public BehaviourTreeRunner runner; // Enemy
 
     protected override bool CheckCondition()
     {
@@ -23,7 +23,9 @@ public class IsPlayerInRangeNode : ConditionNode
 
         float dist = Vector3.Distance(runner.transform.position, player.transform.position);
         bool inside = dist <= range;
-        Debug.Log($"[{name}] dist={dist:F2}, range={range}, inside={inside}");
+        // Debug.Log($"[{name}] dist={dist:F2}, range={range}, inside={inside}");
+        // [IsPlayerInRangeNode_Attack] dist=0.88, range=1.5, inside=True
+        
         return inside;
     }
 }

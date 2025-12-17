@@ -1,26 +1,24 @@
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// 
+/// </summary>
 public class BehaviourTreeRunner : MonoBehaviour
 {
-    public BTTree treeAsset;
+    public BTTree treeAsset; // Enemy NodeTree
 
+    // 모든 노드 상태 초기화 : BTNodeState.Failure
     private void Awake()
     {
-        if (treeAsset == null)
-        {
-            Debug.LogWarning("[BT] treeAsset is null on " + name);
-            return;
-        }
-
         foreach (var node in treeAsset.nodes)
         {
-            // 필요하면 여기서 node.ResetState();
-
+            node.ResetState();
+            
             if (node is IsPlayerInRangeNode cond)
             {
                 cond.runner = this;
-                Debug.Log("[BT] cond.runner = this; " + cond.name);
+                //Debug.Log("[BT] cond.runner = this; " + cond.name);
             }
 
             if (node is PatrolNode patrol)

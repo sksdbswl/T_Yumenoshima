@@ -19,7 +19,7 @@ MonoBehaviour:
     <Position>k__BackingField: {x: -621, y: -13}
   - <ID>k__BackingField: 14952eeb-de33-4e1e-8106-8391ab1600b6
     <Name>k__BackingField: Chapter2
-    <Position>k__BackingField: {x: 188, y: 39}
+    <Position>k__BackingField: {x: 188.00006, y: 2}
   <Nodes>k__BackingField:
   - <ID>k__BackingField: 93e80f15-a56a-4a97-b6d9-6b0831c2817d
     <Name>k__BackingField: Hello
@@ -57,16 +57,6 @@ MonoBehaviour:
     <DialogueType>k__BackingField: 1
     <Position>k__BackingField: {x: 213, y: 153}
     <AnimationClip>k__BackingField: {fileID: 0}
-  - <ID>k__BackingField: a034fdeb-483f-4a24-a865-3a3180dea401
-    <Name>k__BackingField: "\uC0AC\uB0E5"
-    <Text>k__BackingField: "\uBAAC\uC2A4\uD130\uB97C 10\uB9C8\uB9AC \uC7A1\uC544\uC918"
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: Next Dialogue
-      <NodeID>k__BackingField: 
-    <GroupID>k__BackingField: 14952eeb-de33-4e1e-8106-8391ab1600b6
-    <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: 552, y: 98}
-    <AnimationClip>k__BackingField: {fileID: 0}
   - <ID>k__BackingField: c0ea9246-ab9e-43ab-ac34-2cbcfcc6def6
     <Name>k__BackingField: "\uCC44\uC9D1"
     <Text>k__BackingField: "\uB098\uBB47\uAC00\uC9C0\uB97C 10\uAC1C \uAD6C\uD574\uC918"
@@ -77,6 +67,16 @@ MonoBehaviour:
     <DialogueType>k__BackingField: 0
     <Position>k__BackingField: {x: 552, y: 319}
     <AnimationClip>k__BackingField: {fileID: 7400000, guid: a28bc0d5d74e942599e839179dae8546, type: 3}
+  - <ID>k__BackingField: a034fdeb-483f-4a24-a865-3a3180dea401
+    <Name>k__BackingField: "\uC0AC\uB0E5"
+    <Text>k__BackingField: "\uBAAC\uC2A4\uD130\uB97C 10\uB9C8\uB9AC \uC7A1\uC544\uC918"
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 
+    <GroupID>k__BackingField: 14952eeb-de33-4e1e-8106-8391ab1600b6
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 572, y: 61}
+    <AnimationClip>k__BackingField: {fileID: 7400006, guid: f7b6954ec8fb0de4cbe60b244d54f758, type: 3}
   <OldGroupNames>k__BackingField:
   - Chapter1
   - Chapter2
@@ -90,5 +90,5 @@ MonoBehaviour:
     - Key: Chapter2
       Value:
       - "\uC120\uD0DD"
-      - "\uC0AC\uB0E5"
       - "\uCC44\uC9D1"
+      - "\uC0AC\uB0E5"

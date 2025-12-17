@@ -11,6 +11,8 @@ public class AttackPlayerNode : ActionNode
 
     protected override void OnStart()
     {
+        Debug.Log("AttackPlayerNode OnStart :: 공격 시작");
+        
         timer = 0f;
         agent = runner.GetComponent<NavMeshAgent>();
         if (agent != null) agent.isStopped = true;

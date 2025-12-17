@@ -10,6 +10,8 @@ public class ChasePlayerNode : ActionNode
 
     protected override void OnStart()
     {
+        Debug.Log("ChasePlayerNode OnStart :: 추격 중");
+        
         agent = runner.GetComponent<NavMeshAgent>();
     }
 
