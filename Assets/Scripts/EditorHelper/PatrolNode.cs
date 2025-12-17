@@ -23,7 +23,6 @@ public class PatrolNode : ActionNode
 
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
         {
-            //Debug.Log("Reached destination");
             SetRandomDestination();
         }
         

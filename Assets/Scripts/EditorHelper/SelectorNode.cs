@@ -12,8 +12,6 @@ public class SelectorNode : BTNode
         _runningChild = null;
     }
 
-    private BTNode _active;
-    
     protected override BTNodeState OnUpdate()
     {
         if (children.Count == 0) return BTNodeState.Failure;
