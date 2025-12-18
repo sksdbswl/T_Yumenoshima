@@ -4,6 +4,9 @@ using UnityEngine.AI;
 [CreateAssetMenu(menuName = "AI/Nodes/Action/Attack Player")]
 public class AttackPlayerNode : ActionNode
 {
+    private static readonly int Attack = Animator.StringToHash("Attack");
+    private static readonly int Walk = Animator.StringToHash("Walk");
+    
     [System.NonSerialized] public BehaviourTreeRunner runner;
     public float attackTime = 1.5f;
     private float timer;
@@ -18,7 +21,7 @@ public class AttackPlayerNode : ActionNode
         if (agent != null) agent.isStopped = true;
 
         // TODO: 애니메이션 트리거
-        // runner.GetComponent<Animator>()?.SetTrigger("Attack");
+        runner.GetComponent<Animator>()?.Play(Attack);
     }
 
     protected override BTNodeState OnUpdate()
@@ -29,6 +32,7 @@ public class AttackPlayerNode : ActionNode
             if (agent != null) agent.isStopped = false;
             return BTNodeState.Failure;
         }
+        
         return BTNodeState.Running;
     }
     
@@ -39,5 +43,7 @@ public class AttackPlayerNode : ActionNode
 
         if (agent != null)
             agent.isStopped = false;
+        
+        runner.GetComponent<Animator>()?.Play(Walk);
     }
 }

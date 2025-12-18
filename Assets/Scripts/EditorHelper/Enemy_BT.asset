@@ -15,7 +15,7 @@ MonoBehaviour:
   tree: {fileID: 11400000}
   parent: {fileID: -6698180823069302380}
   children: []
-  position: {x: 699, y: 318.5}
+  position: {x: 701, y: 317.5}
   range: 3
 --- !u!114 &-8299008505066463973
 MonoBehaviour:

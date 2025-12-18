@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// 행동 여부 확인 노드 : 지금 이 행동을 해도 되나요? 라는 질문에 Yes/No만 반환하고 Sequence Node에서 다음 행동처리
+/// </summary>
 [CreateAssetMenu(menuName = "AI/Nodes/Condition/Is Player In Range")]
 public class IsPlayerInRangeNode : ConditionNode
 {

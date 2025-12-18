@@ -23,7 +23,7 @@ public abstract class BTNode : ScriptableObject
             OnStart();
             _started = true;
         }
-
+        
         state = OnUpdate();
 
         if (state == BTNodeState.Success || state == BTNodeState.Failure)
