@@ -4,6 +4,8 @@ using UnityEngine.AI;
 [CreateAssetMenu(menuName = "AI/Nodes/Action/Patrol")]
 public class PatrolNode : ActionNode
 {
+    private static readonly int Walk = Animator.StringToHash("Walk");
+    
     [System.NonSerialized] public BehaviourTreeRunner runner;
     private NavMeshAgent agent;
     public float patrolRadius = 5f;
@@ -15,6 +17,8 @@ public class PatrolNode : ActionNode
         agent = runner.GetComponent<NavMeshAgent>();
         if (agent != null)
             SetRandomDestination();
+        
+        runner.GetComponent<Animator>()?.Play(Walk);
     }
 
     protected override BTNodeState OnUpdate()

@@ -12,38 +12,40 @@ public class SelectorNode : BTNode
         _runningChild = null;
     }
 
+    private BTNode _active;
+    
     protected override BTNodeState OnUpdate()
     {
-        if (children.Count == 0) return BTNodeState.Failure;
-
-        // Reactive: 매 Tick마다 0부터 우선순위 재평가
-        for (int i = 0; i < children.Count; i++) //3
+        for (int i = 0; i < children.Count; i++)
         {
             var child = children[i];
             var result = child.Tick();
 
-            // child node 상태가 아님 : 이번 tick에서 실행할 수 있는 노드가 아님
             if (result == BTNodeState.Failure)
                 continue;
 
-            // 선택된 child가 바뀌었고, 이전 child가 Running 중이었다면 끊어준다
-            if (_runningChild != null && _runningChild != child)
-            {
-                _runningChild.Abort();
-            }
+            // 선택이 바뀌면 이전 행동을 강제 종료
+            if (_active != null && _active != child)
+                _active.AbortRunningBranch();
 
-            // Running Node 재선택
-            _runningChild = (result == BTNodeState.Running) ? child : null;
-            return result; // Running 또는 Success
+            _active = (result == BTNodeState.Running) ? child : null;
+            return result;
         }
 
-        // 아무 것도 성공/진행 못했으면: 이전 Running이 있었다면 끊고 Failure
-        if (_runningChild != null)
+        if (_active != null)
         {
-            _runningChild.Abort();
-            _runningChild = null;
+            _active.AbortRunningBranch();
+            _active = null;
         }
-
+        
         return BTNodeState.Failure;
+    }
+
+    public override void AbortRunningBranch()
+    {
+        if (_active != null)
+            _active.AbortRunningBranch();
+
+        Abort();
     }
 }

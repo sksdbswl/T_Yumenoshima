@@ -45,6 +45,16 @@ public abstract class BTNode : ScriptableObject
         }
         state = BTNodeState.Failure;
     }
+ 
+    public void AbortSubtree()
+    {
+        // 자식부터 끊기
+        for (int i = 0; i < children.Count; i++)
+            children[i].AbortSubtree();
+
+        // 그리고 자기 자신 끊기
+        Abort();
+    }
 
     public void ResetState()
     {
@@ -55,4 +65,5 @@ public abstract class BTNode : ScriptableObject
     protected virtual void OnStart() { }
     protected virtual void OnStop() { }
     protected abstract BTNodeState OnUpdate();
+    public virtual void AbortRunningBranch() => Abort();
 }

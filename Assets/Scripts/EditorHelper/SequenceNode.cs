@@ -10,7 +10,7 @@ public class SequenceNode : BTNode
         //Debug.Log("Change SequenceNode OnStart");
         _current = 0;
     }
-
+    
     protected override BTNodeState OnUpdate() 
     {
         if (children.Count == 0) return BTNodeState.Failure;
@@ -42,6 +42,16 @@ public class SequenceNode : BTNode
     {
         // 혹시라도 외부 Abort로 끊겼을 때를 대비
         _current = 0;
+    }
+
+    public override void AbortRunningBranch()
+    {
+        // 지금 진행 중인 자식이 있으면 그쪽만 끊기
+        if (_current >= 0 && _current < children.Count)
+            children[_current].AbortRunningBranch();
+
+        // 그리고 나도 끊기
+        Abort();
     }
 }
 

@@ -4,6 +4,8 @@ using UnityEngine.AI;
 [CreateAssetMenu(menuName = "AI/Nodes/Action/Chase Player")]
 public class ChasePlayerNode : ActionNode
 {
+    private static readonly int Chase = Animator.StringToHash("Chase");
+    
     [System.NonSerialized] public BehaviourTreeRunner runner;
     private NavMeshAgent agent;
     public float stopDistance = 1.5f;
@@ -13,6 +15,7 @@ public class ChasePlayerNode : ActionNode
         Debug.Log("ChasePlayerNode OnStart :: 추격 중");
         
         agent = runner.GetComponent<NavMeshAgent>();
+        runner.GetComponent<Animator>()?.Play(Chase);
     }
 
     protected override BTNodeState OnUpdate()
@@ -27,5 +30,11 @@ public class ChasePlayerNode : ActionNode
         agent.SetDestination(player.transform.position);
 
         return BTNodeState.Running;
+    }
+
+    protected override void OnStop()
+    {
+        //ChildAbort();
+        //Abort();
     }
 }

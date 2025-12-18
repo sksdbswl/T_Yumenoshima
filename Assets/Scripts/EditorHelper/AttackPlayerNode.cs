@@ -5,7 +5,6 @@ using UnityEngine.AI;
 public class AttackPlayerNode : ActionNode
 {
     private static readonly int Attack = Animator.StringToHash("Attack");
-    private static readonly int Walk = Animator.StringToHash("Walk");
     
     [System.NonSerialized] public BehaviourTreeRunner runner;
     public float attackTime = 1.5f;
@@ -43,7 +42,5 @@ public class AttackPlayerNode : ActionNode
 
         if (agent != null)
             agent.isStopped = false;
-        
-        runner.GetComponent<Animator>()?.Play(Walk);
     }
 }
