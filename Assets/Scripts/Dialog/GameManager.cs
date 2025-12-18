@@ -158,10 +158,6 @@ public class GameManager : SingletonBase<GameManager>
     /// <summary>
     /// 특정 npc 스폰
     /// </summary>
-    /// <param name="stage"></param>
-    /// <summary>
-    /// 특정 npc 스폰
-    /// </summary>
     public void SpawnNpc(int id)
     {
         var table = AssetManager.Singleton.GetNpcDataSO();
@@ -198,10 +194,10 @@ public class GameManager : SingletonBase<GameManager>
         while (true)
         {
             SetState(RoutineState.Morning);
-            yield return new WaitForSeconds(300f); // 300f = 5분
+            yield return new WaitForSeconds(30f); // 300f = 5분
 
             SetState(RoutineState.Noon);
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(30f);
 
             SetState(RoutineState.Night);
             yield return new WaitForSeconds(10f);
