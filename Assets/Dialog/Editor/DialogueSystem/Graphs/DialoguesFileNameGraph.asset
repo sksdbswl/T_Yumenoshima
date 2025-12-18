@@ -13,9 +13,55 @@ MonoBehaviour:
   m_Name: DialoguesFileNameGraph
   m_EditorClassIdentifier: Assembly-CSharp-Editor::DS.Data.Save.DSGraphSaveDataSO
   <FileName>k__BackingField: DialoguesFileName
-  <Groups>k__BackingField: []
-  <Nodes>k__BackingField: []
-  <OldGroupNames>k__BackingField: []
+  <Groups>k__BackingField:
+  - <ID>k__BackingField: b831cfe4-2d92-47c4-9844-30d3c27bda58
+    <Name>k__BackingField: Chapter1
+    <Position>k__BackingField: {x: -554, y: -4}
+  - <ID>k__BackingField: a9b631f9-b034-4785-9b79-6b2f983b24a8
+    <Name>k__BackingField: Chapter2
+    <Position>k__BackingField: {x: 347, y: 121}
+  <Nodes>k__BackingField:
+  - <ID>k__BackingField: 289bda1f-5343-436b-a8ab-e78a6bfe1535
+    <Name>k__BackingField: Hell
+    <Text>k__BackingField: "\uC798\uBD80\uD0C1\uD574 !"
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: e5d956c1-6e0c-4e77-bce8-d89f93ac7e79
+    <GroupID>k__BackingField: b831cfe4-2d92-47c4-9844-30d3c27bda58
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: -529, y: 55}
+    <AnimationClip>k__BackingField: {fileID: 0}
+  - <ID>k__BackingField: e5d956c1-6e0c-4e77-bce8-d89f93ac7e79
+    <Name>k__BackingField: Hell2
+    <Text>k__BackingField: "\uC55E\uC73C\uB85C \uC5B4\uB5A4\uC77C\uC774 \uC77C\uC5B4\uB0A0\uAE4C
+      ?"
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 
+    <GroupID>k__BackingField: b831cfe4-2d92-47c4-9844-30d3c27bda58
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: -147, y: 105}
+    <AnimationClip>k__BackingField: {fileID: 0}
+  - <ID>k__BackingField: d83ece5b-ac3c-455f-8a40-38c8de8de9f5
+    <Name>k__BackingField: Hello2
+    <Text>k__BackingField: "\uB450\uBC88\uC9F8 Hello"
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 
+    <GroupID>k__BackingField: a9b631f9-b034-4785-9b79-6b2f983b24a8
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 372, y: 180}
+    <AnimationClip>k__BackingField: {fileID: 0}
+  <OldGroupNames>k__BackingField:
+  - Chapter1
+  - Chapter2
   <OldUngroupedNodeNames>k__BackingField: []
   <OldGroupedNodeNames>k__BackingField:
-    list: []
+    list:
+    - Key: Chapter1
+      Value:
+      - Hell
+      - Hell2
+    - Key: Chapter2
+      Value:
+      - Hello2

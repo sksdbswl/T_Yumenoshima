@@ -4,6 +4,7 @@ namespace DS
 {
     using ScriptableObjects;
 
+    // 씬에서 대화 에셋을 “지정”하는 컴포넌트
     public class DSDialogue : MonoBehaviour
     {
         /* Dialogue Scriptable Objects */

@@ -15,7 +15,7 @@ namespace DS.ScriptableObjects
         [field: SerializeField] public DSDialogueType DialogueType { get; set; } // SingleChoice, MultipleChoice
         [field: SerializeField] public bool IsStartingDialogue { get; set; }
         [field: SerializeField] public AnimationClip NpcAnimationClip { get; set; } // 재생할 애니메이션
-
+        
         public void Initialize(string dialogueName, string text, List<DSDialogueChoiceData> choices, DSDialogueType dialogueType, bool isStartingDialogue, AnimationClip npcAnimationClip = null)
         {
             DialogueName = dialogueName;

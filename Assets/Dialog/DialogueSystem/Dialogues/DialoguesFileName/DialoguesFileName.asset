@@ -14,5 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DS.ScriptableObjects.DSDialogueContainerSO
   <FileName>k__BackingField: DialoguesFileName
   <DialogueGroups>k__BackingField:
-    list: []
+    list:
+    - Key: {fileID: 11400000, guid: 32ad156008fa8b84a9063dd1af9cc5d8, type: 2}
+      Value:
+      - {fileID: 11400000, guid: c312c64c226ddf843b3ba2c178b92d47, type: 2}
+      - {fileID: 11400000, guid: bba912fbca1b7854c8e3fd6adce749e1, type: 2}
+    - Key: {fileID: 11400000, guid: a8d8de13b7ffe4742aadf12c39978a33, type: 2}
+      Value:
+      - {fileID: 11400000, guid: ba489bab113ec214f92bf3d419c1bc7a, type: 2}
   <UngroupedDialogues>k__BackingField: []

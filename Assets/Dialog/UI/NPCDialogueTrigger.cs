@@ -30,8 +30,13 @@ public class NPCDialogueTrigger : MonoBehaviour
             return;
         }
 
+        
         DialogueManager.Instance.SetContainer(container);
-        DialogueManager.Instance.StartDialogue(startNode, actor);
+        //DialogueManager.Instance.Progress = PlayerProgress.Instance; // 네 프로젝트 진행도 싱글톤
+        DialogueManager.Instance.StartDialogueAuto(actor); // currentStage: 1~100
+        
+        // DialogueManager.Instance.SetContainer(container);
+        // DialogueManager.Instance.StartDialogue(startNode, actor);
     }
 
     private void OnTriggerEnter(Collider other)
