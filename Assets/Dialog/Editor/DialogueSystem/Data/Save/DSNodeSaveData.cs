@@ -5,6 +5,7 @@ using UnityEngine;
 namespace DS.Data.Save
 {
     using Enumerations;
+    using ScriptableObjects; 
 
     [Serializable]
     public class DSNodeSaveData
@@ -17,5 +18,6 @@ namespace DS.Data.Save
         [field: SerializeField] public DSDialogueType DialogueType { get; set; }
         [field: SerializeField] public Vector2 Position { get; set; }
         [field: SerializeField] public AnimationClip AnimationClip { get; set; }
+        [field: SerializeField] public List<DSDialogueActionData> Actions { get; set; } = new();
     }
 }

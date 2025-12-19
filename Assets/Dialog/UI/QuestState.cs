@@ -2,7 +2,7 @@
 public enum QuestState
 {
     NotStarted,
-    InProgress,
+    Accepted,
     Completed,
     TurnedIn
 }

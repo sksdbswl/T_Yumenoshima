@@ -35,6 +35,8 @@ namespace DS.Elements
             
             AddMetaUI();
             RefreshMetaUIVisibility();
+            
+            ApplyMeta(GroupType, NpcId, QuestId);
         }
 
         public void SetErrorStyle(Color color)
@@ -96,5 +98,33 @@ namespace DS.Elements
             npcIdField.SetValueWithoutNotify(NpcId);
             questIdField.SetValueWithoutNotify(QuestId);
         }
+        
+        public void ApplyMeta(DialogueGroupType type, string npcId, string questId)
+        {
+            GroupType = type;
+            NpcId = npcId ?? "";
+            QuestId = questId ?? "";
+
+            SyncMetaUI();
+        }
+
+        public void SyncMetaUI()
+        {
+            if (typeField == null || npcIdField == null || questIdField == null)
+                return;
+
+            // UI 값 동기화
+            typeField.SetValueWithoutNotify(GroupType);
+            npcIdField.SetValueWithoutNotify(NpcId);
+            questIdField.SetValueWithoutNotify(QuestId);
+
+            // 표시/숨김만 처리 (값 초기화는 여기서 하지 않는 게 안전)
+            bool showNpc = GroupType == DialogueGroupType.NpcStory;
+            bool showQuest = GroupType == DialogueGroupType.Quest;
+
+            npcIdField.style.display = showNpc ? DisplayStyle.Flex : DisplayStyle.None;
+            questIdField.style.display = showQuest ? DisplayStyle.Flex : DisplayStyle.None;
+        }
+
     }
 }

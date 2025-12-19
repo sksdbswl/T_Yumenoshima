@@ -19,7 +19,7 @@ MonoBehaviour:
     <Position>k__BackingField: {x: -554, y: -44}
   - <ID>k__BackingField: a9b631f9-b034-4785-9b79-6b2f983b24a8
     <Name>k__BackingField: Chapter2
-    <Position>k__BackingField: {x: -547, y: 378.99997}
+    <Position>k__BackingField: {x: -547, y: 379}
   <Nodes>k__BackingField:
   - <ID>k__BackingField: 289bda1f-5343-436b-a8ab-e78a6bfe1535
     <Name>k__BackingField: Hell
@@ -30,18 +30,8 @@ MonoBehaviour:
     <GroupID>k__BackingField: b831cfe4-2d92-47c4-9844-30d3c27bda58
     <DialogueType>k__BackingField: 0
     <Position>k__BackingField: {x: -529, y: 55}
-    <AnimationClip>k__BackingField: {fileID: 0}
-  - <ID>k__BackingField: e5d956c1-6e0c-4e77-bce8-d89f93ac7e79
-    <Name>k__BackingField: Hell2
-    <Text>k__BackingField: "\uC55E\uC73C\uB85C \uC5B4\uB5A4\uC77C\uC774 \uC77C\uC5B4\uB0A0\uAE4C
-      ?"
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: Next Dialogue
-      <NodeID>k__BackingField: 
-    <GroupID>k__BackingField: b831cfe4-2d92-47c4-9844-30d3c27bda58
-    <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: -147, y: 105}
-    <AnimationClip>k__BackingField: {fileID: 0}
+    <AnimationClip>k__BackingField: {fileID: 7400000, guid: 266e8e95875a44f0aa086f6e752b4508, type: 3}
+    <Actions>k__BackingField: []
   - <ID>k__BackingField: d83ece5b-ac3c-455f-8a40-38c8de8de9f5
     <Name>k__BackingField: Hello2
     <Text>k__BackingField: "\uB450\uBC88\uC9F8 Hello"
@@ -52,6 +42,19 @@ MonoBehaviour:
     <DialogueType>k__BackingField: 0
     <Position>k__BackingField: {x: -522, y: 478}
     <AnimationClip>k__BackingField: {fileID: 0}
+    <Actions>k__BackingField: []
+  - <ID>k__BackingField: e5d956c1-6e0c-4e77-bce8-d89f93ac7e79
+    <Name>k__BackingField: Hell2
+    <Text>k__BackingField: "\uC55E\uC73C\uB85C \uC5B4\uB5A4\uC77C\uC774 \uC77C\uC5B4\uB0A0\uAE4C
+      ?2"
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 
+    <GroupID>k__BackingField: b831cfe4-2d92-47c4-9844-30d3c27bda58
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: -147, y: 105}
+    <AnimationClip>k__BackingField: {fileID: 0}
+    <Actions>k__BackingField: []
   <OldGroupNames>k__BackingField:
   - Chapter1
   - Chapter2

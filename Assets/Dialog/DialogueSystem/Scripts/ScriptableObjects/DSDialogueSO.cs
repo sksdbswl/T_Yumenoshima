@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,17 +7,21 @@ namespace DS.ScriptableObjects
     using Data;
     using Enumerations;
 
-    // 그래프 상의 노드 하나 (한 줄 대사 + 선택지들)
     public class DSDialogueSO : ScriptableObject
     {
         [field: SerializeField] public string DialogueName { get; set; }
-        [field: SerializeField] [field: TextArea()] public string Text { get; set; }
-        [field: SerializeField] public List<DSDialogueChoiceData> Choices { get; set; } // 선택지 텍스트 리스트
-        [field: SerializeField] public DSDialogueType DialogueType { get; set; } // SingleChoice, MultipleChoice
+        [field: SerializeField] public DialogueGroupType GroupType { get; private set; }
+        [field: SerializeField] public string NpcId { get; private set; }
+        [field: SerializeField] public string QuestId { get; private set; }
+        [field: SerializeField] [field: TextArea] public string Text { get; set; }
+        [field: SerializeField] public List<DSDialogueChoiceData> Choices { get; set; }
+        [field: SerializeField] public DSDialogueType DialogueType { get; set; }
         [field: SerializeField] public bool IsStartingDialogue { get; set; }
-        [field: SerializeField] public AnimationClip NpcAnimationClip { get; set; } // 재생할 애니메이션
-        
-        public void Initialize(string dialogueName, string text, List<DSDialogueChoiceData> choices, DSDialogueType dialogueType, bool isStartingDialogue, AnimationClip npcAnimationClip = null)
+        [field: SerializeField] public AnimationClip NpcAnimationClip { get; set; }
+        [field: SerializeField] public List<DSDialogueActionData> Actions { get; set; } = new();
+
+        public void Initialize(string dialogueName, string text, List<DSDialogueChoiceData> choices, DSDialogueType dialogueType,
+            bool isStartingDialogue, AnimationClip npcAnimationClip = null)
         {
             DialogueName = dialogueName;
             Text = text;
@@ -25,5 +30,31 @@ namespace DS.ScriptableObjects
             IsStartingDialogue = isStartingDialogue;
             NpcAnimationClip = npcAnimationClip;
         }
+
+        // ✅ 추가: 그룹 메타 세팅(툴에서만 세팅)
+        public void SetGroupMeta(DialogueGroupType groupType, string npcId, string questId)
+        {
+            GroupType = groupType;
+            NpcId = npcId;
+            QuestId = questId;
+        }
+    }
+
+    public enum DSDialogueActionTrigger { OnEnter, OnExit, OnDialogueEnd }
+    public enum DSDialogueActionType { SetNpcStoryStage, SetQuestState, SetFlag }
+
+    [Serializable] // ✅ 필수!
+    public class DSDialogueActionData
+    {
+        public DSDialogueActionTrigger trigger = DSDialogueActionTrigger.OnExit;
+        public DSDialogueActionType type;
+
+        public string npcId;
+        public int npcStoryStage;
+
+        public string questId;
+        public QuestState questState;
+
+        public string flag;
     }
 }

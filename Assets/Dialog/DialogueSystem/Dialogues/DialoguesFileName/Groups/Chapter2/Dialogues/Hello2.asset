@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Hello2
   m_EditorClassIdentifier: Assembly-CSharp::DS.ScriptableObjects.DSDialogueSO
   <DialogueName>k__BackingField: Hello2
+  <GroupType>k__BackingField: 2
+  <NpcId>k__BackingField: 1
+  <QuestId>k__BackingField: 1
   <Text>k__BackingField: "\uB450\uBC88\uC9F8 Hello"
   <Choices>k__BackingField:
   - <Text>k__BackingField: Next Dialogue
@@ -20,3 +23,4 @@ MonoBehaviour:
   <DialogueType>k__BackingField: 0
   <IsStartingDialogue>k__BackingField: 1
   <NpcAnimationClip>k__BackingField: {fileID: 0}
+  <Actions>k__BackingField: []

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DS.ScriptableObjects;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -21,6 +22,9 @@ namespace DS.Elements
         public string Text { get; set; }
         public DSDialogueType DialogueType { get; set; }
         public AnimationClip NpcAnimationClip { get; set; }
+        
+        public List<DSDialogueActionData> Actions { get; set; } = new();
+
         public DSGroup Group { get; set; }
         
         protected DSGraphView graphView;

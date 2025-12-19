@@ -12,6 +12,7 @@ namespace DS.Utilities
     using Elements;
     using ScriptableObjects;
     using Windows;
+    using Enumerations;
 
     public static class DSIOUtility
     {
@@ -52,12 +53,11 @@ namespace DS.Utilities
 
             GetElementsFromGraphView();
 
-            DSGraphSaveDataSO graphData = CreateAsset<DSGraphSaveDataSO>("Assets/Dialog/Editor/DialogueSystem/Graphs", $"{graphFileName}Graph");
-
+            DSGraphSaveDataSO graphData =
+                CreateAsset<DSGraphSaveDataSO>("Assets/Dialog/Editor/DialogueSystem/Graphs", $"{graphFileName}Graph");
             graphData.Initialize(graphFileName);
 
             DSDialogueContainerSO dialogueContainer = CreateAsset<DSDialogueContainerSO>(containerFolderPath, graphFileName);
-
             dialogueContainer.Initialize(graphFileName);
 
             SaveGroups(graphData, dialogueContainer);
@@ -66,6 +66,10 @@ namespace DS.Utilities
             SaveAsset(graphData);
             SaveAsset(dialogueContainer);
         }
+
+        // =========================
+        // GROUPS
+        // =========================
 
         private static void SaveGroups(DSGraphSaveDataSO graphData, DSDialogueContainerSO dialogueContainer)
         {
@@ -98,7 +102,6 @@ namespace DS.Utilities
             graphData.Groups.Add(groupData);
         }
 
-
         private static void SaveGroupToScriptableObject(DSGroup group, DSDialogueContainerSO dialogueContainer)
         {
             string groupName = group.title;
@@ -106,10 +109,10 @@ namespace DS.Utilities
             CreateFolder($"{containerFolderPath}/Groups", groupName);
             CreateFolder($"{containerFolderPath}/Groups/{groupName}", "Dialogues");
 
-            DSDialogueGroupSO dialogueGroup = CreateAsset<DSDialogueGroupSO>($"{containerFolderPath}/Groups/{groupName}", groupName);
+            DSDialogueGroupSO dialogueGroup =
+                CreateAsset<DSDialogueGroupSO>($"{containerFolderPath}/Groups/{groupName}", groupName);
 
             dialogueGroup.Initialize(groupName);
-            
             dialogueGroup.SetMeta(group.GroupType, group.NpcId, group.QuestId);
 
             createdDialogueGroups.Add(group.ID, dialogueGroup);
@@ -117,7 +120,6 @@ namespace DS.Utilities
 
             SaveAsset(dialogueGroup);
         }
-
 
         private static void UpdateOldGroups(List<string> currentGroupNames, DSGraphSaveDataSO graphData)
         {
@@ -134,6 +136,10 @@ namespace DS.Utilities
             graphData.OldGroupNames = new List<string>(currentGroupNames);
         }
 
+        // =========================
+        // NODES
+        // =========================
+
         private static void SaveNodes(DSGraphSaveDataSO graphData, DSDialogueContainerSO dialogueContainer)
         {
             SerializableDictionary<string, List<string>> groupedNodeNames = new SerializableDictionary<string, List<string>>();
@@ -147,7 +153,6 @@ namespace DS.Utilities
                 if (node.Group != null)
                 {
                     groupedNodeNames.AddItem(node.Group.title, node.DialogueName);
-
                     continue;
                 }
 
@@ -173,7 +178,10 @@ namespace DS.Utilities
                 GroupID = node.Group?.ID,
                 DialogueType = node.DialogueType,
                 Position = node.GetPosition().position,
-                AnimationClip = node.NpcAnimationClip
+                AnimationClip = node.NpcAnimationClip,
+
+                // ✅ Actions 저장 (Graph에)
+                Actions = CloneActions(node.Actions)
             };
 
             graphData.Nodes.Add(nodeData);
@@ -186,13 +194,11 @@ namespace DS.Utilities
             if (node.Group != null)
             {
                 dialogue = CreateAsset<DSDialogueSO>($"{containerFolderPath}/Groups/{node.Group.title}/Dialogues", node.DialogueName);
-
                 dialogueContainer.DialogueGroups.AddItem(createdDialogueGroups[node.Group.ID], dialogue);
             }
             else
             {
                 dialogue = CreateAsset<DSDialogueSO>($"{containerFolderPath}/Global/Dialogues", node.DialogueName);
-
                 dialogueContainer.UngroupedDialogues.Add(dialogue);
             }
 
@@ -205,8 +211,23 @@ namespace DS.Utilities
                 node.NpcAnimationClip
             );
 
-            createdDialogues.Add(node.ID, dialogue);
+            // ✅ 그룹 메타를 DialogueSO에 복사 (GroupType/NpcId/QuestId)
+            if (node.Group != null)
+            {
+                var groupSO = createdDialogueGroups[node.Group.ID];
+                dialogue.SetGroupMeta(groupSO.GroupType, groupSO.NpcId, groupSO.QuestId);
+            }
+            else
+            {
+                // ungrouped 정책: 필요하면 None/Empty로 세팅
+                // (DialogueGroupType에 None이 없으면 아래 줄은 제거해도 됨)
+                // dialogue.SetGroupMeta(DialogueGroupType.None, "", "");
+            }
 
+            // ✅ Actions 저장 (SO에)
+            dialogue.Actions = CloneActions(node.Actions);
+
+            createdDialogues.Add(node.ID, dialogue);
             SaveAsset(dialogue);
         }
 
@@ -238,12 +259,9 @@ namespace DS.Utilities
                     DSChoiceSaveData nodeChoice = node.Choices[choiceIndex];
 
                     if (string.IsNullOrEmpty(nodeChoice.NodeID))
-                    {
                         continue;
-                    }
 
                     dialogue.Choices[choiceIndex].NextDialogue = createdDialogues[nodeChoice.NodeID];
-
                     SaveAsset(dialogue);
                 }
             }
@@ -287,6 +305,10 @@ namespace DS.Utilities
             graphData.OldUngroupedNodeNames = new List<string>(currentUngroupedNodeNames);
         }
 
+        // =========================
+        // LOAD
+        // =========================
+
         public static void Load()
         {
             DSGraphSaveDataSO graphData = LoadAsset<DSGraphSaveDataSO>("Assets/Dialog/Editor/DialogueSystem/Graphs", graphFileName);
@@ -322,10 +344,10 @@ namespace DS.Utilities
                 group.NpcId = groupData.NpcId;
                 group.QuestId = groupData.QuestId;
 
+                group.ApplyMeta(groupData.GroupType, groupData.NpcId, groupData.QuestId);
                 loadedGroups.Add(group.ID, group);
             }
         }
-
 
         private static void LoadNodes(List<DSNodeSaveData> nodes)
         {
@@ -339,22 +361,20 @@ namespace DS.Utilities
                 node.Choices = choices;
                 node.Text = nodeData.Text;
                 node.NpcAnimationClip = nodeData.AnimationClip;
-                
-                node.Draw();
 
+                // ✅ Actions 로드 (Graph -> Node)
+                node.Actions = CloneActions(nodeData.Actions);
+
+                node.Draw();
                 graphView.AddElement(node);
 
                 loadedNodes.Add(node.ID, node);
 
                 if (string.IsNullOrEmpty(nodeData.GroupID))
-                {
                     continue;
-                }
 
                 DSGroup group = loadedGroups[nodeData.GroupID];
-
                 node.Group = group;
-
                 group.AddElement(node);
             }
         }
@@ -365,25 +385,25 @@ namespace DS.Utilities
             {
                 foreach (Port choicePort in loadedNode.Value.outputContainer.Children())
                 {
-                    DSChoiceSaveData choiceData = (DSChoiceSaveData) choicePort.userData;
+                    DSChoiceSaveData choiceData = (DSChoiceSaveData)choicePort.userData;
 
                     if (string.IsNullOrEmpty(choiceData.NodeID))
-                    {
                         continue;
-                    }
 
                     DSNode nextNode = loadedNodes[choiceData.NodeID];
-
-                    Port nextNodeInputPort = (Port) nextNode.inputContainer.Children().First();
+                    Port nextNodeInputPort = (Port)nextNode.inputContainer.Children().First();
 
                     Edge edge = choicePort.ConnectTo(nextNodeInputPort);
-
                     graphView.AddElement(edge);
 
                     loadedNode.Value.RefreshPorts();
                 }
             }
         }
+
+        // =========================
+        // FOLDERS / ASSETS
+        // =========================
 
         private static void CreateDefaultFolders()
         {
@@ -407,16 +427,13 @@ namespace DS.Utilities
                 if (graphElement is DSNode node)
                 {
                     nodes.Add(node);
-
                     return;
                 }
 
                 if (graphElement.GetType() == groupType)
                 {
-                    DSGroup group = (DSGroup) graphElement;
-
+                    DSGroup group = (DSGroup)graphElement;
                     groups.Add(group);
-
                     return;
                 }
             });
@@ -425,9 +442,7 @@ namespace DS.Utilities
         public static void CreateFolder(string parentFolderPath, string newFolderName)
         {
             if (AssetDatabase.IsValidFolder($"{parentFolderPath}/{newFolderName}"))
-            {
                 return;
-            }
 
             AssetDatabase.CreateFolder(parentFolderPath, newFolderName);
         }
@@ -441,13 +456,11 @@ namespace DS.Utilities
         public static T CreateAsset<T>(string path, string assetName) where T : ScriptableObject
         {
             string fullPath = $"{path}/{assetName}.asset";
-
             T asset = LoadAsset<T>(path, assetName);
 
             if (asset == null)
             {
                 asset = ScriptableObject.CreateInstance<T>();
-
                 AssetDatabase.CreateAsset(asset, fullPath);
             }
 
@@ -457,14 +470,12 @@ namespace DS.Utilities
         public static T LoadAsset<T>(string path, string assetName) where T : ScriptableObject
         {
             string fullPath = $"{path}/{assetName}.asset";
-
             return AssetDatabase.LoadAssetAtPath<T>(fullPath);
         }
 
         public static void SaveAsset(UnityEngine.Object asset)
         {
             EditorUtility.SetDirty(asset);
-
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
@@ -474,9 +485,15 @@ namespace DS.Utilities
             AssetDatabase.DeleteAsset($"{path}/{assetName}.asset");
         }
 
+        // =========================
+        // CLONE HELPERS
+        // =========================
+
         private static List<DSChoiceSaveData> CloneNodeChoices(List<DSChoiceSaveData> nodeChoices)
         {
             List<DSChoiceSaveData> choices = new List<DSChoiceSaveData>();
+
+            if (nodeChoices == null) return choices;
 
             foreach (DSChoiceSaveData choice in nodeChoices)
             {
@@ -490,6 +507,32 @@ namespace DS.Utilities
             }
 
             return choices;
+        }
+
+        private static List<DSDialogueActionData> CloneActions(List<DSDialogueActionData> src)
+        {
+            if (src == null) return new List<DSDialogueActionData>();
+
+            var list = new List<DSDialogueActionData>(src.Count);
+
+            for (int i = 0; i < src.Count; i++)
+            {
+                var a = src[i];
+                if (a == null) continue;
+
+                list.Add(new DSDialogueActionData
+                {
+                    trigger = a.trigger,
+                    type = a.type,
+                    npcId = a.npcId,
+                    npcStoryStage = a.npcStoryStage,
+                    questId = a.questId,
+                    questState = a.questState,
+                    flag = a.flag
+                });
+            }
+
+            return list;
         }
     }
 }

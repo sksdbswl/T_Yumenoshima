@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DS.Data.Save;
 using DS.Enumerations;
 using UnityEngine;
 using UnityEngine.UI;
@@ -353,6 +354,35 @@ public class DialogueManager : SingletonBase<DialogueManager>
         currentNode = null;
         ClearChoices();
     }
+    
+    private void ExecuteActions(DSDialogueSO node, DSDialogueActionTrigger trigger)
+    {
+        if (node == null || node.Actions == null || node.Actions.Count == 0) return;
+
+        var prog = PlayerDialogueProgress.Singleton; 
+
+        for (int i = 0; i < node.Actions.Count; i++)
+        {
+            var a = node.Actions[i];
+            if (a == null || a.trigger != trigger) continue;
+
+            switch (a.type)
+            {
+                case DSDialogueActionType.SetNpcStoryStage:
+                    prog.SetNpcStoryStage(a.npcId, a.npcStoryStage);
+                    break;
+
+                case DSDialogueActionType.SetQuestState:
+                    prog.SetQuestState(a.questId, a.questState);
+                    break;
+
+                case DSDialogueActionType.SetFlag:
+                    prog.SetFlag(a.flag);
+                    break;
+            }
+        }
+    }
+
 }
 
 public interface IGameProgress

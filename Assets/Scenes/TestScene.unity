@@ -1600,6 +1600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d78e37e218e64850805128d08a39e735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDialogueProgress
+  npcStagePlans: []
   mainStoryStage: 0
   npcStories: []
   quests: []
