@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Hell2
   m_EditorClassIdentifier: Assembly-CSharp::DS.ScriptableObjects.DSDialogueSO
   <DialogueName>k__BackingField: Hell2
-  <GroupType>k__BackingField: 1
-  <NpcId>k__BackingField: 3
+  <GroupType>k__BackingField: 0
+  <NpcId>k__BackingField: 
   <QuestId>k__BackingField: 
   <Text>k__BackingField: "\uC55E\uC73C\uB85C \uC5B4\uB5A4\uC77C\uC774 \uC77C\uC5B4\uB0A0\uAE4C
     ?2"
@@ -24,4 +24,13 @@ MonoBehaviour:
   <DialogueType>k__BackingField: 0
   <IsStartingDialogue>k__BackingField: 0
   <NpcAnimationClip>k__BackingField: {fileID: 0}
-  <Actions>k__BackingField: []
+  <Actions>k__BackingField:
+  - trigger: 0
+    type: 1
+    npcId: 
+    npcStoryStage: 0
+    questId: 1
+    questState: 0
+    flag: 
+    receiverType: 
+    methodName: 

@@ -144,7 +144,24 @@ namespace DS.Elements
                     NpcAnimationClip = evt.newValue as AnimationClip;
                 }
             );
+            
+            /* ACTIONS */
+            Foldout actionsFoldout = DSElementUtility.CreateFoldout("Actions");
 
+            Button addActionBtn = new Button(() =>
+            {
+                Actions.Add(new DSDialogueActionData());
+                RefreshActionsUI(actionsFoldout);
+            })
+            {
+                text = "+ Add Action"
+            };
+
+            actionsFoldout.Add(addActionBtn);
+            RefreshActionsUI(actionsFoldout);
+
+            customDataContainer.Add(actionsFoldout);
+            
             // 스타일이 필요하면 클래스 추가도 가능
             //animField.AddToClassList("ds-node__object-field");
 
@@ -198,5 +215,105 @@ namespace DS.Elements
         {
             mainContainer.style.backgroundColor = defaultBackgroundColor;
         }
+        
+        private void RefreshActionsUI(Foldout foldout)
+        {
+            // foldout[0] = add button 이므로 1부터 삭제
+            while (foldout.childCount > 1)
+                foldout.RemoveAt(1);
+
+            for (int i = 0; i < Actions.Count; i++)
+            {
+                int index = i;
+                var action = Actions[index];
+
+                var row = new VisualElement();
+                row.style.flexDirection = FlexDirection.Column;
+                row.style.marginBottom = 6;
+                row.style.paddingLeft = 6;
+
+                // 1) Trigger
+                var triggerField = new EnumField("Trigger", action.trigger);
+                triggerField.RegisterValueChangedCallback(e =>
+                {
+                    action.trigger = (DSDialogueActionTrigger)e.newValue;
+                });
+
+                // 2) Type
+                var typeField = new EnumField("Type", action.type);
+                typeField.RegisterValueChangedCallback(e =>
+                {
+                    action.type = (DSDialogueActionType)e.newValue;
+                    RefreshActionsUI(foldout); // 타입 바뀌면 파라미터 UI 다시 그림
+                });
+
+                row.Add(triggerField);
+                row.Add(typeField);
+
+                // 3) Type별 파라미터
+                row.Add(BuildActionParamsUI(action));
+
+                // 4) Remove Button
+                var removeBtn = new Button(() =>
+                {
+                    Actions.RemoveAt(index);
+                    RefreshActionsUI(foldout);
+                })
+                {
+                    text = "Remove"
+                };
+
+                row.Add(removeBtn);
+
+                foldout.Add(row);
+            }
+        }
+        private VisualElement BuildActionParamsUI(DSDialogueActionData action)
+        {
+            var box = new VisualElement();
+            box.style.flexDirection = FlexDirection.Column;
+            box.style.marginTop = 4;
+
+            switch (action.type)
+            {
+                case DSDialogueActionType.SetNpcStoryStage:
+                {
+                    var npcId = new TextField("NpcId") { value = action.npcId };
+                    npcId.RegisterValueChangedCallback(e => action.npcId = e.newValue);
+
+                    var stage = new IntegerField("StoryStage") { value = action.npcStoryStage };
+                    stage.RegisterValueChangedCallback(e => action.npcStoryStage = e.newValue);
+
+                    box.Add(npcId);
+                    box.Add(stage);
+                    break;
+                }
+
+                case DSDialogueActionType.SetQuestState:
+                {
+                    var questId = new TextField("QuestId") { value = action.questId };
+                    questId.RegisterValueChangedCallback(e => action.questId = e.newValue);
+
+                    var state = new EnumField("QuestState", action.questState);
+                    state.RegisterValueChangedCallback(e => action.questState = (QuestState)e.newValue);
+
+                    box.Add(questId);
+                    box.Add(state);
+                    break;
+                }
+
+                case DSDialogueActionType.SetFlag:
+                {
+                    var flag = new TextField("Flag") { value = action.flag };
+                    flag.RegisterValueChangedCallback(e => action.flag = e.newValue);
+
+                    box.Add(flag);
+                    break;
+                }
+            }
+
+            return box;
+        }
+
     }
 }

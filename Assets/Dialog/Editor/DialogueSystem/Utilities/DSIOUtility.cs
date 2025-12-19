@@ -211,7 +211,7 @@ namespace DS.Utilities
                 node.NpcAnimationClip
             );
 
-            // ✅ 그룹 메타를 DialogueSO에 복사 (GroupType/NpcId/QuestId)
+            // 그룹 메타를 DialogueSO에 복사 (GroupType/NpcId/QuestId)
             if (node.Group != null)
             {
                 var groupSO = createdDialogueGroups[node.Group.ID];
@@ -224,7 +224,7 @@ namespace DS.Utilities
                 // dialogue.SetGroupMeta(DialogueGroupType.None, "", "");
             }
 
-            // ✅ Actions 저장 (SO에)
+            // Actions 저장 (SO에)
             dialogue.Actions = CloneActions(node.Actions);
 
             createdDialogues.Add(node.ID, dialogue);

@@ -43,12 +43,12 @@ namespace DS.ScriptableObjects
     public enum DSDialogueActionTrigger { OnEnter, OnExit, OnDialogueEnd }
     public enum DSDialogueActionType { SetNpcStoryStage, SetQuestState, SetFlag }
 
-    [Serializable] // ✅ 필수!
+    [Serializable] 
     public class DSDialogueActionData
     {
         public DSDialogueActionTrigger trigger = DSDialogueActionTrigger.OnExit;
         public DSDialogueActionType type;
-
+        
         public string npcId;
         public int npcStoryStage;
 
@@ -56,5 +56,10 @@ namespace DS.ScriptableObjects
         public QuestState questState;
 
         public string flag;
+        
+        // ✅ 커스텀 함수 호출용
+        public string receiverType;   // AssemblyQualifiedName (빌드에서도 안전)
+        public string methodName;     // 실행할 메서드명
+
     }
 }
