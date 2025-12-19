@@ -17,12 +17,8 @@ MonoBehaviour:
   <Choices>k__BackingField:
   - <Text>k__BackingField: "\uCC44\uC9D1"
     <NextDialogue>k__BackingField: {fileID: 11400000, guid: 458efdd4a96fc01439897a311e0ebd9f, type: 2}
-    <RequiredStageId>k__BackingField: 0
-    <RequiredChapterId>k__BackingField: 
   - <Text>k__BackingField: "\uC0AC\uB0E5"
     <NextDialogue>k__BackingField: {fileID: 11400000, guid: e4cebbea458bfb2439312bc8f33b78b4, type: 2}
-    <RequiredStageId>k__BackingField: 0
-    <RequiredChapterId>k__BackingField: 
   <DialogueType>k__BackingField: 1
   <IsStartingDialogue>k__BackingField: 1
   <NpcAnimationClip>k__BackingField: {fileID: 0}

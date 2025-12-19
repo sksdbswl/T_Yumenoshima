@@ -17,8 +17,6 @@ MonoBehaviour:
   <Choices>k__BackingField:
   - <Text>k__BackingField: Next Dialogue
     <NextDialogue>k__BackingField: {fileID: 11400000, guid: 63fb8aaa8d428024da19e4b47f759e75, type: 2}
-    <RequiredStageId>k__BackingField: 0
-    <RequiredChapterId>k__BackingField: 
   <DialogueType>k__BackingField: 0
   <IsStartingDialogue>k__BackingField: 0
   <NpcAnimationClip>k__BackingField: {fileID: 7400006, guid: f7b6954ec8fb0de4cbe60b244d54f758, type: 3}

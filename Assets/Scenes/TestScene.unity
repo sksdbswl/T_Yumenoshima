@@ -356,12 +356,12 @@ MonoBehaviour:
     chapterId: Chapter1
     minStage: 0
     maxStage: 1
-    prerequisiteChapterId: 1
+    prerequisiteChapterId: 0
   - groupName: Chapter2
     chapterId: Chapter2
     minStage: 2
     maxStage: 2
-    prerequisiteChapterId: 2
+    prerequisiteChapterId: Chapter1
 --- !u!1 &220608119
 GameObject:
   m_ObjectHideFlags: 0

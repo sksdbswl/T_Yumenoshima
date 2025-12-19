@@ -88,11 +88,16 @@ namespace DS.Utilities
             {
                 ID = group.ID,
                 Name = group.title,
-                Position = group.GetPosition().position
+                Position = group.GetPosition().position,
+
+                GroupType = group.GroupType,
+                NpcId = group.NpcId,
+                QuestId = group.QuestId
             };
 
             graphData.Groups.Add(groupData);
         }
+
 
         private static void SaveGroupToScriptableObject(DSGroup group, DSDialogueContainerSO dialogueContainer)
         {
@@ -104,13 +109,15 @@ namespace DS.Utilities
             DSDialogueGroupSO dialogueGroup = CreateAsset<DSDialogueGroupSO>($"{containerFolderPath}/Groups/{groupName}", groupName);
 
             dialogueGroup.Initialize(groupName);
+            
+            dialogueGroup.SetMeta(group.GroupType, group.NpcId, group.QuestId);
 
             createdDialogueGroups.Add(group.ID, dialogueGroup);
-
             dialogueContainer.DialogueGroups.Add(dialogueGroup, new List<DSDialogueSO>());
 
             SaveAsset(dialogueGroup);
         }
+
 
         private static void UpdateOldGroups(List<string> currentGroupNames, DSGraphSaveDataSO graphData)
         {
@@ -309,12 +316,16 @@ namespace DS.Utilities
             foreach (DSGroupSaveData groupData in groups)
             {
                 DSGroup group = graphView.CreateGroup(groupData.Name, groupData.Position);
-
                 group.ID = groupData.ID;
+
+                group.GroupType = groupData.GroupType;
+                group.NpcId = groupData.NpcId;
+                group.QuestId = groupData.QuestId;
 
                 loadedGroups.Add(group.ID, group);
             }
         }
+
 
         private static void LoadNodes(List<DSNodeSaveData> nodes)
         {

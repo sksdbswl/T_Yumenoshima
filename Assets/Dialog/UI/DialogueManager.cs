@@ -6,10 +6,8 @@ using UnityEngine.UI;
 using TMPro;
 using DS.ScriptableObjects;
 
-public class DialogueManager : MonoBehaviour
+public class DialogueManager : SingletonBase<DialogueManager>
 {
-    public static DialogueManager Instance { get; private set; }
-
     [Header("UI")]
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TextMeshProUGUI speakerText;
@@ -20,8 +18,8 @@ public class DialogueManager : MonoBehaviour
     [Header("Data (debug only)")]
     [SerializeField] private DSDialogueContainerSO dialogueContainer;
 
-    // 임시: 나중에 GameManager에서 받아올 예정이지만, 지금은 1로 고정
-    private const int STAGE = 1;
+    // 임시: 나중에 GameManager에서 받아올 예정
+    private const int STAGE = 3;
 
     [Header("Chapter Rules")]
     [SerializeField] private List<ChapterRule> chapterRules = new();
@@ -36,8 +34,9 @@ public class DialogueManager : MonoBehaviour
     private DSDialogueSO[] groupStartNode;                // 그룹 인덱스 -> 시작 노드
     private ChapterRule[] rulesByGroupIndex;              // 그룹 인덱스 -> 룰
     private string[] groupNameByIndex;                    // 그룹 인덱스 -> 그룹명
+    private Dictionary<string, int> chapterIdToGroupIndex; 
 
-    public IGameProgress Progress { get; set; } // 외부 주입
+    public IGameProgress Progress { get; set; } 
 
     [Serializable]
     public class ChapterRule
@@ -48,19 +47,19 @@ public class DialogueManager : MonoBehaviour
         [Range(1, 100)] public int maxStage = 100;
         public string prerequisiteChapterId; // 예: "CH1"
     }
-
+    
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-        else { Destroy(gameObject); return; }
-
         dialoguePanel.SetActive(false);
     }
 
+    /// <summary>
+    /// npc 다이얼로그 전체 저장 : 대화 그래프 전체(파일 1개)
+    /// </summary>
     public void SetContainer(DSDialogueContainerSO container)
     {
         dialogueContainer = container;
-        built = false; // 컨테이너 바뀌면 캐시 재빌드
+        built = false; 
     }
 
     /// <summary>
@@ -84,15 +83,13 @@ public class DialogueManager : MonoBehaviour
     }
 
     // =========================
-    // Cache Build (한 번만)
+    // Cache Build (한 번만) 
     // =========================
-
     private void BuildCacheIfNeeded()
     {
         if (built) return;
 
         // 컨테이너 내 그룹을 배열 인덱스로 관리 (foreach에서 순서 고정)
-        // groupIndex: 0..N-1
         int groupCount = dialogueContainer.DialogueGroups.Count;
 
         nodeGroupIndex = new Dictionary<DSDialogueSO, int>(128);
@@ -153,13 +150,19 @@ public class DialogueManager : MonoBehaviour
         }
 
         // 3) 룰을 groupIndex에 매핑 (룰 없는 그룹은 null)
+        chapterIdToGroupIndex = new Dictionary<string, int>(chapterRules.Count, StringComparer.Ordinal);
+        
         for (int i = 0; i < chapterRules.Count; i++)
         {
             var r = chapterRules[i];
             if (r == null || string.IsNullOrEmpty(r.groupName)) continue;
 
             if (groupIndexByName.TryGetValue(r.groupName, out int idx))
+            {
                 rulesByGroupIndex[idx] = r;
+                if (!string.IsNullOrEmpty(r.chapterId))
+                    chapterIdToGroupIndex[r.chapterId] = idx;
+            }
         }
 
         built = true;
@@ -168,51 +171,65 @@ public class DialogueManager : MonoBehaviour
     // =========================
     // Start Node Resolve
     // =========================
-
+    
     private DSDialogueSO ResolveStartNodeForStage(int stage)
     {
         // 정책:
         // - stage 조건 맞는 그룹 중 "가장 뒤(인덱스 큰 쪽)"부터 찾는다
         // - prerequisiteChapterId가 있으면 클리어 필요
         // - 이미 chapterId 클리어된 그룹은 스킵해서 다음 챕터로(원래 요구사항)
+        
+        // 1) 현재 stage에 해당하는 "가장 뒤 챕터" 후보 찾기
+        int bestGroup = -1;
+    
         for (int gi = groupStartNode.Length - 1; gi >= 0; gi--)
         {
             var start = groupStartNode[gi];
             if (start == null) continue;
-
+    
             var rule = rulesByGroupIndex[gi];
             if (!IsStageAllowed(rule, stage)) continue;
-            if (!IsPrerequisiteAllowed(rule)) continue;
-
-            if (Progress != null && rule != null && !string.IsNullOrEmpty(rule.chapterId))
+    
+            bestGroup = gi;
+            break;
+        }
+    
+        if (bestGroup == -1)
+            return FindFallbackStart();
+    
+        // 2) 후보 챕터의 prerequisite가 미클리어면 → prerequisite 챕터 시작으로 강제
+        var bestRule = rulesByGroupIndex[bestGroup];
+        if (Progress != null && bestRule != null && !string.IsNullOrEmpty(bestRule.prerequisiteChapterId))
+        {
+            if (!Progress.IsChapterCleared(bestRule.prerequisiteChapterId))
             {
-                if (Progress.IsChapterCleared(rule.chapterId))
-                    continue; // 이미 클리어면 더 뒤 챕터로
+                if (chapterIdToGroupIndex.TryGetValue(bestRule.prerequisiteChapterId, out int prereqGroup))
+                    return groupStartNode[prereqGroup]; // stage가 달라도 선행 챕터로 내려감
             }
-
-            return start;
         }
-
-        // fallback: 아무 시작 노드
-        for (int gi = 0; gi < groupStartNode.Length; gi++)
-        {
-            if (groupStartNode[gi] != null) return groupStartNode[gi];
-        }
-
-        // 마지막 fallback: ungrouped 첫 노드
-        for (int i = 0; i < dialogueContainer.UngroupedDialogues.Count; i++)
-        {
-            if (dialogueContainer.UngroupedDialogues[i] != null)
-                return dialogueContainer.UngroupedDialogues[i];
-        }
-
-        return null;
+    
+        // 3) (옵션) 이미 best 챕터 자체가 클리어면 뒤 챕터로 넘어가고 싶다면 스킵 정책 적용 가능
+        // 여기서는 “현재 stage의 챕터를 시작”이 기본.
+        return groupStartNode[bestGroup];
     }
 
     // =========================
+    // 만약 앞의 선택지가 클리어가 아닐경우 fallback
+    // =========================
+    private DSDialogueSO FindFallbackStart()
+    {
+        for (int gi = 0; gi < groupStartNode.Length; gi++)
+            if (groupStartNode[gi] != null) return groupStartNode[gi];
+
+        for (int i = 0; i < dialogueContainer.UngroupedDialogues.Count; i++)
+            if (dialogueContainer.UngroupedDialogues[i] != null) return dialogueContainer.UngroupedDialogues[i];
+
+        return null;
+    }
+    
+    // =========================
     // Transition Check (선택지 이동 체크)
     // =========================
-
     private bool CanMoveTo(DSDialogueSO next)
     {
         if (next == null) return true; // null이면 EndDialogue로 가는 흐름
@@ -340,5 +357,6 @@ public class DialogueManager : MonoBehaviour
 
 public interface IGameProgress
 {
-    bool IsChapterCleared(string chapterId);
+    bool IsChapterCleared(string npcId);
+    //void MarkChapterCleared(string npcId, string chapterId); // 필요하면
 }

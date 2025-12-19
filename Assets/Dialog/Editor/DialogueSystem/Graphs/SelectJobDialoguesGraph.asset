@@ -16,10 +16,10 @@ MonoBehaviour:
   <Groups>k__BackingField:
   - <ID>k__BackingField: 36d8697c-4084-4791-a120-7a02893d789b
     <Name>k__BackingField: Chapter1
-    <Position>k__BackingField: {x: -621, y: -13}
+    <Position>k__BackingField: {x: -621, y: -53}
   - <ID>k__BackingField: 14952eeb-de33-4e1e-8106-8391ab1600b6
     <Name>k__BackingField: Chapter2
-    <Position>k__BackingField: {x: 191, y: 2}
+    <Position>k__BackingField: {x: 191, y: -38}
   <Nodes>k__BackingField:
   - <ID>k__BackingField: 93e80f15-a56a-4a97-b6d9-6b0831c2817d
     <Name>k__BackingField: Hello

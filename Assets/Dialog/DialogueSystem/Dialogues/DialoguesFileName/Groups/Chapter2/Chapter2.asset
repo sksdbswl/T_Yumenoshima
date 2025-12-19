@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: Chapter2
   m_EditorClassIdentifier: Assembly-CSharp::DS.ScriptableObjects.DSDialogueGroupSO
   <GroupName>k__BackingField: Chapter2
+  <GroupType>k__BackingField: 0
+  <NpcId>k__BackingField: 
+  <QuestId>k__BackingField: 

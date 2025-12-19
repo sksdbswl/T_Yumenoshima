@@ -7,7 +7,7 @@ public static class SaveSystem
 
     public static void Save()
     {
-        var progress = PlayerDialogueProgress.Instance;
+        var progress = PlayerDialogueProgress.Singleton;
         var data = progress.ToSaveData();
 
         string json = JsonUtility.ToJson(data, prettyPrint: true);
@@ -27,7 +27,7 @@ public static class SaveSystem
         string json = File.ReadAllText(SavePath);
         var data = JsonUtility.FromJson<PlayerDialogueProgress.SaveData>(json);
 
-        PlayerDialogueProgress.Instance.FromSaveData(data);
+        PlayerDialogueProgress.Singleton.FromSaveData(data);
 
         Debug.Log($"[SaveSystem] Loaded from {SavePath}");
     }

@@ -21,7 +21,10 @@ public class NPCDialogueTrigger : MonoBehaviour
 
     private void StartDialogueAuto()
     {
-        int stage = PlayerDialogueProgress.Instance.GetNpcStoryStage(npcId);
+        int stage = PlayerDialogueProgress.Singleton.GetNpcStoryStage(npcId);
+
+        Debug.Log($"[NPC {npcId}] start dialogue for stage {stage}");
+        //[NPC Shin] start dialogue for stage 0
 
         if (!database.TryGetDialogue(npcId, stage,
                 out var container, out var startNode))
@@ -29,11 +32,10 @@ public class NPCDialogueTrigger : MonoBehaviour
             Debug.Log($"[NPC {npcId}] no dialogue for stage {stage}");
             return;
         }
-
         
-        DialogueManager.Instance.SetContainer(container);
+        DialogueManager.Singleton.SetContainer(container);
         //DialogueManager.Instance.Progress = PlayerProgress.Instance; // 네 프로젝트 진행도 싱글톤
-        DialogueManager.Instance.StartDialogueAuto(actor); // currentStage: 1~100
+        DialogueManager.Singleton.StartDialogueAuto(actor); // currentStage: 1~100
         
         // DialogueManager.Instance.SetContainer(container);
         // DialogueManager.Instance.StartDialogue(startNode, actor);

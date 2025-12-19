@@ -1,10 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDialogueProgress : MonoBehaviour
+public class PlayerDialogueProgress : SingletonBase<PlayerDialogueProgress>
 {
-    public static PlayerDialogueProgress Instance { get; private set; }
-
     [Header("Main Story")]
     public int mainStoryStage = 0;
 
@@ -17,21 +15,7 @@ public class PlayerDialogueProgress : MonoBehaviour
     [Header("Flags")]
     public List<string> flags = new List<string>();   // "MetChief", "JobSelected" 등
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
     // ───── 헬퍼 메서드들 ─────
-
     public int GetNpcStoryStage(string npcId)
     {
         var entry = npcStories.Find(e => e.npcId == npcId);
