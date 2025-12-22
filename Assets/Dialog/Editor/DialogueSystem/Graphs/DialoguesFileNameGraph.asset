@@ -16,31 +16,11 @@ MonoBehaviour:
   <Groups>k__BackingField:
   - <ID>k__BackingField: b831cfe4-2d92-47c4-9844-30d3c27bda58
     <Name>k__BackingField: Chapter1
-    <Position>k__BackingField: {x: -554, y: -24}
+    <Position>k__BackingField: {x: -449, y: -123}
   - <ID>k__BackingField: a9b631f9-b034-4785-9b79-6b2f983b24a8
-    <Name>k__BackingField: Chapter2
-    <Position>k__BackingField: {x: -547, y: 399}
+    <Name>k__BackingField: Daily
+    <Position>k__BackingField: {x: -412, y: 522}
   <Nodes>k__BackingField:
-  - <ID>k__BackingField: 289bda1f-5343-436b-a8ab-e78a6bfe1535
-    <Name>k__BackingField: Hell
-    <Text>k__BackingField: "\uC798\uBD80\uD0C1\uD574 !"
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: Next Dialogue
-      <NodeID>k__BackingField: e5d956c1-6e0c-4e77-bce8-d89f93ac7e79
-    <GroupID>k__BackingField: b831cfe4-2d92-47c4-9844-30d3c27bda58
-    <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: -529, y: 55}
-    <AnimationClip>k__BackingField: {fileID: 7400000, guid: 266e8e95875a44f0aa086f6e752b4508, type: 3}
-    <Actions>k__BackingField:
-    - trigger: 1
-      type: 0
-      npcId: w
-      npcStoryStage: 0
-      questId: 
-      questState: 0
-      flag: 
-      receiverType: 
-      methodName: 
   - <ID>k__BackingField: d83ece5b-ac3c-455f-8a40-38c8de8de9f5
     <Name>k__BackingField: Hello2
     <Text>k__BackingField: "\uB450\uBC88\uC9F8 Hello"
@@ -49,8 +29,8 @@ MonoBehaviour:
       <NodeID>k__BackingField: 
     <GroupID>k__BackingField: a9b631f9-b034-4785-9b79-6b2f983b24a8
     <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: -522, y: 478}
-    <AnimationClip>k__BackingField: {fileID: 0}
+    <Position>k__BackingField: {x: -387, y: 601}
+    <AnimationClip>k__BackingField: {fileID: 1827226128182048838, guid: df7066cb95b024b4295159063e763b8c, type: 3}
     <Actions>k__BackingField: []
   - <ID>k__BackingField: e5d956c1-6e0c-4e77-bce8-d89f93ac7e79
     <Name>k__BackingField: Hell2
@@ -61,28 +41,48 @@ MonoBehaviour:
       <NodeID>k__BackingField: 
     <GroupID>k__BackingField: b831cfe4-2d92-47c4-9844-30d3c27bda58
     <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: -147, y: 105}
+    <Position>k__BackingField: {x: -42, y: 6}
     <AnimationClip>k__BackingField: {fileID: 0}
     <Actions>k__BackingField:
-    - trigger: 0
-      type: 1
-      npcId: 
-      npcStoryStage: 0
+    - trigger: 1
+      type: 0
+      npcId: 1
+      npcStoryStage: 1
       questId: 1
+      questState: 0
+      flag: 
+      receiverType: 
+      methodName: 
+  - <ID>k__BackingField: 289bda1f-5343-436b-a8ab-e78a6bfe1535
+    <Name>k__BackingField: Hell
+    <Text>k__BackingField: "\uC798\uBD80\uD0C1\uD574 !"
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: e5d956c1-6e0c-4e77-bce8-d89f93ac7e79
+    <GroupID>k__BackingField: b831cfe4-2d92-47c4-9844-30d3c27bda58
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: -424, y: -44}
+    <AnimationClip>k__BackingField: {fileID: 7400000, guid: 266e8e95875a44f0aa086f6e752b4508, type: 3}
+    <Actions>k__BackingField:
+    - trigger: 1
+      type: 0
+      npcId: 1
+      npcStoryStage: 1
+      questId: 
       questState: 0
       flag: 
       receiverType: 
       methodName: 
   <OldGroupNames>k__BackingField:
   - Chapter1
-  - Chapter2
+  - Daily
   <OldUngroupedNodeNames>k__BackingField: []
   <OldGroupedNodeNames>k__BackingField:
     list:
-    - Key: Chapter1
-      Value:
-      - Hell
-      - Hell2
-    - Key: Chapter2
+    - Key: Daily
       Value:
       - Hello2
+    - Key: Chapter1
+      Value:
+      - Hell2
+      - Hell

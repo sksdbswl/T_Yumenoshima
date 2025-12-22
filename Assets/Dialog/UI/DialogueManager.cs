@@ -20,7 +20,7 @@ public class DialogueManager : SingletonBase<DialogueManager>
     [SerializeField] private DSDialogueContainerSO dialogueContainer;
 
     // 임시: 나중에 GameManager에서 받아올 예정
-    private const int STAGE = 3;
+    private int STAGE = 1;
 
     [Header("Chapter Rules")]
     [SerializeField] private List<ChapterRule> chapterRules = new();
@@ -47,6 +47,15 @@ public class DialogueManager : SingletonBase<DialogueManager>
         [Range(1, 100)] public int minStage = 1;
         [Range(1, 100)] public int maxStage = 100;
         public string prerequisiteChapterId; // 예: "CH1"
+    }
+    
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            STAGE++;
+            Debug.Log($"Stage Changed: {STAGE}");
+        }
     }
     
     private void Awake()

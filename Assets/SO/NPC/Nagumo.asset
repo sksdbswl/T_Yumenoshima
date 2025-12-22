@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c98d2d94c174a62b4d79243c9a268e3, type: 3}
   m_Name: Nagumo
   m_EditorClassIdentifier: Assembly-CSharp::Npc
+  Id: 2
   BuilderId: 3
   Name: Nagumo
   Job: 1
