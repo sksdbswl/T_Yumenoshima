@@ -212,7 +212,6 @@ public class DialogueManager : SingletonBase<DialogueManager>
             if (groupSO == null || nodes == null) continue;
 
             if (groupSO.GroupType != type) continue;
-            if (!string.Equals(groupSO.NpcId, npcId, StringComparison.Ordinal)) continue;
 
             for (int i = 0; i < nodes.Count; i++)
             {
@@ -221,9 +220,8 @@ public class DialogueManager : SingletonBase<DialogueManager>
 
                 if (!node.IsStartingDialogue) continue;
 
-                // daily도 start node에만 stageId를 줄거면 여기서 제한 적용,
-                // 아니라면 StageId 조건은 제거해도 됨.
-                if (node.StageId > 0 && node.StageId > STAGE) continue;
+                // daily 제한 적용
+                //if (node.StageId > 0 && node.StageId > STAGE) continue;
 
                 list.Add(node);
             }

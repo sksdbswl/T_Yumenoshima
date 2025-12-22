@@ -22,7 +22,7 @@ MonoBehaviour:
   - <ID>k__BackingField: 6dce2ab8-de3a-40dd-b9c1-569c20f7a5f1
     <Name>k__BackingField: Daily
     <Position>k__BackingField: {x: 691, y: -33}
-    <GroupType>k__BackingField: 0
+    <GroupType>k__BackingField: 3
     <NpcId>k__BackingField: 
   - <ID>k__BackingField: 394f4b51-184b-499c-a1b4-b1ed1e568236
     <Name>k__BackingField: Quest
@@ -30,18 +30,6 @@ MonoBehaviour:
     <GroupType>k__BackingField: 2
     <NpcId>k__BackingField: Nagumo
   <Nodes>k__BackingField:
-  - <ID>k__BackingField: 284f1ffb-144b-4c77-95d7-1a5596db5afe
-    <Name>k__BackingField: Hello2
-    <Text>k__BackingField: "\uB370\uC77C\uB9AC 2"
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: Next Dialogue
-      <NodeID>k__BackingField: 
-    <GroupID>k__BackingField: 6dce2ab8-de3a-40dd-b9c1-569c20f7a5f1
-    <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: 716, y: 326}
-    <AnimationClip>k__BackingField: {fileID: 0}
-    <Actions>k__BackingField: []
-    <StageId>k__BackingField: 0
   - <ID>k__BackingField: d83ece5b-ac3c-455f-8a40-38c8de8de9f5
     <Name>k__BackingField: Hello1
     <Text>k__BackingField: "\uB370\uC77C\uB9AC 1"
@@ -53,7 +41,7 @@ MonoBehaviour:
     <Position>k__BackingField: {x: 734, y: 46}
     <AnimationClip>k__BackingField: {fileID: 1827226128182048838, guid: df7066cb95b024b4295159063e763b8c, type: 3}
     <Actions>k__BackingField: []
-    <StageId>k__BackingField: 0
+    <StageId>k__BackingField: 1
   - <ID>k__BackingField: 504795aa-3e9a-44d6-9dc6-7add3d720e19
     <Name>k__BackingField: quest1
     <Text>k__BackingField: "\uCCAB\uBC88\uC9F8 \uD018\uC2A4\uD2B8\uC785\uB2C8\uB2E4"
@@ -187,6 +175,18 @@ MonoBehaviour:
     <AnimationClip>k__BackingField: {fileID: 0}
     <Actions>k__BackingField: []
     <StageId>k__BackingField: 0
+  - <ID>k__BackingField: 284f1ffb-144b-4c77-95d7-1a5596db5afe
+    <Name>k__BackingField: Hello2
+    <Text>k__BackingField: "\uB370\uC77C\uB9AC 2"
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 
+    <GroupID>k__BackingField: 6dce2ab8-de3a-40dd-b9c1-569c20f7a5f1
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 716, y: 326}
+    <AnimationClip>k__BackingField: {fileID: 0}
+    <Actions>k__BackingField: []
+    <StageId>k__BackingField: 1
   <OldGroupNames>k__BackingField:
   - Story
   - Daily
@@ -196,8 +196,8 @@ MonoBehaviour:
     list:
     - Key: Daily
       Value:
-      - Hello2
       - Hello1
+      - Hello2
     - Key: Quest
       Value:
       - quest1
