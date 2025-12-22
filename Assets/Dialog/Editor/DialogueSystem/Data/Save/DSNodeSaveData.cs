@@ -19,5 +19,8 @@ namespace DS.Data.Save
         [field: SerializeField] public Vector2 Position { get; set; }
         [field: SerializeField] public AnimationClip AnimationClip { get; set; }
         [field: SerializeField] public List<DSDialogueActionData> Actions { get; set; } = new();
+        
+        [field: SerializeField] public int StageId { get; set; }
     }
 }
+

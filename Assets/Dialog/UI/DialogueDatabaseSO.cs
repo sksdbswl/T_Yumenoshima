@@ -7,8 +7,12 @@ public class DialogueDatabaseSO : ScriptableObject
 {
     public List<DialogueMeta> entries = new List<DialogueMeta>();
 
-    public bool TryGetDialogue(string npcId, int stage,
-        out DSDialogueContainerSO container, out DSDialogueSO startNode)
+    // 기존 방식 (stage 기반 startNode 선택) – 이제 안 씀
+    public bool TryGetDialogue(
+        string npcId,
+        int stage,
+        out DSDialogueContainerSO container,
+        out DSDialogueSO startNode)
     {
         container = null;
         startNode = null;
@@ -20,7 +24,6 @@ public class DialogueDatabaseSO : ScriptableObject
             if (e.npcId != npcId) continue;
             if (stage < e.minStage || stage > e.maxStage) continue;
 
-            // 필요하면 우선순위 필드 추가해서 제일 좋은 것 고르기
             best = e;
         }
 
@@ -32,23 +35,31 @@ public class DialogueDatabaseSO : ScriptableObject
         return startNode != null;
     }
 
+    // 새 방식: npcId로 컨테이너만 반환
+    public bool TryGetContainer(string npcId, out DSDialogueContainerSO container)
+    {
+        container = null;
+
+        foreach (var e in entries)
+        {
+            if (e.npcId != npcId) continue;
+            if (e.container == null) continue;
+
+            container = e.container;
+            return true;
+        }
+
+        return false;
+    }
+
     private DSDialogueSO FindStartingNode(DSDialogueContainerSO container)
     {
-        // 컨테이너 안에서 IsStartingDialogue 체크
         foreach (var d in container.UngroupedDialogues)
             if (d.IsStartingDialogue) return d;
 
         foreach (var kv in container.DialogueGroups)
         foreach (var d in kv.Value)
             if (d.IsStartingDialogue) return d;
-
-        // 못 찾으면 그냥 첫 번째라도 리턴(옵션)
-        if (container.UngroupedDialogues.Count > 0)
-            return container.UngroupedDialogues[0];
-
-        foreach (var kv in container.DialogueGroups)
-            if (kv.Value.Count > 0)
-                return kv.Value[0];
 
         return null;
     }

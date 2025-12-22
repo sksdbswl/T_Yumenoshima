@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Select
   m_EditorClassIdentifier: Assembly-CSharp::DS.ScriptableObjects.DSDialogueSO
   <DialogueName>k__BackingField: Select
+  <GroupType>k__BackingField: 0
+  <NpcId>k__BackingField: 
+  <QuestId>k__BackingField: 
   <Text>k__BackingField: "\uC9C1\uC5C5\uC744 \uC120\uD0DD\uD574\uC918"
   <Choices>k__BackingField:
   - <Text>k__BackingField: "\uC804\uC0AC"
@@ -24,3 +27,13 @@ MonoBehaviour:
   <DialogueType>k__BackingField: 1
   <IsStartingDialogue>k__BackingField: 0
   <NpcAnimationClip>k__BackingField: {fileID: 0}
+  <Actions>k__BackingField:
+  - trigger: 1
+    type: 0
+    npcId: 1
+    npcStoryStage: 0
+    questId: 
+    questState: 0
+    flag: 
+    receiverType: 
+    methodName: 

@@ -11,17 +11,17 @@ namespace DS.ScriptableObjects
     {
         [field: SerializeField] public string DialogueName { get; set; }
         [field: SerializeField] public DialogueGroupType GroupType { get; private set; }
-        [field: SerializeField] public string NpcId { get; private set; }
-        [field: SerializeField] public string QuestId { get; private set; }
+        [field: SerializeField] public string NpcId { get; private set; }   // ✅ StoryId -> NpcId
         [field: SerializeField] [field: TextArea] public string Text { get; set; }
         [field: SerializeField] public List<DSDialogueChoiceData> Choices { get; set; }
         [field: SerializeField] public DSDialogueType DialogueType { get; set; }
         [field: SerializeField] public bool IsStartingDialogue { get; set; }
         [field: SerializeField] public AnimationClip NpcAnimationClip { get; set; }
         [field: SerializeField] public List<DSDialogueActionData> Actions { get; set; } = new();
+        [field: SerializeField] public int StageId { get; set; }
 
-        public void Initialize(string dialogueName, string text, List<DSDialogueChoiceData> choices, DSDialogueType dialogueType,
-            bool isStartingDialogue, AnimationClip npcAnimationClip = null)
+        public void Initialize(string dialogueName, string text, List<DSDialogueChoiceData> choices,
+            DSDialogueType dialogueType, bool isStartingDialogue, AnimationClip npcAnimationClip = null, int stageId = 0)
         {
             DialogueName = dialogueName;
             Text = text;
@@ -29,26 +29,25 @@ namespace DS.ScriptableObjects
             DialogueType = dialogueType;
             IsStartingDialogue = isStartingDialogue;
             NpcAnimationClip = npcAnimationClip;
+            StageId = stageId;
         }
 
-        // ✅ 추가: 그룹 메타 세팅(툴에서만 세팅)
-        public void SetGroupMeta(DialogueGroupType groupType, string npcId, string questId)
+        public void SetGroupMeta(DialogueGroupType groupType, string npcId)
         {
             GroupType = groupType;
             NpcId = npcId;
-            QuestId = questId;
         }
     }
 
     public enum DSDialogueActionTrigger { OnEnter, OnExit, OnDialogueEnd }
     public enum DSDialogueActionType { SetNpcStoryStage, SetQuestState, SetFlag }
 
-    [Serializable] 
+    [Serializable]
     public class DSDialogueActionData
     {
         public DSDialogueActionTrigger trigger = DSDialogueActionTrigger.OnExit;
         public DSDialogueActionType type;
-        
+
         public string npcId;
         public int npcStoryStage;
 
@@ -56,10 +55,8 @@ namespace DS.ScriptableObjects
         public QuestState questState;
 
         public string flag;
-        
-        // ✅ 커스텀 함수 호출용
-        public string receiverType;   // AssemblyQualifiedName (빌드에서도 안전)
-        public string methodName;     // 실행할 메서드명
 
+        public string receiverType;
+        public string methodName;
     }
 }

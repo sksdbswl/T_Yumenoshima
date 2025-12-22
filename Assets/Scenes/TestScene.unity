@@ -351,17 +351,7 @@ MonoBehaviour:
   choicesParent: {fileID: 561614339}
   choiceButtonPrefab: {fileID: 254521626475519378, guid: 4846982f2dd2a8d46baace5d8f2659db, type: 3}
   dialogueContainer: {fileID: 0}
-  chapterRules:
-  - groupName: Chapter1
-    chapterId: Chapter1
-    minStage: 0
-    maxStage: 1
-    prerequisiteChapterId: 0
-  - groupName: Chapter2
-    chapterId: Chapter2
-    minStage: 2
-    maxStage: 2
-    prerequisiteChapterId: Chapter1
+  STAGE: 1
 --- !u!1 &220608119
 GameObject:
   m_ObjectHideFlags: 0

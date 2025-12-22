@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
-using DS.Data.Save;
+using DS.Data;
 using DS.Enumerations;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using DS.ScriptableObjects;
+using TMPro;
+using UnityEngine.UI;
 
 public class DialogueManager : SingletonBase<DialogueManager>
 {
@@ -16,272 +16,227 @@ public class DialogueManager : SingletonBase<DialogueManager>
     [SerializeField] private Transform choicesParent;
     [SerializeField] private Button choiceButtonPrefab;
 
-    [Header("Data (debug only)")]
+    [Header("Source Data")]
     [SerializeField] private DSDialogueContainerSO dialogueContainer;
 
-    // 임시: 나중에 GameManager에서 받아올 예정
-    private int STAGE = 1;
+    [Header("World Stage (debug)")]
+    [SerializeField] private int STAGE = 1;
 
-    [Header("Chapter Rules")]
-    [SerializeField] private List<ChapterRule> chapterRules = new();
-
-    // 런타임 상태
+    // ===== Runtime =====
     private DSDialogueSO currentNode;
-    private DialogueActor currentActor;
 
-    // 캐시(성능)
+    // “이번에 시작한 대화”의 시작 노드 정보(진행 저장용)
+    private DSDialogueSO currentStartNode;
+    private DSDialogueGroupSO currentGroupSO;
+
+    // 캐싱: 노드 -> 그룹SO
     private bool built;
-    private Dictionary<DSDialogueSO, int> nodeGroupIndex; // 노드 -> 그룹 인덱스 (ungrouped는 -1)
-    private DSDialogueSO[] groupStartNode;                // 그룹 인덱스 -> 시작 노드
-    private ChapterRule[] rulesByGroupIndex;              // 그룹 인덱스 -> 룰
-    private string[] groupNameByIndex;                    // 그룹 인덱스 -> 그룹명
-    private Dictionary<string, int> chapterIdToGroupIndex; 
+    private Dictionary<DSDialogueSO, DSDialogueGroupSO> nodeToGroupSO;
 
-    public IGameProgress Progress { get; set; } 
-
-    [Serializable]
-    public class ChapterRule
+    private void Awake()
     {
-        public string groupName;      // DialogueGroupSO.GroupName 과 동일
-        public string chapterId;      // 예: "CH1"
-        [Range(1, 100)] public int minStage = 1;
-        [Range(1, 100)] public int maxStage = 100;
-        public string prerequisiteChapterId; // 예: "CH1"
+        if (dialoguePanel != null)
+            dialoguePanel.SetActive(false);
     }
-    
+
     private void Update()
     {
+        // 디버그: 월드 스테이지 올리기
         if (Input.GetKeyDown(KeyCode.P))
         {
             STAGE++;
-            Debug.Log($"Stage Changed: {STAGE}");
+            Debug.Log($"[DialogueManager] World STAGE Changed: {STAGE}");
         }
     }
-    
-    private void Awake()
-    {
-        dialoguePanel.SetActive(false);
-    }
 
-    /// <summary>
-    /// npc 다이얼로그 전체 저장 : 대화 그래프 전체(파일 1개)
-    /// </summary>
     public void SetContainer(DSDialogueContainerSO container)
     {
         dialogueContainer = container;
-        built = false; 
-    }
-
-    /// <summary>
-    /// 말 걸 때: 현재 stage(STAGE=1) 기준으로 시작 노드를 자동 선택해서 시작
-    /// </summary>
-    public void StartDialogueAuto(DialogueActor actor)
-    {
-        if (dialogueContainer == null)
-        {
-            Debug.LogWarning("DialogueManager: dialogueContainer is null");
-            return;
-        }
-
-        BuildCacheIfNeeded();
-
-        currentActor = actor;
-        currentNode = ResolveStartNodeForStage(STAGE);
-
-        dialoguePanel.SetActive(true);
-        ShowCurrentNode();
+        built = false;
     }
 
     // =========================
-    // Cache Build (한 번만) 
+    // BUILD CACHE
     // =========================
-    private void BuildCacheIfNeeded()
+    private void Build()
     {
-        if (built) return;
+        if (built || dialogueContainer == null) return;
 
-        // 컨테이너 내 그룹을 배열 인덱스로 관리 (foreach에서 순서 고정)
-        int groupCount = dialogueContainer.DialogueGroups.Count;
+        nodeToGroupSO = new Dictionary<DSDialogueSO, DSDialogueGroupSO>(128);
 
-        nodeGroupIndex = new Dictionary<DSDialogueSO, int>(128);
-        groupStartNode = new DSDialogueSO[groupCount];
-        rulesByGroupIndex = new ChapterRule[groupCount];
-        groupNameByIndex = new string[groupCount];
-
-        // groupName -> groupIndex
-        var groupIndexByName = new Dictionary<string, int>(groupCount, StringComparer.Ordinal);
-
-        int gi = 0;
-
-        // 1) 그룹들 순회하면서: 그룹명/시작노드/노드->그룹 매핑 구축
         foreach (var pair in dialogueContainer.DialogueGroups)
         {
             var groupSO = pair.Key;
-            var list = pair.Value;
+            var nodes = pair.Value;
+            if (nodes == null) continue;
 
-            string gName = (groupSO != null) ? groupSO.GroupName : string.Empty;
-            groupNameByIndex[gi] = gName;
-
-            if (!string.IsNullOrEmpty(gName))
-                groupIndexByName[gName] = gi;
-
-            // 시작 노드 찾기 + 노드->그룹 인덱스
-            DSDialogueSO start = null;
-
-            for (int i = 0; i < list.Count; i++)
+            for (int i = 0; i < nodes.Count; i++)
             {
-                var node = list[i];
+                var node = nodes[i];
                 if (node == null) continue;
-
-                nodeGroupIndex[node] = gi;
-
-                if (start == null && node.IsStartingDialogue)
-                    start = node;
+                nodeToGroupSO[node] = groupSO;
             }
-
-            // 시작 플래그가 없으면 첫 노드로 fallback
-            if (start == null)
-            {
-                for (int i = 0; i < list.Count; i++)
-                {
-                    if (list[i] != null) { start = list[i]; break; }
-                }
-            }
-
-            groupStartNode[gi] = start;
-            gi++;
         }
 
-        // 2) ungrouped 노드 등록 (그룹 인덱스 = -1)
-        for (int i = 0; i < dialogueContainer.UngroupedDialogues.Count; i++)
+        // ungrouped
+        foreach (var node in dialogueContainer.UngroupedDialogues)
         {
-            var node = dialogueContainer.UngroupedDialogues[i];
             if (node == null) continue;
-            nodeGroupIndex[node] = -1;
-        }
-
-        // 3) 룰을 groupIndex에 매핑 (룰 없는 그룹은 null)
-        chapterIdToGroupIndex = new Dictionary<string, int>(chapterRules.Count, StringComparer.Ordinal);
-        
-        for (int i = 0; i < chapterRules.Count; i++)
-        {
-            var r = chapterRules[i];
-            if (r == null || string.IsNullOrEmpty(r.groupName)) continue;
-
-            if (groupIndexByName.TryGetValue(r.groupName, out int idx))
-            {
-                rulesByGroupIndex[idx] = r;
-                if (!string.IsNullOrEmpty(r.chapterId))
-                    chapterIdToGroupIndex[r.chapterId] = idx;
-            }
+            nodeToGroupSO[node] = null;
         }
 
         built = true;
     }
 
     // =========================
-    // Start Node Resolve
+    // START AUTO (story -> quest -> daily)
     // =========================
-    
-    private DSDialogueSO ResolveStartNodeForStage(int stage)
+    public void StartDialogueAuto(string npcId)
     {
-        // 정책:
-        // - stage 조건 맞는 그룹 중 "가장 뒤(인덱스 큰 쪽)"부터 찾는다
-        // - prerequisiteChapterId가 있으면 클리어 필요
-        // - 이미 chapterId 클리어된 그룹은 스킵해서 다음 챕터로(원래 요구사항)
-        
-        // 1) 현재 stage에 해당하는 "가장 뒤 챕터" 후보 찾기
-        int bestGroup = -1;
-    
-        for (int gi = groupStartNode.Length - 1; gi >= 0; gi--)
+        if (dialogueContainer == null)
         {
-            var start = groupStartNode[gi];
-            if (start == null) continue;
-    
-            var rule = rulesByGroupIndex[gi];
-            if (!IsStageAllowed(rule, stage)) continue;
-    
-            bestGroup = gi;
-            break;
+            Debug.LogWarning("[DialogueManager] dialogueContainer is null");
+            return;
         }
-    
-        if (bestGroup == -1)
-            return FindFallbackStart();
-    
-        // 2) 후보 챕터의 prerequisite가 미클리어면 → prerequisite 챕터 시작으로 강제
-        var bestRule = rulesByGroupIndex[bestGroup];
-        if (Progress != null && bestRule != null && !string.IsNullOrEmpty(bestRule.prerequisiteChapterId))
+
+        Build();
+
+        Debug.Log($"[DialogueManager] StartDialogueAuto npcId={npcId}, STAGE={STAGE}");
+
+        // 1) Story
+        var storyStart = FindNextStartNode(DialogueGroupType.NpcStory, npcId);
+        if (storyStart != null)
         {
-            if (!Progress.IsChapterCleared(bestRule.prerequisiteChapterId))
+            BeginFromStartNode(storyStart);
+            return;
+        }
+
+        // 2) Quest
+        var questStart = FindNextStartNode(DialogueGroupType.Quest, npcId);
+        if (questStart != null)
+        {
+            BeginFromStartNode(questStart);
+            return;
+        }
+
+        // 3) Daily random
+        var dailyStart = FindRandomStartNode(DialogueGroupType.Daily, npcId);
+        if (dailyStart != null)
+        {
+            BeginFromStartNode(dailyStart);
+            return;
+        }
+
+        Debug.LogWarning($"[DialogueManager] No playable dialogue found. npcId={npcId}, STAGE={STAGE}");
+    }
+
+    private void BeginFromStartNode(DSDialogueSO startNode)
+    {
+        currentStartNode = startNode;
+        currentNode = startNode;
+
+        // 그룹 메타 캐시
+        currentGroupSO = null;
+        if (nodeToGroupSO != null)
+            nodeToGroupSO.TryGetValue(startNode, out currentGroupSO);
+
+        Debug.Log($"[DialogueManager] BeginFromStartNode: {startNode.DialogueName}, " +
+                  $"GroupType={(currentGroupSO != null ? currentGroupSO.GroupType : startNode.GroupType)}, " +
+                  $"NpcId={(currentGroupSO != null ? currentGroupSO.NpcId : "(null)")}, StageId={startNode.StageId}");
+
+        if (dialoguePanel != null)
+            dialoguePanel.SetActive(true);
+
+        ShowCurrentNode();
+    }
+
+    // =========================
+    // FIND NEXT START NODE
+    // =========================
+    private DSDialogueSO FindNextStartNode(DialogueGroupType type, string npcId)
+    {
+        DSDialogueSO best = null;
+        int bestStageId = int.MaxValue;
+
+        foreach (var pair in dialogueContainer.DialogueGroups)
+        {
+            var groupSO = pair.Key;
+            var nodes = pair.Value;
+            if (groupSO == null || nodes == null) continue;
+
+            // 타입/NPC 필터
+            if (groupSO.GroupType != type) continue;
+            if (!string.Equals(groupSO.NpcId, npcId, StringComparison.Ordinal)) continue;
+
+            // 저장된 진행도
+            int saved = LoadProgress(type, groupSO.NpcId);
+
+            for (int i = 0; i < nodes.Count; i++)
             {
-                if (chapterIdToGroupIndex.TryGetValue(bestRule.prerequisiteChapterId, out int prereqGroup))
-                    return groupStartNode[prereqGroup]; // stage가 달라도 선행 챕터로 내려감
+                var node = nodes[i];
+                if (node == null) continue;
+
+                // ✅ 시작노드만 후보
+                if (!node.IsStartingDialogue) continue;
+
+                // ✅ start node만 StageId를 갖고, 나머지는 0인 정책
+                if (node.StageId <= 0) continue;
+
+                // ✅ 월드 스테이지 제한
+                if (node.StageId > STAGE) continue;
+
+                // ✅ 이미 클리어한 stageId면 스킵
+                if (node.StageId <= saved) continue;
+
+                // ✅ 다음 후보 중 stageId 가장 작은 것 선택
+                if (node.StageId < bestStageId)
+                {
+                    bestStageId = node.StageId;
+                    best = node;
+                }
             }
         }
-    
-        // 3) (옵션) 이미 best 챕터 자체가 클리어면 뒤 챕터로 넘어가고 싶다면 스킵 정책 적용 가능
-        // 여기서는 “현재 stage의 챕터를 시작”이 기본.
-        return groupStartNode[bestGroup];
+
+        Debug.Log($"[DialogueManager] NextStart({type}) -> {(best != null ? best.DialogueName : "null")} (StageId={(best != null ? best.StageId : 0)})");
+        return best;
     }
 
-    // =========================
-    // 만약 앞의 선택지가 클리어가 아닐경우 fallback
-    // =========================
-    private DSDialogueSO FindFallbackStart()
+    private DSDialogueSO FindRandomStartNode(DialogueGroupType type, string npcId)
     {
-        for (int gi = 0; gi < groupStartNode.Length; gi++)
-            if (groupStartNode[gi] != null) return groupStartNode[gi];
+        var list = new List<DSDialogueSO>();
 
-        for (int i = 0; i < dialogueContainer.UngroupedDialogues.Count; i++)
-            if (dialogueContainer.UngroupedDialogues[i] != null) return dialogueContainer.UngroupedDialogues[i];
+        foreach (var pair in dialogueContainer.DialogueGroups)
+        {
+            var groupSO = pair.Key;
+            var nodes = pair.Value;
+            if (groupSO == null || nodes == null) continue;
 
-        return null;
-    }
-    
-    // =========================
-    // Transition Check (선택지 이동 체크)
-    // =========================
-    private bool CanMoveTo(DSDialogueSO next)
-    {
-        if (next == null) return true; // null이면 EndDialogue로 가는 흐름
+            if (groupSO.GroupType != type) continue;
+            if (!string.Equals(groupSO.NpcId, npcId, StringComparison.Ordinal)) continue;
 
-        if (!nodeGroupIndex.TryGetValue(next, out int gi))
-            return true; // 캐시에 없으면 막지 않음(안전)
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                var node = nodes[i];
+                if (node == null) continue;
 
-        if (gi < 0) return true; // ungrouped는 조건 없음
+                if (!node.IsStartingDialogue) continue;
 
-        var rule = rulesByGroupIndex[gi];
+                // daily도 start node에만 stageId를 줄거면 여기서 제한 적용,
+                // 아니라면 StageId 조건은 제거해도 됨.
+                if (node.StageId > 0 && node.StageId > STAGE) continue;
 
-        // 룰이 없으면 조건 없음 (원하면 false로 바꿔도 됨)
-        if (rule == null) return true;
+                list.Add(node);
+            }
+        }
 
-        if (!IsStageAllowed(rule, STAGE)) return false;
-        if (!IsPrerequisiteAllowed(rule)) return false;
-
-        return true;
-    }
-
-    private static bool IsStageAllowed(ChapterRule rule, int stage)
-    {
-        if (rule == null) return true; // 룰이 없으면 허용
-        return stage >= rule.minStage && stage <= rule.maxStage;
-    }
-
-    private bool IsPrerequisiteAllowed(ChapterRule rule)
-    {
-        if (rule == null) return true;
-        if (Progress == null) return true;
-
-        if (!string.IsNullOrEmpty(rule.prerequisiteChapterId) &&
-            !Progress.IsChapterCleared(rule.prerequisiteChapterId))
-            return false;
-
-        return true;
+        var pick = (list.Count == 0) ? null : list[UnityEngine.Random.Range(0, list.Count)];
+        Debug.Log($"[DialogueManager] RandomStart({type}) -> {(pick != null ? pick.DialogueName : "null")}");
+        return pick;
     }
 
     // =========================
-    // UI Render
+    // UI SHOW / FLOW
     // =========================
-
     private void ShowCurrentNode()
     {
         if (currentNode == null)
@@ -290,29 +245,26 @@ public class DialogueManager : SingletonBase<DialogueManager>
             return;
         }
 
-        speakerText.text = currentNode.DialogueName;
-        bodyText.text = currentNode.Text;
+        if (speakerText != null) speakerText.text = currentNode.DialogueName;
+        if (bodyText != null) bodyText.text = currentNode.Text;
 
         ClearChoices();
 
+        ExecuteActions(currentNode, DSDialogueActionTrigger.OnEnter);
+
+        var choices = currentNode.Choices ?? new List<DSDialogueChoiceData>();
+
         if (currentNode.DialogueType == DSDialogueType.SingleChoice)
         {
-            var button = Instantiate(choiceButtonPrefab, choicesParent);
-            button.GetComponentInChildren<TextMeshProUGUI>().text = "다음";
-
-            button.onClick.AddListener(() =>
+            CreateButton("다음", () =>
             {
-                if (currentNode.Choices.Count == 0)
-                {
-                    EndDialogue();
-                    return;
-                }
+                var next = GetAutoNextNode(currentNode);
 
-                var next = currentNode.Choices[0].NextDialogue;
+                ExecuteActions(currentNode, DSDialogueActionTrigger.OnExit);
 
-                if (!CanMoveTo(next))
+                if (next == null)
                 {
-                    Debug.Log("조건 미충족: 다음 챕터로 이동 불가");
+                    EndDialogue(); // ✅ 여기서 저장
                     return;
                 }
 
@@ -322,53 +274,154 @@ public class DialogueManager : SingletonBase<DialogueManager>
         }
         else
         {
-            for (int i = 0; i < currentNode.Choices.Count; i++)
+            if (choices.Count == 0)
             {
-                var choice = currentNode.Choices[i];
-                var next = choice.NextDialogue;
+                EndDialogue(); // ✅ 다음이 없으면 종료 + 저장
+                return;
+            }
 
-                var button = Instantiate(choiceButtonPrefab, choicesParent);
-                button.GetComponentInChildren<TextMeshProUGUI>().text = choice.Text;
+            for (int i = 0; i < choices.Count; i++)
+            {
+                var localChoice = choices[i];
+                var localNext = localChoice.NextDialogue;
 
-                // ✅ 미리 조건 체크해서 버튼 비활성화
-                button.interactable = CanMoveTo(next);
-
-                button.onClick.AddListener(() =>
+                CreateButton(localChoice.Text, () =>
                 {
-                    if (!CanMoveTo(next))
+                    ExecuteActions(currentNode, DSDialogueActionTrigger.OnExit);
+
+                    if (localNext == null)
                     {
-                        Debug.Log("조건 미충족: 선택 불가");
+                        EndDialogue();
                         return;
                     }
 
-                    currentNode = next;
+                    currentNode = localNext;
                     ShowCurrentNode();
                 });
             }
         }
+    }
 
-        if (currentNode.NpcAnimationClip != null && currentActor != null)
-            currentActor.PlayClip(currentNode.NpcAnimationClip);
+    private DSDialogueSO GetAutoNextNode(DSDialogueSO node)
+    {
+        if (node?.Choices == null || node.Choices.Count == 0) return null;
+        return node.Choices[0].NextDialogue;
+    }
+
+    private void CreateButton(string text, Action onClick)
+    {
+        if (choiceButtonPrefab == null || choicesParent == null) return;
+
+        var button = Instantiate(choiceButtonPrefab, choicesParent);
+        var label = button.GetComponentInChildren<TextMeshProUGUI>();
+        if (label != null) label.text = text;
+
+        button.onClick.RemoveAllListeners();
+        button.onClick.AddListener(() => onClick?.Invoke());
     }
 
     private void ClearChoices()
     {
+        if (choicesParent == null) return;
+
         for (int i = choicesParent.childCount - 1; i >= 0; i--)
             Destroy(choicesParent.GetChild(i).gameObject);
     }
 
     private void EndDialogue()
     {
-        dialoguePanel.SetActive(false);
+        // ✅ 대화 끝날 때만 “시작 노드 stageId” 저장
+        SaveProgress();
+
+        ExecuteActions(currentNode, DSDialogueActionTrigger.OnDialogueEnd);
+
+        if (dialoguePanel != null)
+            dialoguePanel.SetActive(false);
+
         currentNode = null;
+        currentStartNode = null;
+        currentGroupSO = null;
+
         ClearChoices();
     }
-    
+
+    // =========================
+    // PROGRESS SAVE/LOAD
+    // =========================
+    private int LoadProgress(DialogueGroupType type, string npcId)
+    {
+        if (string.IsNullOrEmpty(npcId)) return 0;
+
+        string key = type switch
+        {
+            DialogueGroupType.NpcStory => $"{npcId}_storyId",
+            DialogueGroupType.Quest    => $"{npcId}_questId",
+            _                          => $"{npcId}_{type}"
+        };
+
+        return PlayerPrefs.GetInt(key, 0);
+    }
+
+    private void SaveProgress(DialogueGroupType type, string npcId, int stageId)
+    {
+        if (string.IsNullOrEmpty(npcId) || stageId <= 0) return;
+
+        string key = type switch
+        {
+            DialogueGroupType.NpcStory => $"{npcId}_storyId",
+            DialogueGroupType.Quest    => $"{npcId}_questId",
+            _                          => $"{npcId}_{type}"
+        };
+
+        int prev = PlayerPrefs.GetInt(key, 0);
+        if (stageId > prev)
+        {
+            PlayerPrefs.SetInt(key, stageId);
+            PlayerPrefs.Save();
+            Debug.Log($"[DialogueManager] SaveProgress key={key}, {prev} -> {stageId}");
+        }
+    }
+
+    /// <summary>
+    /// ✅ “대화 끝날 때” 저장 규칙:
+    /// - currentStartNode의 GroupType 기준으로 저장
+    /// - 저장 값은 currentStartNode.StageId (start node만 유효)
+    /// </summary>
+    private void SaveProgress()
+    {
+        if (currentStartNode == null) return;
+
+        // 그룹 타입/NPCId는 그룹SO에서 가져오는게 정석
+        DialogueGroupType type = DialogueGroupType.Daily;
+        string npcId = "";
+
+        if (currentGroupSO != null)
+        {
+            type = currentGroupSO.GroupType;
+            npcId = currentGroupSO.NpcId;
+        }
+        else
+        {
+            // fallback(ungrouped 등)
+            type = currentStartNode.GroupType;
+            // npcId는 그룹SO 없으면 저장 안 하는게 안전
+            npcId = "";
+        }
+
+        if (type == DialogueGroupType.Daily) return; // daily는 저장 안 함
+
+        int stageId = currentStartNode.StageId;
+        SaveProgress(type, npcId, stageId);
+    }
+
+    // =========================
+    // ACTIONS
+    // =========================
     private void ExecuteActions(DSDialogueSO node, DSDialogueActionTrigger trigger)
     {
-        if (node == null || node.Actions == null || node.Actions.Count == 0) return;
+        if (node == null || node.Actions == null) return;
 
-        var prog = PlayerDialogueProgress.Singleton; 
+        var prog = PlayerDialogueProgress.Singleton;
 
         for (int i = 0; i < node.Actions.Count; i++)
         {
@@ -391,11 +444,4 @@ public class DialogueManager : SingletonBase<DialogueManager>
             }
         }
     }
-
-}
-
-public interface IGameProgress
-{
-    bool IsChapterCleared(string npcId);
-    //void MarkChapterCleared(string npcId, string chapterId); // 필요하면
 }

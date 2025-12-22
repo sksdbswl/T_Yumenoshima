@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DS.ScriptableObjects;
 using UnityEngine;
 
 /// <summary>
@@ -232,7 +233,7 @@ public partial class PlayerDialogueProgress : SingletonBase<PlayerDialogueProgre
     }
 
     // =========================
-    // ✅ JSON 세이브/로드 DTO
+    // JSON 세이브/로드 DTO
     // =========================
 
     [Serializable]
@@ -266,4 +267,38 @@ public partial class PlayerDialogueProgress : SingletonBase<PlayerDialogueProgre
 
         InvalidateCache(); // ✅ 로드 후 캐시 재빌드 필요
     }
+    
+    
+    // DSDialogueSO currentNode;
+    //
+    // ///-------------------------------------------------------------------
+    // public int LoadProgress(DialogueGroupType type, DSDialogueSO current)
+    // {
+    //     currentNode = current;
+    //     string key = MakeProgressKey(type);
+    //     return PlayerPrefs.GetInt(key, 0);
+    // }
+    //
+    // public void SaveProgress(DialogueGroupType type)
+    // {
+    //     string key = MakeProgressKey(type);
+    //     int prev = PlayerPrefs.GetInt(key, 0);
+    //
+    //     // 더 큰 값만 저장(진행도는 상승만)
+    //     if (currentNode.StageId > prev)
+    //     {
+    //         PlayerPrefs.SetInt(key, currentNode.StageId);
+    //         PlayerPrefs.Save();
+    //     }
+    // }
+    //
+    // public string MakeProgressKey(DialogueGroupType type)
+    // {
+    //     return type switch
+    //     {
+    //         DialogueGroupType.NpcStory => $"{currentNode.NpcId}_story",
+    //         DialogueGroupType.Quest    => string.IsNullOrEmpty(currentNode.NpcId) ? $"{currentNode.NpcId}_quest" : $"{currentNode.NpcId}_quest_{questId}",
+    //         _                          => $"{currentNode.NpcId}_{type}"
+    //     };
+    // }
 }

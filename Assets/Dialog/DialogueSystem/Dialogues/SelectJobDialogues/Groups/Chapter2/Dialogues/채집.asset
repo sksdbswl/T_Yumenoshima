@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: "\uCC44\uC9D1"
   m_EditorClassIdentifier: Assembly-CSharp::DS.ScriptableObjects.DSDialogueSO
   <DialogueName>k__BackingField: "\uCC44\uC9D1"
+  <GroupType>k__BackingField: 0
+  <NpcId>k__BackingField: 
+  <QuestId>k__BackingField: 
   <Text>k__BackingField: "\uB098\uBB47\uAC00\uC9C0\uB97C 10\uAC1C \uAD6C\uD574\uC918"
   <Choices>k__BackingField:
   - <Text>k__BackingField: Next Dialogue
@@ -20,3 +23,4 @@ MonoBehaviour:
   <DialogueType>k__BackingField: 0
   <IsStartingDialogue>k__BackingField: 0
   <NpcAnimationClip>k__BackingField: {fileID: 7400000, guid: a28bc0d5d74e942599e839179dae8546, type: 3}
+  <Actions>k__BackingField: []

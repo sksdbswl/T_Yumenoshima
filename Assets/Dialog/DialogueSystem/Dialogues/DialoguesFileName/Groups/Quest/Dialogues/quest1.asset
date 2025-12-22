@@ -10,17 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f262818b55b0f4418296bad0176bdab, type: 3}
-  m_Name: Hello
+  m_Name: quest1
   m_EditorClassIdentifier: Assembly-CSharp::DS.ScriptableObjects.DSDialogueSO
-  <DialogueName>k__BackingField: Hello
-  <GroupType>k__BackingField: 0
-  <NpcId>k__BackingField: 
-  <QuestId>k__BackingField: 
-  <Text>k__BackingField: "\uC548\uB155 !"
+  <DialogueName>k__BackingField: quest1
+  <GroupType>k__BackingField: 2
+  <NpcId>k__BackingField: Nagumo
+  <Text>k__BackingField: "\uCCAB\uBC88\uC9F8 \uD018\uC2A4\uD2B8\uC785\uB2C8\uB2E4"
   <Choices>k__BackingField:
   - <Text>k__BackingField: Next Dialogue
-    <NextDialogue>k__BackingField: {fileID: 11400000, guid: fa9aaaa939c354d4cb7534226c67a360, type: 2}
+    <NextDialogue>k__BackingField: {fileID: 0}
   <DialogueType>k__BackingField: 0
   <IsStartingDialogue>k__BackingField: 1
-  <NpcAnimationClip>k__BackingField: {fileID: 1827226128182048838, guid: df7066cb95b024b4295159063e763b8c, type: 3}
-  <Actions>k__BackingField: []
+  <NpcAnimationClip>k__BackingField: {fileID: 0}
+  <Actions>k__BackingField:
+  - trigger: 1
+    type: 1
+    npcId: 
+    npcStoryStage: 0
+    questId: 1
+    questState: 0
+    flag: 
+    receiverType: 
+    methodName: 
+  <StageId>k__BackingField: 1

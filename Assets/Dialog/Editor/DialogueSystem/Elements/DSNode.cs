@@ -24,6 +24,8 @@ namespace DS.Elements
         public AnimationClip NpcAnimationClip { get; set; }
         
         public List<DSDialogueActionData> Actions { get; set; } = new();
+        
+        public int StageId { get; set; }
 
         public DSGroup Group { get; set; }
         
@@ -156,6 +158,14 @@ namespace DS.Elements
             {
                 text = "+ Add Action"
             };
+            
+            IntegerField stageField = new IntegerField("StageId")
+            {
+                value = StageId
+            };
+            stageField.RegisterValueChangedCallback(evt => StageId = evt.newValue);
+
+            customDataContainer.Add(stageField);
 
             actionsFoldout.Add(addActionBtn);
             RefreshActionsUI(actionsFoldout);
@@ -281,7 +291,7 @@ namespace DS.Elements
                     var npcId = new TextField("NpcId") { value = action.npcId };
                     npcId.RegisterValueChangedCallback(e => action.npcId = e.newValue);
 
-                    var stage = new IntegerField("StoryStage") { value = action.npcStoryStage };
+                    var stage = new IntegerField("StoryID") { value = action.npcStoryStage };
                     stage.RegisterValueChangedCallback(e => action.npcStoryStage = e.newValue);
 
                     box.Add(npcId);
@@ -294,7 +304,7 @@ namespace DS.Elements
                     var questId = new TextField("QuestId") { value = action.questId };
                     questId.RegisterValueChangedCallback(e => action.questId = e.newValue);
 
-                    var state = new EnumField("QuestState", action.questState);
+                    var state = new EnumField("QuestID", action.questState);
                     state.RegisterValueChangedCallback(e => action.questState = (QuestState)e.newValue);
 
                     box.Add(questId);

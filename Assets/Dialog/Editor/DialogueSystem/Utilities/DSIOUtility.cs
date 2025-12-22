@@ -50,7 +50,6 @@ namespace DS.Utilities
         public static void Save()
         {
             CreateDefaultFolders();
-
             GetElementsFromGraphView();
 
             DSGraphSaveDataSO graphData =
@@ -79,7 +78,6 @@ namespace DS.Utilities
             {
                 SaveGroupToGraph(group, graphData);
                 SaveGroupToScriptableObject(group, dialogueContainer);
-
                 groupNames.Add(group.title);
             }
 
@@ -96,7 +94,6 @@ namespace DS.Utilities
 
                 GroupType = group.GroupType,
                 NpcId = group.NpcId,
-                QuestId = group.QuestId
             };
 
             graphData.Groups.Add(groupData);
@@ -113,7 +110,7 @@ namespace DS.Utilities
                 CreateAsset<DSDialogueGroupSO>($"{containerFolderPath}/Groups/{groupName}", groupName);
 
             dialogueGroup.Initialize(groupName);
-            dialogueGroup.SetMeta(group.GroupType, group.NpcId, group.QuestId);
+            dialogueGroup.SetMeta(group.GroupType, group.NpcId); // ✅ npcId만
 
             createdDialogueGroups.Add(group.ID, dialogueGroup);
             dialogueContainer.DialogueGroups.Add(dialogueGroup, new List<DSDialogueSO>());
@@ -179,9 +176,8 @@ namespace DS.Utilities
                 DialogueType = node.DialogueType,
                 Position = node.GetPosition().position,
                 AnimationClip = node.NpcAnimationClip,
-
-                // ✅ Actions 저장 (Graph에)
-                Actions = CloneActions(node.Actions)
+                Actions = CloneActions(node.Actions),
+                StageId = node.StageId,
             };
 
             graphData.Nodes.Add(nodeData);
@@ -208,23 +204,16 @@ namespace DS.Utilities
                 ConvertNodeChoicesToDialogueChoices(node.Choices),
                 node.DialogueType,
                 node.IsStartingNode(),
-                node.NpcAnimationClip
+                node.NpcAnimationClip,
+                node.StageId
             );
 
-            // 그룹 메타를 DialogueSO에 복사 (GroupType/NpcId/QuestId)
             if (node.Group != null)
             {
                 var groupSO = createdDialogueGroups[node.Group.ID];
-                dialogue.SetGroupMeta(groupSO.GroupType, groupSO.NpcId, groupSO.QuestId);
-            }
-            else
-            {
-                // ungrouped 정책: 필요하면 None/Empty로 세팅
-                // (DialogueGroupType에 None이 없으면 아래 줄은 제거해도 됨)
-                // dialogue.SetGroupMeta(DialogueGroupType.None, "", "");
+                dialogue.SetGroupMeta(groupSO.GroupType, groupSO.NpcId); // ✅ npcId만
             }
 
-            // Actions 저장 (SO에)
             dialogue.Actions = CloneActions(node.Actions);
 
             createdDialogues.Add(node.ID, dialogue);
@@ -342,9 +331,8 @@ namespace DS.Utilities
 
                 group.GroupType = groupData.GroupType;
                 group.NpcId = groupData.NpcId;
-                group.QuestId = groupData.QuestId;
 
-                group.ApplyMeta(groupData.GroupType, groupData.NpcId, groupData.QuestId);
+                group.ApplyMeta(groupData.GroupType, groupData.NpcId);
                 loadedGroups.Add(group.ID, group);
             }
         }
@@ -361,9 +349,8 @@ namespace DS.Utilities
                 node.Choices = choices;
                 node.Text = nodeData.Text;
                 node.NpcAnimationClip = nodeData.AnimationClip;
-
-                // ✅ Actions 로드 (Graph -> Node)
                 node.Actions = CloneActions(nodeData.Actions);
+                node.StageId = nodeData.StageId;
 
                 node.Draw();
                 graphView.AddElement(node);
@@ -528,7 +515,9 @@ namespace DS.Utilities
                     npcStoryStage = a.npcStoryStage,
                     questId = a.questId,
                     questState = a.questState,
-                    flag = a.flag
+                    flag = a.flag,
+                    receiverType = a.receiverType,
+                    methodName = a.methodName
                 });
             }
 
