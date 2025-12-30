@@ -7,7 +7,7 @@ public class MoveToTargetNode : ActionNode
     [System.NonSerialized] public BehaviourTreeRunner runner;
     private NavMeshAgent agent;
 
-    public bool succeedWhenArrived = false; // 필요하면 true로
+    public bool succeedWhenArrived = true; 
 
     protected override void OnStart()
     {

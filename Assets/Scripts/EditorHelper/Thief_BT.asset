@@ -48,7 +48,7 @@ MonoBehaviour:
   tree: {fileID: 11400000}
   parent: {fileID: -546646214861273624}
   children: []
-  position: {x: 731, y: 622.5}
+  position: {x: 746, y: 618.5}
   succeedWhenArrived: 0
 --- !u!114 &-5805673858185302796
 MonoBehaviour:
@@ -104,7 +104,7 @@ MonoBehaviour:
   - {fileID: 468613512222174245}
   - {fileID: -7653149624093283670}
   - {fileID: -5831132380555588060}
-  position: {x: 412, y: 414.5}
+  position: {x: 389, y: 446.5}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,7 +144,7 @@ MonoBehaviour:
   tree: {fileID: 11400000}
   parent: {fileID: -546646214861273624}
   children: []
-  position: {x: 718, y: 507.5}
+  position: {x: 727, y: 500.5}
 --- !u!114 &2937920234442658956
 MonoBehaviour:
   m_ObjectHideFlags: 0
