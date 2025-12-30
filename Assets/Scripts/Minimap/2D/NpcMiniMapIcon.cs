@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace REIW
 {
-    [RequireComponent(typeof(NpcInteraction))] 
+    //[RequireComponent(typeof(NpcInteraction))] 
     public class NpcMiniMapIcon : MonoBehaviour
     {
         [Header("미니맵에 표시할 스프라이트")]

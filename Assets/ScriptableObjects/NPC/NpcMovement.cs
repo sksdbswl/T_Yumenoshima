@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NpcMovement : NpcInteraction
+public class NpcMovement : MonoBehaviour
 {
     private Npc Npc;
+    public NpcSO npcSO;
     private int HouseId => npcSO.BuilderId;
 
     [Header("Wander Settings")]
@@ -20,7 +21,6 @@ public class NpcMovement : NpcInteraction
 
     private void Awake()
     {
-        base.Awake();
         Npc = GetComponent<Npc>();
         // TODO: 시간 체크해서 SetRoutineState()
     }
