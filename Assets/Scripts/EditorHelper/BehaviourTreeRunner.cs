@@ -7,36 +7,34 @@ using UnityEngine;
 public class BehaviourTreeRunner : MonoBehaviour
 {
     public BTTree treeAsset; // Enemy NodeTree
-
     // 모든 노드 상태 초기화 : BTNodeState.Failure
+    public AIRoleProfile profile;
+
+    public Transform currentTarget;
+    public Transform player;
+    public Transform homeTarget;
+    public RoutineState routineState;
+    
+    [HideInInspector] public IJobHandler job;
+
     private void Awake()
     {
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        job = GetComponent<IJobHandler>(); // FirefighterJob, PoliceJob, BankerJob 같은 컴포넌트
+        
         foreach (var node in treeAsset.nodes)
         {
             node.ResetState();
-            
-            if (node is IsPlayerInRangeNode cond)
-            {
-                cond.runner = this;
-                //Debug.Log("[BT] cond.runner = this; " + cond.name);
-            }
-
-            if (node is PatrolNode patrol)
-                patrol.runner = this;
-
-            if (node is ChasePlayerNode chase)
-                chase.runner = this;
-
-            if (node is AttackPlayerNode attack)
-                attack.runner = this;
+            if (node is IsNightNode n) n.runner = this;
+            if (node is SetHomeTargetNode h) h.runner = this;
+            if (node is SetJobTargetNode s) s.runner = this;
+            if (node is PerformJobActionNode a) a.runner = this;
+            if (node is MoveToTargetNode m) m.runner = this;
+            if (node is PatrolNode p) p.runner = this;
         }
     }
 
-    private void Update()
-    {
-        if (treeAsset != null)
-            treeAsset.Update();
-    }
+    private void Update() => treeAsset?.Update();
 
     // === 여기부터 기즈모 ===
     private void OnDrawGizmos()

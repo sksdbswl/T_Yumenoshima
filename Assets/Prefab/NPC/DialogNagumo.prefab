@@ -534,6 +534,8 @@ GameObject:
   - component: {fileID: 5996731123791308673}
   - component: {fileID: 3749620227459169865}
   - component: {fileID: 1307464734441406933}
+  - component: {fileID: 5642375312054762121}
+  - component: {fileID: -8467747771076970010}
   m_Layer: 12
   m_Name: DialogNagumo
   m_TagString: Untagged
@@ -681,8 +683,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcMovement
   npcSO: {fileID: 11400000, guid: 4047dd67c93b2d14eab8462f0908d567, type: 2}
-  player: {fileID: 0}
-  isTalkable: 0
   wanderRadius: 10
   idleTimeMin: 1
   idleTimeMax: 3
@@ -714,6 +714,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Npc
   Agent: {fileID: 3966853035676174476}
+--- !u!114 &5642375312054762121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6180810706943847235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23ee9efdd775eb447b92c872ffa9565d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BehaviourTreeRunner
+  treeAsset: {fileID: 11400000, guid: fa8db14a6f9fbad419ac39f3044bc31e, type: 2}
+  profile: {fileID: 11400000, guid: a3d08372d74007245b7f83a3f7c3d8e1, type: 2}
+  currentTarget: {fileID: 0}
+  player: {fileID: 0}
+  homeTarget: {fileID: 0}
+--- !u!114 &-8467747771076970010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6180810706943847235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc8728a6ff8248c08994b77b4f7698c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ThiefJobHandler
 --- !u!1 &6214873298196201853
 GameObject:
   m_ObjectHideFlags: 0

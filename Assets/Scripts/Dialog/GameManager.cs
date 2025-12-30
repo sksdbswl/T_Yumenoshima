@@ -204,6 +204,7 @@ public class GameManager : SingletonBase<GameManager>
     void SetState(RoutineState state)
     {
         CurrentState = state;
+        
         Debug.Log($"State Changed: {state}");
         
         // TODO: 여기서 조명 변경, NPC 상태 변경 등 처리

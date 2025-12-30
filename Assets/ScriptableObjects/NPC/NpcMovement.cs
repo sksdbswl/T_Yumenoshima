@@ -19,12 +19,14 @@ public class NpcMovement : MonoBehaviour
     private bool _isWandering;
     private Coroutine _wanderCoroutine;
 
+    private BehaviourTreeRunner runner;
     private void Awake()
     {
         Npc = GetComponent<Npc>();
         // TODO: 시간 체크해서 SetRoutineState()
+        runner = GetComponent<BehaviourTreeRunner>();
     }
-
+    
     public void SetRoutineState(RoutineState state)
     {
         _routineState = state;

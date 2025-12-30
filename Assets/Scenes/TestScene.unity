@@ -2584,6 +2584,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BehaviourTreeRunner
   treeAsset: {fileID: 11400000, guid: ee4058d017d36c14997e656848461226, type: 2}
+  profile: {fileID: 0}
+  currentTarget: {fileID: 0}
+  player: {fileID: 0}
+  homeTarget: {fileID: 0}
+  routineState: 0
 --- !u!136 &1676518509
 CapsuleCollider:
   m_ObjectHideFlags: 0

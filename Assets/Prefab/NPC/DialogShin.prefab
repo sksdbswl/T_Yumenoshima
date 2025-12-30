@@ -1097,6 +1097,8 @@ GameObject:
   - component: {fileID: 1069626261654284070}
   - component: {fileID: 8728384514296250067}
   - component: {fileID: 5415840571125505050}
+  - component: {fileID: 4257838183754233416}
+  - component: {fileID: 1516760432674014885}
   m_Layer: 12
   m_Name: DialogShin
   m_TagString: Untagged
@@ -1244,8 +1246,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcMovement
   npcSO: {fileID: 11400000, guid: 8487b060d586f2f47b9819fcf80178f2, type: 2}
-  player: {fileID: 0}
-  isTalkable: 0
   wanderRadius: 10
   idleTimeMin: 1
   idleTimeMax: 3
@@ -1277,3 +1277,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Npc
   Agent: {fileID: 102651474042242967}
+--- !u!114 &4257838183754233416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9099870059110227395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23ee9efdd775eb447b92c872ffa9565d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BehaviourTreeRunner
+  treeAsset: {fileID: 11400000, guid: ee4058d017d36c14997e656848461226, type: 2}
+  profile: {fileID: 11400000, guid: a3d08372d74007245b7f83a3f7c3d8e1, type: 2}
+  currentTarget: {fileID: 0}
+  player: {fileID: 0}
+  homeTarget: {fileID: 0}
+  routineState: 0
+--- !u!114 &1516760432674014885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9099870059110227395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e777818e29742ebb17eae24c7fe8256, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FirefighterJob
+  fireTarget: {fileID: 0}

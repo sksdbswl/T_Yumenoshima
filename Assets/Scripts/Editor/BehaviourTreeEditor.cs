@@ -12,10 +12,26 @@ public class BehaviourTreeEditor : EditorWindow
     private Vector2 panOffset;
     private Vector2 drag;
 
+    // === Added: selected node inspector ===
+    private Editor nodeInspector;
+    private Vector2 inspectorScroll;
+
+    // Optional: leaf menu filtering (keeps menu sane in bigger projects)
+    private const string LeafNamespacePrefix = ""; // e.g. "AI"; leave "" to disable namespace filtering
+
     [MenuItem("Tools/Behaviour Tree Editor")]
     public static void OpenWindow()
     {
         GetWindow<BehaviourTreeEditor>("Behaviour Tree");
+    }
+
+    private void OnDisable()
+    {
+        if (nodeInspector != null)
+        {
+            DestroyImmediate(nodeInspector);
+            nodeInspector = null;
+        }
     }
 
     private void OnGUI()
@@ -36,6 +52,9 @@ public class BehaviourTreeEditor : EditorWindow
         DrawConnections();
         DrawNodes();
 
+        GUILayout.Space(8);
+        DrawSelectedNodeInspector();
+
         if (GUI.changed)
         {
             Repaint();
@@ -46,7 +65,18 @@ public class BehaviourTreeEditor : EditorWindow
     {
         GUILayout.BeginHorizontal(EditorStyles.toolbar);
 
-        tree = (BTTree)EditorGUILayout.ObjectField(tree, typeof(BTTree), false, GUILayout.Width(250));
+        var newTree = (BTTree)EditorGUILayout.ObjectField(tree, typeof(BTTree), false, GUILayout.Width(250));
+        if (newTree != tree)
+        {
+            tree = newTree;
+            selectedNode = null;
+
+            if (nodeInspector != null)
+            {
+                DestroyImmediate(nodeInspector);
+                nodeInspector = null;
+            }
+        }
 
         if (tree != null)
         {
@@ -57,7 +87,7 @@ public class BehaviourTreeEditor : EditorWindow
                 CreateNode<SelectorNode>();
 
             if (GUILayout.Button("Action/Condition 추가", EditorStyles.toolbarButton))
-                ShowCreateLeafMenu();
+                ShowCreateLeafMenu(null);
         }
 
         GUILayout.FlexibleSpace();
@@ -77,30 +107,72 @@ public class BehaviourTreeEditor : EditorWindow
         EditorUtility.SetDirty(tree);
     }
 
-    private void ShowCreateLeafMenu()
+    /// <summary>
+    /// Leaf 생성 메뉴 (parent가 있으면 생성 후 즉시 parent에 연결)
+    /// </summary>
+    private void ShowCreateLeafMenu(BTNode parent)
     {
-        // ScriptableObject 중에서 ActionNode/ConditionNode 상속받은 타입 찾기
         var menu = new GenericMenu();
 
         var leafTypes = AppDomain.CurrentDomain.GetAssemblies()
-            .SelectMany(a => a.GetTypes())
-            .Where(t => !t.IsAbstract &&
-                       (t.IsSubclassOf(typeof(ActionNode)) || t.IsSubclassOf(typeof(ConditionNode))));
+            .SelectMany(a =>
+            {
+                try { return a.GetTypes(); }
+                catch { return Array.Empty<Type>(); } // some assemblies may fail GetTypes()
+            })
+            .Where(t => t != null
+                        && !t.IsAbstract
+                        && !t.IsGenericType
+                        && (t.IsSubclassOf(typeof(ActionNode)) || t.IsSubclassOf(typeof(ConditionNode))))
+            .Where(t =>
+            {
+                if (string.IsNullOrEmpty(LeafNamespacePrefix)) return true;
+                return t.Namespace != null && t.Namespace.StartsWith(LeafNamespacePrefix, StringComparison.Ordinal);
+            })
+            .OrderBy(t => t.Name)
+            .ToArray();
+
+        if (leafTypes.Length == 0)
+        {
+            menu.AddDisabledItem(new GUIContent("No leaf types found"));
+            menu.ShowAsContext();
+            return;
+        }
 
         foreach (var type in leafTypes)
         {
-            menu.AddItem(new GUIContent(type.Name), false, () =>
+            string group =
+                type.IsSubclassOf(typeof(ActionNode)) ? "Action/" :
+                type.IsSubclassOf(typeof(ConditionNode)) ? "Condition/" :
+                "Leaf/";
+
+            menu.AddItem(new GUIContent(group + type.Name), false, () =>
             {
                 Undo.RecordObject(tree, "Create Leaf Node");
+
                 var node = tree.CreateNode(type);
                 node.position = position.size * 0.5f;
+
                 if (tree.rootNode == null)
                     tree.rootNode = node;
+
+                if (parent != null)
+                {
+                    Undo.RecordObject(tree, "Add Child");
+                    tree.AddChild(parent, node);
+                    // place child next to parent for convenience
+                    node.position = parent.position + new Vector2(220, 0);
+                }
+
+                SelectNode(node);
+
+                EditorUtility.SetDirty(tree);
             });
         }
 
         menu.ShowAsContext();
     }
+
     private void DrawGrid(float gridSpacing, float gridOpacity)
     {
         int widthDivs = Mathf.CeilToInt(position.width / gridSpacing);
@@ -131,7 +203,6 @@ public class BehaviourTreeEditor : EditorWindow
         Handles.EndGUI();
     }
 
-
     private void ProcessEvents(Event e)
     {
         drag = Vector2.zero;
@@ -139,9 +210,19 @@ public class BehaviourTreeEditor : EditorWindow
         switch (e.type)
         {
             case EventType.MouseDrag:
-                if (e.button == 2) // 중간버튼으로 팬
+                if (e.button == 2) // middle button pan
                 {
                     OnDrag(e.delta);
+                }
+                break;
+
+            case EventType.MouseDown:
+                if (e.button == 0)
+                {
+                    // click empty space clears selection
+                    // (only if we didn't click a node in DrawNode)
+                    // We'll set a flag in DrawNode by consuming event; here keep it simple:
+                    // do nothing.
                 }
                 break;
         }
@@ -152,8 +233,8 @@ public class BehaviourTreeEditor : EditorWindow
         drag = delta;
         GUI.changed = true;
     }
-    
-        private void DrawNodes()
+
+    private void DrawNodes()
     {
         foreach (var node in tree.nodes)
         {
@@ -167,7 +248,7 @@ public class BehaviourTreeEditor : EditorWindow
 
         GUI.Box(rect, "", EditorStyles.helpBox);
 
-        // 타이틀 (이름 편집 가능하게)
+        // title (rename)
         var titleRect = new Rect(rect.x + 5, rect.y + 5, rect.width - 10, 18);
         string newName = EditorGUI.TextField(titleRect, node.name);
 
@@ -178,132 +259,196 @@ public class BehaviourTreeEditor : EditorWindow
             EditorUtility.SetDirty(tree);
         }
 
-        // 루트 표시 버튼
+        // root button
         var rootRect = new Rect(rect.x + 5, rect.yMax - 20, 60, 18);
         if (GUI.Button(rootRect, tree.rootNode == node ? "Root ✓" : "Set Root"))
         {
+            Undo.RecordObject(tree, "Set Root");
             tree.rootNode = node;
             EditorUtility.SetDirty(tree);
         }
 
-        // 자식 추가 버튼
+        // add child button
         var addChildRect = new Rect(rect.xMax - 70, rect.yMax - 20, 65, 18);
         if (GUI.Button(addChildRect, "Add Child"))
         {
             ShowAddChildMenu(node);
         }
 
-        // 선택 테두리
-        // ==== 여기부터 상태 표시 ====
+        // ==== runtime state outline ====
         if (Application.isPlaying)
         {
             Color c = Color.clear;
 
             switch (node.state)
             {
-                case BTNodeState.Running:
-                    c = Color.yellow;
-                    break;
-                case BTNodeState.Success:
-                    c = Color.green;
-                    break;
-                case BTNodeState.Failure:
-                    c = Color.red;
-                    break;
+                case BTNodeState.Running: c = Color.yellow; break;
+                case BTNodeState.Success: c = Color.green; break;
+                case BTNodeState.Failure: c = Color.red; break;
             }
 
             if (c.a > 0f)
-            {
                 DrawNodeOutline(rect, c, 2f);
-            }
         }
 
-        // 클릭/드래그
+        // click/drag/context
         var e = Event.current;
-        if (e.type == EventType.MouseDown && e.button == 0)
+
+        // left click select
+        if (e.type == EventType.MouseDown && e.button == 0 && rect.Contains(e.mousePosition))
         {
-            if (rect.Contains(e.mousePosition))
-            {
-                selectedNode = node;
-                GUI.changed = true;
-            }
+            SelectNode(node);
+            GUI.changed = true;
+            e.Use();
         }
-        
-        // 우클릭으로 삭제 메뉴 열기
+
+        // right click context delete
         if (e.type == EventType.ContextClick && rect.Contains(e.mousePosition))
         {
             GenericMenu menu = new GenericMenu();
             menu.AddItem(new GUIContent("Delete Node"), false, () =>
             {
+                if (selectedNode == node)
+                {
+                    selectedNode = null;
+                    if (nodeInspector != null)
+                    {
+                        DestroyImmediate(nodeInspector);
+                        nodeInspector = null;
+                    }
+                }
+
                 Undo.RecordObject(tree, "Delete Node");
-                tree.DeleteNode(node);          // BTTree 안에 이미 구현된 함수
+                tree.DeleteNode(node);
                 EditorUtility.SetDirty(tree);
             });
             menu.ShowAsContext();
             e.Use();
         }
 
-        // 드래그 (기존 코드 유지)
+        // drag move
         if (e.type == EventType.MouseDrag && e.button == 0 && selectedNode == node)
         {
             Undo.RecordObject(tree, "Move Node");
             node.position += e.delta;
             EditorUtility.SetDirty(tree);
             GUI.changed = true;
+            e.Use();
         }
+    }
+
+    private void SelectNode(BTNode node)
+    {
+        selectedNode = node;
+
+        if (nodeInspector != null)
+        {
+            DestroyImmediate(nodeInspector);
+            nodeInspector = null;
+        }
+
+        if (selectedNode != null)
+            nodeInspector = Editor.CreateEditor(selectedNode);
     }
 
     private void ShowAddChildMenu(BTNode parent)
     {
         var menu = new GenericMenu();
 
-        // 이미 있는 노드를 자식으로 연결
+        // existing nodes as child
         foreach (var node in tree.nodes)
         {
             if (node == parent) continue;
+
             menu.AddItem(new GUIContent("Existing/" + node.name), false, () =>
             {
                 Undo.RecordObject(tree, "Add Child");
                 tree.AddChild(parent, node);
+                EditorUtility.SetDirty(tree);
             });
         }
 
         menu.AddSeparator("");
 
-        // 새 노드 생성 후 자식으로
+        // create and link
         menu.AddItem(new GUIContent("New/Sequence"), false, () =>
         {
+            Undo.RecordObject(tree, "Create + Add Child");
             var child = tree.CreateNode<SequenceNode>();
-            child.position = parent.position + new Vector2(200, 0);
+            child.position = parent.position + new Vector2(220, 0);
             tree.AddChild(parent, child);
+
+            if (tree.rootNode == null)
+                tree.rootNode = parent;
+
+            SelectNode(child);
+            EditorUtility.SetDirty(tree);
         });
 
         menu.AddItem(new GUIContent("New/Selector"), false, () =>
         {
+            Undo.RecordObject(tree, "Create + Add Child");
             var child = tree.CreateNode<SelectorNode>();
-            child.position = parent.position + new Vector2(200, 0);
+            child.position = parent.position + new Vector2(220, 0);
             tree.AddChild(parent, child);
+
+            if (tree.rootNode == null)
+                tree.rootNode = parent;
+
+            SelectNode(child);
+            EditorUtility.SetDirty(tree);
         });
 
-        menu.AddItem(new GUIContent("New/Leaf..."), false, () =>
+        // ✅ improved: create leaf and auto-link to parent
+        menu.AddItem(new GUIContent("New/Leaf (Create & Link)"), false, () =>
         {
-            ShowCreateLeafMenu(); // Leaf 생성 후 수동으로 연결해도 되고,
-            // 여기를 확장해서 "생성 + 즉시 parent에 연결"하는 버전도 가능
+            ShowCreateLeafMenu(parent);
         });
 
         menu.ShowAsContext();
     }
-    
+
+    private void DrawSelectedNodeInspector()
+    {
+        GUILayout.BeginVertical(EditorStyles.helpBox);
+        GUILayout.Label("Selected Node Inspector", EditorStyles.boldLabel);
+
+        if (selectedNode == null)
+        {
+            EditorGUILayout.HelpBox("노드를 선택하면 해당 노드의 설정을 여기서 바로 수정할 수 있습니다.", MessageType.Info);
+            GUILayout.EndVertical();
+            return;
+        }
+
+        if (nodeInspector == null)
+            nodeInspector = Editor.CreateEditor(selectedNode);
+
+        inspectorScroll = EditorGUILayout.BeginScrollView(inspectorScroll, GUILayout.MinHeight(160));
+        nodeInspector.OnInspectorGUI();
+        EditorGUILayout.EndScrollView();
+
+        if (GUI.changed && tree != null)
+        {
+            // ensure changes persist
+            EditorUtility.SetDirty(selectedNode);
+            EditorUtility.SetDirty(tree);
+        }
+
+        GUILayout.EndVertical();
+    }
+
     private void DrawNodeOutline(Rect rect, Color color, float thickness)
     {
         Handles.BeginGUI();
         Handles.color = color;
+
         Vector3 p1 = new Vector3(rect.x, rect.y);
         Vector3 p2 = new Vector3(rect.xMax, rect.y);
         Vector3 p3 = new Vector3(rect.xMax, rect.yMax);
         Vector3 p4 = new Vector3(rect.x, rect.yMax);
 
         Handles.DrawAAPolyLine(thickness, p1, p2, p3, p4, p1);
+
         Handles.color = Color.white;
         Handles.EndGUI();
     }
@@ -317,13 +462,14 @@ public class BehaviourTreeEditor : EditorWindow
         {
             foreach (var child in parent.children)
             {
-                Vector2 start = parent.position + new Vector2(180, 45); // parent 오른쪽 중간
-                Vector2 end   = child.position  + new Vector2(0, 45);   // child 왼쪽 중간
+                if (child == null) continue;
+
+                Vector2 start = parent.position + new Vector2(180, 45);
+                Vector2 end = child.position + new Vector2(0, 45);
 
                 Vector2 startTangent = start + Vector2.right * 50f;
-                Vector2 endTangent   = end   + Vector2.left  * 50f;
+                Vector2 endTangent = end + Vector2.left * 50f;
 
-                // Vector2 → Vector3는 자동 형변환 들어가서 그냥 전달해도 됨
                 Handles.DrawBezier(
                     start,
                     end,
@@ -339,5 +485,3 @@ public class BehaviourTreeEditor : EditorWindow
         Handles.EndGUI();
     }
 }
-
-
