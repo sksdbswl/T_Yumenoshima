@@ -15,6 +15,8 @@ public partial class UIManager : SingletonBase<UIManager>
 
     public void OnPlacementSave()
     {
+        Debug.Log("OnPlacementSave");
+        
         PlacementSaveManager.Singleton.Save();
     }
 

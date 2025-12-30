@@ -33,6 +33,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Npc
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6fb292d9764af3040a1a4ecbdf929408
+    m_Address: Assets/Prefab/NPC/DialogShin
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Npc
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 72e98c603b091f846acc4b4d1255e6ad
     m_Address: Assets/Prefab/Builder/Bridge
     m_ReadOnly: 0
@@ -47,6 +53,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: aa4a1910300cd4e4397e080c74797deb
     m_Address: Assets/Prefab/NPC/Nagumo
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Npc
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c7b371f1af9c0fb4c93265d5152e09b8
+    m_Address: Assets/Prefab/NPC/DialogNagumo
     m_ReadOnly: 0
     m_SerializedLabels:
     - Npc

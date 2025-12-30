@@ -25,11 +25,13 @@ public class PlacementSaveManager : SingletonBase<PlacementSaveManager>
 
     public void ClearAll()
     {
+        Debug.Log("Placement cleared.");
         _placedObjects.Clear();
     }
 
     public void Save()
     {
+        Debug.Log("Placement saved.");
         var wrapper = new PlacementSaveData
         {
             objects = _placedObjects.ToArray()

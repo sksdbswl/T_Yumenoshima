@@ -32,8 +32,6 @@ public class GameManager : SingletonBase<GameManager>
 
     public event System.Action<int> OnStageChanged;
     
-    //public int Stage = 1;
-    
     private void Start()
     {
         StartCoroutine(DayRoutineCoroutine());
@@ -175,10 +173,9 @@ public class GameManager : SingletonBase<GameManager>
             return;
 
         var npcObj = AssetManager.Singleton.InstantiateNpcModel(npcSO.Prefab);
-    
         npcObj.transform.position = npcSO.spawnPoint;
-    
-        npcObj.GetComponent<NpcInteraction>().npcSO = npcSO;
+        
+        // npcObj.GetComponent<NpcInteraction>().npcSO = npcSO;
     }
 
     

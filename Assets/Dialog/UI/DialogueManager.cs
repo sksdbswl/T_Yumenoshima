@@ -21,7 +21,7 @@ public partial class DialogueManager : SingletonBase<DialogueManager>
     [SerializeField] private DSDialogueContainerSO dialogueContainer;
 
     [Header("World Stage (debug)")]
-    [SerializeField] private int STAGE = 1;
+    //[SerializeField] private int STAGE = 1;
 
     // ===== Runtime =====
     private DSDialogueSO currentNode;
@@ -43,11 +43,11 @@ public partial class DialogueManager : SingletonBase<DialogueManager>
     private void Update()
     {
         // 디버그: 월드 스테이지 올리기
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            STAGE++;
-            Debug.Log($"[DialogueManager] World STAGE Changed: {STAGE}");
-        }
+        // if (Input.GetKeyDown(KeyCode.P))
+        // {
+        //     STAGE++;
+        //     Debug.Log($"[DialogueManager] World STAGE Changed: {STAGE}");
+        // }
     }
 
     public void SetContainer(DSDialogueContainerSO container)
@@ -102,8 +102,6 @@ public partial class DialogueManager : SingletonBase<DialogueManager>
 
         Build();
 
-        Debug.Log($"[DialogueManager] StartDialogueAuto npcId={npcId}, STAGE={STAGE}");
-
         // 1) Story
         var storyStart = FindNextStartNode(DialogueGroupType.NpcStory, npcId);
         if (storyStart != null)
@@ -127,8 +125,6 @@ public partial class DialogueManager : SingletonBase<DialogueManager>
             BeginFromStartNode(dailyStart);
             return;
         }
-
-        Debug.LogWarning($"[DialogueManager] No playable dialogue found. npcId={npcId}, STAGE={STAGE}");
     }
 
     private void BeginFromStartNode(DSDialogueSO startNode)
@@ -184,7 +180,7 @@ public partial class DialogueManager : SingletonBase<DialogueManager>
                 if (node.StageId <= 0) continue;
 
                 // ✅ 월드 스테이지 제한
-                if (node.StageId > STAGE) continue;
+                if (node.StageId > GameManager.Singleton.Stage) continue;
 
                 // ✅ 이미 클리어한 stageId면 스킵
                 if (node.StageId <= saved) continue;
@@ -485,5 +481,25 @@ public partial class DialogueManager : SingletonBase<DialogueManager>
         {
             Debug.LogError($"[DialogueManager] Invoke failed: {t.FullName}.{a.methodName} :: {e}");
         }
+    }
+    
+    /// <summary>
+    /// story/quest marker
+    /// </summary>
+    public bool HasPlayableStoryOrQuest(string npcId, int worldStage)
+    {
+        if (dialogueContainer == null) return false;
+
+        Build(); // 캐시 빌드
+
+        // 1) Story 가능
+        if (FindNextStartNode(DialogueGroupType.NpcStory, npcId) != null)
+            return true;
+
+        // 2) Quest 가능
+        if (FindNextStartNode(DialogueGroupType.Quest, npcId) != null)
+            return true;
+
+        return false;
     }
 }
