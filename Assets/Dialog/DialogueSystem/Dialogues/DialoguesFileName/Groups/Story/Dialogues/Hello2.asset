@@ -23,13 +23,13 @@ MonoBehaviour:
   <IsStartingDialogue>k__BackingField: 0
   <NpcAnimationClip>k__BackingField: {fileID: 0}
   <Actions>k__BackingField:
-  - trigger: 1
-    type: 0
+  - trigger: 2
+    type: 3
     npcId: Nagumo
-    npcStoryStage: 1
-    questId: 1
+    npcStoryStage: 0
+    questId: 
     questState: 0
     flag: 
     receiverType: 
-    methodName: 
+    methodName: TestMethod
   <StageId>k__BackingField: 0

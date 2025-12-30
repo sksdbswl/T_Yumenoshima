@@ -40,7 +40,7 @@ namespace DS.ScriptableObjects
     }
 
     public enum DSDialogueActionTrigger { OnEnter, OnExit, OnDialogueEnd }
-    public enum DSDialogueActionType { SetNpcStoryStage, SetQuestState, SetFlag }
+    public enum DSDialogueActionType { SetNpcStoryStage, SetQuestState, SetFlag, CallMethod }
 
     [Serializable]
     public class DSDialogueActionData
@@ -56,7 +56,7 @@ namespace DS.ScriptableObjects
 
         public string flag;
 
-        public string receiverType;
-        public string methodName;
+        public string receiverType; // 호출 대상 타입
+        public string methodName;   // 호출할 메서드 이름
     }
 }

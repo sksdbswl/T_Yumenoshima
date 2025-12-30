@@ -16,7 +16,7 @@ MonoBehaviour:
   <Groups>k__BackingField:
   - <ID>k__BackingField: b831cfe4-2d92-47c4-9844-30d3c27bda58
     <Name>k__BackingField: Story
-    <Position>k__BackingField: {x: -445, y: -126}
+    <Position>k__BackingField: {x: -445, y: -147}
     <GroupType>k__BackingField: 1
     <NpcId>k__BackingField: Nagumo
   - <ID>k__BackingField: 6dce2ab8-de3a-40dd-b9c1-569c20f7a5f1
@@ -53,12 +53,12 @@ MonoBehaviour:
     <Position>k__BackingField: {x: -829, y: -29}
     <AnimationClip>k__BackingField: {fileID: 0}
     <Actions>k__BackingField:
-    - trigger: 1
+    - trigger: 0
       type: 1
       npcId: 
       npcStoryStage: 0
       questId: 1
-      questState: 0
+      questState: 1
       flag: 
       receiverType: 
       methodName: 
@@ -79,32 +79,11 @@ MonoBehaviour:
       npcId: 
       npcStoryStage: 0
       questId: 2
-      questState: 0
+      questState: 1
       flag: 
       receiverType: 
       methodName: 
     <StageId>k__BackingField: 2
-  - <ID>k__BackingField: 289bda1f-5343-436b-a8ab-e78a6bfe1535
-    <Name>k__BackingField: Hello1
-    <Text>k__BackingField: "\uC798\uBD80\uD0C1\uD574 !"
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: Next Dialogue
-      <NodeID>k__BackingField: e5d956c1-6e0c-4e77-bce8-d89f93ac7e79
-    <GroupID>k__BackingField: b831cfe4-2d92-47c4-9844-30d3c27bda58
-    <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: -420, y: -27}
-    <AnimationClip>k__BackingField: {fileID: 7400000, guid: 266e8e95875a44f0aa086f6e752b4508, type: 3}
-    <Actions>k__BackingField:
-    - trigger: 1
-      type: 0
-      npcId: Nagumo
-      npcStoryStage: 1
-      questId: 
-      questState: 0
-      flag: 
-      receiverType: 
-      methodName: 
-    <StageId>k__BackingField: 1
   - <ID>k__BackingField: 1b5592b1-4d26-417a-9c48-35b9b9cfe307
     <Name>k__BackingField: Hello3
     <Text>k__BackingField: "\uBA54\uC778 \uC2A4\uD1A0\uB9AC \uB450\uBC88\uC9F8"
@@ -126,55 +105,6 @@ MonoBehaviour:
       receiverType: 
       methodName: 
     <StageId>k__BackingField: 2
-  - <ID>k__BackingField: 98c46b10-5797-4c3b-bd89-c0b3af9bdcfd
-    <Name>k__BackingField: Hello4
-    <Text>k__BackingField: End
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: Next Dialogue
-      <NodeID>k__BackingField: 
-    <GroupID>k__BackingField: b831cfe4-2d92-47c4-9844-30d3c27bda58
-    <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: 328, y: 414}
-    <AnimationClip>k__BackingField: {fileID: 0}
-    <Actions>k__BackingField: []
-    <StageId>k__BackingField: 0
-  - <ID>k__BackingField: e5d956c1-6e0c-4e77-bce8-d89f93ac7e79
-    <Name>k__BackingField: Hello2
-    <Text>k__BackingField: End -------
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: Next Dialogue
-      <NodeID>k__BackingField: 
-    <GroupID>k__BackingField: b831cfe4-2d92-47c4-9844-30d3c27bda58
-    <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: -55, y: -27}
-    <AnimationClip>k__BackingField: {fileID: 0}
-    <Actions>k__BackingField:
-    - trigger: 1
-      type: 0
-      npcId: Nagumo
-      npcStoryStage: 1
-      questId: 1
-      questState: 0
-      flag: 
-      receiverType: 
-      methodName: 
-    <StageId>k__BackingField: 0
-  - <ID>k__BackingField: 518a4eec-59d2-4eda-8ba0-d633b7c99418
-    <Name>k__BackingField: DialogueName
-    <Text>k__BackingField: "\uBA54\uC778 \uC2A4\uD1A0\uB9AC \uB450\uBC88\uC9F8 \uC120\uD0DD"
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: 1
-      <NodeID>k__BackingField: 98c46b10-5797-4c3b-bd89-c0b3af9bdcfd
-    - <Text>k__BackingField: 2
-      <NodeID>k__BackingField: 98c46b10-5797-4c3b-bd89-c0b3af9bdcfd
-    - <Text>k__BackingField: 3
-      <NodeID>k__BackingField: 98c46b10-5797-4c3b-bd89-c0b3af9bdcfd
-    <GroupID>k__BackingField: b831cfe4-2d92-47c4-9844-30d3c27bda58
-    <DialogueType>k__BackingField: 1
-    <Position>k__BackingField: {x: -27, y: 398}
-    <AnimationClip>k__BackingField: {fileID: 0}
-    <Actions>k__BackingField: []
-    <StageId>k__BackingField: 0
   - <ID>k__BackingField: 284f1ffb-144b-4c77-95d7-1a5596db5afe
     <Name>k__BackingField: Hello2
     <Text>k__BackingField: "\uB370\uC77C\uB9AC 2"
@@ -187,6 +117,76 @@ MonoBehaviour:
     <AnimationClip>k__BackingField: {fileID: 0}
     <Actions>k__BackingField: []
     <StageId>k__BackingField: 1
+  - <ID>k__BackingField: 289bda1f-5343-436b-a8ab-e78a6bfe1535
+    <Name>k__BackingField: Hello1
+    <Text>k__BackingField: "\uC798\uBD80\uD0C1\uD574 !"
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: e5d956c1-6e0c-4e77-bce8-d89f93ac7e79
+    <GroupID>k__BackingField: b831cfe4-2d92-47c4-9844-30d3c27bda58
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: -420, y: -48}
+    <AnimationClip>k__BackingField: {fileID: 7400000, guid: 266e8e95875a44f0aa086f6e752b4508, type: 3}
+    <Actions>k__BackingField:
+    - trigger: 0
+      type: 0
+      npcId: Nagumo
+      npcStoryStage: 1
+      questId: 
+      questState: 0
+      flag: 
+      receiverType: 
+      methodName: 
+    <StageId>k__BackingField: 1
+  - <ID>k__BackingField: 518a4eec-59d2-4eda-8ba0-d633b7c99418
+    <Name>k__BackingField: DialogueName
+    <Text>k__BackingField: "\uBA54\uC778 \uC2A4\uD1A0\uB9AC \uB450\uBC88\uC9F8 \uC120\uD0DD"
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: 1
+      <NodeID>k__BackingField: 98c46b10-5797-4c3b-bd89-c0b3af9bdcfd
+    - <Text>k__BackingField: 2
+      <NodeID>k__BackingField: 98c46b10-5797-4c3b-bd89-c0b3af9bdcfd
+    - <Text>k__BackingField: 3
+      <NodeID>k__BackingField: 98c46b10-5797-4c3b-bd89-c0b3af9bdcfd
+    <GroupID>k__BackingField: b831cfe4-2d92-47c4-9844-30d3c27bda58
+    <DialogueType>k__BackingField: 1
+    <Position>k__BackingField: {x: -40, y: 378}
+    <AnimationClip>k__BackingField: {fileID: 0}
+    <Actions>k__BackingField: []
+    <StageId>k__BackingField: 0
+  - <ID>k__BackingField: 98c46b10-5797-4c3b-bd89-c0b3af9bdcfd
+    <Name>k__BackingField: Hello4
+    <Text>k__BackingField: End
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 
+    <GroupID>k__BackingField: b831cfe4-2d92-47c4-9844-30d3c27bda58
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 333, y: 419}
+    <AnimationClip>k__BackingField: {fileID: 0}
+    <Actions>k__BackingField: []
+    <StageId>k__BackingField: 0
+  - <ID>k__BackingField: e5d956c1-6e0c-4e77-bce8-d89f93ac7e79
+    <Name>k__BackingField: Hello2
+    <Text>k__BackingField: End -------
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 
+    <GroupID>k__BackingField: b831cfe4-2d92-47c4-9844-30d3c27bda58
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: -58, y: -47}
+    <AnimationClip>k__BackingField: {fileID: 0}
+    <Actions>k__BackingField:
+    - trigger: 2
+      type: 3
+      npcId: Nagumo
+      npcStoryStage: 0
+      questId: 
+      questState: 0
+      flag: 
+      receiverType: 
+      methodName: TestMethod
+    <StageId>k__BackingField: 0
   <OldGroupNames>k__BackingField:
   - Story
   - Daily
@@ -204,8 +204,8 @@ MonoBehaviour:
       - quest2
     - Key: Story
       Value:
-      - Hello1
       - Hello3
+      - Hello1
+      - DialogueName
       - Hello4
       - Hello2
-      - DialogueName

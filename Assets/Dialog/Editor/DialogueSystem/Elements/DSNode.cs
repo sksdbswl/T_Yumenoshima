@@ -320,7 +320,23 @@ namespace DS.Elements
                     box.Add(flag);
                     break;
                 }
+                
+                case DSDialogueActionType.CallMethod:
+                {
+                    var receiverField = new TextField("ReceiverType") { value = action.receiverType };
+                    receiverField.RegisterValueChangedCallback(e => action.receiverType = e.newValue);
+
+                    var methodField = new TextField("MethodName") { value = action.methodName };
+                    methodField.RegisterValueChangedCallback(e => action.methodName = e.newValue);
+
+                    box.Add(receiverField);
+                    box.Add(methodField);
+                    
+                    break;
+                }
             }
+            
+          
 
             return box;
         }

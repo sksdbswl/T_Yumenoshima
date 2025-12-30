@@ -23,7 +23,7 @@ MonoBehaviour:
   <IsStartingDialogue>k__BackingField: 1
   <NpcAnimationClip>k__BackingField: {fileID: 7400000, guid: 266e8e95875a44f0aa086f6e752b4508, type: 3}
   <Actions>k__BackingField:
-  - trigger: 1
+  - trigger: 0
     type: 0
     npcId: Nagumo
     npcStoryStage: 1

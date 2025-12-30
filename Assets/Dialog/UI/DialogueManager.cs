@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using DS.Data;
 using DS.Enumerations;
 using UnityEngine;
@@ -7,7 +8,7 @@ using DS.ScriptableObjects;
 using TMPro;
 using UnityEngine.UI;
 
-public class DialogueManager : SingletonBase<DialogueManager>
+public partial class DialogueManager : SingletonBase<DialogueManager>
 {
     [Header("UI")]
     [SerializeField] private GameObject dialoguePanel;
@@ -262,7 +263,7 @@ public class DialogueManager : SingletonBase<DialogueManager>
 
                 if (next == null)
                 {
-                    EndDialogue(); // ✅ 여기서 저장
+                    EndDialogue(); // 여기서 저장
                     return;
                 }
 
@@ -274,7 +275,7 @@ public class DialogueManager : SingletonBase<DialogueManager>
         {
             if (choices.Count == 0)
             {
-                EndDialogue(); // ✅ 다음이 없으면 종료 + 저장
+                EndDialogue(); // 다음이 없으면 종료 + 저장
                 return;
             }
 
@@ -328,7 +329,7 @@ public class DialogueManager : SingletonBase<DialogueManager>
 
     private void EndDialogue()
     {
-        // ✅ 대화 끝날 때만 “시작 노드 stageId” 저장
+        // 대화 끝날 때만 “시작 노드 stageId” 저장
         SaveProgress();
 
         ExecuteActions(currentNode, DSDialogueActionTrigger.OnDialogueEnd);
@@ -381,7 +382,7 @@ public class DialogueManager : SingletonBase<DialogueManager>
     }
 
     /// <summary>
-    /// ✅ “대화 끝날 때” 저장 규칙:
+    /// “대화 끝날 때” 저장 규칙:
     /// - currentStartNode의 GroupType 기준으로 저장
     /// - 저장 값은 currentStartNode.StageId (start node만 유효)
     /// </summary>
@@ -439,7 +440,50 @@ public class DialogueManager : SingletonBase<DialogueManager>
                 case DSDialogueActionType.SetFlag:
                     prog.SetFlag(a.flag);
                     break;
+                case DSDialogueActionType.CallMethod: 
+                    InvokeActionMethod(a, node);
+                    break;
             }
+        }
+    }
+    
+    private void InvokeActionMethod(DSDialogueActionData a, DSDialogueSO node)
+    {
+        // receiverType 비어있으면 DialogueManager(this)에서 찾기
+        object target = this;
+
+        // receiverType이 있으면 그 타입의 컴포넌트를 씬에서 찾아 호출
+        if (!string.IsNullOrEmpty(a.receiverType))
+        {
+            var type = Type.GetType(a.receiverType);
+            if (type == null)
+                return;
+
+            // find 말고 다른 방법은 없으려나 ?
+            var comp = FindFirstObjectByType(type); 
+            if (comp == null) return;
+
+            target = comp;
+        }
+
+        var t = target.GetType();
+        var flags = BindingFlags.NonPublic | BindingFlags.Instance;
+
+        var mi =
+            t.GetMethod(a.methodName, flags, null, Type.EmptyTypes, null)
+            ?? t.GetMethod(a.methodName, flags, null, new[] { typeof(DSDialogueSO) }, null);
+
+        if (mi == null) return;
+
+        try
+        {
+            var p = mi.GetParameters();
+            if (p.Length == 0) mi.Invoke(target, null);
+            else mi.Invoke(target, new object[] { node });
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"[DialogueManager] Invoke failed: {t.FullName}.{a.methodName} :: {e}");
         }
     }
 }
