@@ -7,9 +7,11 @@ public class PerformJobActionNode : ActionNode
 
     protected override BTNodeState OnUpdate()
     {
-        if (runner == null || runner.job == null) return BTNodeState.Failure;
+        if (runner == null) return BTNodeState.Failure;
 
-        bool done = runner.job.PerformAction(runner, Time.deltaTime);
-        return done ? BTNodeState.Success : BTNodeState.Running;
+        var job = runner.GetComponent<IJobHandler>();
+        if (job == null) return BTNodeState.Failure;
+
+        return job.PerformAction(runner, Time.deltaTime);
     }
 }
