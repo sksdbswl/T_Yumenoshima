@@ -1,19 +1,17 @@
 using UnityEngine;
+using System.Linq;
 
 [CreateAssetMenu(menuName = "AI/Nodes/Selector")]
 public class SelectorNode : BTNode
 {
-    private BTNode _runningChild;
+    private BTNode _active;
 
     protected override void OnStart()
     {
-        Debug.Log("SelectorNode OnStart");
-        
-        _runningChild = null;
+        Debug.Log($"[Selector:{name}] children order = {string.Join(" -> ", children.Select(c => c.name))}");
+        _active = null;
     }
 
-    private BTNode _active;
-    
     protected override BTNodeState OnUpdate()
     {
         for (int i = 0; i < children.Count; i++)
@@ -24,7 +22,6 @@ public class SelectorNode : BTNode
             if (result == BTNodeState.Failure)
                 continue;
 
-            // 선택이 바뀌면 이전 행동을 강제 종료
             if (_active != null && _active != child)
                 _active.AbortRunningBranch();
 
@@ -37,7 +34,7 @@ public class SelectorNode : BTNode
             _active.AbortRunningBranch();
             _active = null;
         }
-        
+
         return BTNodeState.Failure;
     }
 
@@ -49,3 +46,4 @@ public class SelectorNode : BTNode
         Abort();
     }
 }
+

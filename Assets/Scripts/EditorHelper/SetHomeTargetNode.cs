@@ -8,6 +8,7 @@ public class SetHomeTargetNode : ActionNode
     protected override BTNodeState OnUpdate()
     {
         if (runner == null || runner.homeTarget == null) return BTNodeState.Failure;
+        Debug.Log($"[SetHomeTargetNode] home={runner?.homeTarget}");
         runner.currentTarget = runner.homeTarget;
         return BTNodeState.Success;
     }

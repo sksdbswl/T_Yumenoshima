@@ -16,8 +16,6 @@ public class PatrolNode : ActionNode
         
         agent = runner.GetComponent<NavMeshAgent>();
         
-        Debug.Log($"[Patrol] agent null? {agent==null}, onNavMesh? {agent != null && agent.isOnNavMesh}, pos={runner.transform.position}");
-        
         if (agent != null)
             SetRandomDestination();
         
@@ -38,18 +36,13 @@ public class PatrolNode : ActionNode
 
     private void SetRandomDestination()
     {
-        float radius = runner.profile != null ? runner.profile.patrolRadius : patrolRadius;
-
-        Vector3 randomDir = Random.insideUnitSphere * radius + runner.transform.position;
+        var radius = runner.profile != null ? runner.profile.patrolRadius : patrolRadius;
+        var randomDir = Random.insideUnitSphere * radius + runner.transform.position;
 
         if (NavMesh.SamplePosition(randomDir, out NavMeshHit hit, radius, NavMesh.AllAreas))
         {
             bool ok = agent.SetDestination(hit.position);
-            Debug.Log($"[Patrol] dest={hit.position} setOk={ok}");
-        }
-        else
-        {
-            Debug.LogWarning($"[Patrol] SamplePosition FAILED radius={radius} from={runner.transform.position}");
+            //Debug.Log($"[Patrol] dest={hit.position} setOk={ok}");
         }
     }
 

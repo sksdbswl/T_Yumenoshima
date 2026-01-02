@@ -350,6 +350,21 @@ public class BehaviourTreeEditor : EditorWindow
         if (selectedNode != null)
             nodeInspector = Editor.CreateEditor(selectedNode);
     }
+    
+    private BTNode FindParentOf(BTNode child)
+    {
+        if (tree == null || child == null) return null;
+
+        // BTNode.parent가 항상 세팅되는 구조라면 child.parent 써도 되지만,
+        // 지금은 안전하게 tree.nodes를 훑어서 찾는다.
+        foreach (var p in tree.nodes)
+        {
+            if (p == null) continue;
+            if (p.children != null && p.children.Contains(child))
+                return p;
+        }
+        return null;
+    }
 
     private void ShowAddChildMenu(BTNode parent)
     {
@@ -410,9 +425,10 @@ public class BehaviourTreeEditor : EditorWindow
 
     private void DrawSelectedNodeInspector()
     {
-        GUILayout.BeginVertical(EditorStyles.helpBox);
         GUILayout.Label("Selected Node Inspector", EditorStyles.boldLabel);
-
+        GUILayout.BeginVertical(EditorStyles.helpBox);
+        GUILayout.BeginVertical(EditorStyles.helpBox);
+        
         if (selectedNode == null)
         {
             EditorGUILayout.HelpBox("노드를 선택하면 해당 노드의 설정을 여기서 바로 수정할 수 있습니다.", MessageType.Info);
@@ -420,6 +436,33 @@ public class BehaviourTreeEditor : EditorWindow
             return;
         }
 
+        // ✅ Child order buttons (selectedNode가 누군가의 child일 때만 노출)
+        var parent = FindParentOf(selectedNode);
+        if (parent != null)
+        {
+            EditorGUILayout.Space(4);
+            EditorGUILayout.LabelField("Child Order (under: " + parent.name + ")", EditorStyles.miniBoldLabel);
+
+            EditorGUILayout.BeginHorizontal();
+            if (GUILayout.Button("▲ Move Up", GUILayout.Width(90)))
+            {
+                Undo.RecordObject(tree, "Move Child Up");
+                tree.MoveChildUp(parent, selectedNode);
+                EditorUtility.SetDirty(tree);
+            }
+
+            if (GUILayout.Button("▼ Move Down", GUILayout.Width(90)))
+            {
+                Undo.RecordObject(tree, "Move Child Down");
+                tree.MoveChildDown(parent, selectedNode);
+                EditorUtility.SetDirty(tree);
+            }
+
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.Space(6);
+        }
+
+        
         if (nodeInspector == null)
             nodeInspector = Editor.CreateEditor(selectedNode);
 

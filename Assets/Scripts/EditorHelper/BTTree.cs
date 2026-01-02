@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 /// <summary>
@@ -73,5 +74,28 @@ public class BTTree : ScriptableObject
         UnityEditor.EditorUtility.SetDirty(this);
         UnityEditor.AssetDatabase.SaveAssets();
     }
+    
+    public void MoveChildUp(BTNode parent, BTNode child)
+    {
+        int i = parent.children.IndexOf(child);
+        if (i > 0)
+        {
+            Undo.RecordObject(this, "Move Child Up");
+            (parent.children[i - 1], parent.children[i]) = (parent.children[i], parent.children[i - 1]);
+            UnityEditor.EditorUtility.SetDirty(this);
+        }
+    }
+
+    public void MoveChildDown(BTNode parent, BTNode child)
+    {
+        int i = parent.children.IndexOf(child);
+        if (i >= 0 && i < parent.children.Count - 1)
+        {
+            Undo.RecordObject(this, "Move Child Down");
+            (parent.children[i + 1], parent.children[i]) = (parent.children[i], parent.children[i + 1]);
+            UnityEditor.EditorUtility.SetDirty(this);
+        }
+    }
+    
 #endif
 }

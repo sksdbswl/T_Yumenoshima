@@ -726,11 +726,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23ee9efdd775eb447b92c872ffa9565d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BehaviourTreeRunner
-  treeAsset: {fileID: 11400000, guid: fa8db14a6f9fbad419ac39f3044bc31e, type: 2}
+  treeAsset: {fileID: 11400000, guid: 4be4fe1125e172c419076a4c4a3ef6dc, type: 2}
   profile: {fileID: 11400000, guid: a3d08372d74007245b7f83a3f7c3d8e1, type: 2}
   currentTarget: {fileID: 0}
   player: {fileID: 0}
   homeTarget: {fileID: 0}
+  routineState: 0
 --- !u!114 &-8467747771076970010
 MonoBehaviour:
   m_ObjectHideFlags: 0

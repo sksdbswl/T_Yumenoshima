@@ -1,9 +1,6 @@
 using System.Linq;
 using UnityEngine;
 
-/// <summary>
-/// 
-/// </summary>
 public class BehaviourTreeRunner : MonoBehaviour
 {
     public BTTree treeAsset; // Enemy NodeTree
@@ -25,15 +22,26 @@ public class BehaviourTreeRunner : MonoBehaviour
         foreach (var node in treeAsset.nodes)
         {
             node.ResetState();
-            if (node is IsNightNode n) n.runner = this;
-            if (node is SetHomeTargetNode h) h.runner = this;
             if (node is SetJobTargetNode s) s.runner = this;
             if (node is PerformJobActionNode a) a.runner = this;
             if (node is MoveToTargetNode m) m.runner = this;
             if (node is PatrolNode p) p.runner = this;
+            if (node is IsNightNode n) n.runner = this;
+            if (node is SetHomeTargetNode h) h.runner = this;
+            if (node is IdleAtHomeNode i) i.runner = this;
         }
-    }
 
+        // foreach (var node in treeAsset.nodes)
+        // {
+        //     node.ResetState();
+        //     if (node is SetJobTargetNode s) s.runner = this;
+        //     if (node is MoveToTargetNode m) m.runner = this;
+        //     if (node is PatrolNode p) p.runner = this;
+        //     if (node is PerformJobActionNode a) a.runner = this;
+        //     if (node is IsTargetInInteractionRangeNode r) r.runner = this;
+        // }
+    }
+    
     private void Update() => treeAsset?.Update();
 
     // === 여기부터 기즈모 ===

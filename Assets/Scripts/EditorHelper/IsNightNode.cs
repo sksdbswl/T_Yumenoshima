@@ -7,6 +7,7 @@ public class IsNightNode : ConditionNode
 
     protected override bool CheckCondition()
     {
+        Debug.Log($"[IsNightNode] routine={runner?.routineState}");
         return runner != null && runner.routineState == RoutineState.Night;
     }
 }

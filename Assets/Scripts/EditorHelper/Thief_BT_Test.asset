@@ -1,0 +1,237 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6208269764603103004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f05c0b82b43c413b90ced1f800559d44, type: 3}
+  m_Name: SetHomeTargetNode
+  m_EditorClassIdentifier: Assembly-CSharp::SetHomeTargetNode
+  tree: {fileID: 11400000}
+  parent: {fileID: 0}
+  children: []
+  position: {x: 662, y: 417.5}
+--- !u!114 &-6130686381793268361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d53cefdcbf194839b0a3732e58194546, type: 3}
+  m_Name: PerformJobActionNode
+  m_EditorClassIdentifier: Assembly-CSharp::PerformJobActionNode
+  tree: {fileID: 11400000}
+  parent: {fileID: -2397250332269362626}
+  children: []
+  position: {x: 787, y: 666.5}
+  logStateChanges: 0
+--- !u!114 &-6019210951617429558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f05c0b82b43c413b90ced1f800559d44, type: 3}
+  m_Name: SetHomeTargetNode
+  m_EditorClassIdentifier: Assembly-CSharp::SetHomeTargetNode
+  tree: {fileID: 11400000}
+  parent: {fileID: 2504304156089064256}
+  children: []
+  position: {x: 694, y: 148.5}
+--- !u!114 &-4951497030396563950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee2f00a079194fe88e116491b5df8970, type: 3}
+  m_Name: IdleAtHomeNode
+  m_EditorClassIdentifier: Assembly-CSharp::IdleAtHomeNode
+  tree: {fileID: 11400000}
+  parent: {fileID: 2504304156089064256}
+  children: []
+  position: {x: 735, y: 349.5}
+--- !u!114 &-3391790068590279839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75c29e0380da43b082d872155042d1a1, type: 3}
+  m_Name: MoveToHomeNode
+  m_EditorClassIdentifier: Assembly-CSharp::MoveToTargetNode
+  tree: {fileID: 11400000}
+  parent: {fileID: 2504304156089064256}
+  children: []
+  position: {x: 715, y: 245.5}
+  succeedWhenArrived: 1
+  overrideStopDistance: 0
+  stopDistanceOverride: 1.5
+--- !u!114 &-2397250332269362626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6db4321fa1714f44799a976df34c860b, type: 3}
+  m_Name: WorkSequenceNode
+  m_EditorClassIdentifier: Assembly-CSharp::SequenceNode
+  tree: {fileID: 11400000}
+  parent: {fileID: 8347540951218011539}
+  children:
+  - {fileID: -1185372897837532350}
+  - {fileID: -6130686381793268361}
+  - {fileID: -127573841067321021}
+  position: {x: 378, y: 406.5}
+--- !u!114 &-1185372897837532350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b3ea6f70144c379cabbda2fad4789c, type: 3}
+  m_Name: SetJobTargetNode
+  m_EditorClassIdentifier: Assembly-CSharp::SetJobTargetNode
+  tree: {fileID: 11400000}
+  parent: {fileID: -2397250332269362626}
+  children: []
+  position: {x: 795, y: 456.5}
+--- !u!114 &-127573841067321021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75c29e0380da43b082d872155042d1a1, type: 3}
+  m_Name: MoveToTargetNode
+  m_EditorClassIdentifier: Assembly-CSharp::MoveToTargetNode
+  tree: {fileID: 11400000}
+  parent: {fileID: -2397250332269362626}
+  children: []
+  position: {x: 798, y: 564.5}
+  succeedWhenArrived: 1
+  overrideStopDistance: 1
+  stopDistanceOverride: 1.5
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 599a91e82c4a7584f886e4839b65820a, type: 3}
+  m_Name: Thief_BT_Test
+  m_EditorClassIdentifier: Assembly-CSharp::BTTree
+  rootNode: {fileID: 8347540951218011539}
+  nodes:
+  - {fileID: 8347540951218011539}
+  - {fileID: -2397250332269362626}
+  - {fileID: -1185372897837532350}
+  - {fileID: -127573841067321021}
+  - {fileID: -6130686381793268361}
+  - {fileID: 5107527769859249655}
+  - {fileID: 2504304156089064256}
+  - {fileID: 5908053942031696949}
+  - {fileID: -6019210951617429558}
+  - {fileID: -3391790068590279839}
+  - {fileID: -4951497030396563950}
+--- !u!114 &2504304156089064256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6db4321fa1714f44799a976df34c860b, type: 3}
+  m_Name: HomeSequenceNode
+  m_EditorClassIdentifier: Assembly-CSharp::SequenceNode
+  tree: {fileID: 11400000}
+  parent: {fileID: 8347540951218011539}
+  children:
+  - {fileID: 5908053942031696949}
+  - {fileID: -6019210951617429558}
+  - {fileID: -3391790068590279839}
+  - {fileID: -4951497030396563950}
+  position: {x: 380, y: 187.5}
+--- !u!114 &5107527769859249655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48d94ec5aa83439784e21fa7604ce621, type: 3}
+  m_Name: PatrolNode
+  m_EditorClassIdentifier: Assembly-CSharp::PatrolNode
+  tree: {fileID: 11400000}
+  parent: {fileID: 8347540951218011539}
+  children: []
+  position: {x: 383, y: 649.5}
+  patrolRadius: 5
+--- !u!114 &5908053942031696949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61bed479d2864a91b61692f6c88e92c0, type: 3}
+  m_Name: IsNightNode
+  m_EditorClassIdentifier: Assembly-CSharp::IsNightNode
+  tree: {fileID: 11400000}
+  parent: {fileID: 2504304156089064256}
+  children: []
+  position: {x: 630, y: 47.5}
+--- !u!114 &8347540951218011539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d10731d3c22cff469023a678e658625, type: 3}
+  m_Name: RootSelector
+  m_EditorClassIdentifier: Assembly-CSharp::SelectorNode
+  tree: {fileID: 11400000}
+  parent: {fileID: 0}
+  children:
+  - {fileID: 2504304156089064256}
+  - {fileID: -2397250332269362626}
+  - {fileID: 5107527769859249655}
+  position: {x: 67, y: 294.5}
