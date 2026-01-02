@@ -48,8 +48,10 @@ MonoBehaviour:
   tree: {fileID: 11400000}
   parent: {fileID: -546646214861273624}
   children: []
-  position: {x: 746, y: 618.5}
-  succeedWhenArrived: 0
+  position: {x: 747, y: 618.5}
+  succeedWhenArrived: 1
+  overrideStopDistance: 1
+  stopDistanceOverride: 2
 --- !u!114 &-5805673858185302796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,8 +86,10 @@ MonoBehaviour:
   tree: {fileID: 11400000}
   parent: {fileID: 2937920234442658956}
   children: []
-  position: {x: 635, y: 393.5}
+  position: {x: 636, y: 393.5}
   succeedWhenArrived: 1
+  overrideStopDistance: 0
+  stopDistanceOverride: 0
 --- !u!114 &-546646214861273624
 MonoBehaviour:
   m_ObjectHideFlags: 0

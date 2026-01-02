@@ -5,9 +5,14 @@ using UnityEngine.AI;
 public class MoveToTargetNode : ActionNode
 {
     [System.NonSerialized] public BehaviourTreeRunner runner;
-    private NavMeshAgent agent;
 
-    public bool succeedWhenArrived = true; 
+    public bool succeedWhenArrived = false;
+
+    [Header("Stop Distance Override")]
+    public bool overrideStopDistance = false;
+    public float stopDistanceOverride = 1.5f;
+
+    private NavMeshAgent agent;
 
     protected override void OnStart()
     {
@@ -17,16 +22,18 @@ public class MoveToTargetNode : ActionNode
     protected override BTNodeState OnUpdate()
     {
         if (runner == null || agent == null) return BTNodeState.Failure;
+        if (runner.currentTarget == null) return BTNodeState.Failure;
 
-        var target = runner.currentTarget;
-        if (target == null) return BTNodeState.Failure;
+        float stop =
+            overrideStopDistance
+                ? stopDistanceOverride
+                : (runner.profile != null
+                    ? runner.profile.moveStopDistance
+                    : agent.stoppingDistance);
 
-        float stop = runner.profile != null ? runner.profile.moveStopDistance : agent.stoppingDistance;
-        
         agent.stoppingDistance = stop;
-        agent.SetDestination(target.position);
+        agent.SetDestination(runner.currentTarget.position);
 
-        // 도착 체크
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
         {
             return succeedWhenArrived ? BTNodeState.Success : BTNodeState.Running;

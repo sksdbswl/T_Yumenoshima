@@ -24,21 +24,49 @@ public class ThiefJobHandler : MonoBehaviour, IJobHandler
 
         float d = Vector3.Distance(runner.transform.position, runner.player.position);
 
-        // ✅ 사거리 밖이면 "공격 못함" -> Failure 반환 -> Sequence가 리셋되고 다시 추적함
+        // ✅ 사거리 밖이면 "아직 공격 못함" -> Failure
+        // -> Sequence 리셋 -> 다음 프레임 MoveToTarget이 다시 Tick(추적 재개)
         if (d > runner.profile.interactionRange)
         {
             timer = 0f;
             return BTNodeState.Failure;
         }
 
-        // 공격(상호작용) 진행
+        // 공격 진행
         timer += dt;
         if (timer >= runner.profile.interactionTime)
         {
             timer = 0f;
-            return BTNodeState.Success; // 1회 공격 완료
+            return BTNodeState.Success;
         }
 
         return BTNodeState.Running;
     }
+
+
+    
+    // public BTNodeState PerformAction(BehaviourTreeRunner runner, float dt)
+    // {
+    //     if (runner == null || runner.profile == null || runner.player == null)
+    //         return BTNodeState.Failure;
+    //
+    //     float d = Vector3.Distance(runner.transform.position, runner.player.position);
+    //
+    //     // ✅ 사거리 밖이면 "공격 못함" -> Failure 반환 -> Sequence가 리셋되고 다시 추적함
+    //     if (d > runner.profile.interactionRange)
+    //     {
+    //         timer = 0f;
+    //         return BTNodeState.Failure;
+    //     }
+    //
+    //     // 공격(상호작용) 진행
+    //     timer += dt;
+    //     if (timer >= runner.profile.interactionTime)
+    //     {
+    //         timer = 0f;
+    //         return BTNodeState.Success; // 1회 공격 완료
+    //     }
+    //
+    //     return BTNodeState.Running;
+    // }
 }
