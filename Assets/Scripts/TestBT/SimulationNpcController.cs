@@ -25,8 +25,8 @@ namespace TestBT
         {
             var player = FindObjectOfType<PlayerBT>();
 
-            sensor.Tick(player);
             runner.Operate();
+            sensor.Tick(player);
         }
 
         private INode BuildTree()

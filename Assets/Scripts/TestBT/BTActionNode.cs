@@ -1,8 +1,8 @@
 using System;
 
 /// <summary>
-/// Action Node는 실제로 어떤 행위를 하는 노드입니다.
-/// 그렇기 때문에 Func() 델리게이트를 통해 행위를 전달받아 실행하려고 합니다
+/// Action Node는 실제로 어떤 행위를 하는 노드
+/// 그렇기 때문에 Func() 델리게이트를 통해 행위를 전달받아 실행
 /// </summary>
 public sealed class BTActionNode : INode
 {

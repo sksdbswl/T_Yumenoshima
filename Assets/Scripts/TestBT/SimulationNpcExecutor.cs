@@ -142,7 +142,7 @@ namespace TestBT
                 return INode.ENodeState.ENS_Success; 
             }
 
-            // 2. 아직 멀다면? 계속 이동하며 "진행 중" 반환
+            // 2. 아직 멀다면? 계속 이동하며 진행 중 반환
             Debug.Log("추적 중...");
             agent.isStopped = false;
             agent.SetDestination(target.player.position);
