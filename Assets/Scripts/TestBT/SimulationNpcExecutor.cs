@@ -1,0 +1,199 @@
+using UnityEngine;
+using UnityEngine.AI;
+
+namespace TestBT
+{
+    /// <summary>
+    /// Action 노드에서 실행될 실제 행동
+    /// </summary>
+    public class SimulationNpcExecutor : MonoBehaviour
+    {
+        private NavMeshAgent agent;
+        
+        private float defaultSpeed = 2f;
+        private float fleeSpeed = 8f;
+        
+        private void Awake()
+        {
+            agent = GetComponent<NavMeshAgent>();
+            SetSpeed(defaultSpeed);
+        }
+        
+        public void MoveTo(Vector3 target)
+        {
+            agent.SetDestination(target);
+        }
+        
+        public void Stop()
+        {
+            agent.isStopped = true;
+        }
+        
+        public void SetSpeed(float speed)
+        {
+            agent.speed = speed;
+        }
+
+        public void DoJump()
+        {
+            agent.isStopped = false;
+            agent.SetDestination(agent.transform.position + agent.transform.up * 10);
+        }
+
+        public INode.ENodeState DoHide()
+        {
+            Debug.Log("숨기");
+            
+            agent.isStopped = true;
+            return INode.ENodeState.ENS_Success;
+        }
+        
+        public INode.ENodeState DoFlee(Transform player)
+        {
+            Debug.Log("도망");
+
+            Vector3 dir = (transform.position - player.position).normalized;
+            float fleeDistance = 8f;
+
+            Vector3 randomOffset = Random.insideUnitSphere * 3f;
+
+            Vector3 target = transform.position + dir * fleeDistance + randomOffset;
+
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(target, out hit, fleeDistance, NavMesh.AllAreas))
+            {
+                SetSpeed(fleeSpeed);
+                agent.isStopped = false;
+                agent.SetDestination(hit.position);
+            }
+
+            // 아직 이동 중이면 Running 유지
+            if (agent.pathPending)
+                return INode.ENodeState.ENS_Running;
+
+            if (agent.remainingDistance > agent.stoppingDistance)
+                return INode.ENodeState.ENS_Running;
+
+            // 도착했으면 성공
+            SetSpeed(defaultSpeed);
+            return INode.ENodeState.ENS_Success;
+        }
+
+        public INode.ENodeState DoLookAt()
+        {
+            Debug.Log("기본 모션 : 바라보기");
+            
+            transform.LookAt(agent.transform);
+            
+            return INode.ENodeState.ENS_Running;
+        }
+        
+        public INode.ENodeState DoLookAt(Transform target)
+        {
+            if (target == null)
+                return INode.ENodeState.ENS_Failure;
+
+            Debug.Log("기본 모션 : 바라보기");
+            Stop();
+            
+            Vector3 dir = target.position - transform.position;
+            dir.y = 0f;
+
+            if (dir.sqrMagnitude > 0.001f)
+                transform.forward = dir.normalized;
+
+            return INode.ENodeState.ENS_Success;
+        }
+        
+        public INode.ENodeState KeepDefault()
+        {
+            DoRandomMove();
+            return INode.ENodeState.ENS_Success;
+        }
+        
+        public INode.ENodeState DoRandomMove()
+        {
+            float radius = 15f;
+
+            Vector3 randomPoint = transform.position + Random.insideUnitSphere * radius;
+
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(randomPoint, out hit, radius, NavMesh.AllAreas))
+            {
+                agent.isStopped = false;
+                if (!agent.hasPath || agent.remainingDistance < 0.5f)
+                {
+                    SetSpeed(defaultSpeed);
+                    agent.SetDestination(hit.position);
+                }
+            }
+
+            return INode.ENodeState.ENS_Success;
+        }
+
+        public INode.ENodeState DoChase(NpcBlackboard target)
+        {
+            if (target == null) return INode.ENodeState.ENS_Failure;
+
+            // 1. 공격 범위 안에 들어왔다면? 추적 성공 반환 -> 다음 공격 노드로
+            if (target.isPlayerVeryNear)
+            {
+                agent.isStopped = true; 
+                return INode.ENodeState.ENS_Success; 
+            }
+
+            // 2. 아직 멀다면? 계속 이동하며 "진행 중" 반환
+            Debug.Log("추적 중...");
+            agent.isStopped = false;
+            agent.SetDestination(target.player.position);
+            return INode.ENodeState.ENS_Running;
+        }
+        
+        private bool isAttacking = false;
+        private float attackDelay = 5f;
+        private float attackTimer = 0f;
+
+        public INode.ENodeState DoAttack(Transform target)
+        {
+            if (target == null) return INode.ENodeState.ENS_Failure;
+
+            if (!isAttacking)
+            {
+                // 1. 공격 시작 시점 (최초 1회)
+                Debug.Log("공격 시작");
+                if (agent != null) Stop(); 
+
+                Vector3 lookDir = (target.position - transform.position).normalized;
+                lookDir.y = 0;
+                if (lookDir != Vector3.zero) transform.forward = lookDir;
+
+                // animator.SetTrigger("Attack");
+                attackTimer = attackDelay;
+                isAttacking = true;
+            }
+  
+            attackTimer -= Time.deltaTime;
+            
+            if (attackTimer > 0f)
+            {
+                Debug.Log($"공격 중... ::{attackTimer}");
+                // 2. 공격 진행 중
+                
+                return INode.ENodeState.ENS_Running;
+            }
+
+            // 3. 공격 완료 시점
+            Debug.Log("공격 끝");
+            attackTimer = 0f;
+            isAttacking = false;
+            agent.isStopped = false;
+            
+            return INode.ENodeState.ENS_Success;
+        }
+
+        public bool IsAttacking()
+        {
+            return isAttacking;
+        }
+    }
+}

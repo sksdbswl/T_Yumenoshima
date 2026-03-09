@@ -1,0 +1,61 @@
+using UnityEngine;
+
+namespace TestBT
+{
+    /// <summary>
+    /// 매 프레임/주기마다(현재 상황을 파악) 블랙보드를 업데이트하는 용도
+    /// 실제 실행부는 SimulationNpcExecutor에서 실행 
+    /// </summary>
+    public class SimulationNpcSensor : MonoBehaviour
+    {
+        [SerializeField] private float nearDistance = 4f;
+        [SerializeField] private float veryNearDistance = 2f;
+        [SerializeField] public bool canMotion;
+        [SerializeField] public bool canChase;
+        [SerializeField] public bool canAttack;
+        [SerializeField] public bool canFlee;
+        
+        public NpcBlackboard Blackboard { get; private set; } = new NpcBlackboard();
+        
+        public void Tick(PlayerBT player)
+        {
+            Blackboard.player = player.transform;
+            
+            if (player == null)
+            {
+                Blackboard.distanceToPlayer = float.MaxValue;
+                Blackboard.isPlayerNear = false;
+                Blackboard.isPlayerVeryNear = false;
+                return;
+            }
+
+            float dist = Vector3.Distance(transform.position, player.transform.position);
+            
+            Blackboard.distanceToPlayer = dist;
+            Blackboard.isPlayerNear = dist <= nearDistance;
+            Blackboard.isPlayerVeryNear = dist <= veryNearDistance;
+
+            Blackboard.canMotion = canMotion;
+            Blackboard.canChase = canChase;
+            Blackboard.canAttack = canAttack;
+            Blackboard.canFlee = canFlee;
+        }
+        
+        private void OnDrawGizmos()
+        {
+            Vector3 pos = transform.position;
+
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(pos, nearDistance);
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(pos, veryNearDistance);
+
+            if (Blackboard != null && Blackboard.player != null)
+            {
+                Gizmos.color = Color.cyan;
+                Gizmos.DrawLine(pos, Blackboard.player.position);
+            }
+        }
+    }
+}
