@@ -7,11 +7,11 @@ using AI.BT.Runtime;
 
 namespace AI.BT.Editor
 {
-
-namespace Game.AI.BT.Editor
-{
     public static class BTGraphSaveUtility
     {
+        /// <summary>
+        /// 그래프 저장
+        /// </summary>
         public static void Save(BTGraphView graphView)
         {
             string path = EditorUtility.SaveFilePanelInProject(
@@ -70,6 +70,9 @@ namespace Game.AI.BT.Editor
             Debug.Log($"BT Graph saved: {path}");
         }
 
+        /// <summary>
+        /// 그래프 불러오기
+        /// </summary>
         public static void Load(BTGraphView graphView)
         {
             string path = EditorUtility.OpenFilePanel("Load Behavior Tree", "Assets", "asset");
@@ -112,6 +115,9 @@ namespace Game.AI.BT.Editor
             }
         }
 
+        /// <summary>
+        /// 그래프 초기화
+        /// </summary>
         private static void ClearGraph(BTGraphView graphView)
         {
             var edges = graphView.edges.ToList();
@@ -150,5 +156,4 @@ namespace Game.AI.BT.Editor
             return node;
         }
     }
-}
 }

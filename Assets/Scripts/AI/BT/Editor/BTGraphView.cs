@@ -2,7 +2,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor.Experimental.GraphView;
-using AI.BT.Editor.Game.AI.BT.Editor;
 using AI.BT.Runtime;
 
 namespace AI.BT.Editor
@@ -25,17 +24,23 @@ namespace AI.BT.Editor
             this.AddManipulator(new SelectionDragger()); // 노드 선택 후 드래그 이동
             this.AddManipulator(new RectangleSelector()); // 드래그해서 여러 노드 박스 선택
 
-            Insert(0, new GridBackground());
+            Insert(0, new GridBackground()); // 배경 격자 추가
 
+            //초기 루트 노드를 하나 자동으로 추가
             AddElement(CreateRootNode());
         }
 
+        /// <summary>
+        /// 직접 메뉴 생성
+        /// 사용자 우클릭 -> Unity 내부에서 ContextMenu 이벤트 발생
+        /// </summary>
         public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
         {
-            base.BuildContextualMenu(evt);
+            base.BuildContextualMenu(evt); 
 
             Vector2 mousePosition = evt.localMousePosition;
-
+            
+            // 우클릭 메뉴를 직접 구성
             evt.menu.AppendAction("Create Node/Composite/Selector",
                 _ => AddElement(CreateCompositeNode("Selector", BTNodeType.Selector, mousePosition)));
 
@@ -49,6 +54,36 @@ namespace AI.BT.Editor
                 _ => AddElement(CreateActionNode(mousePosition)));
         }
 
+        #region BuildContextualMenu ISSUE
+
+        // 문제 코드 = > BuildContextualMenu 로 변경해서 해결
+        // private void AddSearchWindow()
+        // {
+        //     nodeCreationRequest = ctx =>
+        //     {
+        //         var menu = new GenericMenu();
+        //         menu.AddItem(new GUIContent("Composite/Selector"), false,
+        //             () => AddElement(CreateCompositeNode("Selector", BTNodeType.Selector, ctx.screenMousePosition)));
+        //         menu.AddItem(new GUIContent("Composite/Sequence"), false,
+        //             () => AddElement(CreateCompositeNode("Sequence", BTNodeType.Sequence, ctx.screenMousePosition)));
+        //         menu.AddItem(new GUIContent("Leaf/Condition"), false,
+        //             () => AddElement(CreateConditionNode(ctx.screenMousePosition)));
+        //         menu.AddItem(new GUIContent("Leaf/Action"), false,
+        //             () => AddElement(CreateActionNode(ctx.screenMousePosition)));
+        //         menu.ShowAsContext(); // 메뉴 안에서 또 메뉴를 띄우는 구조
+        //     };
+        // }
+        
+        // 문제 1: nodeCreationRequest의 용도와 GenericMenu.ShowAsContext() 조합
+        // nodeCreationRequest는 보통 GraphView에서 노드 생성 UX를 연결하는 지점이에요. 주로 SearchWindow와 연결하는 데 자주 씀
+        // 문제 2 : ctx.screenMousePosition = 스크린 좌표 ( 모니터 상의 좌표 )
+        #endregion
+        
+
+        /// <summary>
+        /// 포트 연결 조건
+        /// 자기 자신은 안 됨 & 방향이 같으면 안 됨 & 같은 노드끼리 안 됨
+        /// </summary>
         public override System.Collections.Generic.List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
         {
             return ports.ToList().Where(endPort =>
@@ -57,6 +92,10 @@ namespace AI.BT.Editor
                 endPort.node != startPort.node).ToList();
         }
 
+        /// <summary>
+        /// 노트 생성 함수
+        /// 마우스 위치를 기준으로, 노드를 생성 및 그 위치에 배치하고 반환
+        /// </summary>
         private BTBaseNodeView CreateRootNode()
         {
             var node = new BTRootNodeView();
@@ -85,11 +124,17 @@ namespace AI.BT.Editor
             return node;
         }
 
+        /// <summary>
+        /// 그래프 저장
+        /// </summary>
         public void SaveGraph()
         {
             BTGraphSaveUtility.Save(this);
         }
-
+        
+        /// <summary>
+        /// 그래프 로드
+        /// </summary>
         public void LoadGraph()
         {
             BTGraphSaveUtility.Load(this);
