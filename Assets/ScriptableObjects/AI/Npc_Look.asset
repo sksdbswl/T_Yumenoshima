@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23b1a06ff4a04412aa95e1417175b6e5, type: 3}
+  m_Name: Npc_Look
+  m_EditorClassIdentifier: Assembly-CSharp::AI.BT.Runtime.BTGraphAsset
+  rootGuid: 5e9e60ab-f394-42cc-89f0-d108de878f99
+  nodes:
+  - guid: 5e9e60ab-f394-42cc-89f0-d108de878f99
+    nodeName: Root
+    nodeType: 0
+    position: {x: 417, y: 66}
+    conditionType: 0
+    actionType: 0
+    animationStateName: 
+    childrenGuids:
+    - b5461e18-e7b2-4e4a-869b-2d210e882a6c
+  - guid: b5461e18-e7b2-4e4a-869b-2d210e882a6c
+    nodeName: Selector
+    nodeType: 1
+    position: {x: 417, y: 199}
+    conditionType: 0
+    actionType: 0
+    animationStateName: 
+    childrenGuids:
+    - e0f40ed7-b4d6-4aaf-a559-062f0e9a7d1f
+  - guid: e0f40ed7-b4d6-4aaf-a559-062f0e9a7d1f
+    nodeName: Sequence
+    nodeType: 2
+    position: {x: 402, y: 321}
+    conditionType: 0
+    actionType: 0
+    animationStateName: 
+    childrenGuids:
+    - da83ba9e-3310-4b7a-874d-b12d0016e6ce
+    - 86470c01-5141-4c19-9ea2-0c7aafa36e23
+    - ad0b588c-0573-4102-ab10-3536e5aed6bf
+  - guid: 86470c01-5141-4c19-9ea2-0c7aafa36e23
+    nodeName: Condition
+    nodeType: 3
+    position: {x: 402, y: 526}
+    conditionType: 3
+    actionType: 0
+    animationStateName: 
+    childrenGuids: []
+  - guid: da83ba9e-3310-4b7a-874d-b12d0016e6ce
+    nodeName: Condition
+    nodeType: 3
+    position: {x: 112, y: 526}
+    conditionType: 1
+    actionType: 0
+    animationStateName: 
+    childrenGuids: []
+  - guid: ad0b588c-0573-4102-ab10-3536e5aed6bf
+    nodeName: Action
+    nodeType: 4
+    position: {x: 677, y: 516}
+    conditionType: 0
+    actionType: 1
+    animationStateName: 
+    childrenGuids: []

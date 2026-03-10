@@ -114,21 +114,10 @@ namespace AI.BT.Editor
                 }
             }
         }
-
+        
         /// <summary>
-        /// 그래프 초기화
+        /// 그래프 로드
         /// </summary>
-        private static void ClearGraph(BTGraphView graphView)
-        {
-            var edges = graphView.edges.ToList();
-            foreach (var edge in edges)
-                graphView.RemoveElement(edge);
-
-            var nodes = graphView.nodes.ToList().OfType<BTBaseNodeView>().ToList();
-            foreach (var node in nodes)
-                graphView.RemoveElement(node);
-        }
-
         private static BTBaseNodeView CreateNodeFromData(BTNodeData data)
         {
             BTBaseNodeView node = data.nodeType switch
@@ -154,6 +143,20 @@ namespace AI.BT.Editor
             }
 
             return node;
+        }
+
+        /// <summary>
+        /// 그래프 초기화
+        /// </summary>
+        private static void ClearGraph(BTGraphView graphView)
+        {
+            var edges = graphView.edges.ToList();
+            foreach (var edge in edges)
+                graphView.RemoveElement(edge);
+
+            var nodes = graphView.nodes.ToList().OfType<BTBaseNodeView>().ToList();
+            foreach (var node in nodes)
+                graphView.RemoveElement(node);
         }
     }
 }
