@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace TestBT
@@ -16,7 +17,15 @@ namespace TestBT
         [SerializeField] public bool canFlee;
         
         public NpcBlackboard Blackboard { get; private set; } = new NpcBlackboard();
-        
+
+        private void Awake()
+        {
+            Blackboard.canMotion = canMotion;
+            Blackboard.canChase = canChase;
+            Blackboard.canAttack = canAttack;
+            Blackboard.canFlee = canFlee;
+        }
+
         public void Tick(PlayerBT player)
         {
             Blackboard.player = player.transform;
@@ -34,18 +43,13 @@ namespace TestBT
             Blackboard.distanceToPlayer = dist;
             Blackboard.isPlayerNear = dist <= nearDistance;
             Blackboard.isPlayerVeryNear = dist <= veryNearDistance;
-
-            Blackboard.canMotion = canMotion;
-            Blackboard.canChase = canChase;
-            Blackboard.canAttack = canAttack;
-            Blackboard.canFlee = canFlee;
         }
         
         private void OnDrawGizmos()
         {
             Vector3 pos = transform.position;
 
-            Gizmos.color = Color.yellow;
+            Gizmos.color = Color.cadetBlue;
             Gizmos.DrawWireSphere(pos, nearDistance);
 
             Gizmos.color = Color.red;
