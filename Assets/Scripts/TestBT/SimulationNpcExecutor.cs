@@ -48,35 +48,114 @@ namespace TestBT
             return INode.ENodeState.ENS_Success;
         }
         
+      
+
+                
+        // public INode.ENodeState DoFlee(Transform player)
+        // {
+        //     Debug.Log("도망");
+        //
+        //     Vector3 dir = (transform.position - player.position).normalized;
+        //     float fleeDistance = 8f;
+        //
+        //     Vector3 randomOffset = Random.insideUnitSphere * 3f;
+        //
+        //     Vector3 target = transform.position + dir * fleeDistance + randomOffset;
+        //
+        //     NavMeshHit hit;
+        //     if (NavMesh.SamplePosition(target, out hit, fleeDistance, NavMesh.AllAreas))
+        //     {
+        //         SetSpeed(fleeSpeed);
+        //         agent.isStopped = false;
+        //         agent.SetDestination(hit.position);
+        //     }
+        //
+        //     // 아직 이동 중이면 Running 유지
+        //     if (agent.pathPending)
+        //         return INode.ENodeState.ENS_Running;
+        //
+        //     if (agent.remainingDistance > agent.stoppingDistance)
+        //         return INode.ENodeState.ENS_Running;
+        //
+        //     // 도착했으면 성공
+        //     SetSpeed(defaultSpeed);
+        //     return INode.ENodeState.ENS_Success;
+        // }
+
+        private bool _hasFleeTarget;
+        private Vector3 _currentFleeTarget;
+        
         public INode.ENodeState DoFlee(Transform player)
         {
-            Debug.Log("도망");
+            if (player == null)
+                return INode.ENodeState.ENS_Failure;
 
-            Vector3 dir = (transform.position - player.position).normalized;
-            float fleeDistance = 8f;
-
-            Vector3 randomOffset = Random.insideUnitSphere * 3f;
-
-            Vector3 target = transform.position + dir * fleeDistance + randomOffset;
-
-            NavMeshHit hit;
-            if (NavMesh.SamplePosition(target, out hit, fleeDistance, NavMesh.AllAreas))
+            if (!_hasFleeTarget) // false
             {
+                if (!TryFindFleePoint(player.position, out _currentFleeTarget))
+                    return INode.ENodeState.ENS_Running;
+
                 SetSpeed(fleeSpeed);
                 agent.isStopped = false;
-                agent.SetDestination(hit.position);
+                agent.SetDestination(_currentFleeTarget);
+                _hasFleeTarget = true;
             }
 
-            // 아직 이동 중이면 Running 유지
             if (agent.pathPending)
                 return INode.ENodeState.ENS_Running;
 
             if (agent.remainingDistance > agent.stoppingDistance)
                 return INode.ENodeState.ENS_Running;
 
-            // 도착했으면 성공
+            _hasFleeTarget = false;
             SetSpeed(defaultSpeed);
             return INode.ENodeState.ENS_Success;
+        }
+        
+        private bool TryFindFleePoint(Vector3 threatPos, out Vector3 bestPoint)
+        {
+            bestPoint = transform.position;
+
+            Vector3 fleeDir = (transform.position - threatPos).normalized;
+            float fleeDistance = 8f;
+
+            float bestScore = float.MinValue;
+            bool found = false;
+
+            for (int i = 0; i < 12; i++)
+            {
+                Vector3 offset = Random.insideUnitSphere * 4f;
+                offset.y = 0f;
+
+                Vector3 candidate = transform.position + fleeDir * fleeDistance + offset;
+
+                if (!NavMesh.SamplePosition(candidate, out NavMeshHit hit, 3f, NavMesh.AllAreas))
+                    continue;
+
+                NavMeshPath path = new NavMeshPath();
+                if (!agent.CalculatePath(hit.position, path))
+                    continue;
+
+                if (path.status != NavMeshPathStatus.PathComplete)
+                    continue;
+
+                // 플레이어에게서 멀어질수록 높은 점수
+                float distFromThreat = Vector3.Distance(hit.position, threatPos);
+
+                // 현재 위치와 너무 가까운 점은 제외
+                float moveDist = Vector3.Distance(transform.position, hit.position);
+                if (moveDist < 2f)
+                    continue;
+
+                if (distFromThreat > bestScore)
+                {
+                    bestScore = distFromThreat;
+                    bestPoint = hit.position;
+                    found = true;
+                }
+            }
+
+            return found;
         }
 
         public INode.ENodeState DoLookAt()
