@@ -19,7 +19,7 @@ namespace TestBT
 
         public ENodeState Evaluate()
         {
-            BTEditorDebugger.SetActive(Guid);
+            //BTEditorDebugger.SetActive(Guid);
             
             return _condition != null && _condition.Invoke()
                 ? ENodeState.ENS_Success

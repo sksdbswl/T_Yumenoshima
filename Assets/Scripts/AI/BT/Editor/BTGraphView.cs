@@ -29,15 +29,7 @@ namespace AI.BT.Editor
             //초기 루트 노드를 하나 자동으로 추가
             AddElement(CreateRootNode());
         }
-
-        /// <summary>
-        /// Active Event
-        /// </summary>
-        private void OnEnable()
-        {
-            BTEditorDebugger.OnNodeActive += HandleNodeActive;
-        }
-
+        
         public void HandleNodeActive(string guid)
         {
             foreach (var node in nodes.ToList())

@@ -14,7 +14,7 @@ public sealed class BTSequenceNode : INode
 
     public ENodeState Evaluate()
     {
-        BTEditorDebugger.SetActive(Guid);
+        //BTEditorDebugger.SetActive(Guid);
 
         if (_childs == null || _childs.Count == 0)
             return ENodeState.ENS_Failure;

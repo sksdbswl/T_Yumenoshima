@@ -113,6 +113,8 @@ namespace AI.BT.Editor
                     graphView.AddElement(edge);
                 }
             }
+            
+            BTEditorDebugger.OnNodeActive += graphView.HandleNodeActive;
         }
         
         /// <summary>
