@@ -6,9 +6,9 @@ namespace AI.BT.Editor
     // Selector / Sequence 노드 설정
     public class BTCompositeNodeView : BTBaseNodeView
     {
-        public BTCompositeNodeView(string nodeTitle, BTNodeType type)
+        public BTCompositeNodeView(string name, BTNodeType type) : base(name)
         {
-            title = nodeTitle;
+            title = name;
             NodeType = type;
 
             var input = CreateInputPort();

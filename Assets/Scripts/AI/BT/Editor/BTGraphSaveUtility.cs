@@ -122,30 +122,66 @@ namespace AI.BT.Editor
         /// </summary>
         private static BTBaseNodeView CreateNodeFromData(BTNodeData data)
         {
+            // data.nodeName이 있으면 그 이름을 사용하고, 없으면 기본 타입 이름을 사용합니다.
+            string initialName = string.IsNullOrEmpty(data.nodeName) ? data.nodeType.ToString() : data.nodeName;
+
             BTBaseNodeView node = data.nodeType switch
             {
-                BTNodeType.Root => new BTRootNodeView(),
-                BTNodeType.Selector => new BTCompositeNodeView("Selector", BTNodeType.Selector),
-                BTNodeType.Sequence => new BTCompositeNodeView("Sequence", BTNodeType.Sequence),
-                BTNodeType.Condition => new BTConditionNodeView(),
-                BTNodeType.Action => new BTActionNodeView(),
+                // 모든 생성자에 initialName을 전달하여 에디터에서 수정한 이름이 복원되게 합니다.
+                BTNodeType.Root => new BTRootNodeView(initialName), 
+                BTNodeType.Selector => new BTCompositeNodeView(initialName, BTNodeType.Selector),
+                BTNodeType.Sequence => new BTCompositeNodeView(initialName, BTNodeType.Sequence),
+                BTNodeType.Condition => new BTConditionNodeView(initialName, data.conditionType),
+                BTNodeType.Action => new BTActionNodeView(initialName, data.actionType),
                 _ => null
             };
 
+            if (node == null) return null;
+
+            // GUID 복원 (매우 중요: 연결 관계 복구용)
             node.Guid = data.guid;
 
+            // 추가 데이터 복원 (Condition, Action 등)
             if (node is BTConditionNodeView conditionNode)
             {
-                // 필요하면 setter 함수 추가해서 값 복원
+                conditionNode.ConditionType = data.conditionType;
             }
 
             if (node is BTActionNodeView actionNode)
             {
-                // 필요하면 setter 함수 추가해서 값 복원
+                actionNode.ActionType = data.actionType;
+                actionNode.AnimationStateName = data.animationStateName;
             }
 
             return node;
         }
+        
+        // private static BTBaseNodeView CreateNodeFromData(BTNodeData data)
+        // {
+        //     BTBaseNodeView node = data.nodeType switch
+        //     {
+        //         BTNodeType.Root => new BTRootNodeView(),
+        //         BTNodeType.Selector => new BTCompositeNodeView("Selector", BTNodeType.Selector),
+        //         BTNodeType.Sequence => new BTCompositeNodeView("Sequence", BTNodeType.Sequence),
+        //         BTNodeType.Condition => new BTConditionNodeView("Condition"),
+        //         BTNodeType.Action => new BTActionNodeView("Action"),
+        //         _ => null
+        //     };
+        //
+        //     node.Guid = data.guid;
+        //
+        //     if (node is BTConditionNodeView conditionNode)
+        //     {
+        //         // 필요하면 setter 함수 추가해서 값 복원
+        //     }
+        //
+        //     if (node is BTActionNodeView actionNode)
+        //     {
+        //         // 필요하면 setter 함수 추가해서 값 복원
+        //     }
+        //
+        //     return node;
+        // }
 
         /// <summary>
         /// 그래프 초기화

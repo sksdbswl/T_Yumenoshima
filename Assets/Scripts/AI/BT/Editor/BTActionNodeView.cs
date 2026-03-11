@@ -7,14 +7,15 @@ namespace AI.BT.Editor
 {
     public class BTActionNodeView : BTBaseNodeView
     {
-        public BTActionType ActionType { get; private set; }
-        public string AnimationStateName { get; private set; }
+        public BTActionType ActionType { get; set; }
+        public string AnimationStateName { get; set; }
 
-        public BTActionNodeView()
+        public BTActionNodeView(string name, BTActionType actionType = BTActionType.None) : base(name)
         {
-            title = "Action";
+            title = name;
             NodeType = BTNodeType.Action;
-
+            ActionType = actionType;
+                
             var input = CreateInputPort();
             input.portName = "In";
             inputContainer.Add(input);
@@ -23,7 +24,7 @@ namespace AI.BT.Editor
             output.portName = "Out";
             outputContainer.Add(output);
 
-            var actionField = new EnumField("Action", BTActionType.None);
+            var actionField = new EnumField("Action", ActionType);
             actionField.RegisterValueChangedCallback(evt =>
             {
                 ActionType = (BTActionType)evt.newValue;

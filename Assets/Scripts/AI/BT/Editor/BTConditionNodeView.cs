@@ -8,12 +8,14 @@ namespace AI.BT.Editor
     // Condition은 enum popup 하나만 있어도 충분히 시작 가능합니다.
     public class BTConditionNodeView : BTBaseNodeView
     {
-        public BTConditionType ConditionType { get; private set; }
-
-        public BTConditionNodeView()
+        private EnumField _enumField;
+        public BTConditionType ConditionType { get; set; }
+        
+        public BTConditionNodeView(string name, BTConditionType conditionType = BTConditionType.None) : base(name)
         {
-            title = "Condition";
+            title = name;
             NodeType = BTNodeType.Condition;
+            ConditionType = conditionType;
 
             var input = CreateInputPort();
             input.portName = "In";
@@ -23,12 +25,12 @@ namespace AI.BT.Editor
             output.portName = "Out";
             outputContainer.Add(output);
 
-            var enumField = new EnumField("Condition", BTConditionType.None);
-            enumField.RegisterValueChangedCallback(evt =>
+            _enumField = new EnumField("Condition", ConditionType);
+            _enumField.RegisterValueChangedCallback(evt =>
             {
                 ConditionType = (BTConditionType)evt.newValue;
             });
-            extensionContainer.Add(enumField);
+            extensionContainer.Add(_enumField);
 
             RefreshExpandedState();
             RefreshPorts();

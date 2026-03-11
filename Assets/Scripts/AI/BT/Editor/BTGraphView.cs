@@ -110,7 +110,7 @@ namespace AI.BT.Editor
         /// </summary>
         private BTBaseNodeView CreateRootNode()
         {
-            var node = new BTRootNodeView();
+            var node = new BTRootNodeView("Root");
             node.SetPosition(new Rect(new Vector2(300, 100), new Vector2(200, 150)));
             return node;
         }
@@ -124,14 +124,14 @@ namespace AI.BT.Editor
 
         private BTBaseNodeView CreateConditionNode(Vector2 mousePosition)
         {
-            var node = new BTConditionNodeView();
+            var node = new BTConditionNodeView("Condition");
             node.SetPosition(new Rect(mousePosition, new Vector2(250, 200)));
             return node;
         }
 
         private BTBaseNodeView CreateActionNode(Vector2 mousePosition)
         {
-            var node = new BTActionNodeView();
+            var node = new BTActionNodeView("Action");
             node.SetPosition(new Rect(mousePosition, new Vector2(250, 220)));
             return node;
         }
