@@ -151,5 +151,14 @@ namespace AI.BT.Editor
         {
             BTGraphSaveUtility.Load(this);
         }
+        
+         
+        /// <summary>
+        /// 그래프 초기화
+        /// </summary>
+        public void ResetGraph()
+        {
+            BTGraphSaveUtility.ResetGraph(this);
+        }
     }
 }

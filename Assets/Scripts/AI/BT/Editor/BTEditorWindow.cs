@@ -75,9 +75,15 @@ namespace AI.BT.Editor
             {
                 text = "Load"
             };
+            
+            var resetButton = new Button(() => _graphView.ResetGraph())
+            {
+                text = "Reset"
+            };
 
             toolbar.Add(saveButton);
             toolbar.Add(loadButton);
+            toolbar.Add(resetButton);
 
             rootVisualElement.Add(toolbar);
         }

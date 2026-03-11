@@ -75,7 +75,7 @@ namespace AI.BT.Editor
         /// </summary>
         public static void Load(BTGraphView graphView)
         {
-            string path = EditorUtility.OpenFilePanel("Load Behavior Tree", "Assets", "asset");
+            string path = EditorUtility.OpenFilePanel("Load Behavior Tree", "Assets/ScriptableObjects/AI", "asset");
             if (string.IsNullOrEmpty(path))
                 return;
 
@@ -84,7 +84,7 @@ namespace AI.BT.Editor
             if (asset == null)
                 return;
 
-            ClearGraph(graphView);
+            ResetGraph(graphView);
 
             var guidToNode = new Dictionary<string, BTBaseNodeView>();
 
@@ -186,7 +186,7 @@ namespace AI.BT.Editor
         /// <summary>
         /// 그래프 초기화
         /// </summary>
-        private static void ClearGraph(BTGraphView graphView)
+        public static void ResetGraph(BTGraphView graphView)
         {
             var edges = graphView.edges.ToList();
             foreach (var edge in edges)
