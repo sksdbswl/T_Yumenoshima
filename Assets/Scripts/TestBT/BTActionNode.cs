@@ -1,4 +1,5 @@
 using System;
+using AI.BT.Runtime;
 
 /// <summary>
 /// Action Node는 실제로 어떤 행위를 하는 노드
@@ -6,12 +7,21 @@ using System;
 /// </summary>
 public sealed class BTActionNode : INode
 {
-    private readonly Func<INode.ENodeState> _onUpdate;
+    public string Guid { get; }
+    private readonly Func<ENodeState> _onUpdate;
 
-    public BTActionNode(Func<INode.ENodeState> onUpdate)
+    public BTActionNode(string guid, Func<ENodeState> onUpdate)
     {
+        Guid = guid;
         _onUpdate = onUpdate;
     }
 
-    public INode.ENodeState Evaluate() => _onUpdate?.Invoke() ?? INode.ENodeState.ENS_Failure;
+    //public INode.ENodeState Evaluate() => _onUpdate?.Invoke() ?? INode.ENodeState.ENS_Failure;
+    
+    public ENodeState Evaluate()
+    {
+        BTEditorDebugger.SetActive(Guid);
+
+        return _onUpdate?.Invoke() ?? ENodeState.ENS_Failure;
+    }
 }

@@ -13,7 +13,13 @@ namespace AI.BT.Editor
     public class BTEditorWindow : EditorWindow
     {
         private BTGraphView _graphView;
-
+        
+        private void OnDisable()
+        {
+            rootVisualElement.Remove(_graphView);
+            BTEditorDebugger.OnNodeActive -= _graphView.HandleNodeActive;
+        }
+        
         // Editor가 열릴때 실행
         [MenuItem("Tools/AI Behavior Tree Editor")] 
         public static void Open()
@@ -21,7 +27,7 @@ namespace AI.BT.Editor
             var window = GetWindow<BTEditorWindow>(); // Editor 열기
             window.titleContent = new GUIContent("AI BT Editor"); // 제목 설정
         }
-
+        
         /// <summary>
         /// UI Toolkit 방식에서 창의 UI를 실제로 구성하는 함수
         /// </summary>
@@ -33,11 +39,6 @@ namespace AI.BT.Editor
             
             CreateToolbar();
             CreateGraphView();
-        }
-
-        private void OnDisable()
-        {
-            rootVisualElement.Remove(_graphView);
         }
 
         /// <summary>

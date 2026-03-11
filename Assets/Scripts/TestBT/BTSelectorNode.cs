@@ -1,30 +1,36 @@
 using System.Collections.Generic;
+using AI.BT.Runtime;
 
 public sealed class BTSelectorNode : INode
 {
+    public string Guid { get; }
+    
     List<INode> _childs;
+    private INode _nodeImplementation;
 
-    public BTSelectorNode(List<INode> childs)
+    public BTSelectorNode(string guid, List<INode> childs)
     {
         _childs = childs;
     }
-
-    public INode.ENodeState Evaluate()
+    
+    public ENodeState Evaluate()
     {
+        BTEditorDebugger.SetActive(Guid);
+
         if (_childs == null)
-            return INode.ENodeState.ENS_Failure;
+            return ENodeState.ENS_Failure;
 
         foreach (var child in _childs)
         {
             switch (child.Evaluate())
             {
-                case INode.ENodeState.ENS_Running:
-                    return INode.ENodeState.ENS_Running;
-                case INode.ENodeState.ENS_Success:
-                    return INode.ENodeState.ENS_Success;
+                case ENodeState.ENS_Running:
+                    return ENodeState.ENS_Running;
+                case ENodeState.ENS_Success:
+                    return ENodeState.ENS_Success;
             }
         }
 
-        return INode.ENodeState.ENS_Failure;
+        return ENodeState.ENS_Failure;
     }
 }

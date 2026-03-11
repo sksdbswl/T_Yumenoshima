@@ -34,7 +34,7 @@ public class BTGraphRuntimeBuilder
                     .Where(x => x != null)
                     .ToList();
 
-                return new BTSelectorNode(children);
+                return new BTSelectorNode(data.guid, children);
             }
 
             case BTNodeType.Sequence:
@@ -44,17 +44,17 @@ public class BTGraphRuntimeBuilder
                     .Where(x => x != null)
                     .ToList();
 
-                return new BTSequenceNode(children);
+                return new BTSequenceNode(data.guid, children);
             }
-
+            
             case BTNodeType.Condition:
             {
-                return new BTConditionNode(() => EvaluateCondition(data.conditionType, owner));
+                return new BTConditionNode(data.guid, () => EvaluateCondition(data.conditionType, owner));
             }
 
             case BTNodeType.Action:
             {
-                return new BTActionNode(() => ExecuteAction(data.actionType, data.animationStateName, owner));
+                return new BTActionNode(data.guid, () => ExecuteAction(data.actionType, data.animationStateName, owner));
             }
         }
 
@@ -93,7 +93,7 @@ public class BTGraphRuntimeBuilder
         return false;
     }
 
-    private static INode.ENodeState ExecuteAction(BTActionType actionType, string animationStateName, SimulationNpcController owner)
+    private static ENodeState ExecuteAction(BTActionType actionType, string animationStateName, SimulationNpcController owner)
     {
         var bb = owner.sensor.Blackboard;
         var executor = owner.executor;
@@ -116,6 +116,6 @@ public class BTGraphRuntimeBuilder
                 return executor.KeepDefault();
         }
 
-        return INode.ENodeState.ENS_Failure;
+        return ENodeState.ENS_Failure;
     }
 }

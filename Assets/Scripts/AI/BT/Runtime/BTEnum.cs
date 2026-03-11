@@ -1,5 +1,12 @@
 namespace AI.BT.Runtime
 {
+    public enum ENodeState
+    {
+        ENS_Running,
+        ENS_Success,
+        ENS_Failure,
+    }
+    
     public enum BTNodeType
     {
         Root,

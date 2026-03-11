@@ -1,3 +1,4 @@
+using AI.BT.Runtime;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -40,17 +41,14 @@ namespace TestBT
             agent.SetDestination(agent.transform.position + agent.transform.up * 10);
         }
 
-        public INode.ENodeState DoHide()
+        public ENodeState DoHide()
         {
             Debug.Log("숨기");
             
             agent.isStopped = true;
-            return INode.ENodeState.ENS_Success;
+            return ENodeState.ENS_Success;
         }
         
-      
-
-                
         // public INode.ENodeState DoFlee(Transform player)
         // {
         //     Debug.Log("도망");
@@ -85,15 +83,15 @@ namespace TestBT
         private bool _hasFleeTarget;
         private Vector3 _currentFleeTarget;
         
-        public INode.ENodeState DoFlee(Transform player)
+        public ENodeState DoFlee(Transform player)
         {
             if (player == null)
-                return INode.ENodeState.ENS_Failure;
+                return ENodeState.ENS_Failure;
 
             if (!_hasFleeTarget) // false
             {
                 if (!TryFindFleePoint(player.position, out _currentFleeTarget))
-                    return INode.ENodeState.ENS_Running;
+                    return ENodeState.ENS_Running;
 
                 SetSpeed(fleeSpeed);
                 agent.isStopped = false;
@@ -102,14 +100,14 @@ namespace TestBT
             }
 
             if (agent.pathPending)
-                return INode.ENodeState.ENS_Running;
+                return ENodeState.ENS_Running;
 
             if (agent.remainingDistance > agent.stoppingDistance)
-                return INode.ENodeState.ENS_Running;
+                return ENodeState.ENS_Running;
 
             _hasFleeTarget = false;
             SetSpeed(defaultSpeed);
-            return INode.ENodeState.ENS_Success;
+            return ENodeState.ENS_Success;
         }
         
         private bool TryFindFleePoint(Vector3 threatPos, out Vector3 bestPoint)
@@ -158,19 +156,29 @@ namespace TestBT
             return found;
         }
 
-        public INode.ENodeState DoLookAt()
+        /// <summary>
+        /// 대상의 높낮이(Y축)까지 포함하여 바라봅니다.
+        /// 만약 상대방이 나보다 높은 곳에 있다면 고개가 위로 꺾일 수 있습니다.
+        /// tip. 만약 캐릭터가 뚜벅뚜벅 걸어가는 적을 자연스럽게 계속 쳐다보게 하고 싶다면 
+        /// </summary>
+        public ENodeState DoLookAt()
         {
             Debug.Log("기본 모션 : 바라보기");
             
             transform.LookAt(agent.transform);
             
-            return INode.ENodeState.ENS_Running;
+            return ENodeState.ENS_Running;
         }
         
-        public INode.ENodeState DoLookAt(Transform target)
+        /// <summary>
+        /// 대상이 어디 있든 **수평(바닥과 평행)**하게 몸만 돌립니다.
+        /// 캐릭터가 위아래로 기우뚱해지는 것을 방지하는 로직
+        /// tip. 대화 이벤트가 시작되어 NPC가 플레이어를 한 번 슥 쳐다보게 하고 싶다면
+        /// </summary>
+        public ENodeState DoLookAt(Transform target)
         {
             if (target == null)
-                return INode.ENodeState.ENS_Failure;
+                return ENodeState.ENS_Failure;
 
             Debug.Log("기본 모션 : 바라보기");
             Stop();
@@ -181,16 +189,16 @@ namespace TestBT
             if (dir.sqrMagnitude > 0.001f)
                 transform.forward = dir.normalized;
 
-            return INode.ENodeState.ENS_Success;
+            return ENodeState.ENS_Success;
         }
         
-        public INode.ENodeState KeepDefault()
+        public ENodeState KeepDefault()
         {
             DoRandomMove();
-            return INode.ENodeState.ENS_Success;
+            return ENodeState.ENS_Success;
         }
         
-        public INode.ENodeState DoRandomMove()
+        public ENodeState DoRandomMove()
         {
             float radius = 15f;
 
@@ -207,34 +215,34 @@ namespace TestBT
                 }
             }
 
-            return INode.ENodeState.ENS_Success;
+            return ENodeState.ENS_Success;
         }
 
-        public INode.ENodeState DoChase(NpcBlackboard target)
+        public ENodeState DoChase(NpcBlackboard target)
         {
-            if (target == null) return INode.ENodeState.ENS_Failure;
+            if (target == null) return ENodeState.ENS_Failure;
 
             // 1. 공격 범위 안에 들어왔다면? 추적 성공 반환 -> 다음 공격 노드로
             if (target.isPlayerVeryNear)
             {
                 agent.isStopped = true; 
-                return INode.ENodeState.ENS_Success; 
+                return ENodeState.ENS_Success; 
             }
 
             // 2. 아직 멀다면? 계속 이동하며 진행 중 반환
             Debug.Log("추적 중...");
             agent.isStopped = false;
             agent.SetDestination(target.player.position);
-            return INode.ENodeState.ENS_Running;
+            return ENodeState.ENS_Running;
         }
         
         private bool isAttacking = false;
         private float attackDelay = 5f;
         private float attackTimer = 0f;
 
-        public INode.ENodeState DoAttack(Transform target)
+        public ENodeState DoAttack(Transform target)
         {
-            if (target == null) return INode.ENodeState.ENS_Failure;
+            if (target == null) return ENodeState.ENS_Failure;
 
             if (!isAttacking)
             {
@@ -258,7 +266,7 @@ namespace TestBT
                 Debug.Log($"공격 중... ::{attackTimer}");
                 // 2. 공격 진행 중
                 
-                return INode.ENodeState.ENS_Running;
+                return ENodeState.ENS_Running;
             }
 
             // 3. 공격 완료 시점
@@ -267,7 +275,7 @@ namespace TestBT
             isAttacking = false;
             agent.isStopped = false;
             
-            return INode.ENodeState.ENS_Success;
+            return ENodeState.ENS_Success;
         }
 
         public bool IsAttacking()

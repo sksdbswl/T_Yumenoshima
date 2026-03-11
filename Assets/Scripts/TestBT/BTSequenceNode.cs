@@ -1,33 +1,38 @@
 using System.Collections.Generic;
+using AI.BT.Runtime;
 
 public sealed class BTSequenceNode : INode
 {
+    public string Guid { get; }
     List<INode> _childs;
 
-    public BTSequenceNode(List<INode> childs)
+    public BTSequenceNode(string guid,List<INode> childs)
     {
+        Guid = guid;
         _childs = childs;
     }
 
-    public INode.ENodeState Evaluate()
+    public ENodeState Evaluate()
     {
+        BTEditorDebugger.SetActive(Guid);
+
         if (_childs == null || _childs.Count == 0)
-            return INode.ENodeState.ENS_Failure;
+            return ENodeState.ENS_Failure;
 
         foreach (var child in _childs)
         {
             switch (child.Evaluate())
             {
-                case INode.ENodeState.ENS_Running:
-                    return INode.ENodeState.ENS_Running;
-                case INode.ENodeState.ENS_Success:
+                case ENodeState.ENS_Running:
+                    return ENodeState.ENS_Running;
+                case ENodeState.ENS_Success:
                     continue;
-                case INode.ENodeState.ENS_Failure:
-                    return INode.ENodeState.ENS_Failure;
+                case ENodeState.ENS_Failure:
+                    return ENodeState.ENS_Failure;
             }
         }
 
-        return INode.ENodeState.ENS_Success;
+        return ENodeState.ENS_Success;
     }
 }
 

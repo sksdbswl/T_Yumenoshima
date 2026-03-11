@@ -1,4 +1,5 @@
 using System;
+using AI.BT.Runtime;
 
 namespace TestBT
 {
@@ -7,18 +8,22 @@ namespace TestBT
     /// </summary>
     public sealed class BTConditionNode : INode
     {
+        public string Guid { get; }
         private readonly Func<bool> _condition;
+        private INode _nodeImplementation;
 
-        public BTConditionNode(Func<bool> condition)
+        public BTConditionNode(string guid, Func<bool> condition)
         {
             _condition = condition;
         }
 
-        public INode.ENodeState Evaluate()
+        public ENodeState Evaluate()
         {
+            BTEditorDebugger.SetActive(Guid);
+            
             return _condition != null && _condition.Invoke()
-                ? INode.ENodeState.ENS_Success
-                : INode.ENodeState.ENS_Failure;
+                ? ENodeState.ENS_Success
+                : ENodeState.ENS_Failure;
         }
     }
 }

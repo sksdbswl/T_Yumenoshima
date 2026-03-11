@@ -31,6 +31,25 @@ namespace AI.BT.Editor
         }
 
         /// <summary>
+        /// Active Event
+        /// </summary>
+        private void OnEnable()
+        {
+            BTEditorDebugger.OnNodeActive += HandleNodeActive;
+        }
+
+        public void HandleNodeActive(string guid)
+        {
+            foreach (var node in nodes.ToList())
+            {
+                if (node is BTBaseNodeView btNode)
+                {
+                    btNode.SetActive(btNode.Guid == guid);
+                }
+            }
+        }
+        
+        /// <summary>
         /// 직접 메뉴 생성
         /// 사용자 우클릭 -> Unity 내부에서 ContextMenu 이벤트 발생
         /// </summary>
@@ -77,6 +96,7 @@ namespace AI.BT.Editor
         // 문제 1: nodeCreationRequest의 용도와 GenericMenu.ShowAsContext() 조합
         // nodeCreationRequest는 보통 GraphView에서 노드 생성 UX를 연결하는 지점이에요. 주로 SearchWindow와 연결하는 데 자주 씀
         // 문제 2 : ctx.screenMousePosition = 스크린 좌표 ( 모니터 상의 좌표 )
+        
         #endregion
         
 
