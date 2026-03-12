@@ -16,7 +16,13 @@ namespace AI.BT.Editor
             title = name;
             NodeType = BTNodeType.Condition;
             ConditionType = conditionType;
-
+            
+            BTNodeStyleUtility.ApplyBaseStyle(this);   
+            BTNodeStyleUtility.ApplyConditionStyle(this); 
+            BTNodeStyleUtility.MakeTitleEditable(this, name, evt => {
+                title = evt.newValue; 
+            });
+            
             var input = CreateInputPort();
             input.portName = "In";
             inputContainer.Add(input);
@@ -26,6 +32,7 @@ namespace AI.BT.Editor
             outputContainer.Add(output);
 
             _enumField = new EnumField("Condition", ConditionType);
+            BTNodeStyleUtility.ApplyEnumFieldStyle(_enumField);
             _enumField.RegisterValueChangedCallback(evt =>
             {
                 ConditionType = (BTConditionType)evt.newValue;

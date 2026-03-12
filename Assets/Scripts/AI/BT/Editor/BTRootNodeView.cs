@@ -10,7 +10,13 @@ namespace AI.BT.Editor
         {
             title = name;
             NodeType = BTNodeType.Root;
-
+            
+            BTNodeStyleUtility.ApplyBaseStyle(this);   
+            BTNodeStyleUtility.ApplyRootStyle(this); 
+            BTNodeStyleUtility.MakeTitleEditable(this, name, evt => {
+                title = evt.newValue; 
+            });
+            
             var output = CreateOutputPort(Port.Capacity.Single);
             output.portName = "Child";
             outputContainer.Add(output);

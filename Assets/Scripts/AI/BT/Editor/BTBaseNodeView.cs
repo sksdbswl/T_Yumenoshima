@@ -30,25 +30,6 @@ namespace AI.BT.Editor
             // 1. 노드 상단 타이틀 설정
             NodeName = nodeName;
             
-            // --- [핵심] 에디터에서 이름을 수정할 수 있도록 TextField 추가 ---
-            TextField nameTextField = new TextField
-            {
-                value = nodeName,
-                isDelayed = true // 엔터를 치거나 포커스를 잃었을 때만 반영 (성능 및 사용성)
-            };
-
-            // 텍스트가 변경되면 노드의 title도 같이 변경
-            nameTextField.RegisterValueChangedCallback(evt => 
-            {
-                NodeName = evt.newValue;
-            });
-
-            // 타이틀 영역(노드 상단)에 TextField 삽입
-            titleContainer.Insert(0, nameTextField);
-            
-            // 기존 라벨(title)은 숨기고 TextField만 보이게 하고 싶다면 
-            titleContainer.Q<Label>().style.display = DisplayStyle.None;
-            
             _activeIndicator = new VisualElement();
             _activeIndicator.style.height = 6;
             _activeIndicator.style.marginTop = 4;

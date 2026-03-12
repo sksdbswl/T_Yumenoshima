@@ -9,7 +9,15 @@ namespace AI.BT.Editor
         {
             title = name;
             NodeType = type;
-
+            titleContainer.AddToClassList("bt-node__title");
+            titleContainer.AddToClassList("bt-node__title--action");
+            
+            BTNodeStyleUtility.ApplyBaseStyle(this);   
+            BTNodeStyleUtility.ApplyCompositeStyle(this); 
+            BTNodeStyleUtility.MakeTitleEditable(this, name, evt => {
+                title = evt.newValue; 
+            });
+            
             var input = CreateInputPort();
             input.portName = "In";
             inputContainer.Add(input);
