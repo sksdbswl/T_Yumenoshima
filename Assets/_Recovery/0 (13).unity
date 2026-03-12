@@ -985,7 +985,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!195 &783787446
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1050,7 +1050,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24e70855fca444218165d58f035879f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestBT.SimulationNpcController
-  graphAsset: {fileID: 11400000, guid: c62742c0cd939ce44b18f49ae413db51, type: 2}
+  graphAsset: {fileID: 0}
   sensor: {fileID: 0}
   executor: {fileID: 0}
 --- !u!136 &783787450

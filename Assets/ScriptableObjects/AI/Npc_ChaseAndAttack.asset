@@ -1,0 +1,114 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23b1a06ff4a04412aa95e1417175b6e5, type: 3}
+  m_Name: Npc_ChaseAndAttack
+  m_EditorClassIdentifier: Assembly-CSharp::AI.BT.Runtime.BTGraphAsset
+  rootGuid: 1541bab5-371b-4e03-818e-14ac6e68a5ea
+  nodes:
+  - guid: 1541bab5-371b-4e03-818e-14ac6e68a5ea
+    nodeName: Root
+    nodeType: 0
+    position: {x: 473, y: 96}
+    conditionType: 0
+    actionType: 0
+    animationStateName: 
+    childrenGuids:
+    - a4279b11-7205-43bd-ba21-35539d5a435c
+  - guid: a4279b11-7205-43bd-ba21-35539d5a435c
+    nodeName: Selector
+    nodeType: 1
+    position: {x: 464, y: 208}
+    conditionType: 0
+    actionType: 0
+    animationStateName: 
+    childrenGuids:
+    - d3846d75-eb0b-4740-859d-f0a738a11889
+    - e0e283cc-cf23-4c45-97fd-4c10533b8446
+    - 071e444c-d0c9-4714-b78f-f3d72bae72e5
+  - guid: e0e283cc-cf23-4c45-97fd-4c10533b8446
+    nodeName: Chase Sequence
+    nodeType: 2
+    position: {x: 618, y: 337}
+    conditionType: 0
+    actionType: 0
+    animationStateName: 
+    childrenGuids:
+    - 462900ab-0ce8-4a8b-92a7-d1d36ddda8f8
+    - 8d067a83-f4aa-49ca-a577-9c99b3d47912
+    - 3604b182-8e85-4cf3-aa1a-a0551c467d52
+  - guid: d3846d75-eb0b-4740-859d-f0a738a11889
+    nodeName: Attack Sequence
+    nodeType: 2
+    position: {x: 147, y: 351}
+    conditionType: 0
+    actionType: 0
+    animationStateName: 
+    childrenGuids:
+    - 6073a578-d74e-4c96-996c-c5746a0c0b7f
+    - c205bc07-4664-4025-abeb-5d49eb4e51b1
+    - 6a678af6-5256-4f03-8511-759706b21ede
+  - guid: 6073a578-d74e-4c96-996c-c5746a0c0b7f
+    nodeName: Condition
+    nodeType: 3
+    position: {x: -109, y: 503}
+    conditionType: 2
+    actionType: 0
+    animationStateName: 
+    childrenGuids: []
+  - guid: c205bc07-4664-4025-abeb-5d49eb4e51b1
+    nodeName: Condition
+    nodeType: 3
+    position: {x: 152, y: 503}
+    conditionType: 5
+    actionType: 0
+    animationStateName: 
+    childrenGuids: []
+  - guid: 6a678af6-5256-4f03-8511-759706b21ede
+    nodeName: Action
+    nodeType: 4
+    position: {x: 372, y: 503}
+    conditionType: 0
+    actionType: 3
+    animationStateName: 
+    childrenGuids: []
+  - guid: 462900ab-0ce8-4a8b-92a7-d1d36ddda8f8
+    nodeName: Condition
+    nodeType: 3
+    position: {x: 628, y: 503}
+    conditionType: 1
+    actionType: 0
+    animationStateName: 
+    childrenGuids: []
+  - guid: 8d067a83-f4aa-49ca-a577-9c99b3d47912
+    nodeName: Condition
+    nodeType: 3
+    position: {x: 874, y: 503}
+    conditionType: 6
+    actionType: 0
+    animationStateName: 
+    childrenGuids: []
+  - guid: 3604b182-8e85-4cf3-aa1a-a0551c467d52
+    nodeName: Action
+    nodeType: 4
+    position: {x: 1098, y: 503}
+    conditionType: 0
+    actionType: 4
+    animationStateName: 
+    childrenGuids: []
+  - guid: 071e444c-d0c9-4714-b78f-f3d72bae72e5
+    nodeName: Action
+    nodeType: 4
+    position: {x: 827, y: 160}
+    conditionType: 0
+    actionType: 5
+    animationStateName: 
+    childrenGuids: []

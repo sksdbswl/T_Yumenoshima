@@ -52,6 +52,9 @@ namespace AI.BT.Editor
             Vector2 mousePosition = evt.localMousePosition;
             
             // 우클릭 메뉴를 직접 구성
+            evt.menu.AppendAction("Create Node/Root",
+                _ => AddElement(CreateRootNode()));
+            
             evt.menu.AppendAction("Create Node/Composite/Selector",
                 _ => AddElement(CreateCompositeNode("Selector", BTNodeType.Selector, mousePosition)));
 
