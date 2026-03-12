@@ -1,5 +1,4 @@
 using AI.BT.Runtime;
-using UnityEditor.Experimental.GraphView;
 
 namespace AI.BT.Editor
 {
@@ -15,7 +14,7 @@ namespace AI.BT.Editor
             input.portName = "In";
             inputContainer.Add(input);
 
-            var output = CreateOutputPort(Port.Capacity.Multi);
+            var output = CreateOutputPort();
             output.portName = "Children";
             outputContainer.Add(output);
 

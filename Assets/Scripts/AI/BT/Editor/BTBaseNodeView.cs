@@ -46,10 +46,8 @@ namespace AI.BT.Editor
             // 타이틀 영역(노드 상단)에 TextField 삽입
             titleContainer.Insert(0, nameTextField);
             
-            // 기존 라벨(title)은 숨기고 TextField만 보이게 하고 싶다면 아래 주석 해제
-            // titleContainer.Q<Label>().style.display = DisplayStyle.None;
-            // ---------------------------------------------------------
-            
+            // 기존 라벨(title)은 숨기고 TextField만 보이게 하고 싶다면 
+            titleContainer.Q<Label>().style.display = DisplayStyle.None;
             
             _activeIndicator = new VisualElement();
             _activeIndicator.style.height = 6;
