@@ -12,7 +12,7 @@ namespace TestBT
         private NavMeshAgent agent;
         
         private float defaultSpeed = 2f;
-        private float fleeSpeed = 8f;
+        private float fleeSpeed = 10f;
         
         private void Awake()
         {
@@ -49,112 +49,35 @@ namespace TestBT
             return ENodeState.ENS_Success;
         }
         
-        // public INode.ENodeState DoFlee(Transform player)
-        // {
-        //     Debug.Log("도망");
-        //
-        //     Vector3 dir = (transform.position - player.position).normalized;
-        //     float fleeDistance = 8f;
-        //
-        //     Vector3 randomOffset = Random.insideUnitSphere * 3f;
-        //
-        //     Vector3 target = transform.position + dir * fleeDistance + randomOffset;
-        //
-        //     NavMeshHit hit;
-        //     if (NavMesh.SamplePosition(target, out hit, fleeDistance, NavMesh.AllAreas))
-        //     {
-        //         SetSpeed(fleeSpeed);
-        //         agent.isStopped = false;
-        //         agent.SetDestination(hit.position);
-        //     }
-        //
-        //     // 아직 이동 중이면 Running 유지
-        //     if (agent.pathPending)
-        //         return INode.ENodeState.ENS_Running;
-        //
-        //     if (agent.remainingDistance > agent.stoppingDistance)
-        //         return INode.ENodeState.ENS_Running;
-        //
-        //     // 도착했으면 성공
-        //     SetSpeed(defaultSpeed);
-        //     return INode.ENodeState.ENS_Success;
-        // }
+        #region Default/Move
 
-        private bool _hasFleeTarget;
-        private Vector3 _currentFleeTarget;
-        
-        public ENodeState DoFlee(Transform player)
+        public ENodeState KeepDefault()
         {
-            if (player == null)
-                return ENodeState.ENS_Failure;
-
-            if (!_hasFleeTarget) // false
-            {
-                if (!TryFindFleePoint(player.position, out _currentFleeTarget))
-                    return ENodeState.ENS_Running;
-
-                SetSpeed(fleeSpeed);
-                agent.isStopped = false;
-                agent.SetDestination(_currentFleeTarget);
-                _hasFleeTarget = true;
-            }
-
-            if (agent.pathPending)
-                return ENodeState.ENS_Running;
-
-            if (agent.remainingDistance > agent.stoppingDistance)
-                return ENodeState.ENS_Running;
-
-            _hasFleeTarget = false;
-            SetSpeed(defaultSpeed);
+            DoRandomMove();
             return ENodeState.ENS_Success;
         }
         
-        private bool TryFindFleePoint(Vector3 threatPos, out Vector3 bestPoint)
+        public void DoRandomMove()
         {
-            bestPoint = transform.position;
+            float radius = 15f;
 
-            Vector3 fleeDir = (transform.position - threatPos).normalized;
-            float fleeDistance = 8f;
+            Vector3 randomPoint = transform.position + Random.insideUnitSphere * radius;
 
-            float bestScore = float.MinValue;
-            bool found = false;
-
-            for (int i = 0; i < 12; i++)
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(randomPoint, out hit, radius, NavMesh.AllAreas))
             {
-                Vector3 offset = Random.insideUnitSphere * 4f;
-                offset.y = 0f;
-
-                Vector3 candidate = transform.position + fleeDir * fleeDistance + offset;
-
-                if (!NavMesh.SamplePosition(candidate, out NavMeshHit hit, 3f, NavMesh.AllAreas))
-                    continue;
-
-                NavMeshPath path = new NavMeshPath();
-                if (!agent.CalculatePath(hit.position, path))
-                    continue;
-
-                if (path.status != NavMeshPathStatus.PathComplete)
-                    continue;
-
-                // 플레이어에게서 멀어질수록 높은 점수
-                float distFromThreat = Vector3.Distance(hit.position, threatPos);
-
-                // 현재 위치와 너무 가까운 점은 제외
-                float moveDist = Vector3.Distance(transform.position, hit.position);
-                if (moveDist < 2f)
-                    continue;
-
-                if (distFromThreat > bestScore)
+                agent.isStopped = false;
+                if (!agent.hasPath || agent.remainingDistance < 0.5f)
                 {
-                    bestScore = distFromThreat;
-                    bestPoint = hit.position;
-                    found = true;
+                    SetSpeed(defaultSpeed);
+                    agent.SetDestination(hit.position);
                 }
             }
-
-            return found;
         }
+
+        #endregion
+
+        #region LookAt
 
         /// <summary>
         /// 대상의 높낮이(Y축)까지 포함하여 바라봅니다.
@@ -191,30 +114,14 @@ namespace TestBT
 
             return ENodeState.ENS_Success;
         }
-        
-        public ENodeState KeepDefault()
-        {
-            DoRandomMove();
-            return ENodeState.ENS_Success;
-        }
-        
-        public void DoRandomMove()
-        {
-            float radius = 15f;
 
-            Vector3 randomPoint = transform.position + Random.insideUnitSphere * radius;
+        #endregion
 
-            NavMeshHit hit;
-            if (NavMesh.SamplePosition(randomPoint, out hit, radius, NavMesh.AllAreas))
-            {
-                agent.isStopped = false;
-                if (!agent.hasPath || agent.remainingDistance < 0.5f)
-                {
-                    SetSpeed(defaultSpeed);
-                    agent.SetDestination(hit.position);
-                }
-            }
-        }
+        #region Chase/Attack
+
+        private bool isAttacking = false;
+        private float attackDelay = 5f;
+        private float attackTimer = 0f;
 
         public ENodeState DoChase(NpcBlackboard target)
         {
@@ -233,31 +140,14 @@ namespace TestBT
             agent.SetDestination(target.player.position);
             return ENodeState.ENS_Running;
         }
-        
-        private bool isAttacking = false;
-        private float attackDelay = 5f;
-        private float attackTimer = 0f;
-        
-        // 기존
-        // Selector
-        // ├ Sequence A: IsPlayerVeryNear -> CanAttack -> IsAttacking -> Attack ( 공격하려면 이미 공격 중이어야 한다라는 논리가 되는.. )
-        // ├ Sequence B: IsPlayerNear -> CanChase -> Chase
-        // └ Default
-        
-        // 변경
-        // Selector
-        // ├ Sequence A: IsAttacking -> Attack ( 공격 지속 전용 락(lock) 역할 )
-        // ├ Sequence B: IsPlayerVeryNear -> CanAttack -> Attack
-        // ├ Sequence C: IsPlayerNear -> CanChase -> Chase
-        // └ Default
-        
+
         public ENodeState DoAttack(Transform target)
         {
             if (target == null) return ENodeState.ENS_Failure;
 
             if (!isAttacking)
             {
-                // 1. 공격 시작 시점 (최초 1회)
+                // 1. 공격 시작 시점 
                 Debug.Log("공격 시작");
                 if (agent != null) Stop(); 
 
@@ -293,5 +183,71 @@ namespace TestBT
         {
             return isAttacking;
         }
+
+        #endregion
+
+        #region Flee
+
+        private bool isFleeing = false; // 도망 상태 값
+        private bool _hasFleeTarget = false; // 좌표 설정 값
+        private Vector3 _currentFleeTarget;
+        
+        public ENodeState DoFlee(Transform player)
+        {
+            if (player == null) return ENodeState.ENS_Failure;
+            if (!isFleeing) isFleeing = true;
+            
+            return DoDistanceRandomMove();
+        }
+        
+        public ENodeState DoDistanceRandomMove()
+        {
+            float minDistance = 10f;
+            float maxDistance = 15f;
+
+            if (!_hasFleeTarget)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    Vector3 randomDir = Random.insideUnitSphere;
+                    randomDir.y = 0f;
+                    randomDir.Normalize();
+
+                    float randomDistance = Random.Range(minDistance, maxDistance);
+                    Vector3 randomPoint = transform.position + randomDir * randomDistance;
+
+                    if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 2f, NavMesh.AllAreas))
+                    {
+                        agent.isStopped = false;
+                        SetSpeed(fleeSpeed);
+                        _currentFleeTarget = hit.position;
+                        agent.SetDestination(_currentFleeTarget);
+                        _hasFleeTarget = true;
+
+                        return ENodeState.ENS_Running;
+                    }
+                }
+
+                return ENodeState.ENS_Running;
+            }
+
+            if (agent.pathPending)
+                return ENodeState.ENS_Running;
+
+            if (agent.remainingDistance > agent.stoppingDistance)
+                return ENodeState.ENS_Running;
+
+            _hasFleeTarget = false;
+            isFleeing = false;
+            
+            return ENodeState.ENS_Success;
+        }
+        
+        public bool IsFleeing()
+        {
+            return isFleeing;
+        }
+
+        #endregion
     }
 }

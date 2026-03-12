@@ -21,6 +21,5 @@ namespace TestBT
         public bool canAttack; // 공격
         
         public bool canFlee; // 도망
-        
     }
 }

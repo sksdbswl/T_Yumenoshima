@@ -86,6 +86,9 @@ public class BTGraphRuntimeBuilder
 
             case BTConditionType.CanFlee:
                 return bb.canFlee;
+            
+            case BTConditionType.IsFleeing:
+                return executor.IsFleeing();
 
             case BTConditionType.IsPlayerVeryNear:
                 return bb.isPlayerVeryNear;
