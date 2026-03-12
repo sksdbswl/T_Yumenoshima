@@ -198,7 +198,7 @@ namespace TestBT
             return ENodeState.ENS_Success;
         }
         
-        public ENodeState DoRandomMove()
+        public void DoRandomMove()
         {
             float radius = 15f;
 
@@ -214,8 +214,6 @@ namespace TestBT
                     agent.SetDestination(hit.position);
                 }
             }
-
-            return ENodeState.ENS_Success;
         }
 
         public ENodeState DoChase(NpcBlackboard target)
@@ -240,6 +238,12 @@ namespace TestBT
         private float attackDelay = 5f;
         private float attackTimer = 0f;
 
+        // Selector children:
+        // 1. IsAttacking -> Attack
+        // 2. IsPlayerVeryNear -> CanAttack -> Attack
+        // 3. IsPlayerNear -> CanChase -> Chase
+        // 4. KeepDefault
+        
         public ENodeState DoAttack(Transform target)
         {
             if (target == null) return ENodeState.ENS_Failure;

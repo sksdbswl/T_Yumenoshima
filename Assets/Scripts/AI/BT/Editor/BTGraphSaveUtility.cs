@@ -50,12 +50,20 @@ namespace AI.BT.Editor
                     data.animationStateName = actionNode.AnimationStateName;
                 }
 
-                var childEdges = edges.Where(e => e.output.node == nodeView).ToList();
-                foreach (var edge in childEdges)
-                {
-                    if (edge.input.node is BTBaseNodeView childNode)
-                        data.childrenGuids.Add(childNode.Guid);
-                }
+                data.childrenGuids = edges
+                    .Where(e => e.output.node == nodeView)
+                    .Select(e => e.input.node as BTBaseNodeView)
+                    .Where(n => n != null)
+                    .OrderBy(n => n.GetPosition().x)
+                    .Select(n => n.Guid)
+                    .ToList();
+                
+                // var childEdges = edges.Where(e => e.output.node == nodeView).ToList();
+                // foreach (var edge in childEdges)
+                // {
+                //     if (edge.input.node is BTBaseNodeView childNode)
+                //         data.childrenGuids.Add(childNode.Guid);
+                // }
 
                 asset.nodes.Add(data);
 

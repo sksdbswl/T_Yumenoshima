@@ -34,14 +34,6 @@ MonoBehaviour:
     - d3846d75-eb0b-4740-859d-f0a738a11889
     - e0e283cc-cf23-4c45-97fd-4c10533b8446
     - 071e444c-d0c9-4714-b78f-f3d72bae72e5
-  - guid: 071e444c-d0c9-4714-b78f-f3d72bae72e5
-    nodeName: Default Action
-    nodeType: 4
-    position: {x: 827, y: 160}
-    conditionType: 0
-    actionType: 5
-    animationStateName: 
-    childrenGuids: []
   - guid: d3846d75-eb0b-4740-859d-f0a738a11889
     nodeName: Attack Sequence
     nodeType: 2
@@ -53,18 +45,6 @@ MonoBehaviour:
     - 6073a578-d74e-4c96-996c-c5746a0c0b7f
     - c205bc07-4664-4025-abeb-5d49eb4e51b1
     - 6a678af6-5256-4f03-8511-759706b21ede
-  - guid: e0e283cc-cf23-4c45-97fd-4c10533b8446
-    nodeName: Chase Sequence
-    nodeType: 2
-    position: {x: 801, y: 364}
-    conditionType: 0
-    actionType: 0
-    animationStateName: 
-    childrenGuids:
-    - 462900ab-0ce8-4a8b-92a7-d1d36ddda8f8
-    - 8d067a83-f4aa-49ca-a577-9c99b3d47912
-    - 3604b182-8e85-4cf3-aa1a-a0551c467d52
-    - feafebb6-9510-4fdd-9913-c68aaa8844fc
   - guid: 6073a578-d74e-4c96-996c-c5746a0c0b7f
     nodeName: VeryNear Condition
     nodeType: 3
@@ -89,6 +69,18 @@ MonoBehaviour:
     actionType: 3
     animationStateName: 
     childrenGuids: []
+  - guid: e0e283cc-cf23-4c45-97fd-4c10533b8446
+    nodeName: Chase Sequence
+    nodeType: 2
+    position: {x: 801, y: 364}
+    conditionType: 0
+    actionType: 0
+    animationStateName: 
+    childrenGuids:
+    - 462900ab-0ce8-4a8b-92a7-d1d36ddda8f8
+    - 8d067a83-f4aa-49ca-a577-9c99b3d47912
+    - 3604b182-8e85-4cf3-aa1a-a0551c467d52
+    - feafebb6-9510-4fdd-9913-c68aaa8844fc
   - guid: 462900ab-0ce8-4a8b-92a7-d1d36ddda8f8
     nodeName: Near Condition
     nodeType: 3
@@ -119,5 +111,13 @@ MonoBehaviour:
     position: {x: 1138, y: 502}
     conditionType: 0
     actionType: 4
+    animationStateName: 
+    childrenGuids: []
+  - guid: 071e444c-d0c9-4714-b78f-f3d72bae72e5
+    nodeName: Default Action
+    nodeType: 4
+    position: {x: 827, y: 160}
+    conditionType: 0
+    actionType: 5
     animationStateName: 
     childrenGuids: []

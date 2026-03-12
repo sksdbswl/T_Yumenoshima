@@ -29,6 +29,16 @@ public class BTGraphRuntimeBuilder
 
             case BTNodeType.Selector:
             {
+                UnityEngine.Debug.Log(
+                    $"[Selector] {data.nodeName} children = " +
+                    string.Join(" | ", data.childrenGuids.Select(id =>
+                    {
+                        var child = nodeMap[id];
+                        return $"{child.nodeName} ({child.nodeType})";
+                    }))
+                );
+
+                
                 var children = data.childrenGuids
                     .Select(childGuid => BuildNode(childGuid, nodeMap, owner))
                     .Where(x => x != null)
