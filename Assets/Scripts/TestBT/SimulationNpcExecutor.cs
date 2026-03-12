@@ -237,12 +237,19 @@ namespace TestBT
         private bool isAttacking = false;
         private float attackDelay = 5f;
         private float attackTimer = 0f;
-
-        // Selector children:
-        // 1. IsAttacking -> Attack
-        // 2. IsPlayerVeryNear -> CanAttack -> Attack
-        // 3. IsPlayerNear -> CanChase -> Chase
-        // 4. KeepDefault
+        
+        // 기존
+        // Selector
+        // ├ Sequence A: IsPlayerVeryNear -> CanAttack -> IsAttacking -> Attack ( 공격하려면 이미 공격 중이어야 한다라는 논리가 되는.. )
+        // ├ Sequence B: IsPlayerNear -> CanChase -> Chase
+        // └ Default
+        
+        // 변경
+        // Selector
+        // ├ Sequence A: IsAttacking -> Attack ( 공격 지속 전용 락(lock) 역할 )
+        // ├ Sequence B: IsPlayerVeryNear -> CanAttack -> Attack
+        // ├ Sequence C: IsPlayerNear -> CanChase -> Chase
+        // └ Default
         
         public ENodeState DoAttack(Transform target)
         {

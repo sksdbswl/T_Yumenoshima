@@ -12,111 +12,129 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b1a06ff4a04412aa95e1417175b6e5, type: 3}
   m_Name: Npc_ChaseAndAttack
   m_EditorClassIdentifier: Assembly-CSharp::AI.BT.Runtime.BTGraphAsset
-  rootGuid: 1541bab5-371b-4e03-818e-14ac6e68a5ea
+  rootGuid: 813dd5fd-015d-4335-8f7f-37420f7b78c5
   nodes:
-  - guid: 1541bab5-371b-4e03-818e-14ac6e68a5ea
+  - guid: 813dd5fd-015d-4335-8f7f-37420f7b78c5
     nodeName: Root
     nodeType: 0
-    position: {x: 473, y: 96}
+    position: {x: 492, y: 8}
     conditionType: 0
     actionType: 0
     animationStateName: 
     childrenGuids:
-    - a4279b11-7205-43bd-ba21-35539d5a435c
-  - guid: a4279b11-7205-43bd-ba21-35539d5a435c
+    - f4b1a4c7-fe46-421f-a356-fdd8be8997b4
+  - guid: f4b1a4c7-fe46-421f-a356-fdd8be8997b4
     nodeName: Selector
     nodeType: 1
-    position: {x: 464, y: 208}
+    position: {x: 492, y: 125}
     conditionType: 0
     actionType: 0
     animationStateName: 
     childrenGuids:
-    - d3846d75-eb0b-4740-859d-f0a738a11889
-    - e0e283cc-cf23-4c45-97fd-4c10533b8446
-    - 071e444c-d0c9-4714-b78f-f3d72bae72e5
-  - guid: d3846d75-eb0b-4740-859d-f0a738a11889
-    nodeName: Attack Sequence
+    - df2253d3-0881-48e2-9802-c23751ff3b06
+    - 73b545bf-db1b-41d8-b0a2-be7054a17631
+    - e5241c2c-bcf6-4626-852e-55cc42b43d0d
+    - e6eaf417-fc45-4138-9a2b-8f1865431e28
+  - guid: df2253d3-0881-48e2-9802-c23751ff3b06
+    nodeName: Attack-ing Sequence
     nodeType: 2
-    position: {x: -120, y: 363}
+    position: {x: -468, y: 314}
     conditionType: 0
     actionType: 0
     animationStateName: 
     childrenGuids:
-    - 6073a578-d74e-4c96-996c-c5746a0c0b7f
-    - c205bc07-4664-4025-abeb-5d49eb4e51b1
-    - 6a678af6-5256-4f03-8511-759706b21ede
-  - guid: 6073a578-d74e-4c96-996c-c5746a0c0b7f
-    nodeName: VeryNear Condition
+    - 15e5358a-a28b-42ea-b357-0f7a458cc4c4
+    - 09740976-c758-4329-ab6e-5dfe2daf0a86
+  - guid: 15e5358a-a28b-42ea-b357-0f7a458cc4c4
+    nodeName: Condition
     nodeType: 3
-    position: {x: -347, y: 550}
-    conditionType: 2
-    actionType: 0
-    animationStateName: 
-    childrenGuids: []
-  - guid: c205bc07-4664-4025-abeb-5d49eb4e51b1
-    nodeName: CanAttack Condition
-    nodeType: 3
-    position: {x: -86, y: 550}
-    conditionType: 5
-    actionType: 0
-    animationStateName: 
-    childrenGuids: []
-  - guid: 6a678af6-5256-4f03-8511-759706b21ede
-    nodeName: Attack Action
-    nodeType: 4
-    position: {x: 149, y: 531}
-    conditionType: 0
-    actionType: 3
-    animationStateName: 
-    childrenGuids: []
-  - guid: e0e283cc-cf23-4c45-97fd-4c10533b8446
-    nodeName: Chase Sequence
-    nodeType: 2
-    position: {x: 801, y: 364}
-    conditionType: 0
-    actionType: 0
-    animationStateName: 
-    childrenGuids:
-    - 462900ab-0ce8-4a8b-92a7-d1d36ddda8f8
-    - 8d067a83-f4aa-49ca-a577-9c99b3d47912
-    - 3604b182-8e85-4cf3-aa1a-a0551c467d52
-    - feafebb6-9510-4fdd-9913-c68aaa8844fc
-  - guid: 462900ab-0ce8-4a8b-92a7-d1d36ddda8f8
-    nodeName: Near Condition
-    nodeType: 3
-    position: {x: 429, y: 531}
-    conditionType: 1
-    actionType: 0
-    animationStateName: 
-    childrenGuids: []
-  - guid: 8d067a83-f4aa-49ca-a577-9c99b3d47912
-    nodeName: CanChase Condition
-    nodeType: 3
-    position: {x: 669, y: 531}
-    conditionType: 6
-    actionType: 0
-    animationStateName: 
-    childrenGuids: []
-  - guid: feafebb6-9510-4fdd-9913-c68aaa8844fc
-    nodeName: IsAttacking Condition
-    nodeType: 3
-    position: {x: 897, y: 531}
+    position: {x: -843, y: 459}
     conditionType: 7
     actionType: 0
     animationStateName: 
     childrenGuids: []
-  - guid: 3604b182-8e85-4cf3-aa1a-a0551c467d52
-    nodeName: Chase Action
+  - guid: 09740976-c758-4329-ab6e-5dfe2daf0a86
+    nodeName: Action
     nodeType: 4
-    position: {x: 1138, y: 502}
+    position: {x: -630, y: 459}
+    conditionType: 0
+    actionType: 3
+    animationStateName: 
+    childrenGuids: []
+  - guid: e5241c2c-bcf6-4626-852e-55cc42b43d0d
+    nodeName: ChaseSequence
+    nodeType: 2
+    position: {x: 651, y: 314}
+    conditionType: 0
+    actionType: 0
+    animationStateName: 
+    childrenGuids:
+    - 1e962fe8-62a6-40cd-8638-f01e300a8f64
+    - 9f94f613-7592-4358-91f0-f44a2230232d
+    - e349c7f6-a123-4676-8c59-3ddf6eb0de7b
+  - guid: 1e962fe8-62a6-40cd-8638-f01e300a8f64
+    nodeName: Condition
+    nodeType: 3
+    position: {x: 456, y: 469}
+    conditionType: 1
+    actionType: 0
+    animationStateName: 
+    childrenGuids: []
+  - guid: 9f94f613-7592-4358-91f0-f44a2230232d
+    nodeName: Condition
+    nodeType: 3
+    position: {x: 705, y: 469}
+    conditionType: 6
+    actionType: 0
+    animationStateName: 
+    childrenGuids: []
+  - guid: e349c7f6-a123-4676-8c59-3ddf6eb0de7b
+    nodeName: Action
+    nodeType: 4
+    position: {x: 960, y: 469}
     conditionType: 0
     actionType: 4
     animationStateName: 
     childrenGuids: []
-  - guid: 071e444c-d0c9-4714-b78f-f3d72bae72e5
-    nodeName: Default Action
+  - guid: 73b545bf-db1b-41d8-b0a2-be7054a17631
+    nodeName: Attack Sequence
+    nodeType: 2
+    position: {x: -60, y: 314}
+    conditionType: 0
+    actionType: 0
+    animationStateName: 
+    childrenGuids:
+    - 043d4cd9-6d3d-4efe-b4f6-995640fca79a
+    - a2d87544-c90b-4421-a00f-38a7640fe455
+    - b53eb6f2-a6da-4e30-b222-d75cb3011df1
+  - guid: 043d4cd9-6d3d-4efe-b4f6-995640fca79a
+    nodeName: Condition
+    nodeType: 3
+    position: {x: -274, y: 469}
+    conditionType: 2
+    actionType: 0
+    animationStateName: 
+    childrenGuids: []
+  - guid: a2d87544-c90b-4421-a00f-38a7640fe455
+    nodeName: Condition
+    nodeType: 3
+    position: {x: -19, y: 469}
+    conditionType: 5
+    actionType: 0
+    animationStateName: 
+    childrenGuids: []
+  - guid: b53eb6f2-a6da-4e30-b222-d75cb3011df1
+    nodeName: Action
     nodeType: 4
-    position: {x: 827, y: 160}
+    position: {x: 194, y: 469}
+    conditionType: 0
+    actionType: 3
+    animationStateName: 
+    childrenGuids: []
+  - guid: e6eaf417-fc45-4138-9a2b-8f1865431e28
+    nodeName: Defult Action
+    nodeType: 4
+    position: {x: 1288, y: 314}
     conditionType: 0
     actionType: 5
     animationStateName: 
