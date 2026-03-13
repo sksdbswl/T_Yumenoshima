@@ -16,8 +16,12 @@ namespace AI.BT.Editor
         
         private void OnDisable()
         {
-            rootVisualElement.Remove(_graphView);
-            BTEditorDebugger.OnNodeActive -= _graphView.HandleNodeActive;
+            if (_graphView != null)
+            {
+                BTEditorDebugger.OnNodeActive -= _graphView.HandleNodeActive;
+                _graphView.RemoveFromHierarchy();
+                _graphView = null;
+            }
         }
         
         // Editor가 열릴때 실행
