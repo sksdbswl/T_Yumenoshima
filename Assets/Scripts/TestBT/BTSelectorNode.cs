@@ -10,6 +10,7 @@ public sealed class BTSelectorNode : INode
 
     public BTSelectorNode(string guid, List<INode> childs)
     {
+        Guid = guid;
         _childs = childs;
     }
     

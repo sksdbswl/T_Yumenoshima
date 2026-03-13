@@ -5,6 +5,7 @@ using TestBT;
 
 public class BTGraphRuntimeBuilder
 {
+    // BTGraphAsset 데이터를 실제 실행 가능한 Behaviour Tree 객체로 바꿔주는 클래스
     public static INode Build(BTGraphAsset asset, SimulationNpcController owner)
     {
         var nodeMap = asset.nodes.ToDictionary(n => n.guid, n => n);
@@ -71,6 +72,7 @@ public class BTGraphRuntimeBuilder
         return null;
     }
 
+    // Func<bool> 콜백
     private static bool EvaluateCondition(BTConditionType conditionType, SimulationNpcController owner)
     {
         var bb = owner.sensor.Blackboard;
@@ -106,6 +108,7 @@ public class BTGraphRuntimeBuilder
         return false;
     }
 
+    // BTActionType 상태 콜백
     private static ENodeState ExecuteAction(BTActionType actionType, string animationStateName, SimulationNpcController owner)
     {
         var bb = owner.sensor.Blackboard;

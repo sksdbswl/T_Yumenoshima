@@ -10,10 +10,10 @@ namespace TestBT
     {
         public string Guid { get; }
         private readonly Func<bool> _condition;
-        private INode _nodeImplementation;
 
         public BTConditionNode(string guid, Func<bool> condition)
         {
+            Guid = guid;
             _condition = condition;
         }
 
