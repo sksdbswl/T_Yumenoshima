@@ -38,7 +38,7 @@ public static class BTGraphRuntimeBuilder
         { BTActionType.Chase, owner => owner.executor.DoChase(owner.sensor.Blackboard) },
         { BTActionType.KeepDefault, owner => owner.executor.KeepDefault() },
     };
-
+    
     public static INode Build(BTGraphAsset asset, SimulationNpcController owner)
     {
         if (asset == null) return null;
@@ -48,6 +48,9 @@ public static class BTGraphRuntimeBuilder
         if (owner.executor == null) return null;
         if (asset.nodes == null || asset.nodes.Count == 0) return null;
 
+        // 안전성: 함수 내부에서 필요한 모든 데이터를 인자(nodeMap)로 직접 받으면, 외부 상태에 의존하지 않으므로 언제 어디서 호출해도 결과가 정확합니다.
+        // 독립성: 여러 NPC가 동시에 빌드 프로세스를 진행해도 각자의 스택(Stack) 메모리 내에서 nodeMap 참조를 들고 있기 때문에 서로 간섭하지 않습니다.
+        // 따라서 함수 내부에서 호출
         var nodeMap = asset.nodes.ToDictionary(n => n.guid, n => n);
         return BuildNode(asset.rootGuid, nodeMap, owner);
     }
@@ -61,7 +64,7 @@ public static class BTGraphRuntimeBuilder
         // 여기서 factory는 BuildRootNode나 BuildSelectorNode 같은 함수 그 자체를 가리킵니다.
         if (!NodeFactories.TryGetValue(data.nodeType, out var factory)) return null;
     
-        // 2. 여기서 비로소 함수를 '실행'합니다! 
+        // 2. 여기서 비로소 함수를 '실행'합니다
         // 이때 필요한 파라미터(data, nodeMap, owner)를 비로소 전달합니다.
         return factory(data, nodeMap, owner);
     }
@@ -102,9 +105,11 @@ public static class BTGraphRuntimeBuilder
     private static List<INode> BuildChildren(BTNodeData data, Dictionary<string, BTNodeData> nodeMap, SimulationNpcController owner)
     {
         var childGuids = data.childrenGuids ?? new List<string>();
-
+        
+        Debug.Log($"[BTBuilder] build children: {childGuids.Count}");
+        
         return childGuids
-            .Select(childGuid => BuildNode(childGuid, nodeMap, owner))
+            .Select(childGuid => BuildNode(childGuid, nodeMap, owner)) // 여기서 다시 위로
             .Where(node => node != null)
             .ToList();
     }
