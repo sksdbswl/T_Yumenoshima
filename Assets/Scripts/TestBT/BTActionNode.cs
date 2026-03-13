@@ -15,8 +15,6 @@ public sealed class BTActionNode : INode
         Guid = guid;
         _onUpdate = onUpdate;
     }
-
-    //public INode.ENodeState Evaluate() => _onUpdate?.Invoke() ?? INode.ENodeState.ENS_Failure;
     
     public ENodeState Evaluate()
     {

@@ -15,8 +15,6 @@ public sealed class BTSelectorNode : INode
     
     public ENodeState Evaluate()
     {
-        //BTEditorDebugger.SetActive(Guid);
-
         if (_childs == null)
             return ENodeState.ENS_Failure;
 

@@ -35,30 +35,12 @@ MonoBehaviour:
     - 73b545bf-db1b-41d8-b0a2-be7054a17631
     - e5241c2c-bcf6-4626-852e-55cc42b43d0d
     - e6eaf417-fc45-4138-9a2b-8f1865431e28
-  - guid: df2253d3-0881-48e2-9802-c23751ff3b06
-    nodeName: Attack-ing Sequence
-    nodeType: 2
-    position: {x: -468, y: 314}
-    conditionType: 0
-    actionType: 0
-    animationStateName: 
-    childrenGuids:
-    - 15e5358a-a28b-42ea-b357-0f7a458cc4c4
-    - 09740976-c758-4329-ab6e-5dfe2daf0a86
   - guid: 15e5358a-a28b-42ea-b357-0f7a458cc4c4
     nodeName: Condition
     nodeType: 3
     position: {x: -843, y: 459}
-    conditionType: 7
+    conditionType: 8
     actionType: 0
-    animationStateName: 
-    childrenGuids: []
-  - guid: 09740976-c758-4329-ab6e-5dfe2daf0a86
-    nodeName: Action
-    nodeType: 4
-    position: {x: -630, y: 459}
-    conditionType: 0
-    actionType: 3
     animationStateName: 
     childrenGuids: []
   - guid: e5241c2c-bcf6-4626-852e-55cc42b43d0d
@@ -84,7 +66,7 @@ MonoBehaviour:
     nodeName: Condition
     nodeType: 3
     position: {x: 705, y: 469}
-    conditionType: 6
+    conditionType: 7
     actionType: 0
     animationStateName: 
     childrenGuids: []
@@ -119,16 +101,8 @@ MonoBehaviour:
     nodeName: Condition
     nodeType: 3
     position: {x: -19, y: 469}
-    conditionType: 5
+    conditionType: 6
     actionType: 0
-    animationStateName: 
-    childrenGuids: []
-  - guid: b53eb6f2-a6da-4e30-b222-d75cb3011df1
-    nodeName: Action
-    nodeType: 4
-    position: {x: 194, y: 469}
-    conditionType: 0
-    actionType: 3
     animationStateName: 
     childrenGuids: []
   - guid: e6eaf417-fc45-4138-9a2b-8f1865431e28
@@ -137,5 +111,31 @@ MonoBehaviour:
     position: {x: 1288, y: 314}
     conditionType: 0
     actionType: 5
+    animationStateName: 
+    childrenGuids: []
+  - guid: df2253d3-0881-48e2-9802-c23751ff3b06
+    nodeName: Attack-ing Sequence
+    nodeType: 2
+    position: {x: -423, y: 314}
+    conditionType: 0
+    actionType: 0
+    animationStateName: 
+    childrenGuids:
+    - 15e5358a-a28b-42ea-b357-0f7a458cc4c4
+    - 09740976-c758-4329-ab6e-5dfe2daf0a86
+  - guid: 09740976-c758-4329-ab6e-5dfe2daf0a86
+    nodeName: Action
+    nodeType: 4
+    position: {x: -573, y: 469}
+    conditionType: 0
+    actionType: 3
+    animationStateName: 
+    childrenGuids: []
+  - guid: b53eb6f2-a6da-4e30-b222-d75cb3011df1
+    nodeName: Action
+    nodeType: 4
+    position: {x: 223, y: 469}
+    conditionType: 0
+    actionType: 3
     animationStateName: 
     childrenGuids: []
