@@ -1,11 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.SceneManagement;
 
 public enum RoutineState
 {
@@ -13,8 +11,7 @@ public enum RoutineState
     Noon,
     Night,
 }
-
-public class GameManager : SingletonBase<GameManager>
+public partial class GameManager : SingletonBase<GameManager>
 {
     // 씬에 대한 정보, 이름 변경해줘도 좋을 듯 :: 해당 값을 이용해서 npc spawn
     private int _stage = 1;
@@ -176,37 +173,5 @@ public class GameManager : SingletonBase<GameManager>
         npcObj.transform.position = npcSO.spawnPoint;
         
         // npcObj.GetComponent<NpcInteraction>().npcSO = npcSO;
-    }
-
-    
-    /// <summary>
-    /// 인게임 루틴 전환 : npc 상태 변경 또는 player 행동 제약 ( 임시 5분마다 변경 )
-    /// </summary>
-    public event System.Action<RoutineState> OnRoutineChanged;
-    public RoutineState CurrentState { get; private set; }
-
-    public IEnumerator DayRoutineCoroutine()
-    {
-        while (true)
-        {
-            SetState(RoutineState.Morning);
-            yield return new WaitForSeconds(10f); // 300f = 5분
-
-            SetState(RoutineState.Noon);
-            yield return new WaitForSeconds(10f);
-
-            SetState(RoutineState.Night);
-            yield return new WaitForSeconds(30f);
-        }
-    }
-
-    void SetState(RoutineState state)
-    {
-        CurrentState = state;
-        
-        Debug.Log($"State Changed: {state}");
-        
-        // TODO: 여기서 조명 변경, NPC 상태 변경 등 처리
-        OnRoutineChanged?.Invoke(state); 
     }
 }

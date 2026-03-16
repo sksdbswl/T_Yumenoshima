@@ -73,7 +73,7 @@ public static class BTGraphRuntimeBuilder
     {
         if (data.childrenGuids == null || data.childrenGuids.Count == 0)
         {
-            Debug.LogWarning($"[BTBuilder] root node has no child. guid = {data.guid}");
+            //Debug.LogWarning($"[BTBuilder] root node has no child. guid = {data.guid}");
             return null;
         }
 
@@ -106,7 +106,7 @@ public static class BTGraphRuntimeBuilder
     {
         var childGuids = data.childrenGuids ?? new List<string>();
         
-        Debug.Log($"[BTBuilder] build children: {childGuids.Count}");
+       // Debug.Log($"[BTBuilder] build children: {childGuids.Count}");
         
         return childGuids
             .Select(childGuid => BuildNode(childGuid, nodeMap, owner)) // 여기서 다시 위로
@@ -118,7 +118,7 @@ public static class BTGraphRuntimeBuilder
     {
         if (!ConditionFactories.TryGetValue(conditionType, out var evaluator))
         {
-            Debug.LogWarning($"[BTBuilder] unsupported condition type: {conditionType}");
+            //Debug.LogWarning($"[BTBuilder] unsupported condition type: {conditionType}");
             return false;
         }
 
@@ -129,7 +129,7 @@ public static class BTGraphRuntimeBuilder
     {
         if (!ActionFactories.TryGetValue(actionType, out var executor))
         {
-            Debug.LogWarning($"[BTBuilder] unsupported action type: {actionType}");
+            //Debug.LogWarning($"[BTBuilder] unsupported action type: {actionType}");
             return ENodeState.ENS_Failure;
         }
 

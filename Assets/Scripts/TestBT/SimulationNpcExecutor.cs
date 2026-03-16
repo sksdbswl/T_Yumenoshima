@@ -321,5 +321,11 @@ namespace TestBT
         }
 
         #endregion
+
+        public void GoHome()
+        {
+            agent.isStopped = false;
+            agent.SetDestination(transform.position);
+        }
     }
 }
