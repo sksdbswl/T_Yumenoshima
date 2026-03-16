@@ -197,10 +197,65 @@ namespace TestBT
             if (player == null) return ENodeState.ENS_Failure;
             if (!isFleeing) isFleeing = true;
             
-            return DoDistanceRandomMove();
+            return DoDistanceRandomMove(player);
         }
+        // public ENodeState DoDistanceRandomMove(Transform player)
+        // {
+        //     float minDistance = 10f;
+        //     float maxDistance = 15f;
+        //
+        //     if (!_hasFleeTarget)
+        //     {
+        //         Vector3 awayFromPlayer = transform.position - player.position;
+        //         awayFromPlayer.y = 0f;
+        //
+        //         if (awayFromPlayer.sqrMagnitude < 0.001f)
+        //             awayFromPlayer = transform.forward;
+        //
+        //         awayFromPlayer.Normalize();
+        //
+        //         for (int i = 0; i < 10; i++)
+        //         {
+        //             float angle = Random.Range(-60f, 60f);
+        //             Vector3 randomDir = Quaternion.Euler(0f, angle, 0f) * awayFromPlayer;
+        //
+        //             float randomDistance = Random.Range(minDistance, maxDistance);
+        //             Vector3 randomPoint = transform.position + randomDir * randomDistance;
+        //
+        //             if (!NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 2f, NavMesh.AllAreas))
+        //                 continue;
+        //
+        //             float currentDistToPlayer = Vector3.Distance(transform.position, player.position);
+        //             float newDistToPlayer = Vector3.Distance(hit.position, player.position);
+        //
+        //             if (newDistToPlayer <= currentDistToPlayer)
+        //                 continue;
+        //
+        //             agent.isStopped = false;
+        //             SetSpeed(fleeSpeed);
+        //             _currentFleeTarget = hit.position;
+        //             agent.SetDestination(_currentFleeTarget);
+        //             _hasFleeTarget = true;
+        //
+        //             return ENodeState.ENS_Running;
+        //         }
+        //
+        //         return ENodeState.ENS_Running;
+        //     }
+        //
+        //     if (agent.pathPending)
+        //         return ENodeState.ENS_Running;
+        //
+        //     if (agent.remainingDistance > agent.stoppingDistance)
+        //         return ENodeState.ENS_Running;
+        //
+        //     _hasFleeTarget = false;
+        //     isFleeing = false;
+        //
+        //     return ENodeState.ENS_Success;
+        // }
         
-        public ENodeState DoDistanceRandomMove()
+        public ENodeState DoDistanceRandomMove(Transform player)
         {
             float minDistance = 10f;
             float maxDistance = 15f;
@@ -218,6 +273,12 @@ namespace TestBT
 
                     if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 2f, NavMesh.AllAreas))
                     {
+                        float currentDistToPlayer = Vector3.Distance(transform.position, player.position); // 두 위치 사이의 거리 계산
+                        float newDistToPlayer = Vector3.Distance(hit.position, player.position); // NPC가 그 위치로 이동했을 때 플레이어와의 거리
+
+                        if (newDistToPlayer <= currentDistToPlayer) // 플레이어에게 가까워지는 방향이면 버린다
+                            continue;
+
                         agent.isStopped = false;
                         SetSpeed(fleeSpeed);
                         _currentFleeTarget = hit.position;
@@ -226,6 +287,17 @@ namespace TestBT
 
                         return ENodeState.ENS_Running;
                     }
+                    
+                    // if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 2f, NavMesh.AllAreas))
+                    // {
+                    //     agent.isStopped = false;
+                    //     SetSpeed(fleeSpeed);
+                    //     _currentFleeTarget = hit.position;
+                    //     agent.SetDestination(_currentFleeTarget);
+                    //     _hasFleeTarget = true;
+                    //
+                    //     return ENodeState.ENS_Running;
+                    // }
                 }
 
                 return ENodeState.ENS_Running;
