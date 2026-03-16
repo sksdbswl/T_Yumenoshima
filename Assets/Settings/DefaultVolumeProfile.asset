@@ -146,6 +146,82 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+--- !u!114 &-7186733292625798594
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39dc1fe45bfcc1e4eaa9ae19ecefd49c, type: 3}
+  m_Name: NiloToonShadowControlVolume
+  m_EditorClassIdentifier: NiloToon.NiloToonURP.Runtime::NiloToon.NiloToonURP.NiloToonShadowControlVolume
+  active: 1
+  characterOverallShadowTintColor:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  characterOverallShadowTintColorForSkinFace:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  characterOverallShadowTintColorForNonSkinFace:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  characterOverallShadowStrength:
+    m_OverrideState: 1
+    m_Value: 1
+  enableCharAverageShadow:
+    m_OverrideState: 1
+    m_Value: 1
+  charAverageShadowStrength:
+    m_OverrideState: 1
+    m_Value: 1
+  enableCharSelfShadow:
+    m_OverrideState: 1
+    m_Value: 1
+  charSelfShadowStrength:
+    m_OverrideState: 1
+    m_Value: 1
+  useMainLightAsCastShadowDirection:
+    m_OverrideState: 1
+    m_Value: 1
+  shadowAngle:
+    m_OverrideState: 1
+    m_Value: 30
+  shadowLRAngle:
+    m_OverrideState: 1
+    m_Value: 0
+  shadowRange:
+    m_OverrideState: 1
+    m_Value: 10
+  shadowMapSize:
+    m_OverrideState: 1
+    m_Value: 4096
+  depthBias:
+    m_OverrideState: 1
+    m_Value: 1
+  normalBias:
+    m_OverrideState: 1
+    m_Value: 1
+  receiveURPShadow:
+    m_OverrideState: 1
+    m_Value: 0
+  URPShadowIntensity:
+    m_OverrideState: 1
+    m_Value: 1
+  URPShadowAsDirectLightMultiplier:
+    m_OverrideState: 1
+    m_Value: 1
+  URPShadowAsDirectLightTintColor:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  URPShadowAsDirectLightTintIgnoreMaterialURPUsageSetting:
+    m_OverrideState: 1
+    m_Value: 1
+  URPShadowblurriness:
+    m_OverrideState: 1
+    m_Value: 1
 --- !u!114 &-6335409530604852063
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -299,6 +375,92 @@ MonoBehaviour:
   cropToFit:
     m_OverrideState: 1
     m_Value: 1
+--- !u!114 &-4445238402042379966
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aa15fc7246432d4fb73e65893caaa4b, type: 3}
+  m_Name: NiloToonAnimePostProcessVolume
+  m_EditorClassIdentifier: NiloToon.NiloToonURP.Runtime::NiloToon.NiloToonURP.NiloToonAnimePostProcessVolume
+  active: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0
+  rotation:
+    m_OverrideState: 1
+    m_Value: 0
+  topLightEffectDrawHeight:
+    m_OverrideState: 1
+    m_Value: 0.5
+  topLightEffectIntensity:
+    m_OverrideState: 1
+    m_Value: 1
+  topLightMultiplyLightColor:
+    m_OverrideState: 1
+    m_Value: 1
+  topLightSunTintColor:
+    m_OverrideState: 1
+    m_Value: {r: 0.3, g: 0.225, b: 0.1125, a: 1}
+  topLightDesaturate:
+    m_OverrideState: 1
+    m_Value: 0
+  topLightTintColor:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  topLightExtraRotation:
+    m_OverrideState: 1
+    m_Value: 0
+  bottomDarkenEffectDrawHeight:
+    m_OverrideState: 1
+    m_Value: 0.5
+  bottomDarkenEffectIntensity:
+    m_OverrideState: 1
+    m_Value: 1
+  bottomDarkenExtraRotation:
+    m_OverrideState: 1
+    m_Value: 0
+  drawBeforePostProcess:
+    m_OverrideState: 1
+    m_Value: 0
+  affectedByCameraPostprocessToggle:
+    m_OverrideState: 1
+    m_Value: 1
+--- !u!114 &-1950246028549491381
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 905ab376be722a641bd27d7ae304cedd, type: 3}
+  m_Name: NiloToonTonemappingVolume
+  m_EditorClassIdentifier: NiloToon.NiloToonURP.Runtime::NiloToon.NiloToonURP.NiloToonTonemappingVolume
+  active: 1
+  mode:
+    m_OverrideState: 1
+    m_Value: 0
+  intensity:
+    m_OverrideState: 1
+    m_Value: 1
+  ApplyToCharacter:
+    m_OverrideState: 1
+    m_Value: 0
+  ApplyToNonCharacter:
+    m_OverrideState: 1
+    m_Value: 1
+  BrightnessMulForCharacter:
+    m_OverrideState: 1
+    m_Value: 1
+  BrightnessMulForNonCharacter:
+    m_OverrideState: 1
+    m_Value: 1
 --- !u!114 &-1410297666881709256
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -342,6 +504,9 @@ MonoBehaviour:
   skyOcclusionIntensityMultiplier:
     m_OverrideState: 1
     m_Value: 1
+  worldOffset:
+    m_OverrideState: 1
+    m_Value: {x: 0, y: 0, z: 0}
 --- !u!114 &-1216621516061285780
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -408,6 +573,83 @@ MonoBehaviour:
   tint:
     m_OverrideState: 1
     m_Value: 0
+--- !u!114 &-958424623023388122
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a10bd7999fb5fe43ab7b08bda3fe53f, type: 3}
+  m_Name: NiloToonBloomVolume
+  m_EditorClassIdentifier: NiloToon.NiloToonURP.Runtime::NiloToon.NiloToonURP.NiloToonBloomVolume
+  active: 1
+  threshold:
+    m_OverrideState: 1
+    m_Value: 0.9
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0
+  scatter:
+    m_OverrideState: 1
+    m_Value: 0.7
+  tint:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  clamp:
+    m_OverrideState: 1
+    m_Value: 65472
+  highQualityFiltering:
+    m_OverrideState: 1
+    m_Value: 0
+  downscale:
+    m_OverrideState: 1
+    m_Value: 0
+  maxIterations:
+    m_OverrideState: 1
+    m_Value: 8
+  dirtTexture:
+    m_OverrideState: 1
+    m_Value: {fileID: 0}
+    dimension: 1
+  dirtIntensity:
+    m_OverrideState: 1
+    m_Value: 0
+  characterBaseColorBrightness:
+    m_OverrideState: 1
+    m_Value: 1
+  characterBrightness:
+    m_OverrideState: 1
+    m_Value: 1
+  characterPreTonemapBrightness:
+    m_OverrideState: 1
+    m_Value: 1
+  characterAreaBloomEmitMultiplier:
+    m_OverrideState: 1
+    m_Value: 1
+  characterAreaOverridedThreshold:
+    m_OverrideState: 1
+    m_Value: 0.9
+  characterAreaOverridedIntensity:
+    m_OverrideState: 1
+    m_Value: 0
+  HueOffset:
+    m_OverrideState: 1
+    m_Value: 0
+  SaturationBoost:
+    m_OverrideState: 1
+    m_Value: 0
+  ValueMultiply:
+    m_OverrideState: 1
+    m_Value: 1
+  ApplyHSVToCharAreaOnly:
+    m_OverrideState: 1
+    m_Value: 0
+  renderTextureOverridedToFixedHeight:
+    m_OverrideState: 1
+    m_Value: 1080
 --- !u!114 &-581120513425526550
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -462,8 +704,18 @@ MonoBehaviour:
   - {fileID: -6288072647309666549}
   - {fileID: 7518938298396184218}
   - {fileID: -1410297666881709256}
-  - {fileID: -7750755424749557576}
-  - {fileID: -5139089513906902183}
+  - {fileID: 3178114855475875419}
+  - {fileID: -1950246028549491381}
+  - {fileID: 3573848941918158495}
+  - {fileID: -7186733292625798594}
+  - {fileID: 4533600195914549989}
+  - {fileID: 2997072417380241720}
+  - {fileID: -4445238402042379966}
+  - {fileID: 8887794933729784474}
+  - {fileID: 3209161382776970258}
+  - {fileID: 4997426101622413283}
+  - {fileID: 5847450909829996890}
+  - {fileID: -958424623023388122}
 --- !u!114 &853819529557874667
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -774,6 +1026,367 @@ MonoBehaviour:
   contribution:
     m_OverrideState: 1
     m_Value: 0
+--- !u!114 &2997072417380241720
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eecc32444ea4503479fa0394f277db7d, type: 3}
+  m_Name: NiloToonScreenSpaceOutlineControlVolume
+  m_EditorClassIdentifier: NiloToon.NiloToonURP.Runtime::NiloToon.NiloToonURP.NiloToonScreenSpaceOutlineControlVolume
+  active: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0
+  intensityForCharacter:
+    m_OverrideState: 1
+    m_Value: 1
+  intensityForEnvironment:
+    m_OverrideState: 1
+    m_Value: 1
+  widthMultiplier:
+    m_OverrideState: 1
+    m_Value: 1
+  widthMultiplierForCharacter:
+    m_OverrideState: 1
+    m_Value: 1
+  widthMultiplierForEnvironment:
+    m_OverrideState: 1
+    m_Value: 1
+  extraWidthMultiplierForXR:
+    m_OverrideState: 1
+    m_Value: 0.2
+  normalsSensitivityOffset:
+    m_OverrideState: 1
+    m_Value: 0
+  normalsSensitivityOffsetForCharacter:
+    m_OverrideState: 1
+    m_Value: 0
+  normalsSensitivityOffsetForEnvironment:
+    m_OverrideState: 1
+    m_Value: 0
+  depthSensitivityOffset:
+    m_OverrideState: 1
+    m_Value: 0
+  depthSensitivityOffsetForCharacter:
+    m_OverrideState: 1
+    m_Value: 0
+  depthSensitivityOffsetForEnvironment:
+    m_OverrideState: 1
+    m_Value: 0
+  depthSensitivityDistanceFadeoutStrength:
+    m_OverrideState: 1
+    m_Value: 1
+  depthSensitivityDistanceFadeoutStrengthForCharacter:
+    m_OverrideState: 1
+    m_Value: 1
+  depthSensitivityDistanceFadeoutStrengthForEnvironment:
+    m_OverrideState: 1
+    m_Value: 1
+  outlineTintColor:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  outlineTintColorForChar:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  outlineTintColorForEnvi:
+    m_OverrideState: 1
+    m_Value: {r: 0.12, g: 0.12, b: 0.12, a: 1}
+--- !u!114 &3178114855475875419
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87db17722cc284a4a82f8563727fc49b, type: 3}
+  m_Name: NiloToonScreenSpaceOutlineV2ControlVolume
+  m_EditorClassIdentifier: NiloToon.NiloToonURP.Runtime::NiloToon.NiloToonURP.NiloToonScreenSpaceOutlineV2ControlVolume
+  active: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0
+  intensityForCharacter:
+    m_OverrideState: 1
+    m_Value: 1
+  intensityForEnvironment:
+    m_OverrideState: 1
+    m_Value: 1
+  widthMultiplier:
+    m_OverrideState: 1
+    m_Value: 1
+  widthMultiplierForCharacter:
+    m_OverrideState: 1
+    m_Value: 1
+  widthMultiplierForEnvironment:
+    m_OverrideState: 1
+    m_Value: 1
+  extraWidthMultiplierForXR:
+    m_OverrideState: 1
+    m_Value: 0.2
+  outlineTintColor:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  outlineTintColorForChar:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  outlineTintColorForEnvi:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  drawGeometryEdgeOutline:
+    m_OverrideState: 1
+    m_Value: 1
+  drawGeometryEdgeOutlineForChar:
+    m_OverrideState: 1
+    m_Value: 1
+  drawGeometryEdgeOutlineForEnvi:
+    m_OverrideState: 1
+    m_Value: 1
+  geometryEdgeThreshold:
+    m_OverrideState: 1
+    m_Value: 1
+  geometryEdgeThresholdForCharacter:
+    m_OverrideState: 1
+    m_Value: 1
+  geometryEdgeThresholdForEnvironment:
+    m_OverrideState: 1
+    m_Value: 1
+  drawNormalAngleOutline:
+    m_OverrideState: 1
+    m_Value: 1
+  drawNormalAngleOutlineForChar:
+    m_OverrideState: 1
+    m_Value: 1
+  drawNormalAngleOutlineForEnvi:
+    m_OverrideState: 1
+    m_Value: 1
+  normalAngleMin:
+    m_OverrideState: 1
+    m_Value: 40
+  normalAngleMinForCharacter:
+    m_OverrideState: 1
+    m_Value: 40
+  normalAngleMinForEnvironment:
+    m_OverrideState: 1
+    m_Value: 40
+  normalAngleMax:
+    m_OverrideState: 1
+    m_Value: 180
+  normalAngleMaxForCharacter:
+    m_OverrideState: 1
+    m_Value: 180
+  normalAngleMaxForEnvironment:
+    m_OverrideState: 1
+    m_Value: 180
+  drawMaterialBoundaryOutline:
+    m_OverrideState: 1
+    m_Value: 1
+  drawCustomIDBoundaryOutline:
+    m_OverrideState: 1
+    m_Value: 1
+  drawWireframeOutline:
+    m_OverrideState: 1
+    m_Value: 0
+--- !u!114 &3209161382776970258
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a104dcd31bca784aaed640904c00a0b, type: 3}
+  m_Name: NiloToonCharRenderingControlVolume
+  m_EditorClassIdentifier: NiloToon.NiloToonURP.Runtime::NiloToon.NiloToonURP.NiloToonCharRenderingControlVolume
+  active: 1
+  charBaseColorMultiply:
+    m_OverrideState: 1
+    m_Value: 1
+  charBaseColorTintColor:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  charMulColorIntensity:
+    m_OverrideState: 1
+    m_Value: 1
+  charMulColor:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  charLerpColorUsage:
+    m_OverrideState: 1
+    m_Value: 0
+  charLerpColor:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 0}
+  charOcclusionUsage:
+    m_OverrideState: 1
+    m_Value: 1
+  charIndirectLightMultiplier:
+    m_OverrideState: 1
+    m_Value: 1
+  charIndirectLightMinColor:
+    m_OverrideState: 1
+    m_Value: {r: 0.01, g: 0.01, b: 0.01, a: 0}
+  charIndirectLightMaxColor:
+    m_OverrideState: 1
+    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  mainDirectionalLightIntensityMultiplier:
+    m_OverrideState: 1
+    m_Value: 1
+  mainDirectionalLightIntensityMultiplierColor:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  addMainLightColor:
+    m_OverrideState: 1
+    m_Value: {r: 0, g: 0, b: 0, a: 1}
+  mainDirectionalLightMaxContribution:
+    m_OverrideState: 1
+    m_Value: 1
+  mainDirectionalLightMaxContributionColor:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  overrideLightDirectionIntensity:
+    m_OverrideState: 1
+    m_Value: 0
+  overridedLightUpDownAngle:
+    m_OverrideState: 1
+    m_Value: -45
+  overridedLightLRAngle:
+    m_OverrideState: 1
+    m_Value: 0
+  lightColorOverrideStrength:
+    m_OverrideState: 1
+    m_Value: 0
+  overridedLightColor:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  desaturateLightColor:
+    m_OverrideState: 1
+    m_Value: 0
+  additionalLightIntensityMultiplier:
+    m_OverrideState: 1
+    m_Value: 1
+  additionalLightIntensityMultiplierColor:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  additionalLightIntensityMultiplierForFaceArea:
+    m_OverrideState: 1
+    m_Value: 1
+  additionalLightIntensityMultiplierColorForFaceArea:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  additionalLightIntensityMultiplierForOutlineArea:
+    m_OverrideState: 1
+    m_Value: 1
+  additionalLightIntensityMultiplierColorForOutlineArea:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  additionalLightApplyRimMask:
+    m_OverrideState: 1
+    m_Value: 0
+  additionalLightRimMaskPower:
+    m_OverrideState: 1
+    m_Value: 1
+  additionalLightRimMaskSoftness:
+    m_OverrideState: 1
+    m_Value: 1
+  additionalLightMaxContribution:
+    m_OverrideState: 1
+    m_Value: 1
+  additionalLightMaxContributionColor:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  specularIntensityMultiplier:
+    m_OverrideState: 1
+    m_Value: 1
+  specularTintColor:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 0}
+  specularInShadowMinIntensity:
+    m_OverrideState: 1
+    m_Value: 0.25
+  specularReactToLightDirectionChange:
+    m_OverrideState: 1
+    m_Value: 1
+  depthTextureRimLightAndShadowWidthMultiplier:
+    m_OverrideState: 1
+    m_Value: 1
+  charRimLightMultiplier:
+    m_OverrideState: 1
+    m_Value: 1
+  charRimLightTintColor:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 0}
+  charRimLightMultiplierForOutlineArea:
+    m_OverrideState: 1
+    m_Value: 0
+  charRimLightTintColorForOutlineArea:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 0}
+  depthTexRimLightDepthDiffThresholdOffset:
+    m_OverrideState: 1
+    m_Value: 0
+  charRimLightCameraDistanceFadeoutStartDistance:
+    m_OverrideState: 1
+    m_Value: 1000
+  charRimLightCameraDistanceFadeoutEndDistance:
+    m_OverrideState: 1
+    m_Value: 2000
+  characterOverallShadowStrength:
+    m_OverrideState: 1
+    m_Value: 1
+  characterOverallShadowTintColor:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 0}
+  characterOverallShadowTintColorForSkinFace:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 0}
+  characterOverallShadowTintColorForNonSkinFace:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 0}
+  charOutlineWidthMultiplier:
+    m_OverrideState: 1
+    m_Value: 1
+  charOutlineWidthExtraMultiplierForXR:
+    m_OverrideState: 1
+    m_Value: 0.5
+  charOutlineWidthAutoAdjustToCameraDistanceAndFOV:
+    m_OverrideState: 1
+    m_Value: 1
+  charOutlineMulColor:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &3573848941918158495
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 853cfdf4b80146545b90713442d462cf, type: 3}
+  m_Name: NiloToonAdditionalLightStyleVolume
+  m_EditorClassIdentifier: NiloToon.NiloToonURP.Runtime::NiloToon.NiloToonURP.NiloToonAdditionalLightStyleVolume
+  active: 1
+  additionalLightInjectIntoMainLightColor_Strength:
+    m_OverrideState: 1
+    m_Value: 1
+  additionalLightInjectIntoMainLightDirection_Strength:
+    m_OverrideState: 1
+    m_Value: 1
+  additionalLightInjectIntoMainLightColor_Desaturate:
+    m_OverrideState: 1
+    m_Value: 0
+  additionalLightInjectIntoMainLightColor_AllowCloseLightOverBright:
+    m_OverrideState: 1
+    m_Value: 1
 --- !u!114 &3959858460715838825
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -836,6 +1449,37 @@ MonoBehaviour:
   param:
     m_OverrideState: 1
     m_Value: 123
+--- !u!114 &4533600195914549989
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 190e72967b306f4498b2f326170fd5a2, type: 3}
+  m_Name: NiloToonEnvironmentControlVolume
+  m_EditorClassIdentifier: NiloToon.NiloToonURP.Runtime::NiloToon.NiloToonURP.NiloToonEnvironmentControlVolume
+  active: 1
+  GlobalIlluminationTintColor:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  GlobalIlluminationAddColor:
+    m_OverrideState: 1
+    m_Value: {r: 0, g: 0, b: 0, a: 1}
+  GlobalIlluminationOverrideColor:
+    m_OverrideState: 1
+    m_Value: {r: 0, g: 0, b: 0, a: 0}
+  GlobalAlbedoOverrideColor:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 0}
+  GlobalSurfaceColorResultOverrideColor:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 0}
+  GlobalShadowBoaderTintColorOverrideColor:
+    m_OverrideState: 1
+    m_Value: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &4644742534064026673
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -848,6 +1492,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81180773991d8724ab7f2d216912b564, type: 3}
   m_Name: ChromaticAberration
   m_EditorClassIdentifier: 
+  active: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0
+--- !u!114 &4997426101622413283
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0b07a42ea8749b41bdca5f151c44d94, type: 3}
+  m_Name: NiloToonRenderingPerformanceControlVolume
+  m_EditorClassIdentifier: NiloToon.NiloToonURP.Runtime::NiloToon.NiloToonURP.NiloToonRenderingPerformanceControlVolume
+  active: 1
+  overrideEnableDepthTextureRimLigthAndShadow:
+    m_OverrideState: 1
+    m_Value: 1
+--- !u!114 &5847450909829996890
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2b217974b749d4b97b47bae772aee5, type: 3}
+  m_Name: NiloToonMotionBlurVolume
+  m_EditorClassIdentifier: NiloToon.NiloToonURP.Runtime::NiloToon.NiloToonURP.NiloToonMotionBlurVolume
   active: 1
   intensity:
     m_OverrideState: 1
@@ -919,6 +1595,61 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: {x: 0.5, y: 0.5}
   scale:
+    m_OverrideState: 1
+    m_Value: 1
+--- !u!114 &8887794933729784474
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d89c46e6b4f031541986f8d6bdbad145, type: 3}
+  m_Name: NiloToonCinematicRimLightVolume
+  m_EditorClassIdentifier: NiloToon.NiloToonURP.Runtime::NiloToon.NiloToonURP.NiloToonCinematicRimLightVolume
+  active: 1
+  strengthRimMask2D:
+    m_OverrideState: 1
+    m_Value: 0
+  strengthRimMask3D_ClassicStyle:
+    m_OverrideState: 1
+    m_Value: 0
+  widthRimMask3D_ClassicStyle:
+    m_OverrideState: 1
+    m_Value: 0.3
+  blurRimMask3D_ClassicStyle:
+    m_OverrideState: 1
+    m_Value: 0.02
+  sharpnessRimMask3D_ClassicStyle:
+    m_OverrideState: 1
+    m_Value: 0
+  strengthRimMask3D_DynamicStyle:
+    m_OverrideState: 1
+    m_Value: 0
+  widthRimMask3D_DynamicStyle:
+    m_OverrideState: 1
+    m_Value: 0.5
+  blurRimMask3D_DynamicStyle:
+    m_OverrideState: 1
+    m_Value: 0.5
+  sharpnessRimMask3D_DynamicStyle:
+    m_OverrideState: 1
+    m_Value: 0.375
+  strengthRimMask3D_StableStyle:
+    m_OverrideState: 1
+    m_Value: 0
+  sharpnessRimMask3D_StableStyle:
+    m_OverrideState: 1
+    m_Value: 0.5
+  lightIntensityMultiplier:
+    m_OverrideState: 1
+    m_Value: 1
+  tintBaseMap:
+    m_OverrideState: 1
+    m_Value: 0.5
+  enableStyleSafeGuard:
     m_OverrideState: 1
     m_Value: 1
 --- !u!114 &9001657382290151224
