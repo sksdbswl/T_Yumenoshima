@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NpcMovement))]
 public class NpcAnimationStateMachine : AnimationStateMachine
 {
     private Npc Npc;

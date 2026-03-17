@@ -130,8 +130,8 @@ public partial class GameManager : SingletonBase<GameManager>
             var npcObj = AssetManager.Singleton.InstantiateNpcModel(npcData.Name);
             npcObj.transform.position = npcData.spawnPoint;
 
-            var movement = npcObj.GetComponent<NpcMovement>();
-            movement.npcSO = npcData;
+            // var movement = npcObj.GetComponent<NpcMovement>();
+            // movement.npcSO = npcData;
         }
     }
 

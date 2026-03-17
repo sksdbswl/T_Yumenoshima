@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class NpcInteraction : InteractionTarget, IInteractable
 {
-    private NpcMovement movement;
     public NpcSO npcSO;
     public Player player;
     public bool isTalkable = false;
@@ -12,7 +11,6 @@ public class NpcInteraction : InteractionTarget, IInteractable
     
     public void Awake()
     {
-        movement = GetComponent<NpcMovement>();
         questMarkerUI = DialogRepository.Singleton.SpawnMarker();
         questMarkerUI.target = transform;
         GameManager.Singleton.OnStageChanged += CheckInteract;
@@ -53,8 +51,8 @@ public class NpcInteraction : InteractionTarget, IInteractable
         isTalkable = true;
         player = pl;
         
-        Debug.Log($"==========[NpcInteraction] RequestTalk: {pl.name}, {movement}");
-        movement.StopWanderLoop(); 
+        // Debug.Log($"==========[NpcInteraction] RequestTalk: {pl.name}, {movement}");
+        // movement.StopWanderLoop(); 
 
         npcSO.TryTalk();
     }
@@ -69,7 +67,7 @@ public class NpcInteraction : InteractionTarget, IInteractable
         if (!isTalkable) return;
         isTalkable = false;
         
-        movement.StartWanderLoop();
+        //movement.StartWanderLoop();
         player = null;
         DialogTyper.Singleton.DialogUI.gameObject.SetActive(false);
         CheckInteract(GameManager.Singleton.Stage);
