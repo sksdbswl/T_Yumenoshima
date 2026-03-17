@@ -21,7 +21,7 @@ public partial class DialogueManager : SingletonBase<DialogueManager>
     [SerializeField] private DSDialogueContainerSO dialogueContainer;
 
     [Header("World Stage (debug)")]
-    //[SerializeField] private int STAGE = 1;
+    [SerializeField] private int STAGE = 1;
 
     // ===== Runtime =====
     private DSDialogueSO currentNode;
@@ -43,11 +43,11 @@ public partial class DialogueManager : SingletonBase<DialogueManager>
     private void Update()
     {
         // 디버그: 월드 스테이지 올리기
-        // if (Input.GetKeyDown(KeyCode.P))
-        // {
-        //     STAGE++;
-        //     Debug.Log($"[DialogueManager] World STAGE Changed: {STAGE}");
-        // }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            STAGE++;
+            Debug.Log($"[DialogueManager] World STAGE Changed: {STAGE}");
+        }
     }
 
     public void SetContainer(DSDialogueContainerSO container)

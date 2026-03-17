@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public partial class GameManager : SingletonBase<GameManager>
+public partial class GameManager
 {
     /// <summary>
     /// 인게임 루틴 전환 : npc 상태 변경 또는 player 행동 제약 ( 임시 5분마다 변경 )
@@ -15,13 +15,13 @@ public partial class GameManager : SingletonBase<GameManager>
         while (true)
         {
             SetState(RoutineState.Morning);
-            yield return new WaitForSeconds(5f); 
+            yield return new WaitForSeconds(60f); 
 
             SetState(RoutineState.Noon);
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(60f);
 
             SetState(RoutineState.Night);
-            yield return new WaitForSeconds(30f);
+            yield return new WaitForSeconds(60f);
         }
     }
 

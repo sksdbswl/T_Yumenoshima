@@ -129,9 +129,6 @@ public partial class GameManager : SingletonBase<GameManager>
             // 실제 프리팹 생성
             var npcObj = AssetManager.Singleton.InstantiateNpcModel(npcData.Name);
             npcObj.transform.position = npcData.spawnPoint;
-
-            // var movement = npcObj.GetComponent<NpcMovement>();
-            // movement.npcSO = npcData;
         }
     }
 

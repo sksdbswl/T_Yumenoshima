@@ -25,7 +25,7 @@ namespace AI.BT.Editor
         }
         
         // Editor가 열릴때 실행
-        [MenuItem("Tools/AI Behavior Tree Editor")] 
+        [MenuItem("Window/BT/AI Behavior Tree")]
         public static void Open()
         {
             var window = GetWindow<BTEditorWindow>(); // Editor 열기

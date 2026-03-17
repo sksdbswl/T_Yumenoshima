@@ -9,7 +9,7 @@ namespace TestBT
     /// </summary>
     public class SimulationNpcSensor : MonoBehaviour
     {
-        public NpcSO npcSO;
+        [HideInInspector] public NpcSO npcSO;
         [SerializeField] private float nearDistance = 4f;
         [SerializeField] private float veryNearDistance = 2f;
         

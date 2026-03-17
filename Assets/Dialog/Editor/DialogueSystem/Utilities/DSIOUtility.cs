@@ -12,24 +12,29 @@ namespace DS.Utilities
     using Elements;
     using ScriptableObjects;
     using Windows;
-    using Enumerations;
 
+    /// <summary>
+    /// Unity 에디터용 대화 그래프 저장/불러오기 유틸리티
+    /// </summary>
     public static class DSIOUtility
     {
         private static DSGraphView graphView;
 
         private static string graphFileName;
-        private static string containerFolderPath;
+        private static string containerFolderPath; // 실제 대화 데이터가 저장될 폴더 경로
 
-        private static List<DSNode> nodes;
-        private static List<DSGroup> groups;
+        private static List<DSNode> nodes; //현재 그래프에 있는 노드 목록
+        private static List<DSGroup> groups; //현재 그래프에 있는 그룹 목록
 
-        private static Dictionary<string, DSDialogueGroupSO> createdDialogueGroups;
-        private static Dictionary<string, DSDialogueSO> createdDialogues;
+        private static Dictionary<string, DSDialogueGroupSO> createdDialogueGroups; //저장 도중 생성한 그룹 SO를 group.ID 기준으로 보관
+        private static Dictionary<string, DSDialogueSO> createdDialogues;  //저장 도중 생성한 대사 SO를 node.ID 기준으로 보관
 
-        private static Dictionary<string, DSGroup> loadedGroups;
-        private static Dictionary<string, DSNode> loadedNodes;
+        private static Dictionary<string, DSGroup> loadedGroups; //불러오기 과정에서 생성한 그룹
+        private static Dictionary<string, DSNode> loadedNodes; //노드를 ID 기준으로 저장 이후 노드 간 연결선 복원할 때 사용
 
+        /// <summary>
+        /// 다이얼로그 내부 상태를 초기화
+        /// </summary>
         public static void Initialize(DSGraphView dsGraphView, string graphName)
         {
             graphView = dsGraphView;
@@ -400,7 +405,7 @@ namespace DS.Utilities
             CreateFolder("Assets/Dialog/DialogueSystem", "Dialogues");
 
             CreateFolder("Assets/Dialog/DialogueSystem/Dialogues", graphFileName);
-            CreateFolder(containerFolderPath, "Global");
+            //CreateFolder(containerFolderPath, "Global");
             CreateFolder(containerFolderPath, "Groups");
             CreateFolder($"{containerFolderPath}/Global", "Dialogues");
         }

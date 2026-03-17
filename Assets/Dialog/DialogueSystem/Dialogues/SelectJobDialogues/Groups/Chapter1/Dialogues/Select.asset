@@ -15,7 +15,6 @@ MonoBehaviour:
   <DialogueName>k__BackingField: Select
   <GroupType>k__BackingField: 0
   <NpcId>k__BackingField: 
-  <QuestId>k__BackingField: 
   <Text>k__BackingField: "\uC9C1\uC5C5\uC744 \uC120\uD0DD\uD574\uC918"
   <Choices>k__BackingField:
   - <Text>k__BackingField: "\uC804\uC0AC"
@@ -37,3 +36,4 @@ MonoBehaviour:
     flag: 
     receiverType: 
     methodName: 
+  <StageId>k__BackingField: 0

@@ -9,7 +9,7 @@ public enum JobType
 }
 
 [CreateAssetMenu(menuName = "Npc/NpcRole", fileName = "Npc")]
-public class NpcSO:ScriptableObject
+public class NpcSO : ScriptableObject
 {
     public int Id;
     public int BuilderId;

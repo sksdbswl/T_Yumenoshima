@@ -15,7 +15,6 @@ MonoBehaviour:
   <DialogueName>k__BackingField: "\uC0AC\uB0E5"
   <GroupType>k__BackingField: 0
   <NpcId>k__BackingField: 
-  <QuestId>k__BackingField: 
   <Text>k__BackingField: "\uBAAC\uC2A4\uD130\uB97C 10\uB9C8\uB9AC \uC7A1\uC544\uC918"
   <Choices>k__BackingField:
   - <Text>k__BackingField: Next Dialogue
@@ -24,3 +23,4 @@ MonoBehaviour:
   <IsStartingDialogue>k__BackingField: 0
   <NpcAnimationClip>k__BackingField: {fileID: 7400006, guid: f7b6954ec8fb0de4cbe60b244d54f758, type: 3}
   <Actions>k__BackingField: []
+  <StageId>k__BackingField: 0

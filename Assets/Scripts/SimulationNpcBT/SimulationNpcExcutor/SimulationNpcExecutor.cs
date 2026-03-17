@@ -9,7 +9,7 @@ namespace TestBT
     /// </summary>
     public partial class SimulationNpcExecutor : MonoBehaviour
     {
-        public NpcSO npcSO;
+        [HideInInspector] public NpcSO npcSO;
         private NavMeshAgent agent;
         private float defaultSpeed = 5f;
         private float fleeSpeed = 10f;
