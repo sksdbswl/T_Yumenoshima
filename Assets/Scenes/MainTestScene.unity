@@ -350,7 +350,7 @@ MonoBehaviour:
   bodyText: {fileID: 1897718102}
   choicesParent: {fileID: 561614339}
   choiceButtonPrefab: {fileID: 254521626475519378, guid: 4846982f2dd2a8d46baace5d8f2659db, type: 3}
-  dialogueContainer: {fileID: 0}
+  dialogueContainer: {fileID: 11400000, guid: 9ea4b8dae0245c142a614967045de513, type: 2}
 --- !u!1 &220608119
 GameObject:
   m_ObjectHideFlags: 0
@@ -2583,12 +2583,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23ee9efdd775eb447b92c872ffa9565d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BehaviourTreeRunner
-  treeAsset: {fileID: 11400000, guid: ee4058d017d36c14997e656848461226, type: 2}
-  profile: {fileID: 0}
-  currentTarget: {fileID: 0}
-  player: {fileID: 0}
-  homeTarget: {fileID: 0}
-  routineState: 0
 --- !u!136 &1676518509
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -209,6 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 684e36914f793c247a7336db22e23079, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogTyper
+  DialogUI: {fileID: 0}
   nameComponent: {fileID: 1122546747}
   textComponent: {fileID: 1411432935}
   secondsPerChar: 0.04
@@ -257,6 +258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 684e36914f793c247a7336db22e23079, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogTyper
+  DialogUI: {fileID: 0}
   nameComponent: {fileID: 1122546747}
   textComponent: {fileID: 1411432935}
   secondsPerChar: 0.04
@@ -861,6 +863,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: add6b2bb5f7de7e4f920aa8787e796cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogRepository
+  _dialogSO: {fileID: 11400000, guid: ed66031b1cede3c418b7abe98c192c59, type: 2}
+  _all: []
+  _questMarkerUIPrefab: {fileID: 0}
 --- !u!4 &1693654442
 Transform:
   m_ObjectHideFlags: 0
