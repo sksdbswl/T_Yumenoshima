@@ -12,31 +12,7 @@ public partial class UIManager : SingletonBase<UIManager>
         PlacementSaveManager.Singleton.Load();
         Initialize();
     }
-
-    public void OnPlacementSave()
-    {
-        Debug.Log("OnPlacementSave");
-        
-        PlacementSaveManager.Singleton.Save();
-    }
-
-    public void OnPlacementReset()
-    {
-        PlacementSaveManager.Singleton.ClearAll();
-
-        var objects = FindObjectsOfType<PlaceableInteraction>();
-        foreach (var obj in objects)
-            Destroy(obj.gameObject);
-
-        PlacementSystem placement = FindObjectOfType<PlacementSystem>();
-        placement.RebuildFromSave(PlacementSaveManager.Singleton.PlacedObjects);
-    }
-
-    public void OnPlacementReload()
-    {
-        PlacementSaveManager.Singleton.Load();
-    }
-
+    
     public async void OnClickGameStart()
     {
         // 버튼에서 직접 호출하고 싶다면 여기를 사용
