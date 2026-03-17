@@ -83,7 +83,7 @@ namespace AI.BT.Editor
         /// </summary>
         public static void Load(BTGraphView graphView)
         {
-            string path = EditorUtility.OpenFilePanel("Load Behavior Tree", "Assets/ScriptableObjects/AI", "asset");
+            string path = EditorUtility.OpenFilePanel("Load Behavior Tree", "Assets/ScriptableObjects/SimulationNpcSO", "asset");
             if (string.IsNullOrEmpty(path))
                 return;
 

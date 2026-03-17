@@ -13,7 +13,7 @@ namespace AI.BT.Editor
             if (_styleSheet == null)
             {
                 _styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(
-                    "Assets/Scripts/AI/BT/Editor/NodeStyle.uss");
+                    "Assets/Scripts/SimulationNpcBT/AI/BT/Editor/NodeStyle.uss");
             }
 
             return _styleSheet;
