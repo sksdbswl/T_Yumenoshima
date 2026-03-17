@@ -1870,7 +1870,7 @@ MonoBehaviour:
   speakerText: {fileID: 2065053872}
   bodyText: {fileID: 1296283572}
   choicesParent: {fileID: 54892625}
-  choiceButtonPrefab: {fileID: 254521626475519378, guid: 4846982f2dd2a8d46baace5d8f2659db, type: 3}
+  choiceButtonPrefab: {fileID: 1335350024216664640, guid: 38c4e911241094a749bdded9cc8856b0, type: 3}
   dialogueContainer: {fileID: 11400000, guid: 9ea4b8dae0245c142a614967045de513, type: 2}
   STAGE: 1
 --- !u!4 &1121949621
