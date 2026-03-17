@@ -13,6 +13,7 @@ namespace TestBT
         private NavMeshAgent agent;
         private float defaultSpeed = 5f;
         private float fleeSpeed = 10f;
+        private bool isProgress = false;
         
         private void Awake()
         {
@@ -76,6 +77,11 @@ namespace TestBT
             agent.SetDestination(agent.transform.position + agent.transform.up * 10);
         }
         
+        public bool IsProgressing()
+        {
+            return isProgress;
+        }
+        
         /// <summary>
         /// 대상의 높낮이(Y축)까지 포함하여 바라봅니다.
         /// 만약 상대방이 나보다 높은 곳에 있다면 고개가 위로 꺾일 수 있습니다.
@@ -99,8 +105,7 @@ namespace TestBT
         {
             if (target == null)
                 return ENodeState.ENS_Failure;
-
-            Debug.Log("기본 모션 : 바라보기");
+            
             Stop();
             
             Vector3 dir = target.position - transform.position;
@@ -115,14 +120,13 @@ namespace TestBT
         #endregion
         
         // ───────────────── 도망 ─────────────────
-        private bool isFleeing = false; // 도망 상태 값
         private bool _hasFleeTarget = false; // 좌표 설정 값
         private Vector3 _currentFleeTarget;
         
         public ENodeState DoFlee(Transform player)
         {
             if (player == null) return ENodeState.ENS_Failure;
-            if (!isFleeing) isFleeing = true;
+            if (!isProgress) isProgress = true;
             
             return DoDistanceRandomMove(player);
         }
@@ -182,14 +186,9 @@ namespace TestBT
                 return ENodeState.ENS_Running;
 
             _hasFleeTarget = false;
-            isFleeing = false;
+            isProgress = false;
             
             return ENodeState.ENS_Success;
-        }
-        
-        public bool IsFleeing()
-        {
-            return isFleeing;
         }
         
         // ───────────────── 귀가 ─────────────────

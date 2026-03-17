@@ -154,7 +154,7 @@ MonoBehaviour:
     nodeName: Condition
     nodeType: 3
     position: {x: -484, y: 710}
-    conditionType: 8
+    conditionType: 3
     actionType: 0
     animationStateName: 
     childrenGuids: []

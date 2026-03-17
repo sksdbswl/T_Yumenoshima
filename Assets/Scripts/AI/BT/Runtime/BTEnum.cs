@@ -32,7 +32,7 @@ namespace AI.BT.Runtime
         None,
         IsPlayerNear,
         IsPlayerVeryNear,
-        CanMotion,
+        IsProgress,
         CanFlee,
         IsFleeing,
         CanAttack,

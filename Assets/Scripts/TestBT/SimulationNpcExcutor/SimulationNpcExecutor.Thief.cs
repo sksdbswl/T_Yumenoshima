@@ -7,7 +7,7 @@ namespace TestBT
     {
         #region Thief : Chase/Attack
 
-        private bool isAttacking = false;
+        //private bool isAttacking = false;
         private float attackDelay = 5f;
         private float attackTimer = 0f;
 
@@ -33,7 +33,7 @@ namespace TestBT
         {
             if (target == null) return ENodeState.ENS_Failure;
 
-            if (!isAttacking)
+            if (!isProgress)
             {
                 // 1. 공격 시작 시점 
                 Debug.Log("공격 시작");
@@ -45,7 +45,7 @@ namespace TestBT
 
                 // animator.SetTrigger("Attack");
                 attackTimer = attackDelay;
-                isAttacking = true;
+                isProgress = true;
             }
   
             attackTimer -= Time.deltaTime;
@@ -61,15 +61,10 @@ namespace TestBT
             // 3. 공격 완료 시점
             Debug.Log("공격 끝");
             attackTimer = 0f;
-            isAttacking = false;
+            isProgress = false;
             agent.isStopped = false;
             
             return ENodeState.ENS_Success;
-        }
-
-        public bool IsAttacking()
-        {
-            return isAttacking;
         }
 
         #endregion

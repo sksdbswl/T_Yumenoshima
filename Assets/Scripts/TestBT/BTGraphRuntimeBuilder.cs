@@ -22,12 +22,11 @@ public static class BTGraphRuntimeBuilder
     {
         { BTConditionType.IsPlayerNear, owner => owner.sensor.Blackboard.isPlayerNear },
         { BTConditionType.CanFlee, owner => owner.sensor.Blackboard.canFlee },
-        { BTConditionType.IsFleeing, owner => owner.executor.IsFleeing() },
         { BTConditionType.IsPlayerVeryNear, owner => owner.sensor.Blackboard.isPlayerVeryNear },
         { BTConditionType.CanAttack, owner => owner.sensor.Blackboard.canAttack },
         { BTConditionType.CanChase, owner => owner.sensor.Blackboard.canChase },
-        { BTConditionType.IsAttacking, owner => owner.executor.IsAttacking() },
         { BTConditionType.CanHome, owner =>  owner.sensor.Blackboard.canHome},
+        { BTConditionType.IsProgress, owner => owner.executor.IsProgressing() },
     };
 
     private static readonly Dictionary<BTActionType, Func<SimulationNpcController, ENodeState>> ActionFactories = new()
