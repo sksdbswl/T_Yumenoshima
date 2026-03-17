@@ -18,9 +18,18 @@ public class NpcSO:ScriptableObject
     public GameObject Prefab;
     public Sprite Thumbnail;
     public Vector3 spawnPoint;
-    //public int Stage;
+
     public int WorldStageMin = 1;
     public int WorldStageMax = 1;
+    
+    public float moveSpeed;
+    public float attackSpeed;
+    public float chaseSpeed;
+    public float fleeSpeed;
+    
+    public bool canChase;
+    public bool canAttack;
+    public bool canFlee;
     
     /// <summary>
     /// 실제 대화시작 : 플레이어가 이 NPC와 대화 시도할 때 호출

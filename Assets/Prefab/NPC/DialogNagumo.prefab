@@ -528,14 +528,17 @@ GameObject:
   - component: {fileID: 2266721537807661092}
   - component: {fileID: 4644299713017198626}
   - component: {fileID: 3966853035676174476}
+  - component: {fileID: 1307464734441406933}
   - component: {fileID: 5578274421216945440}
   - component: {fileID: 2856573434675037943}
   - component: {fileID: 7886016082336291059}
   - component: {fileID: 5996731123791308673}
   - component: {fileID: 3749620227459169865}
-  - component: {fileID: 1307464734441406933}
   - component: {fileID: 5642375312054762121}
   - component: {fileID: -8467747771076970010}
+  - component: {fileID: -2924341018571830997}
+  - component: {fileID: -234164649088483774}
+  - component: {fileID: -6918103366982436708}
   m_Layer: 12
   m_Name: DialogNagumo
   m_TagString: Untagged
@@ -627,6 +630,20 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1307464734441406933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6180810706943847235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab340a28598542d2ae83baa8ed8cafc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Npc
+  npcSO: {fileID: 11400000, guid: 8487b060d586f2f47b9819fcf80178f2, type: 2}
+  Agent: {fileID: 3966853035676174476}
 --- !u!114 &5578274421216945440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -677,7 +694,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6180810706943847235}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e28a8e03d78459cb980ca3b692fdc4e, type: 3}
   m_Name: 
@@ -701,19 +718,6 @@ MonoBehaviour:
   animator: {fileID: 0}
   walkSpeedThreshold: 0.1
   runSpeedThreshold: 2.5
---- !u!114 &1307464734441406933
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6180810706943847235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab340a28598542d2ae83baa8ed8cafc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Npc
-  Agent: {fileID: 3966853035676174476}
 --- !u!114 &5642375312054762121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -721,7 +725,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6180810706943847235}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 23ee9efdd775eb447b92c872ffa9565d, type: 3}
   m_Name: 
@@ -739,11 +743,56 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6180810706943847235}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc8728a6ff8248c08994b77b4f7698c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThiefJobHandler
+--- !u!114 &-2924341018571830997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6180810706943847235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e70855fca444218165d58f035879f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TestBT.SimulationNpcController
+  graphAsset: {fileID: 11400000, guid: 61039290191c23f49ab3d2f293b5e25f, type: 2}
+  sensor: {fileID: 0}
+  executor: {fileID: 0}
+--- !u!114 &-234164649088483774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6180810706943847235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb2784bd4d84739ba3c92e71eae20f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TestBT.SimulationNpcExecutor
+--- !u!114 &-6918103366982436708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6180810706943847235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb0e019f6e674ed6b365bb85e325595f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TestBT.SimulationNpcSensor
+  nearDistance: 10
+  veryNearDistance: 4
+  canMotion: 0
+  canChase: 1
+  canAttack: 1
+  canFlee: 0
 --- !u!1 &6214873298196201853
 GameObject:
   m_ObjectHideFlags: 0
