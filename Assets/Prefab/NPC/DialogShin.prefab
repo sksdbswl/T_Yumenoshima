@@ -697,7 +697,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24e70855fca444218165d58f035879f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestBT.SimulationNpcController
-  graphAsset: {fileID: 11400000, guid: 719342f841ca0194eb08dae9ae18d351, type: 2}
+  graphAsset: {fileID: 11400000, guid: 3fc0e29d02dfe244194370fd2e1d3f55, type: 2}
   sensor: {fileID: 0}
   executor: {fileID: 0}
 --- !u!114 &-234164649088483774

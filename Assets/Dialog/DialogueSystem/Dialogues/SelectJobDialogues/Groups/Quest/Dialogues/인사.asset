@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "\uC778\uC0AC"
   m_EditorClassIdentifier: Assembly-CSharp::DS.ScriptableObjects.DSDialogueSO
   <DialogueName>k__BackingField: "\uC778\uC0AC"
-  <GroupType>k__BackingField: 0
+  <GroupType>k__BackingField: 2
   <NpcId>k__BackingField: 
   <Text>k__BackingField: "\uD654\uC774\uD305 !"
   <Choices>k__BackingField:
@@ -23,4 +23,4 @@ MonoBehaviour:
   <IsStartingDialogue>k__BackingField: 0
   <NpcAnimationClip>k__BackingField: {fileID: 1827226128182048838, guid: eceb3201331c9af499159646a80e6a5b, type: 3}
   <Actions>k__BackingField: []
-  <StageId>k__BackingField: 0
+  <StageId>k__BackingField: 1
