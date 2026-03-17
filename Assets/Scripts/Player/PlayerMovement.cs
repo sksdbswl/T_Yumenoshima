@@ -81,40 +81,40 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        // 장비 장착/해제 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            // equip 장착
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            // equip 해제
-        }
-
-        // --- 채집 시작 (테스트용) ---
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            if (!IsBusy)
-                StartGather();
-        }
-
-        // --- 낚시 시작 (테스트용) ---
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            if (!IsBusy)
-                PlayFishingStart();
-        }
-
-        // 채집 타이머 처리 (3초)
-        if (isGathering)
-        {
-            gatherTimer -= Time.deltaTime;
-            if (gatherTimer <= 0f)
-            {
-                EndGather(); // 3초 지나면 채집 상태 종료
-            }
-        }
+        // // 장비 장착/해제 
+        // if (Input.GetKeyDown(KeyCode.Alpha1))
+        // {
+        //     // equip 장착
+        // }
+        //
+        // if (Input.GetKeyDown(KeyCode.Alpha2))
+        // {
+        //     // equip 해제
+        // }
+        //
+        // // --- 채집 시작 (테스트용) ---
+        // if (Input.GetKeyDown(KeyCode.Alpha3))
+        // {
+        //     if (!IsBusy)
+        //         StartGather();
+        // }
+        //
+        // // --- 낚시 시작 (테스트용) ---
+        // if (Input.GetKeyDown(KeyCode.Alpha4))
+        // {
+        //     if (!IsBusy)
+        //         PlayFishingStart();
+        // }
+        //
+        // // 채집 타이머 처리 (3초)
+        // if (isGathering)
+        // {
+        //     gatherTimer -= Time.deltaTime;
+        //     if (gatherTimer <= 0f)
+        //     {
+        //         EndGather(); // 3초 지나면 채집 상태 종료
+        //     }
+        // }
     }
 
     private void FixedUpdate()
