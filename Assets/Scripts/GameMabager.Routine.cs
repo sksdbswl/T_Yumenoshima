@@ -15,13 +15,13 @@ public partial class GameManager
         while (true)
         {
             SetState(RoutineState.Morning);
-            yield return new WaitForSeconds(60f); 
+            yield return new WaitForSeconds(10f); 
 
             SetState(RoutineState.Noon);
-            yield return new WaitForSeconds(60f);
+            yield return new WaitForSeconds(10f);
 
             SetState(RoutineState.Night);
-            yield return new WaitForSeconds(60f);
+            yield return new WaitForSeconds(10f);
         }
     }
 

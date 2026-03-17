@@ -31,39 +31,14 @@ MonoBehaviour:
     actionType: 0
     animationStateName: 
     childrenGuids:
+    - 83a55e42-3bff-4a17-997f-6571a8aec0fe
     - cb79f5c5-7d06-44b4-8a71-fc6928b6cfd8
     - b68c25ac-9fc7-4819-b490-ee26df01ffcf
     - cdfbe74a-6f8f-4db5-aa4e-5119e7aaffb1
-  - guid: cb79f5c5-7d06-44b4-8a71-fc6928b6cfd8
-    nodeName: Sequence
-    nodeType: 2
-    position: {x: -119, y: 364}
-    conditionType: 0
-    actionType: 0
-    animationStateName: 
-    childrenGuids:
-    - c8732878-5a91-4802-b344-b58f74c5af4b
-    - 32d40fa3-8ab3-4f59-9245-645ef22b211a
-  - guid: c8732878-5a91-4802-b344-b58f74c5af4b
-    nodeName: Condition
-    nodeType: 3
-    position: {x: -315, y: 537}
-    conditionType: 5
-    actionType: 0
-    animationStateName: 
-    childrenGuids: []
-  - guid: 32d40fa3-8ab3-4f59-9245-645ef22b211a
-    nodeName: Action
-    nodeType: 4
-    position: {x: -23, y: 518}
-    conditionType: 0
-    actionType: 2
-    animationStateName: 
-    childrenGuids: []
   - guid: b68c25ac-9fc7-4819-b490-ee26df01ffcf
     nodeName: Sequence
     nodeType: 2
-    position: {x: 458, y: 313}
+    position: {x: 833.5, y: 411}
     conditionType: 0
     actionType: 0
     animationStateName: 
@@ -74,7 +49,7 @@ MonoBehaviour:
   - guid: 1a80d694-0e04-4c4b-ab08-531d0736645a
     nodeName: Condition
     nodeType: 3
-    position: {x: 495, y: 501}
+    position: {x: 870.5, y: 599}
     conditionType: 4
     actionType: 0
     animationStateName: 
@@ -82,7 +57,7 @@ MonoBehaviour:
   - guid: a6e47339-82ba-48ad-9e3b-4045b7f11d8a
     nodeName: Condition
     nodeType: 3
-    position: {x: 222, y: 501}
+    position: {x: 597.5, y: 599}
     conditionType: 1
     actionType: 0
     animationStateName: 
@@ -90,16 +65,68 @@ MonoBehaviour:
   - guid: 2652de03-84ab-4877-8150-d632970826d2
     nodeName: Action
     nodeType: 4
-    position: {x: 717, y: 501}
+    position: {x: 1129, y: 599}
     conditionType: 0
     actionType: 2
+    animationStateName: 
+    childrenGuids: []
+  - guid: 83a55e42-3bff-4a17-997f-6571a8aec0fe
+    nodeName: Sequence
+    nodeType: 2
+    position: {x: -295, y: 440.5}
+    conditionType: 0
+    actionType: 0
+    animationStateName: 
+    childrenGuids:
+    - db5dc2f9-6c4e-4990-a3ea-3a09533f5c24
+    - 0b54e3c2-8138-4c29-9922-93e49a4f086f
+  - guid: db5dc2f9-6c4e-4990-a3ea-3a09533f5c24
+    nodeName: Condition
+    nodeType: 3
+    position: {x: -546.5, y: 594.5}
+    conditionType: 9
+    actionType: 0
+    animationStateName: 
+    childrenGuids: []
+  - guid: 0b54e3c2-8138-4c29-9922-93e49a4f086f
+    nodeName: Action
+    nodeType: 4
+    position: {x: -266, y: 594.5}
+    conditionType: 0
+    actionType: 5
+    animationStateName: 
+    childrenGuids: []
+  - guid: cb79f5c5-7d06-44b4-8a71-fc6928b6cfd8
+    nodeName: Flee Sequence
+    nodeType: 2
+    position: {x: 196.5, y: 445}
+    conditionType: 0
+    actionType: 0
+    animationStateName: 
+    childrenGuids:
+    - c8732878-5a91-4802-b344-b58f74c5af4b
+    - 32d40fa3-8ab3-4f59-9245-645ef22b211a
+  - guid: 32d40fa3-8ab3-4f59-9245-645ef22b211a
+    nodeName: Action
+    nodeType: 4
+    position: {x: 292.5, y: 599}
+    conditionType: 0
+    actionType: 2
+    animationStateName: 
+    childrenGuids: []
+  - guid: c8732878-5a91-4802-b344-b58f74c5af4b
+    nodeName: Condition
+    nodeType: 3
+    position: {x: 38.5, y: 599}
+    conditionType: 5
+    actionType: 0
     animationStateName: 
     childrenGuids: []
   - guid: cdfbe74a-6f8f-4db5-aa4e-5119e7aaffb1
     nodeName: Action
     nodeType: 4
-    position: {x: 952, y: 474}
+    position: {x: 1103.5, y: 142.5}
     conditionType: 0
-    actionType: 5
+    actionType: 6
     animationStateName: 
     childrenGuids: []

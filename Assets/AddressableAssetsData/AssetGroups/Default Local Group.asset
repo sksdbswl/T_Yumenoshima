@@ -27,14 +27,13 @@ MonoBehaviour:
     m_SerializedLabels:
     - Builder
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 365a66ac52e0f4987ac06bb1882a2c51
+    m_Address: Assets/Prefab/NPC/DialogShin
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 57ff1e42f08177247b3ceac370fb0be4
     m_Address: Assets/Prefab/NPC/Shin
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Npc
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6fb292d9764af3040a1a4ecbdf929408
-    m_Address: Assets/Prefab/NPC/DialogShin
     m_ReadOnly: 0
     m_SerializedLabels:
     - Npc
@@ -86,6 +85,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Npc
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f5c0576c7f3154d058d32b275af8b8ac
+    m_Address: Assets/UI/DialogueUI
+    m_ReadOnly: 0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: bb85cb47c081ac14f9b4aa9a13c8d03e, type: 2}

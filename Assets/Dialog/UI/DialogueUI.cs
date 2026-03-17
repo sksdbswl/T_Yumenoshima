@@ -311,8 +311,7 @@ public class DialogueUI : UIBase
 
         ExecuteActions(currentNode, DSDialogueActionTrigger.OnDialogueEnd);
 
-        if (dialoguePanel != null)
-            dialoguePanel.SetActive(false);
+        UIManager.Hide<DialogueUI>(UIList.DialogueUI);
 
         currentNode = null;
         currentStartNode = null;

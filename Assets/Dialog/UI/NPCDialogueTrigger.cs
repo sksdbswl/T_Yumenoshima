@@ -23,7 +23,7 @@ public class NPCDialogueTrigger : InteractionTarget, IInteractable
             return;
         }
         
-        var dialog = await UIManager.Singleton.GetUI<DialogueUI>(UIList.DialogueUI);
+        var dialog = await UIManager.Show<DialogueUI>(UIList.DialogueUI);
 
         dialog.SetContainer(container);
         dialog.StartDialogueAuto(npcId);

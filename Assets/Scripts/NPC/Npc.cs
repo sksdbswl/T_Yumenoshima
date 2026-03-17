@@ -37,7 +37,7 @@ public sealed class Npc : MonoBehaviour
                 Debug.Log("아침 입니다. 일어나세요");
                 // BT가 알아서 Patrol(배회)하도록
                 sensor.Blackboard.canHome = false;
-                
+
                 break;
 
             case RoutineState.Noon:

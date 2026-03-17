@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using Object = UnityEngine.Object;
 
 public class AssetManager : SingletonBase<AssetManager>
@@ -11,7 +9,6 @@ public class AssetManager : SingletonBase<AssetManager>
     private NpcDataSO _cacheNpcData;
 
     // ───────────────── NPC 관련 ─────────────────
-
     public NpcSO GetNpcSO()
     {
         LoadDataScript<NpcSO>(AssetConstant.AddressNpcData, out var result);

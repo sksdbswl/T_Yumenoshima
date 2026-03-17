@@ -39,6 +39,7 @@ public partial class GameManager : SingletonBase<GameManager>
         if (Input.GetKeyDown(KeyCode.P))
         {
             Stage++;
+            SpawnNpcForStage(Stage);
             Debug.Log($"Stage Changed: {Stage}");
         }
         

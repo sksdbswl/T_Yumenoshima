@@ -108,7 +108,6 @@ public class Player : MonoBehaviour
         }
 
         // 3) 그 외에는 (NPC 등)
-        Debug.Log("No interactable found.");
         return list[0];
     }
 }
