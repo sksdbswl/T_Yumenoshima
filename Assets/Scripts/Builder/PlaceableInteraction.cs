@@ -66,7 +66,7 @@ public class PlaceableInteraction: InteractionTarget, IInteractable
             data.gridZ      = position.z;
             data.rotationY  = transform.eulerAngles.y;
 
-            PlacementSaveManager.Singleton.RegisterPlacedObject(data);
+            PlacementManager.Singleton.RegisterPlacedObject(data);
         }
     }
 

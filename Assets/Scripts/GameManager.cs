@@ -41,6 +41,11 @@ public partial class GameManager : SingletonBase<GameManager>
             Stage++;
             Debug.Log($"Stage Changed: {Stage}");
         }
+        
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            PlacementManager.Singleton.OnPlacementEdit();
+        }
     }
     
     public async UniTask<bool> CheckAndDownloadStageResourcesAsync(

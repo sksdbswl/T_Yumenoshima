@@ -8,14 +8,20 @@ public class PlacementSaveData
     public PlacedObjectData[] objects;
 }
 
-public class PlacementSaveManager : SingletonBase<PlacementSaveManager>
+public class PlacementManager : SingletonBase<PlacementManager>
 {
     private List<PlacedObjectData> _placedObjects = new List<PlacedObjectData>();
     public List<PlacedObjectData> PlacedObjects => _placedObjects;
+    private PlacementSystem _placementSystem;
     
     private string SavePath =>
         Path.Combine(Application.persistentDataPath, "placement.json");
 
+    private void Awake()
+    {
+        _placementSystem = GetComponent<PlacementSystem>();    
+    }
+    
     public void RegisterPlacedObject(PlacedObjectData data)
     {
         _placedObjects.Add(data);
@@ -70,5 +76,10 @@ public class PlacementSaveManager : SingletonBase<PlacementSaveManager>
     public async void OnGameStart()
     {
         //await GameManager.Singleton.EnterIngameAsync();
+    }
+
+    public void OnPlacementEdit()
+    {
+        _placementSystem.enabled = !_placementSystem.enabled;
     }
 }

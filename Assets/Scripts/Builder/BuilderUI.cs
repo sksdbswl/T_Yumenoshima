@@ -2,12 +2,12 @@ public class BuilderUI : UIBase
 {
     public void Load()
     {
-        PlacementSaveManager.Singleton.Load();
+        PlacementManager.Singleton.Load();
     }
     
     public void Save()
     {
-        PlacementSaveManager.Singleton.Save();
+        PlacementManager.Singleton.Save();
     }
     
     public void Clear()
@@ -17,13 +17,13 @@ public class BuilderUI : UIBase
     
     public void OnPlacementReset()
     {
-        PlacementSaveManager.Singleton.ClearAll();
+        PlacementManager.Singleton.ClearAll();
 
         var objects = FindObjectsOfType<PlaceableInteraction>();
         foreach (var obj in objects)
             Destroy(obj.gameObject);
 
         PlacementSystem placement = FindObjectOfType<PlacementSystem>();
-        placement.RebuildFromSave(PlacementSaveManager.Singleton.PlacedObjects);
+        placement.RebuildFromSave(PlacementManager.Singleton.PlacedObjects);
     }
 }

@@ -9,7 +9,7 @@ public partial class UIManager : SingletonBase<UIManager>
     void Awake()
     {
         base.Awake();
-        PlacementSaveManager.Singleton.Load();
+        PlacementManager.Singleton.Load();
         Initialize();
     }
     
