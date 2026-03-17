@@ -8,7 +8,7 @@ using DS.ScriptableObjects;
 using TMPro;
 using UnityEngine.UI;
 
-public partial class DialogueManager : SingletonBase<DialogueManager>
+public class DialogueUI : UIBase
 {
     [Header("UI")]
     [SerializeField] private GameObject dialoguePanel;
@@ -20,9 +20,6 @@ public partial class DialogueManager : SingletonBase<DialogueManager>
     [Header("Source Data")]
     [SerializeField] private DSDialogueContainerSO dialogueContainer;
 
-    [Header("World Stage (debug)")]
-    [SerializeField] private int STAGE = 1;
-
     // ===== Runtime =====
     private DSDialogueSO currentNode;
 
@@ -33,23 +30,7 @@ public partial class DialogueManager : SingletonBase<DialogueManager>
     // 캐싱: 노드 -> 그룹SO
     private bool built;
     private Dictionary<DSDialogueSO, DSDialogueGroupSO> nodeToGroupSO;
-
-    private void Awake()
-    {
-        if (dialoguePanel != null)
-            dialoguePanel.SetActive(false);
-    }
-
-    private void Update()
-    {
-        // 디버그: 월드 스테이지 올리기
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            STAGE++;
-            Debug.Log($"[DialogueManager] World STAGE Changed: {STAGE}");
-        }
-    }
-
+    
     public void SetContainer(DSDialogueContainerSO container)
     {
         dialogueContainer = container;

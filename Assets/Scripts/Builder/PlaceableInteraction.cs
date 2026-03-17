@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 /// <summary>
@@ -100,7 +101,7 @@ public class PlaceableInteraction: InteractionTarget, IInteractable
     
     public void CheckInteract(int stage) { }
 
-    public void BeginInteract(Player player)
+    public async UniTask BeginInteract(Player player)
     {
         // TODO:: 건물 상호작용 (예: 건물 정보창, 상점 UI 등)
         Debug.Log($"[PlaceableObject] Building Interact: {SourceItem?.DisplayName} (Role: {Role})");

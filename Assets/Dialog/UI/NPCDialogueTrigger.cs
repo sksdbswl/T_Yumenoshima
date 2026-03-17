@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class NPCDialogueTrigger : InteractionTarget, IInteractable
@@ -13,31 +15,42 @@ public class NPCDialogueTrigger : InteractionTarget, IInteractable
     {
     }
 
-    public void BeginInteract(Player player)
+    public async UniTask BeginInteract(Player player)
     {
-        Debug.Log($"[NPC {npcId}] BeginInteract");
-
-        if (database == null)
-        {
-            Debug.LogError($"[NPC {npcId}] database is null");
-            return;
-        }
-
-        if (DialogueManager.Singleton == null)
-        {
-            Debug.LogError($"[NPC {npcId}] DialogueManager.Singleton is null");
-            return;
-        }
-
         if (!database.TryGetContainer(npcId, out var container))
         {
             Debug.LogWarning($"[NPC {npcId}] no container");
             return;
         }
+        
+        var dialog = await UIManager.Singleton.GetUI<DialogueUI>(UIList.DialogueUI);
 
-        DialogueManager.Singleton.SetContainer(container);
-        DialogueManager.Singleton.StartDialogueAuto(npcId);
+        dialog.SetContainer(container);
+        dialog.StartDialogueAuto(npcId);
     }
+    
+    // public void BeginInteract(Player player)
+    // {
+    //     Debug.Log($"[NPC {npcId}] BeginInteract");
+    //
+    //     if (database == null)
+    //     {
+    //         Debug.LogError($"[NPC {npcId}] database is null");
+    //         return;
+    //     }
+    //
+    //     if (!database.TryGetContainer(npcId, out var container))
+    //     {
+    //         Debug.LogWarning($"[NPC {npcId}] no container");
+    //         return;
+    //     }
+    //
+    //
+    //     var dialog = UIManager.Show<DialogueUI>(UIList.DialogueUI);
+    //     
+    //     dialog.SetContainer(container);
+    //     dialog.StartDialogueAuto(npcId);
+    // }
 
     public void EndInteract(Player player)
     {

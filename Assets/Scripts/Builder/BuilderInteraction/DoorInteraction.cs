@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class DoorInteraction :InteractionTarget, IInteractable
@@ -8,7 +9,7 @@ public class DoorInteraction :InteractionTarget, IInteractable
     {
     }
 
-    public void BeginInteract(Player player)
+    public async UniTask BeginInteract(Player player)
     {
         Debug.Log($"[Door] Building Interact: {Place.SourceItem?.DisplayName} (Role: {Place.Role})");
     }

@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class NpcInteraction : InteractionTarget, IInteractable
@@ -108,7 +109,7 @@ public class NpcInteraction : InteractionTarget, IInteractable
     /// 상호작용 시작 / 대화 한 줄 진행
     /// Player.OnInteractPerformed 에서 호출
     /// </summary>
-    public void BeginInteract(Player player)
+    public async UniTask BeginInteract(Player player)
     {
         SetInteractionAvailable(true); 
         

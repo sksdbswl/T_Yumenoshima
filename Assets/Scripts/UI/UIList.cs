@@ -12,7 +12,8 @@ public enum UIList
     POPUP_START,
         
     BuilderUI,
-        
+    DialogueUI,
+    
     POPUP_MAX, // Popup Max
     PANEL_START, // Panel Start
         
