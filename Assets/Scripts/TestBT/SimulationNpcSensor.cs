@@ -9,21 +9,17 @@ namespace TestBT
     /// </summary>
     public class SimulationNpcSensor : MonoBehaviour
     {
+        public NpcSO npcSO;
         [SerializeField] private float nearDistance = 4f;
         [SerializeField] private float veryNearDistance = 2f;
-        [SerializeField] public bool canMotion;
-        [SerializeField] public bool canChase;
-        [SerializeField] public bool canAttack;
-        [SerializeField] public bool canFlee;
         
         public NpcBlackboard Blackboard { get; private set; } = new NpcBlackboard();
 
         private void Awake()
         {
-            Blackboard.canMotion = canMotion;
-            Blackboard.canChase = canChase;
-            Blackboard.canAttack = canAttack;
-            Blackboard.canFlee = canFlee;
+            Blackboard.canFlee = npcSO.canFlee;
+            Blackboard.canChase = npcSO.canChase;
+            Blackboard.canAttack = npcSO.canAttack;
         }
 
         public void Tick(PlayerBT player)

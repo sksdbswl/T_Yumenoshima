@@ -28,3 +28,4 @@ MonoBehaviour:
   canChase: 1
   canAttack: 1
   canFlee: 0
+  canHome: 0

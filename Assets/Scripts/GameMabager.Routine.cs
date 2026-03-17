@@ -15,10 +15,10 @@ public partial class GameManager : SingletonBase<GameManager>
         while (true)
         {
             SetState(RoutineState.Morning);
-            yield return new WaitForSeconds(10f); 
+            yield return new WaitForSeconds(5f); 
 
             SetState(RoutineState.Noon);
-            yield return new WaitForSeconds(20f);
+            yield return new WaitForSeconds(5f);
 
             SetState(RoutineState.Night);
             yield return new WaitForSeconds(30f);

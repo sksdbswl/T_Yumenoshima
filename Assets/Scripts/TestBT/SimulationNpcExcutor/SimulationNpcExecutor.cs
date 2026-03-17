@@ -7,11 +7,11 @@ namespace TestBT
     /// <summary>
     /// Action 노드에서 실행될 실제 행동
     /// </summary>
-    public class SimulationNpcExecutor : MonoBehaviour
+    public partial class SimulationNpcExecutor : MonoBehaviour
     {
+        public NpcSO npcSO;
         private NavMeshAgent agent;
-        
-        private float defaultSpeed = 2f;
+        private float defaultSpeed = 5f;
         private float fleeSpeed = 10f;
         
         private void Awake()
@@ -22,6 +22,7 @@ namespace TestBT
         
         public void MoveTo(Vector3 target)
         {
+            agent.isStopped = false;
             agent.SetDestination(target);
         }
         
@@ -34,22 +35,8 @@ namespace TestBT
         {
             agent.speed = speed;
         }
-
-        public void DoJump()
-        {
-            agent.isStopped = false;
-            agent.SetDestination(agent.transform.position + agent.transform.up * 10);
-        }
-
-        public ENodeState DoHide()
-        {
-            Debug.Log("숨기");
-            
-            agent.isStopped = true;
-            return ENodeState.ENS_Success;
-        }
         
-        #region Default/Move
+        #region Basic : Move, Hide, Jump
 
         public ENodeState KeepDefault()
         {
@@ -75,10 +62,20 @@ namespace TestBT
             }
         }
 
-        #endregion
-
-        #region LookAt
-
+        public ENodeState DoHide()
+        {
+            Debug.Log("숨기");
+            
+            agent.isStopped = true;
+            return ENodeState.ENS_Success;
+        }
+        
+        public void DoJump()
+        {
+            agent.isStopped = false;
+            agent.SetDestination(agent.transform.position + agent.transform.up * 10);
+        }
+        
         /// <summary>
         /// 대상의 높낮이(Y축)까지 포함하여 바라봅니다.
         /// 만약 상대방이 나보다 높은 곳에 있다면 고개가 위로 꺾일 수 있습니다.
@@ -114,80 +111,10 @@ namespace TestBT
 
             return ENodeState.ENS_Success;
         }
-
+        
         #endregion
-
-        #region Chase/Attack
-
-        private bool isAttacking = false;
-        private float attackDelay = 5f;
-        private float attackTimer = 0f;
-
-        public ENodeState DoChase(NpcBlackboard target)
-        {
-            if (target == null) return ENodeState.ENS_Failure;
-
-            // 1. 공격 범위 안에 들어왔다면? 추적 성공 반환 -> 다음 공격 노드로
-            if (target.isPlayerVeryNear)
-            {
-                agent.isStopped = true; 
-                return ENodeState.ENS_Success; 
-            }
-
-            // 2. 아직 멀다면? 계속 이동하며 진행 중 반환
-            Debug.Log("추적 중...");
-            agent.isStopped = false;
-            agent.SetDestination(target.player.position);
-            return ENodeState.ENS_Running;
-        }
-
-        public ENodeState DoAttack(Transform target)
-        {
-            if (target == null) return ENodeState.ENS_Failure;
-
-            if (!isAttacking)
-            {
-                // 1. 공격 시작 시점 
-                Debug.Log("공격 시작");
-                if (agent != null) Stop(); 
-
-                Vector3 lookDir = (target.position - transform.position).normalized;
-                lookDir.y = 0;
-                if (lookDir != Vector3.zero) transform.forward = lookDir;
-
-                // animator.SetTrigger("Attack");
-                attackTimer = attackDelay;
-                isAttacking = true;
-            }
-  
-            attackTimer -= Time.deltaTime;
-            
-            if (attackTimer > 0f)
-            {
-                Debug.Log($"공격 중... ::{attackTimer}");
-                // 2. 공격 진행 중
-                
-                return ENodeState.ENS_Running;
-            }
-
-            // 3. 공격 완료 시점
-            Debug.Log("공격 끝");
-            attackTimer = 0f;
-            isAttacking = false;
-            agent.isStopped = false;
-            
-            return ENodeState.ENS_Success;
-        }
-
-        public bool IsAttacking()
-        {
-            return isAttacking;
-        }
-
-        #endregion
-
-        #region Flee
-
+        
+        // ───────────────── 도망 ─────────────────
         private bool isFleeing = false; // 도망 상태 값
         private bool _hasFleeTarget = false; // 좌표 설정 값
         private Vector3 _currentFleeTarget;
@@ -199,61 +126,6 @@ namespace TestBT
             
             return DoDistanceRandomMove(player);
         }
-        // public ENodeState DoDistanceRandomMove(Transform player)
-        // {
-        //     float minDistance = 10f;
-        //     float maxDistance = 15f;
-        //
-        //     if (!_hasFleeTarget)
-        //     {
-        //         Vector3 awayFromPlayer = transform.position - player.position;
-        //         awayFromPlayer.y = 0f;
-        //
-        //         if (awayFromPlayer.sqrMagnitude < 0.001f)
-        //             awayFromPlayer = transform.forward;
-        //
-        //         awayFromPlayer.Normalize();
-        //
-        //         for (int i = 0; i < 10; i++)
-        //         {
-        //             float angle = Random.Range(-60f, 60f);
-        //             Vector3 randomDir = Quaternion.Euler(0f, angle, 0f) * awayFromPlayer;
-        //
-        //             float randomDistance = Random.Range(minDistance, maxDistance);
-        //             Vector3 randomPoint = transform.position + randomDir * randomDistance;
-        //
-        //             if (!NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 2f, NavMesh.AllAreas))
-        //                 continue;
-        //
-        //             float currentDistToPlayer = Vector3.Distance(transform.position, player.position);
-        //             float newDistToPlayer = Vector3.Distance(hit.position, player.position);
-        //
-        //             if (newDistToPlayer <= currentDistToPlayer)
-        //                 continue;
-        //
-        //             agent.isStopped = false;
-        //             SetSpeed(fleeSpeed);
-        //             _currentFleeTarget = hit.position;
-        //             agent.SetDestination(_currentFleeTarget);
-        //             _hasFleeTarget = true;
-        //
-        //             return ENodeState.ENS_Running;
-        //         }
-        //
-        //         return ENodeState.ENS_Running;
-        //     }
-        //
-        //     if (agent.pathPending)
-        //         return ENodeState.ENS_Running;
-        //
-        //     if (agent.remainingDistance > agent.stoppingDistance)
-        //         return ENodeState.ENS_Running;
-        //
-        //     _hasFleeTarget = false;
-        //     isFleeing = false;
-        //
-        //     return ENodeState.ENS_Success;
-        // }
         
         public ENodeState DoDistanceRandomMove(Transform player)
         {
@@ -319,13 +191,43 @@ namespace TestBT
         {
             return isFleeing;
         }
-
-        #endregion
-
-        public void GoHome()
+        
+        // ───────────────── 귀가 ─────────────────
+        private bool _hasHomeTarget = false;
+        private Vector3 _homeTarget;
+        
+        public ENodeState GoHome()
         {
-            agent.isStopped = false;
-            agent.SetDestination(transform.position);
+            // 1. 집 찾기
+            var house = PlaceableInteraction.GetByInstanceId(npcSO.BuilderId);
+            if (house == null)
+                return ENodeState.ENS_Failure;
+
+            // 2. 목표 설정 (한 번만)
+            if (!_hasHomeTarget)
+            {
+                _homeTarget = house.transform.position;
+
+                agent.isStopped = false;
+                SetSpeed(defaultSpeed);
+                agent.SetDestination(_homeTarget);
+
+                _hasHomeTarget = true;
+
+                return ENodeState.ENS_Running;
+            }
+
+            // 3. 이동 중
+            if (agent.pathPending)
+                return ENodeState.ENS_Running;
+
+            if (agent.remainingDistance > agent.stoppingDistance)
+                return ENodeState.ENS_Running;
+
+            // 4. 도착
+            _hasHomeTarget = false;
+
+            return ENodeState.ENS_Success;
         }
     }
 }

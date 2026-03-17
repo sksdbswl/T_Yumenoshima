@@ -1,3 +1,4 @@
+using TestBT;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,10 +9,12 @@ public sealed class Npc : MonoBehaviour
 {
     public NpcSO npcSO;
     
-    public NavMeshAgent Agent;
+    [HideInInspector]public NavMeshAgent agent;
+    [HideInInspector]public SimulationNpcSensor sensor;
+    [HideInInspector]public SimulationNpcExecutor executor;
+    
     // public NpcMovement Movement { get; private set; }
     // public NpcAnimationStateMachine Anim { get; private set; }
-    //
     // private BehaviourTreeRunner bt;
 
     private void Awake()
@@ -19,7 +22,11 @@ public sealed class Npc : MonoBehaviour
         // Movement = GetComponent<NpcMovement>();
         // Anim     = GetComponent<NpcAnimationStateMachine>();
         // bt       = GetComponent<BehaviourTreeRunner>();
-        Agent    = GetComponent<NavMeshAgent>();
+        agent    = GetComponent<NavMeshAgent>();
+        sensor   = GetComponent<SimulationNpcSensor>();
+        executor = GetComponent<SimulationNpcExecutor>();
+        sensor.npcSO = npcSO;
+        executor.npcSO = npcSO;
     }
     
     private void OnEnable()
@@ -43,6 +50,8 @@ public sealed class Npc : MonoBehaviour
                 Debug.Log("아침 입니다. 일어나세요");
                 //bt.routineState = RoutineState.Morning;
                 // BT가 알아서 Patrol(배회)하도록
+                sensor.Blackboard.canHome = false;
+                
                 break;
 
             case RoutineState.Noon:
@@ -53,8 +62,8 @@ public sealed class Npc : MonoBehaviour
 
             case RoutineState.Night:
                 Debug.Log("저녁 입니다. 귀가하세요");
-                // 여기서 이동을 직접 하지 말고 "집으로 가야 한다"만 표시
-                var house = PlaceableInteraction.GetByInstanceId(npcSO.BuilderId);
+                // 여기서 이동을 직접 하지 말고 집으로 가야 한다만 표시
+                sensor.Blackboard.canHome = true;
                 
                 //bt.homeTarget = house?.transform;
                 //bt.routineState = RoutineState.Night;

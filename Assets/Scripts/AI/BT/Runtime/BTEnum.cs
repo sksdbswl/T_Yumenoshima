@@ -23,6 +23,7 @@ namespace AI.BT.Runtime
         Flee,
         Attack,
         Chase,
+        GoHome,
         KeepDefault
     }
 
@@ -36,6 +37,7 @@ namespace AI.BT.Runtime
         IsFleeing,
         CanAttack,
         CanChase,
-        IsAttacking
+        IsAttacking,
+        CanHome
     }
 }

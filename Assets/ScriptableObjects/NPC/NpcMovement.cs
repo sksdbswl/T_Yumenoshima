@@ -79,7 +79,7 @@ public class NpcMovement : MonoBehaviour
             _wanderCoroutine = null;
         }
 
-        Npc.Agent.isStopped = true;
+        Npc.agent.isStopped = true;
         SetIdleAnim();
     }
 
@@ -147,13 +147,13 @@ public class NpcMovement : MonoBehaviour
         _onArrived = onArrived;
         _agentHasArrived = false;
 
-        Npc.Agent.isStopped = false;
-        Npc.Agent.SetDestination(destination);
+        Npc.agent.isStopped = false;
+        Npc.agent.SetDestination(destination);
     }
 
     private void Update()
     {
-        if (!Npc.Agent.pathPending && Npc.Agent.remainingDistance <= Npc.Agent.stoppingDistance)
+        if (!Npc.agent.pathPending && Npc.agent.remainingDistance <= Npc.agent.stoppingDistance)
         {
             if (!_agentHasArrived)
             {

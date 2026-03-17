@@ -13,13 +13,13 @@ namespace TestBT
 
         public bool isPlayerNear;
         public bool isPlayerVeryNear;
-
-        public bool canMotion; // 기본 모션
         
-        public bool canChase; // 위협
-
+        // 기본 설정
+        public bool canHome; // 귀가
+        
+        // npc so에서 설정
+        public bool canChase; // 추격
         public bool canAttack; // 공격
-        
         public bool canFlee; // 도망
     }
 }

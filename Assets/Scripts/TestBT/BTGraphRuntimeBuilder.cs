@@ -21,13 +21,13 @@ public static class BTGraphRuntimeBuilder
     private static readonly Dictionary<BTConditionType, Func<SimulationNpcController, bool>> ConditionFactories = new()
     {
         { BTConditionType.IsPlayerNear, owner => owner.sensor.Blackboard.isPlayerNear },
-        { BTConditionType.CanMotion, owner => owner.sensor.Blackboard.canMotion },
         { BTConditionType.CanFlee, owner => owner.sensor.Blackboard.canFlee },
         { BTConditionType.IsFleeing, owner => owner.executor.IsFleeing() },
         { BTConditionType.IsPlayerVeryNear, owner => owner.sensor.Blackboard.isPlayerVeryNear },
         { BTConditionType.CanAttack, owner => owner.sensor.Blackboard.canAttack },
         { BTConditionType.CanChase, owner => owner.sensor.Blackboard.canChase },
         { BTConditionType.IsAttacking, owner => owner.executor.IsAttacking() },
+        { BTConditionType.CanHome, owner =>  owner.sensor.Blackboard.canHome},
     };
 
     private static readonly Dictionary<BTActionType, Func<SimulationNpcController, ENodeState>> ActionFactories = new()
@@ -36,6 +36,7 @@ public static class BTGraphRuntimeBuilder
         { BTActionType.Flee, owner => owner.executor.DoFlee(owner.sensor.Blackboard.player) },
         { BTActionType.Attack, owner => owner.executor.DoAttack(owner.sensor.Blackboard.player) },
         { BTActionType.Chase, owner => owner.executor.DoChase(owner.sensor.Blackboard) },
+        { BTActionType.GoHome, owner => owner.executor.GoHome() },
         { BTActionType.KeepDefault, owner => owner.executor.KeepDefault() },
     };
     

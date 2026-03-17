@@ -26,14 +26,14 @@ public class NpcAnimationStateMachine : AnimationStateMachine
 
     private void UpdateStateFromMovement()
     {
-        if (Npc.Agent == null || !Npc.Agent.isOnNavMesh)
+        if (Npc.agent == null || !Npc.agent.isOnNavMesh)
         {
             SetState(AnimState.Idle);
             return;
         }
 
         // NavMeshAgent 속도 기반으로 상태 결정
-        float speed = Npc.Agent.velocity.magnitude;
+        float speed = Npc.agent.velocity.magnitude;
 
         if (IsWorking)
         {
