@@ -92,7 +92,7 @@ public partial class GameManager
         int index = Random.Range(0, _spawnedNpcStatuses.Count);
         var targetNpc = _spawnedNpcStatuses[index];
 
-        targetNpc._npcStatus.ChangeEmotion(Const.EEmotion.Tired);
+        targetNpc._npcStatus.ChangeEmotion(targetNpc,Const.EEmotion.Tired);
         
         Debug.Log($"NPC 감정 변경: {targetNpc.name} → Tired");
     }

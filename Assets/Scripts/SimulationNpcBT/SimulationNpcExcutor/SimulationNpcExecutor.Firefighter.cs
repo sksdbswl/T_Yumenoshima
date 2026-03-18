@@ -52,7 +52,7 @@ namespace TestBT
         {
             if (currentFireTarget != null && currentFireTarget.IsOnFire)
                 return ENodeState.ENS_Success;
-
+            
             currentFireTarget = GetNearestFireBuilding();
 
             return currentFireTarget != null
@@ -66,7 +66,13 @@ namespace TestBT
         public ENodeState DoMoveToFire()
         {
             if (agent == null) return ENodeState.ENS_Failure;
-
+            if (isAnomaly)
+            {
+                agent.isStopped = true;
+                agent.ResetPath();
+                return ENodeState.ENS_Failure;
+            }
+            
             if (currentFireTarget == null || !currentFireTarget.IsOnFire)
             {
                 currentFireTarget = GetNearestFireBuilding();

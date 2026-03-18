@@ -14,6 +14,7 @@ namespace TestBT
         private float defaultSpeed = 3f;
         private float runSpeed = 10f;
         private bool isProgress = false;
+        public bool isAnomaly = false;
         
         private void Awake()
         {
@@ -80,6 +81,11 @@ namespace TestBT
         public bool IsProgressing()
         {
             return isProgress;
+        }
+
+        public bool IsAnomaly()
+        {
+            return isAnomaly;
         }
         
         /// <summary>

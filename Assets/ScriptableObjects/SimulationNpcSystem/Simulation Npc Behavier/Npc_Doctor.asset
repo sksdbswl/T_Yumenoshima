@@ -64,7 +64,7 @@ MonoBehaviour:
     nodeName: Condition
     nodeType: 3
     position: {x: 479, y: 572}
-    conditionType: 10
+    conditionType: 9
     actionType: 0
     animationStateName: 
     childrenGuids: []

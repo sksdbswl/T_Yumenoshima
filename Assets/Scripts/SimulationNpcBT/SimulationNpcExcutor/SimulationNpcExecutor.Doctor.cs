@@ -10,7 +10,7 @@ namespace TestBT
         private float healDelay = 3f;
         private float healTimer = 0f;
 
-        private Npc currentNpcStatus;
+        private Npc currentNpc;
 
         /// <summary>
         /// 가까운 아픈 Npc 찾기
@@ -45,12 +45,12 @@ namespace TestBT
 
         public ENodeState DoFindPatient()
         {
-            if (currentNpcStatus != null && currentNpcStatus._npcStatus.CurrentEmotion == Const.EEmotion.Tired)
+            if (currentNpc != null && currentNpc._npcStatus.CurrentEmotion == Const.EEmotion.Tired)
                 return ENodeState.ENS_Success;
 
-            currentNpcStatus = GetNearestPatient();
+            currentNpc = GetNearestPatient();
 
-            return currentNpcStatus != null
+            return currentNpc != null
                 ? ENodeState.ENS_Success
                 : ENodeState.ENS_Failure;
         }
@@ -59,14 +59,14 @@ namespace TestBT
         {
             if (agent == null) return ENodeState.ENS_Failure;
 
-            if (currentNpcStatus == null || currentNpcStatus._npcStatus.CurrentEmotion != Const.EEmotion.Tired)
+            if (currentNpc == null || currentNpc._npcStatus.CurrentEmotion != Const.EEmotion.Tired)
             {
-                currentNpcStatus = GetNearestPatient();
-                if (currentNpcStatus == null)
+                currentNpc = GetNearestPatient();
+                if (currentNpc == null)
                     return ENodeState.ENS_Failure;
             }
 
-            Transform target = currentNpcStatus._npcStatus.GetTransform();
+            Transform target = currentNpc._npcStatus.GetTransform();
             if (target == null) return ENodeState.ENS_Failure;
 
             float distance = Vector3.Distance(transform.position, target.position);
@@ -84,17 +84,17 @@ namespace TestBT
 
         public ENodeState DoHeal()
         {
-            if (currentNpcStatus == null) return ENodeState.ENS_Failure;
-            if (currentNpcStatus._npcStatus.CurrentEmotion != Const.EEmotion.Tired)
+            if (currentNpc == null) return ENodeState.ENS_Failure;
+            if (currentNpc._npcStatus.CurrentEmotion != Const.EEmotion.Tired)
             {
-                currentNpcStatus = null;
+                currentNpc = null;
                 return ENodeState.ENS_Failure;
             }
 
-            Transform target = currentNpcStatus._npcStatus.GetTransform();
+            Transform target = currentNpc._npcStatus.GetTransform();
             if (target == null)
             {
-                currentNpcStatus = null;
+                currentNpc = null;
                 return ENodeState.ENS_Failure;
             }
 
@@ -127,7 +127,7 @@ namespace TestBT
                 return ENodeState.ENS_Running;
             }
 
-            currentNpcStatus._npcStatus.ChangeEmotion(Const.EEmotion.Neutral);
+            currentNpc._npcStatus.ChangeEmotion(currentNpc, Const.EEmotion.Neutral);
 
             healTimer = 0f;
             isProgress = false;
@@ -137,8 +137,8 @@ namespace TestBT
 
             Debug.Log($"[Doctor] 치료 완료 : {target.name}");
 
-            currentNpcStatus.agent.isStopped = false;
-            currentNpcStatus = null;
+            currentNpc.agent.isStopped = false;
+            currentNpc = null;
             return ENodeState.ENS_Success;
         }
 

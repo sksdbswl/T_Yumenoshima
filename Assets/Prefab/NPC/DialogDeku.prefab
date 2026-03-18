@@ -714,6 +714,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestBT.SimulationNpcExecutor
   npcSO: {fileID: 0}
+  isAnomaly: 0
 --- !u!114 &-6918103366982436708
 MonoBehaviour:
   m_ObjectHideFlags: 0

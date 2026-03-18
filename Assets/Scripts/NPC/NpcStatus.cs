@@ -19,6 +19,7 @@ public sealed class NpcStatus : MonoBehaviour, INpcStatus
     
     public float CurrentHp => currentHp;
     public float MaxHp => maxHp;
+    public bool IsAnomaly { get; set; }
 
     public Const.EEmotion CurrentEmotion => currentEmotion;
     public Const.EStatusEffect CurrentStatusEffects => currentStatusEffects;
@@ -64,22 +65,18 @@ public sealed class NpcStatus : MonoBehaviour, INpcStatus
         currentHp = Mathf.Min(maxHp, currentHp + amount);
     }
     
-    public void ChangeEmotion(Const.EEmotion emotion)
+    public void ChangeEmotion(Npc npc, Const.EEmotion emotion)
     {
         currentEmotion = emotion;
-
-        if (agent != null)
+        
+        if (emotion == Const.EEmotion.Tired)
         {
-            if (emotion == Const.EEmotion.Tired)
-            {
-                agent.isStopped = true;
-                agent.ResetPath();
-                //agent.velocity = Vector3.zero;
-            }
-            else
-            {
-                agent.isStopped = false;
-            }
+            agent.isStopped = true;
+            npc.executor.isAnomaly = true;
+        }
+        else
+        {
+            agent.isStopped = false;
         }
     }
     

@@ -27,6 +27,7 @@ public static class BTGraphRuntimeBuilder
         { BTConditionType.CanChase, owner => owner.sensor.Blackboard.canChase },
         { BTConditionType.CanSteal, owner =>  owner.sensor.Blackboard.canSteal},
         { BTConditionType.CanHome, owner =>  owner.sensor.Blackboard.canHome},
+       
         { BTConditionType.IsProgress, owner => owner.executor.IsProgressing() },
     };
 

@@ -22,11 +22,10 @@ namespace AI.BT.Runtime
         IsPlayerNear,
         IsPlayerVeryNear,
         IsProgress,
+        IsAnomaly,
         CanFlee,
-        IsFleeing,
         CanAttack,
         CanChase,
-        IsAttacking,
         CanSteal,
         CanHome,
     }
