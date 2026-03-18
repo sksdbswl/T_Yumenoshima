@@ -30,6 +30,7 @@ public class NpcSO : ScriptableObject
     public bool canChase;
     public bool canAttack;
     public bool canFlee;
+    public bool canSteal;
     
     /// <summary>
     /// 실제 대화시작 : 플레이어가 이 NPC와 대화 시도할 때 호출

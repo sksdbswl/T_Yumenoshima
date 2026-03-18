@@ -25,6 +25,7 @@ MonoBehaviour:
   attackSpeed: 0
   chaseSpeed: 0
   fleeSpeed: 0
-  canChase: 0
+  canChase: 1
   canAttack: 0
-  canFlee: 1
+  canFlee: 0
+  canSteal: 1

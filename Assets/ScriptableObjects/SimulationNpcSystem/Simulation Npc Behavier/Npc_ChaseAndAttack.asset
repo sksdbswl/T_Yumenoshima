@@ -110,7 +110,7 @@ MonoBehaviour:
     nodeType: 4
     position: {x: 1288, y: 314}
     conditionType: 0
-    actionType: 5
+    actionType: 7
     animationStateName: 
     childrenGuids: []
   - guid: df2253d3-0881-48e2-9802-c23751ff3b06

@@ -31,11 +31,10 @@ MonoBehaviour:
     actionType: 0
     animationStateName: 
     childrenGuids:
-    - fd94569d-ee6e-4379-a73e-263d5ced904b
     - 03053799-e81a-4918-bc70-6e31c7f5cd7b
     - d3846d75-eb0b-4740-859d-f0a738a11889
+    - 9fa983fe-e2b5-4686-93bd-a37a4f858641
     - e0e283cc-cf23-4c45-97fd-4c10533b8446
-    - 89ebd0ce-b3b6-4cee-ba98-c609b8e1ce67
   - guid: d3846d75-eb0b-4740-859d-f0a738a11889
     nodeName: Attack Sequence
     nodeType: 2
@@ -71,14 +70,6 @@ MonoBehaviour:
     actionType: 5
     animationStateName: 
     childrenGuids: []
-  - guid: 89ebd0ce-b3b6-4cee-ba98-c609b8e1ce67
-    nodeName: Action
-    nodeType: 4
-    position: {x: 1158, y: 219}
-    conditionType: 0
-    actionType: 7
-    animationStateName: 
-    childrenGuids: []
   - guid: e0e283cc-cf23-4c45-97fd-4c10533b8446
     nodeName: Chase Sequence
     nodeType: 2
@@ -90,14 +81,6 @@ MonoBehaviour:
     - 462900ab-0ce8-4a8b-92a7-d1d36ddda8f8
     - feafebb6-9510-4fdd-9913-c68aaa8844fc
     - 3604b182-8e85-4cf3-aa1a-a0551c467d52
-  - guid: 3604b182-8e85-4cf3-aa1a-a0551c467d52
-    nodeName: Chase Action
-    nodeType: 4
-    position: {x: 1342, y: 683}
-    conditionType: 0
-    actionType: 4
-    animationStateName: 
-    childrenGuids: []
   - guid: feafebb6-9510-4fdd-9913-c68aaa8844fc
     nodeName: IsAttacking Condition
     nodeType: 3
@@ -111,32 +94,6 @@ MonoBehaviour:
     nodeType: 3
     position: {x: 828, y: 708}
     conditionType: 1
-    actionType: 0
-    animationStateName: 
-    childrenGuids: []
-  - guid: fd94569d-ee6e-4379-a73e-263d5ced904b
-    nodeName: Sequence
-    nodeType: 2
-    position: {x: -763, y: 517}
-    conditionType: 0
-    actionType: 0
-    animationStateName: 
-    childrenGuids:
-    - 4e4cfff3-0d3e-4a6d-8bc3-668d4e3c3d34
-    - 862ca720-2059-4ce7-89ed-bc4290d90291
-  - guid: 862ca720-2059-4ce7-89ed-bc4290d90291
-    nodeName: Action
-    nodeType: 4
-    position: {x: -745, y: 702}
-    conditionType: 0
-    actionType: 5
-    animationStateName: 
-    childrenGuids: []
-  - guid: 4e4cfff3-0d3e-4a6d-8bc3-668d4e3c3d34
-    nodeName: Condition
-    nodeType: 3
-    position: {x: -1016, y: 710}
-    conditionType: 9
     actionType: 0
     animationStateName: 
     childrenGuids: []
@@ -164,5 +121,21 @@ MonoBehaviour:
     position: {x: -251, y: 710}
     conditionType: 0
     actionType: 5
+    animationStateName: 
+    childrenGuids: []
+  - guid: 9fa983fe-e2b5-4686-93bd-a37a4f858641
+    nodeName: Action
+    nodeType: 4
+    position: {x: 978, y: 160}
+    conditionType: 0
+    actionType: 7
+    animationStateName: 
+    childrenGuids: []
+  - guid: 3604b182-8e85-4cf3-aa1a-a0551c467d52
+    nodeName: Chase Action
+    nodeType: 4
+    position: {x: 1362, y: 708}
+    conditionType: 0
+    actionType: 4
     animationStateName: 
     childrenGuids: []

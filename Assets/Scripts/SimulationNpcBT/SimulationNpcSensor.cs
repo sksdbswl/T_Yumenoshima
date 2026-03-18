@@ -20,6 +20,7 @@ namespace TestBT
             Blackboard.canFlee = npcSO.canFlee;
             Blackboard.canChase = npcSO.canChase;
             Blackboard.canAttack = npcSO.canAttack;
+            Blackboard.canSteal = npcSO.canSteal;
         }
 
         public void Tick(PlayerBT player)

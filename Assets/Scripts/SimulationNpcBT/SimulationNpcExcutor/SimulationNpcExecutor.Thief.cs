@@ -11,35 +11,20 @@ namespace TestBT
         /// 3. 저녁 : 마주치면 돈 뺏김
         /// </summary>
 
-        #region Thief : Chase/Attack
+        #region Thief : Chase/Steal
 
         private float stealDelay = 5f;
         private float stealTimer = 0f;
-        
-        public ENodeState DoWander(NpcBlackboard target)
-        {
-            if (target == null) return ENodeState.ENS_Failure;
-            
-            // 1. 공격 범위 안에 들어왔다면 ? 
-            if (target.isPlayerVeryNear)
-            {
-                agent.isStopped = true;
-                return ENodeState.ENS_Success;
-            }
-            
-            // 2. 아직 멀다면? 계속 이동하며 진행 중 반환
-            agent.isStopped = false;
-            agent.SetDestination(target.player.position);
-            return ENodeState.ENS_Running;
-        }
         
         public ENodeState DoSteal(Transform target)
         {
             if (target == null) return ENodeState.ENS_Failure;
 
+            Debug.Log("DoSteal");
             if (!isProgress)
             {
                 // 1. 스틸 시작
+                Debug.Log("스틸 시작");
                 if (agent != null) Stop(); 
 
                 Vector3 lookDir = (target.position - transform.position).normalized;
@@ -59,11 +44,13 @@ namespace TestBT
             
             if (stealTimer > 0f)
             {
+                Debug.Log($"스틸 중... ::{attackTimer}");
                 // 2. 스틸 진행 중
                 return ENodeState.ENS_Running;
             }
 
             // 3. 스틸 완료 시점
+            Debug.Log("스틸 끝");
             stealTimer = 0f;
             isProgress = false;
             agent.isStopped = false;

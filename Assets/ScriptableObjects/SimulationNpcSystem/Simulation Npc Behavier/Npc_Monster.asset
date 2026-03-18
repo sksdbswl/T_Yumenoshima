@@ -76,7 +76,7 @@ MonoBehaviour:
     nodeType: 4
     position: {x: 1158, y: 219}
     conditionType: 0
-    actionType: 6
+    actionType: 7
     animationStateName: 
     childrenGuids: []
   - guid: e0e283cc-cf23-4c45-97fd-4c10533b8446
@@ -129,14 +129,14 @@ MonoBehaviour:
     nodeType: 4
     position: {x: -745, y: 702}
     conditionType: 0
-    actionType: 5
+    actionType: 6
     animationStateName: 
     childrenGuids: []
   - guid: 4e4cfff3-0d3e-4a6d-8bc3-668d4e3c3d34
     nodeName: Condition
     nodeType: 3
     position: {x: -1016, y: 710}
-    conditionType: 9
+    conditionType: 10
     actionType: 0
     animationStateName: 
     childrenGuids: []

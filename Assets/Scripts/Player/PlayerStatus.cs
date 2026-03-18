@@ -50,7 +50,7 @@ public sealed class PlayerStatus : MonoBehaviour, IPlayerStatus
     {
         if (amount <= 0f) return;
 
-        Money = Mathf.Max(0, Money - amount);
+        Money -= amount;
 
         if (Money <= 0f)
         {
