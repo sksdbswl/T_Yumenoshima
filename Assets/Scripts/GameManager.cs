@@ -13,8 +13,8 @@ public enum RoutineState
 }
 public partial class GameManager : SingletonBase<GameManager>
 {
-    private readonly List<NpcStatus> _spawnedNpcStatuses = new();
-    public IReadOnlyList<NpcStatus> SpawnedNpcStatuses => _spawnedNpcStatuses;
+    private readonly List<Npc> _spawnedNpcStatuses = new();
+    public IReadOnlyList<Npc> SpawnedNpcStatuses => _spawnedNpcStatuses;
     
     // 씬에 대한 정보, 이름 변경해줘도 좋을 듯 :: 해당 값을 이용해서 npc spawn
     private int _stage = 1;
@@ -139,51 +139,11 @@ public partial class GameManager : SingletonBase<GameManager>
             var npcObj = AssetManager.Singleton.InstantiateNpcModel(npcData.Name);
             npcObj.transform.position = npcData.spawnPoint;
 
-            var status = npcObj.GetComponent<NpcStatus>();
+            var status = npcObj.GetComponent<Npc>();
             if (status != null)
             {
                 _spawnedNpcStatuses.Add(status);
             }
         }
-    }
-
-    // public void SpawnNpcForStage(int stage)
-    // {
-    //     var table = AssetManager.Singleton.GetNpcDataSO();
-    //     
-    //     foreach (var npcData in table.Items.Values)
-    //     {
-    //         if (npcData.Stage != stage)
-    //             continue;
-    //
-    //         var npcObj = AssetManager.Singleton.InstantiateNpcModel(npcData.Name);
-    //         npcObj.transform.position = npcData.spawnPoint;
-    //         npcObj.GetComponent<NpcInteraction>().npcSO = npcData;
-    //     }
-    // }
-
-    /// <summary>
-    /// 특정 npc 스폰
-    /// </summary>
-    public void SpawnNpc(int id)
-    {
-        var table = AssetManager.Singleton.GetNpcDataSO();
-    
-        if (!table.Items.TryGetValue(id, out var npcSO))
-        {
-            Debug.LogError($"NPC ID {id} not found");
-            return;
-        }
-
-        int worldStage = Stage; // GameManager의 현재 월드 스테이지
-
-        // 현재 스테이지에서 등장 가능한 NPC인지 체크
-        if (worldStage < npcSO.WorldStageMin || worldStage > npcSO.WorldStageMax)
-            return;
-
-        // var npcObj = AssetManager.Singleton.InstantiateNpcModel(npcSO.Prefab);
-        // npcObj.transform.position = npcSO.spawnPoint;
-        
-        // npcObj.GetComponent<NpcInteraction>().npcSO = npcSO;
     }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public sealed class NpcStatus : MonoBehaviour, INpcStatus
 {
@@ -12,8 +13,10 @@ public sealed class NpcStatus : MonoBehaviour, INpcStatus
     [Header("Emotion / Status")]
     [SerializeField] private Const.EEmotion currentEmotion = Const.EEmotion.Neutral;
     [SerializeField] private Const.EStatusEffect currentStatusEffects = Const.EStatusEffect.None;
+    
+    private NavMeshAgent agent;
     private INpcStatus _npcStatusImplementation;
-
+    
     public float CurrentHp => currentHp;
     public float MaxHp => maxHp;
 
@@ -23,6 +26,7 @@ public sealed class NpcStatus : MonoBehaviour, INpcStatus
     private void Awake()
     {
         currentHp = Mathf.Clamp(currentHp, 0f, maxHp);
+        agent = GetComponent<NavMeshAgent>();
     }
 
     public Transform GetTransform()
@@ -59,12 +63,26 @@ public sealed class NpcStatus : MonoBehaviour, INpcStatus
         if (amount <= 0f) return;
         currentHp = Mathf.Min(maxHp, currentHp + amount);
     }
-
+    
     public void ChangeEmotion(Const.EEmotion emotion)
     {
         currentEmotion = emotion;
-    }
 
+        if (agent != null)
+        {
+            if (emotion == Const.EEmotion.Tired)
+            {
+                agent.isStopped = true;
+                agent.ResetPath();
+                agent.velocity = Vector3.zero;
+            }
+            else
+            {
+                agent.isStopped = false;
+            }
+        }
+    }
+    
     public void ApplyStatusEffect(Const.EStatusEffect effect)
     {
         currentStatusEffects |= effect;

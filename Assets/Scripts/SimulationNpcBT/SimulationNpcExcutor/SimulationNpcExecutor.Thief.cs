@@ -19,11 +19,10 @@ namespace TestBT
         {
             if (target == null) return ENodeState.ENS_Failure;
 
-            Debug.Log("DoSteal");
             if (!isProgress)
             {
                 // 1. 스틸 시작
-                Debug.Log("스틸 시작");
+                //Debug.Log("스틸 시작");
                 if (agent != null) Stop(); 
 
                 Vector3 lookDir = (target.position - transform.position).normalized;
@@ -43,13 +42,13 @@ namespace TestBT
             
             if (stealTimer > 0f)
             {
-                Debug.Log($"스틸 중... ::{attackTimer}");
+                //Debug.Log($"스틸 중... ::{attackTimer}");
                 // 2. 스틸 진행 중
                 return ENodeState.ENS_Running;
             }
 
             // 3. 스틸 완료 시점
-            Debug.Log("스틸 끝");
+            //Debug.Log("스틸 끝");
             stealTimer = 0f;
             isProgress = false;
             agent.isStopped = false;

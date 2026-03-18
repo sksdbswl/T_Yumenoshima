@@ -11,12 +11,14 @@ public sealed class Npc : MonoBehaviour
     [HideInInspector]public SimulationNpcExecutor executor;
 
     private INpcStatus npcStatus;
-    private INpcStatus _playerStatus => npcStatus;
+    public INpcStatus _npcStatus => npcStatus;
+    
     private void Awake()
     {
         agent    = GetComponent<NavMeshAgent>();
         sensor   = GetComponent<SimulationNpcSensor>();
         executor = GetComponent<SimulationNpcExecutor>();
+        npcStatus = GetComponent<INpcStatus>(); 
         sensor.npcSO = npcSO;
         executor.npcSO = npcSO;
     }

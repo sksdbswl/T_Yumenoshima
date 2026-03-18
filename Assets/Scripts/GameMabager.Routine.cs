@@ -16,11 +16,11 @@ public partial class GameManager
         while (true)
         {
             SetState(RoutineState.Morning);
-            StartCoroutine(FireRoutineCoroutine());
+            StartCoroutine(RoutineCoroutine());
             yield return new WaitForSeconds(60f);
 
             SetState(RoutineState.Noon);
-            StopCoroutine(FireRoutineCoroutine());
+            StopCoroutine(RoutineCoroutine());
             yield return new WaitForSeconds(10f);
 
             SetState(RoutineState.Night);
@@ -38,23 +38,24 @@ public partial class GameManager
         OnRoutineChanged?.Invoke(state); 
     }
     
-    /// <summary>
-    /// 인게임 화재 전환 : 일정 시간 기준으로 건물에 화재가 일어나는 루틴
-    /// 테스트로 아침에만 일어나도록 되어있음
-    /// </summary>
-    public IEnumerator FireRoutineCoroutine()
+    public IEnumerator RoutineCoroutine()
     {
         while (true)
         {
             if (CurrentState == RoutineState.Morning)
             {
                 TryIgniteRandomBuilding();
+                TryChangeRandomNpcEmotionTired();
             }
 
             yield return new WaitForSeconds(20f);
         }
     }
     
+    /// <summary>
+    /// 인게임 화재 전환 : 일정 시간 기준으로 건물에 화재가 일어나는 루틴
+    /// 테스트로 아침에만 일어나도록 되어있음
+    /// </summary>
     public void TryIgniteRandomBuilding()
     {
         var buildings = PlacementManager.Singleton.BuildingInstances;
@@ -78,5 +79,21 @@ public partial class GameManager
         candidates[index].SetFire(true);
 
         Debug.Log($"화재 발생: {candidates[index].name}");
+    }
+    
+    /// <summary>
+    /// 인게임 NPC 상태 전환 : 일정 시간 기준으로 Npc가 환자가 되는 루틴
+    /// 테스트로 아침에만 일어나도록 되어있음
+    /// </summary>
+    public void TryChangeRandomNpcEmotionTired()
+    {
+        if (_spawnedNpcStatuses.Count == 0) return;
+
+        int index = Random.Range(0, _spawnedNpcStatuses.Count);
+        var targetNpc = _spawnedNpcStatuses[index];
+
+        targetNpc._npcStatus.ChangeEmotion(Const.EEmotion.Tired);
+        
+        Debug.Log($"NPC 감정 변경: {targetNpc.name} → Tired");
     }
 }
