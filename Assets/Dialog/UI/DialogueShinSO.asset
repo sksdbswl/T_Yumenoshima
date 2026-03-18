@@ -17,7 +17,3 @@ MonoBehaviour:
     minStage: 0
     maxStage: 0
     container: {fileID: 11400000, guid: 61c961db866490f4190956c659ab9b3b, type: 2}
-  - npcId: Shin
-    minStage: 1
-    maxStage: 1
-    container: {fileID: 11400000, guid: 64988a3af8f937e489f063e12838331b, type: 2}
