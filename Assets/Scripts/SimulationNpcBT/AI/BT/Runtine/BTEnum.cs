@@ -38,7 +38,16 @@ namespace AI.BT.Runtime
         Flee,
         Attack,
         Chase,
+        
+        // 도둑
         Steal,
+        
+        // 소방관
+        FindFireTarget,
+        MoveToFire,
+        Extinguish,
+        
+        // 기본
         GoHome,
         KeepDefault
     }

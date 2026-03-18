@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23b1a06ff4a04412aa95e1417175b6e5, type: 3}
+  m_Name: Npc_FireFigure
+  m_EditorClassIdentifier: Assembly-CSharp::AI.BT.Runtime.BTGraphAsset
+  rootGuid: 927d5081-0f69-40e6-9b18-101f1d37dd4f
+  nodes:
+  - guid: b5be1aa9-8553-4d84-941e-dc2f9b492b87
+    nodeName: Selector
+    nodeType: 1
+    position: {x: 211, y: 242}
+    conditionType: 0
+    actionType: 0
+    animationStateName: 
+    childrenGuids:
+    - abc25e0f-fa5a-4398-b49b-17dc788e8b65
+    - 8e8a3f5b-c7c6-40ce-938f-cc0537422dce
+    - 69aa8c97-da8b-4478-976e-dee981f7c54f
+  - guid: abc25e0f-fa5a-4398-b49b-17dc788e8b65
+    nodeName: Sequence
+    nodeType: 2
+    position: {x: -135, y: 411}
+    conditionType: 0
+    actionType: 0
+    animationStateName: 
+    childrenGuids:
+    - 4c01e69c-c461-496f-8f14-843869d923b3
+    - 82ba895f-952a-4217-ae19-302e58195361
+    - 16bb0931-62fb-4f00-b33b-1429ded441d1
+  - guid: 4c01e69c-c461-496f-8f14-843869d923b3
+    nodeName: Action
+    nodeType: 4
+    position: {x: -433, y: 547}
+    conditionType: 0
+    actionType: 6
+    animationStateName: 
+    childrenGuids: []
+  - guid: 82ba895f-952a-4217-ae19-302e58195361
+    nodeName: Action
+    nodeType: 4
+    position: {x: -174, y: 547}
+    conditionType: 0
+    actionType: 7
+    animationStateName: 
+    childrenGuids: []
+  - guid: 16bb0931-62fb-4f00-b33b-1429ded441d1
+    nodeName: Action
+    nodeType: 4
+    position: {x: 98, y: 547}
+    conditionType: 0
+    actionType: 8
+    animationStateName: 
+    childrenGuids: []
+  - guid: 41a8f0ef-7e37-4952-8cd8-944559321952
+    nodeName: Condition
+    nodeType: 3
+    position: {x: 479, y: 572}
+    conditionType: 10
+    actionType: 0
+    animationStateName: 
+    childrenGuids: []
+  - guid: 8e8a3f5b-c7c6-40ce-938f-cc0537422dce
+    nodeName: Sequence
+    nodeType: 2
+    position: {x: 495, y: 395}
+    conditionType: 0
+    actionType: 0
+    animationStateName: 
+    childrenGuids:
+    - 41a8f0ef-7e37-4952-8cd8-944559321952
+    - 552d0634-c243-45c4-bd14-111b0d62a2af
+  - guid: 552d0634-c243-45c4-bd14-111b0d62a2af
+    nodeName: Action
+    nodeType: 4
+    position: {x: 745, y: 572}
+    conditionType: 0
+    actionType: 9
+    animationStateName: 
+    childrenGuids: []
+  - guid: 927d5081-0f69-40e6-9b18-101f1d37dd4f
+    nodeName: Root
+    nodeType: 0
+    position: {x: 288, y: 62}
+    conditionType: 0
+    actionType: 0
+    animationStateName: 
+    childrenGuids:
+    - b5be1aa9-8553-4d84-941e-dc2f9b492b87
+  - guid: 69aa8c97-da8b-4478-976e-dee981f7c54f
+    nodeName: Action
+    nodeType: 4
+    position: {x: 783, y: 224}
+    conditionType: 0
+    actionType: 10
+    animationStateName: 
+    childrenGuids: []

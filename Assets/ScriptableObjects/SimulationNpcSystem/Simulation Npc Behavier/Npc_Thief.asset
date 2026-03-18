@@ -128,7 +128,7 @@ MonoBehaviour:
     nodeType: 4
     position: {x: 978, y: 160}
     conditionType: 0
-    actionType: 7
+    actionType: 10
     animationStateName: 
     childrenGuids: []
   - guid: 3604b182-8e85-4cf3-aa1a-a0551c467d52

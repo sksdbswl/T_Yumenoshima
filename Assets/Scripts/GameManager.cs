@@ -172,8 +172,8 @@ public partial class GameManager : SingletonBase<GameManager>
         if (worldStage < npcSO.WorldStageMin || worldStage > npcSO.WorldStageMax)
             return;
 
-        var npcObj = AssetManager.Singleton.InstantiateNpcModel(npcSO.Prefab);
-        npcObj.transform.position = npcSO.spawnPoint;
+        // var npcObj = AssetManager.Singleton.InstantiateNpcModel(npcSO.Prefab);
+        // npcObj.transform.position = npcSO.spawnPoint;
         
         // npcObj.GetComponent<NpcInteraction>().npcSO = npcSO;
     }

@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: 1877706794bc2e5458ef3d1a10e5858b
   m_SerializeEntries:
+  - m_GUID: 117daedb6bb1d6042ab68efccb8e160d
+    m_Address: Assets/Prefab/NPC/DialogDeku
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1d68fea489488964baf07852f905a3c8
     m_Address: Assets/Prefab/Builder/Hospital
     m_ReadOnly: 0
@@ -32,12 +37,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 57ff1e42f08177247b3ceac370fb0be4
-    m_Address: Assets/Prefab/NPC/Shin
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Npc
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 72e98c603b091f846acc4b4d1255e6ad
     m_Address: Assets/Prefab/Builder/Bridge
     m_ReadOnly: 0
@@ -50,17 +49,10 @@ MonoBehaviour:
     m_SerializedLabels:
     - Builder
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: aa4a1910300cd4e4397e080c74797deb
-    m_Address: Assets/Prefab/NPC/Nagumo
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Npc
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c7b371f1af9c0fb4c93265d5152e09b8
     m_Address: Assets/Prefab/NPC/DialogNagumo
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - Npc
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dcb3a6d116658a7488bf4429dedafea0
     m_Address: Assets/Prefab/Builder/Tile
