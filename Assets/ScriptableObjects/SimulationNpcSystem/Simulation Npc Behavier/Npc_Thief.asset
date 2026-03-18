@@ -58,16 +58,8 @@ MonoBehaviour:
     nodeName: CanAttack Condition
     nodeType: 3
     position: {x: 266, y: 709}
-    conditionType: 9
+    conditionType: 8
     actionType: 0
-    animationStateName: 
-    childrenGuids: []
-  - guid: 6a678af6-5256-4f03-8511-759706b21ede
-    nodeName: Attack Action
-    nodeType: 4
-    position: {x: 523, y: 693}
-    conditionType: 0
-    actionType: 5
     animationStateName: 
     childrenGuids: []
   - guid: e0e283cc-cf23-4c45-97fd-4c10533b8446
@@ -128,7 +120,7 @@ MonoBehaviour:
     nodeType: 4
     position: {x: 978, y: 160}
     conditionType: 0
-    actionType: 10
+    actionType: 13
     animationStateName: 
     childrenGuids: []
   - guid: 3604b182-8e85-4cf3-aa1a-a0551c467d52
@@ -137,5 +129,13 @@ MonoBehaviour:
     position: {x: 1362, y: 708}
     conditionType: 0
     actionType: 4
+    animationStateName: 
+    childrenGuids: []
+  - guid: 6a678af6-5256-4f03-8511-759706b21ede
+    nodeName: Attack Action
+    nodeType: 4
+    position: {x: 523, y: 708}
+    conditionType: 0
+    actionType: 5
     animationStateName: 
     childrenGuids: []
