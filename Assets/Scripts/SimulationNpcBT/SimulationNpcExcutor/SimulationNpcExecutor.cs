@@ -11,8 +11,8 @@ namespace TestBT
     {
         [HideInInspector] public NpcSO npcSO;
         private NavMeshAgent agent;
-        private float defaultSpeed = 5f;
-        private float fleeSpeed = 10f;
+        private float defaultSpeed = 3f;
+        private float runSpeed = 10f;
         private bool isProgress = false;
         
         private void Awake()
@@ -37,7 +37,7 @@ namespace TestBT
             agent.speed = speed;
         }
         
-        #region Basic : Move, Hide, Jump
+        #region Basic : Move, Hide, Jump, Chase
 
         public ENodeState KeepDefault()
         {
@@ -117,6 +117,24 @@ namespace TestBT
             return ENodeState.ENS_Success;
         }
         
+        public ENodeState DoChase(NpcBlackboard target)
+        {
+            if (target == null) return ENodeState.ENS_Failure;
+
+            // 1. 공격 범위 안에 들어왔다면? 추적 성공 반환 -> 다음 공격 노드로
+            if (target.isPlayerVeryNear)
+            {
+                agent.isStopped = true; 
+                return ENodeState.ENS_Success; 
+            }
+
+            // 2. 아직 멀다면? 계속 이동하며 진행 중 반환
+            //Debug.Log("추적 중...");
+            agent.isStopped = false;
+            agent.SetDestination(target.player.position);
+            return ENodeState.ENS_Running;
+        }
+        
         #endregion
         
         // ───────────────── 도망 ─────────────────
@@ -156,7 +174,7 @@ namespace TestBT
                             continue;
 
                         agent.isStopped = false;
-                        SetSpeed(fleeSpeed);
+                        SetSpeed(runSpeed);
                         _currentFleeTarget = hit.position;
                         agent.SetDestination(_currentFleeTarget);
                         _hasFleeTarget = true;

@@ -48,12 +48,6 @@ namespace TestBT
         /// <summary>
         /// 불난 건물이 있는지 확인하고 현재 타겟 갱신
         /// </summary>
-        // public ENodeState DoFindFireTarget()
-        // {
-        //     currentFireTarget = GetNearestFireBuilding();
-        //     return currentFireTarget != null ? ENodeState.ENS_Success : ENodeState.ENS_Failure;
-        // }
-        
         public ENodeState DoFindFireTarget()
         {
             if (currentFireTarget != null && currentFireTarget.IsOnFire)
@@ -76,18 +70,17 @@ namespace TestBT
             if (currentFireTarget == null || !currentFireTarget.IsOnFire)
             {
                 currentFireTarget = GetNearestFireBuilding();
-                if (currentFireTarget == null)
-                    return ENodeState.ENS_Failure;
+                if (currentFireTarget == null) return ENodeState.ENS_Failure;
             }
 
-            if (!currentFireTarget.gameObject.activeInHierarchy)
-            {
-                currentFireTarget = null;
-                return ENodeState.ENS_Failure;
-            }
+            // if (!currentFireTarget.gameObject.activeInHierarchy)
+            // {
+            //     currentFireTarget = null;
+            //     return ENodeState.ENS_Failure;
+            // }
 
             float distance = Vector3.Distance(transform.position, currentFireTarget.transform.position);
-
+            
             if (distance <= 2.0f)
             {
                 agent.isStopped = true;
@@ -96,6 +89,7 @@ namespace TestBT
 
             agent.isStopped = false;
             agent.SetDestination(currentFireTarget.transform.position);
+            SetSpeed(runSpeed);
             return ENodeState.ENS_Running;
         }
 
@@ -112,14 +106,14 @@ namespace TestBT
             }
 
             float distance = Vector3.Distance(transform.position, currentFireTarget.transform.position);
-            if (distance > 2.5f)
+            if (distance > 3f) // 일정거리가 안되면 진압불가
             {
                 return ENodeState.ENS_Failure;
             }
 
             if (!isProgress)
             {
-                if (agent != null) Stop();
+                Stop();
 
                 Vector3 lookDir = (currentFireTarget.transform.position - transform.position).normalized;
                 lookDir.y = 0f;
@@ -151,6 +145,7 @@ namespace TestBT
             Debug.Log($"[Firefighter] 진화 완료 : {currentFireTarget.name}");
 
             currentFireTarget = null;
+            SetSpeed(defaultSpeed);
             return ENodeState.ENS_Success;
         }
 

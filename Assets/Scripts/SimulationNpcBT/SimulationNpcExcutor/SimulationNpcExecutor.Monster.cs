@@ -14,24 +14,6 @@ namespace TestBT
         private float attackDelay = 5f;
         private float attackTimer = 0f;
 
-        public ENodeState DoChase(NpcBlackboard target)
-        {
-            if (target == null) return ENodeState.ENS_Failure;
-
-            // 1. 공격 범위 안에 들어왔다면? 추적 성공 반환 -> 다음 공격 노드로
-            if (target.isPlayerVeryNear)
-            {
-                agent.isStopped = true; 
-                return ENodeState.ENS_Success; 
-            }
-
-            // 2. 아직 멀다면? 계속 이동하며 진행 중 반환
-            //Debug.Log("추적 중...");
-            agent.isStopped = false;
-            agent.SetDestination(target.player.position);
-            return ENodeState.ENS_Running;
-        }
-
         public ENodeState DoAttack(Transform target)
         {
             if (target == null) return ENodeState.ENS_Failure;
