@@ -17,14 +17,14 @@ public partial class GameManager
         {
             SetState(RoutineState.Morning);
             StartCoroutine(FireRoutineCoroutine());
-            yield return new WaitForSeconds(600f);
+            yield return new WaitForSeconds(60f);
 
             SetState(RoutineState.Noon);
             StopCoroutine(FireRoutineCoroutine());
             yield return new WaitForSeconds(10f);
 
             SetState(RoutineState.Night);
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(30f);
         }
     }
 

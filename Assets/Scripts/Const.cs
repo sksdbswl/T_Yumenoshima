@@ -1,5 +1,13 @@
 public static class Const
 {
+    public enum JobType
+    {
+        None,
+        Firefighter,
+        Doctor,
+        Police 
+    }
+    
     // 감정
     public enum EEmotion
     {

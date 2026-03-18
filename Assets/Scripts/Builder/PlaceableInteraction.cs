@@ -106,6 +106,7 @@ public class PlaceableInteraction : InteractionTarget, IInteractable
         {
             if (on)
             {
+                FireDuration = 0f;
                 fireCoroutine = StartCoroutine(FireCountdownCoroutine());
                 r.material.color = Color.red;
             }
