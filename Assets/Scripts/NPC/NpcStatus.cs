@@ -74,7 +74,7 @@ public sealed class NpcStatus : MonoBehaviour, INpcStatus
             {
                 agent.isStopped = true;
                 agent.ResetPath();
-                agent.velocity = Vector3.zero;
+                //agent.velocity = Vector3.zero;
             }
             else
             {
