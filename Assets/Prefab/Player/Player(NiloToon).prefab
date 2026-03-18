@@ -70,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3475936365782130447, guid: df4963e23b325544db985cd139e21309, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3509014586421296078, guid: df4963e23b325544db985cd139e21309, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -78,7 +78,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 1697841dfbb534f4bb43df4b54eb03c5, type: 2}
     - target: {fileID: 4058576731526848124, guid: df4963e23b325544db985cd139e21309, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.48041
+      value: 9.83
       objectReference: {fileID: 0}
     - target: {fileID: 4058576731526848124, guid: df4963e23b325544db985cd139e21309, type: 3}
       propertyPath: m_LocalPosition.y
@@ -86,7 +86,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4058576731526848124, guid: df4963e23b325544db985cd139e21309, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.5962
+      value: -0.7
       objectReference: {fileID: 0}
     - target: {fileID: 4058576731526848124, guid: df4963e23b325544db985cd139e21309, type: 3}
       propertyPath: m_LocalRotation.w
@@ -168,6 +168,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: f803ac31f3d51584789f87d8e120acb7, type: 2}
+    - target: {fileID: 6969971790750076245, guid: df4963e23b325544db985cd139e21309, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 7234943460181916572, guid: df4963e23b325544db985cd139e21309, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -205,6 +209,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6969971790750076245, guid: df4963e23b325544db985cd139e21309, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2487538834392157940}
+    - targetCorrespondingSourceObject: {fileID: 6969971790750076245, guid: df4963e23b325544db985cd139e21309, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4476926140198224000}
   m_SourcePrefab: {fileID: 100100000, guid: df4963e23b325544db985cd139e21309, type: 3}
 --- !u!23 &47771258965849709 stripped
 MeshRenderer:
@@ -244,12 +251,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f5cc6abacb04dacabba1a8bab9e9c7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStatus
+  Money: 10000000
   maxHp: 100
   currentHp: 100
   maxStamina: 100
   currentStamina: 100
   currentEmotion: 1
   currentStatusEffects: 0
+--- !u!114 &4476926140198224000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320962150403834020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bd7651001b945609ef7a873a5464331, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TestBT.PlayerBT
 --- !u!23 &351553729766613665 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 6930724590775676752, guid: df4963e23b325544db985cd139e21309, type: 3}

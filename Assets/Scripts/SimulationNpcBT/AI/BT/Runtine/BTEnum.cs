@@ -47,6 +47,11 @@ namespace AI.BT.Runtime
         MoveToFire,
         Extinguish,
         
+        // 의사
+        FindTiredTarget,
+        MoveToTiredTarget,
+        Heal,
+        
         // 기본
         GoHome,
         KeepDefault

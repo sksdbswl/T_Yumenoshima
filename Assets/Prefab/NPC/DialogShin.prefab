@@ -535,6 +535,7 @@ GameObject:
   - component: {fileID: -2924341018571830997}
   - component: {fileID: -234164649088483774}
   - component: {fileID: -6918103366982436708}
+  - component: {fileID: -7090429068536290447}
   m_Layer: 12
   m_Name: DialogShin
   m_TagString: Untagged
@@ -728,6 +729,23 @@ MonoBehaviour:
   npcSO: {fileID: 0}
   nearDistance: 10
   veryNearDistance: 4
+--- !u!114 &-7090429068536290447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6180810706943847235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14e0f7d46eb54468a4903bd76d3c7e5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NpcStatus
+  Money: 10000000
+  maxHp: 100
+  currentHp: 100
+  currentEmotion: 1
+  currentStatusEffects: 0
 --- !u!1 &6214873298196201853
 GameObject:
   m_ObjectHideFlags: 0

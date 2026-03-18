@@ -43,6 +43,7 @@ public static class Const
         Poisoned    = 1 << 7, // 중독
         Burning     = 1 << 8, // 화상
         Frozen      = 1 << 9, // 빙결
-        Immobilized = 1 << 10 // 속박 / 이동불가
+        Immobilized = 1 << 10, // 속박 / 이동불가
+        Cold        = 1 << 11 // 감기
     }
 }

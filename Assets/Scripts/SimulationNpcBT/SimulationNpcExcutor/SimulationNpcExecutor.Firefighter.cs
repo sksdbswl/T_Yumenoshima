@@ -106,7 +106,7 @@ namespace TestBT
             }
 
             float distance = Vector3.Distance(transform.position, currentFireTarget.transform.position);
-            if (distance > 3f) // 일정거리가 안되면 진압불가
+            if (distance > 2.5f) // 일정거리가 안되면 진압불가
             {
                 return ENodeState.ENS_Failure;
             }

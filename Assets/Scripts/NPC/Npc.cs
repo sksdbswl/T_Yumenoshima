@@ -10,6 +10,8 @@ public sealed class Npc : MonoBehaviour
     [HideInInspector]public SimulationNpcSensor sensor;
     [HideInInspector]public SimulationNpcExecutor executor;
 
+    private INpcStatus npcStatus;
+    private INpcStatus _playerStatus => npcStatus;
     private void Awake()
     {
         agent    = GetComponent<NavMeshAgent>();

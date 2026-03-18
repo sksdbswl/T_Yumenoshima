@@ -13,6 +13,9 @@ public enum RoutineState
 }
 public partial class GameManager : SingletonBase<GameManager>
 {
+    private readonly List<NpcStatus> _spawnedNpcStatuses = new();
+    public IReadOnlyList<NpcStatus> SpawnedNpcStatuses => _spawnedNpcStatuses;
+    
     // 씬에 대한 정보, 이름 변경해줘도 좋을 듯 :: 해당 값을 이용해서 npc spawn
     private int _stage = 1;
     public int Stage
@@ -125,7 +128,7 @@ public partial class GameManager : SingletonBase<GameManager>
     public void SpawnNpcForStage(int worldStage)
     {
         var table = AssetManager.Singleton.GetNpcDataSO();
-        
+
         foreach (var npcData in table.Items.Values)
         {
             // 이 스테이지에 등장 가능한 NPC인가?
@@ -135,6 +138,12 @@ public partial class GameManager : SingletonBase<GameManager>
             // 실제 프리팹 생성
             var npcObj = AssetManager.Singleton.InstantiateNpcModel(npcData.Name);
             npcObj.transform.position = npcData.spawnPoint;
+
+            var status = npcObj.GetComponent<NpcStatus>();
+            if (status != null)
+            {
+                _spawnedNpcStatuses.Add(status);
+            }
         }
     }
 

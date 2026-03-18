@@ -36,11 +36,18 @@ public static class BTGraphRuntimeBuilder
         { BTActionType.Flee, owner => owner.executor.DoFlee(owner.sensor.Blackboard.player) },
         { BTActionType.Attack, owner => owner.executor.DoAttack(owner.sensor.Blackboard.player) },
         { BTActionType.Steal, owner => owner.executor.DoSteal(owner.sensor.Blackboard.player) },
-        { BTActionType.Chase, owner => owner.executor.DoChase(owner.sensor.Blackboard) },
-        { BTActionType.GoHome, owner => owner.executor.GoHome() },
+        
         { BTActionType.FindFireTarget, owner => owner.executor.DoFindFireTarget() },
         { BTActionType.MoveToFire, owner => owner.executor.DoMoveToFire() },
         { BTActionType.Extinguish, owner => owner.executor.DoExtinguish() },
+        
+        { BTActionType.FindTiredTarget, owner => owner.executor.DoFindPatient() },
+        { BTActionType.MoveToTiredTarget, owner => owner.executor.DoMoveToPatient() },
+        { BTActionType.Heal, owner => owner.executor.DoHeal() },
+        
+        { BTActionType.Chase, owner => owner.executor.DoChase(owner.sensor.Blackboard) },
+        { BTActionType.GoHome, owner => owner.executor.GoHome() },
+        
         { BTActionType.KeepDefault, owner => owner.executor.KeepDefault() },
     };
     

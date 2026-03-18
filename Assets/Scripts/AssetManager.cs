@@ -6,7 +6,7 @@ using Object = UnityEngine.Object;
 
 public class AssetManager : SingletonBase<AssetManager>
 {
-    private NpcDataSO _cacheNpcData;
+    public NpcDataSO _cacheNpcData;
 
     // ───────────────── NPC 관련 ─────────────────
     public NpcSO GetNpcSO()

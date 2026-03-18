@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 23b1a06ff4a04412aa95e1417175b6e5, type: 3}
-  m_Name: Npc_FireFigure
+  m_Name: Npc_Doctor
   m_EditorClassIdentifier: Assembly-CSharp::AI.BT.Runtime.BTGraphAsset
   rootGuid: 927d5081-0f69-40e6-9b18-101f1d37dd4f
   nodes:
@@ -41,7 +41,7 @@ MonoBehaviour:
     nodeType: 4
     position: {x: -433, y: 547}
     conditionType: 0
-    actionType: 6
+    actionType: 9
     animationStateName: 
     childrenGuids: []
   - guid: 82ba895f-952a-4217-ae19-302e58195361
@@ -49,7 +49,7 @@ MonoBehaviour:
     nodeType: 4
     position: {x: -174, y: 547}
     conditionType: 0
-    actionType: 7
+    actionType: 10
     animationStateName: 
     childrenGuids: []
   - guid: 16bb0931-62fb-4f00-b33b-1429ded441d1
@@ -57,7 +57,7 @@ MonoBehaviour:
     nodeType: 4
     position: {x: 98, y: 547}
     conditionType: 0
-    actionType: 8
+    actionType: 11
     animationStateName: 
     childrenGuids: []
   - guid: 41a8f0ef-7e37-4952-8cd8-944559321952
