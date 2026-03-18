@@ -21,11 +21,11 @@ public static class BTGraphRuntimeBuilder
     private static readonly Dictionary<BTConditionType, Func<SimulationNpcController, bool>> ConditionFactories = new()
     {
         { BTConditionType.IsPlayerNear, owner => owner.sensor.Blackboard.isPlayerNear },
-        { BTConditionType.CanFlee, owner => owner.sensor.Blackboard.canFlee },
         { BTConditionType.IsPlayerVeryNear, owner => owner.sensor.Blackboard.isPlayerVeryNear },
         { BTConditionType.CanAttack, owner => owner.sensor.Blackboard.canAttack },
-        { BTConditionType.CanChase, owner => owner.sensor.Blackboard.canChase },
         { BTConditionType.CanSteal, owner =>  owner.sensor.Blackboard.canSteal},
+        { BTConditionType.CanFlee, owner => owner.sensor.Blackboard.canFlee },
+        { BTConditionType.CanChase, owner => owner.sensor.Blackboard.canChase },
         { BTConditionType.CanHome, owner =>  owner.sensor.Blackboard.canHome},
        
         { BTConditionType.IsProgress, owner => owner.executor.IsProgressing() },

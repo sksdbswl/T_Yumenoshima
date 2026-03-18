@@ -71,14 +71,6 @@ MonoBehaviour:
     actionType: 3
     animationStateName: 
     childrenGuids: []
-  - guid: 89ebd0ce-b3b6-4cee-ba98-c609b8e1ce67
-    nodeName: Action
-    nodeType: 4
-    position: {x: 1158, y: 219}
-    conditionType: 0
-    actionType: 13
-    animationStateName: 
-    childrenGuids: []
   - guid: e0e283cc-cf23-4c45-97fd-4c10533b8446
     nodeName: Chase Sequence
     nodeType: 2
@@ -132,6 +124,22 @@ MonoBehaviour:
     actionType: 0
     animationStateName: 
     childrenGuids: []
+  - guid: 862ca720-2059-4ce7-89ed-bc4290d90291
+    nodeName: Action
+    nodeType: 4
+    position: {x: -750, y: 710}
+    conditionType: 0
+    actionType: 12
+    animationStateName: 
+    childrenGuids: []
+  - guid: 89ebd0ce-b3b6-4cee-ba98-c609b8e1ce67
+    nodeName: Action
+    nodeType: 4
+    position: {x: 1611, y: 215}
+    conditionType: 0
+    actionType: 13
+    animationStateName: 
+    childrenGuids: []
   - guid: 03053799-e81a-4918-bc70-6e31c7f5cd7b
     nodeName: Sequence
     nodeType: 2
@@ -156,13 +164,5 @@ MonoBehaviour:
     position: {x: -251, y: 710}
     conditionType: 0
     actionType: 3
-    animationStateName: 
-    childrenGuids: []
-  - guid: 862ca720-2059-4ce7-89ed-bc4290d90291
-    nodeName: Action
-    nodeType: 4
-    position: {x: -750, y: 710}
-    conditionType: 0
-    actionType: 12
     animationStateName: 
     childrenGuids: []

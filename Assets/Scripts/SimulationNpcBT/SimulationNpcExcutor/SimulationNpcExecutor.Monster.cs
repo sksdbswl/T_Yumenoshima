@@ -21,7 +21,7 @@ namespace TestBT
             if (!isProgress)
             {
                 // 1. 공격 시작 시점 
-                //Debug.Log("공격 시작");
+                Debug.Log("공격 시작");
                 if (agent != null) Stop(); 
 
                 Vector3 lookDir = (target.position - transform.position).normalized;
@@ -41,14 +41,14 @@ namespace TestBT
             
             if (attackTimer > 0f)
             {
-                //Debug.Log($"공격 중... ::{attackTimer}");
+                Debug.Log($"공격 중... ::{attackTimer}");
                 // 2. 공격 진행 중
                 
                 return ENodeState.ENS_Running;
             }
 
             // 3. 공격 완료 시점
-            //Debug.Log("공격 끝");
+            Debug.Log("공격 끝");
             attackTimer = 0f;
             isProgress = false;
             agent.isStopped = false;
