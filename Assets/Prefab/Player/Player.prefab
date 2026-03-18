@@ -3329,7 +3329,6 @@ GameObject:
   - component: {fileID: 7308093905053160256}
   - component: {fileID: 8750269045554484555}
   - component: {fileID: 4325729051539761525}
-  - component: {fileID: 6298307527962568632}
   - component: {fileID: 6199500075520168205}
   - component: {fileID: 3230296690685413184}
   - component: {fileID: 9058502052061406966}
@@ -3398,21 +3397,6 @@ MonoBehaviour:
   _Animator: {fileID: 8750269045554484555}
   _Transitions: {fileID: 11400000, guid: bc772839978248c409b9005bdc338d7b, type: 2}
   _ActionOnDisable: 0
---- !u!114 &6298307527962568632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6969971790750076245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a90379f63c6e8c44c84bb50e19b8c0ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayAnimation
-  animancer: {fileID: 4325729051539761525}
-  idleClip: {fileID: 7400000, guid: 130326b77ac88174b8c174334b96ea76, type: 3}
-  walkClip: {fileID: 1827226128182048838, guid: c5d1001b0c5d42a4c88c2dbeb667a1f5, type: 3}
 --- !u!114 &6199500075520168205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3455,10 +3439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0672ea380bca9aa48a591edef3d58504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
-  moveAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  jumpAction: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  interactAction: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  cancelAction: {fileID: 7702860056692130276, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  inputHandler: {fileID: 0}
 --- !u!114 &9058502052061406966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3475,7 +3456,24 @@ MonoBehaviour:
   jumpForce: 5
   animancer: {fileID: 4325729051539761525}
   idleClip: {fileID: 1827226128182048838, guid: 702a0353accc39a47952f54cef321660, type: 3}
+  equipIdleClip: {fileID: 0}
   walkClip: {fileID: 1827226128182048838, guid: 10e71085c1428f54b8ebd567bb52fd65, type: 3}
+  equipWalkClip: {fileID: 0}
+  equipWearClip: {fileID: 0}
+  equipDiscodClip: {fileID: 0}
+  gatherTreeClip: {fileID: 0}
+  gatherShakeClip: {fileID: 0}
+  gatherDigClip: {fileID: 0}
+  gatherPickupClip: {fileID: 0}
+  fishingStartClip: {fileID: 0}
+  fishingIdleClip: {fileID: 0}
+  fishingPullClip: {fileID: 0}
+  fishingGatherClip: {fileID: 0}
+  fishingMissClip: {fileID: 0}
+  fishingGetClip: {fileID: 0}
+  fishingHoldClip: {fileID: 0}
+  holdClip: {fileID: 0}
+  meetBeeClip: {fileID: 0}
   fade: 0.15
 --- !u!54 &5490110093253497336
 Rigidbody:

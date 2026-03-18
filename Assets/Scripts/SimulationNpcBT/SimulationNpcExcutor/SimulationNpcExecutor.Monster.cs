@@ -6,40 +6,40 @@ namespace TestBT
     public partial class SimulationNpcExecutor
     {
         /// <summary>
-        /// 1. 아침 : 활동 x
-        /// 2. 점심 : 일반 시민으로 활동
-        /// 3. 저녁 : 마주치면 돈 뺏김
+        /// 1. 아침,점심 : 추격, 공격
+        /// 2. 저녁 : 잠자기
         /// </summary>
+        #region Monster : Chase/Attack
 
-        #region Thief : Chase/Attack
+        private float attackDelay = 5f;
+        private float attackTimer = 0f;
 
-        private float stealDelay = 5f;
-        private float stealTimer = 0f;
-        
-        public ENodeState DoWander(NpcBlackboard target)
+        public ENodeState DoChase(NpcBlackboard target)
         {
             if (target == null) return ENodeState.ENS_Failure;
-            
-            // 1. 공격 범위 안에 들어왔다면 ? 
+
+            // 1. 공격 범위 안에 들어왔다면? 추적 성공 반환 -> 다음 공격 노드로
             if (target.isPlayerVeryNear)
             {
-                agent.isStopped = true;
-                return ENodeState.ENS_Success;
+                agent.isStopped = true; 
+                return ENodeState.ENS_Success; 
             }
-            
+
             // 2. 아직 멀다면? 계속 이동하며 진행 중 반환
+            //Debug.Log("추적 중...");
             agent.isStopped = false;
             agent.SetDestination(target.player.position);
             return ENodeState.ENS_Running;
         }
-        
-        public ENodeState DoSteal(Transform target)
+
+        public ENodeState DoAttack(Transform target)
         {
             if (target == null) return ENodeState.ENS_Failure;
 
             if (!isProgress)
             {
-                // 1. 스틸 시작
+                // 1. 공격 시작 시점 
+                //Debug.Log("공격 시작");
                 if (agent != null) Stop(); 
 
                 Vector3 lookDir = (target.position - transform.position).normalized;
@@ -47,30 +47,33 @@ namespace TestBT
                 if (lookDir != Vector3.zero) transform.forward = lookDir;
 
                 var player = target.GetComponent<PlayerStatus>();
-                player?.TakeSteal(100000);
+                player?.TakeDamage(10);
                 
-                // animator.SetTrigger("Attack"); 
+                // animator.SetTrigger("Attack"); // 피격 애니메이션 처리
                 
-                stealTimer = stealDelay;
+                attackTimer = attackDelay;
                 isProgress = true;
             }
   
-            stealTimer -= Time.deltaTime;
+            attackTimer -= Time.deltaTime;
             
-            if (stealTimer > 0f)
+            if (attackTimer > 0f)
             {
-                // 2. 스틸 진행 중
+                //Debug.Log($"공격 중... ::{attackTimer}");
+                // 2. 공격 진행 중
+                
                 return ENodeState.ENS_Running;
             }
 
-            // 3. 스틸 완료 시점
-            stealTimer = 0f;
+            // 3. 공격 완료 시점
+            //Debug.Log("공격 끝");
+            attackTimer = 0f;
             isProgress = false;
             agent.isStopped = false;
             
             return ENodeState.ENS_Success;
         }
-        
+
         #endregion
     }
 }

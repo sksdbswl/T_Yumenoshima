@@ -192,8 +192,7 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 8b236fb8dde949d45936baa1e827e780, type: 2}
-    m_RemovedComponents:
-    - {fileID: 6298307527962568632, guid: df4963e23b325544db985cd139e21309, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -203,6 +202,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6969971790750076245, guid: df4963e23b325544db985cd139e21309, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5715685004379321578}
+    - targetCorrespondingSourceObject: {fileID: 6969971790750076245, guid: df4963e23b325544db985cd139e21309, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2487538834392157940}
   m_SourcePrefab: {fileID: 100100000, guid: df4963e23b325544db985cd139e21309, type: 3}
 --- !u!23 &47771258965849709 stripped
 MeshRenderer:
@@ -230,6 +232,24 @@ MonoBehaviour:
   jumpAction: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   interactAction: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   cancelAction: {fileID: 7702860056692130276, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+--- !u!114 &2487538834392157940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320962150403834020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f5cc6abacb04dacabba1a8bab9e9c7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStatus
+  maxHp: 100
+  currentHp: 100
+  maxStamina: 100
+  currentStamina: 100
+  currentEmotion: 1
+  currentStatusEffects: 0
 --- !u!23 &351553729766613665 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 6930724590775676752, guid: df4963e23b325544db985cd139e21309, type: 3}

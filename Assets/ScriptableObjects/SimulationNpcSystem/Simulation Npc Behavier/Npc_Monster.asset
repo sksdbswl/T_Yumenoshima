@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 23b1a06ff4a04412aa95e1417175b6e5, type: 3}
-  m_Name: Npc_ChaseAndAttack_Odd
+  m_Name: Npc_Monster
   m_EditorClassIdentifier: Assembly-CSharp::AI.BT.Runtime.BTGraphAsset
   rootGuid: 1541bab5-371b-4e03-818e-14ac6e68a5ea
   nodes:
   - guid: 1541bab5-371b-4e03-818e-14ac6e68a5ea
     nodeName: Root
     nodeType: 0
-    position: {x: 473, y: 96}
+    position: {x: 447, y: -9}
     conditionType: 0
     actionType: 0
     animationStateName: 
@@ -26,18 +26,20 @@ MonoBehaviour:
   - guid: a4279b11-7205-43bd-ba21-35539d5a435c
     nodeName: Selector
     nodeType: 1
-    position: {x: 464, y: 208}
+    position: {x: 382, y: 160}
     conditionType: 0
     actionType: 0
     animationStateName: 
     childrenGuids:
+    - fd94569d-ee6e-4379-a73e-263d5ced904b
+    - 03053799-e81a-4918-bc70-6e31c7f5cd7b
     - d3846d75-eb0b-4740-859d-f0a738a11889
     - e0e283cc-cf23-4c45-97fd-4c10533b8446
-    - 071e444c-d0c9-4714-b78f-f3d72bae72e5
+    - 89ebd0ce-b3b6-4cee-ba98-c609b8e1ce67
   - guid: d3846d75-eb0b-4740-859d-f0a738a11889
     nodeName: Attack Sequence
     nodeType: 2
-    position: {x: -120, y: 363}
+    position: {x: 266, y: 541}
     conditionType: 0
     actionType: 0
     animationStateName: 
@@ -48,7 +50,7 @@ MonoBehaviour:
   - guid: 6073a578-d74e-4c96-996c-c5746a0c0b7f
     nodeName: VeryNear Condition
     nodeType: 3
-    position: {x: -347, y: 550}
+    position: {x: 20, y: 709}
     conditionType: 2
     actionType: 0
     animationStateName: 
@@ -56,68 +58,111 @@ MonoBehaviour:
   - guid: c205bc07-4664-4025-abeb-5d49eb4e51b1
     nodeName: CanAttack Condition
     nodeType: 3
-    position: {x: -86, y: 550}
-    conditionType: 5
+    position: {x: 266, y: 709}
+    conditionType: 6
     actionType: 0
     animationStateName: 
     childrenGuids: []
   - guid: 6a678af6-5256-4f03-8511-759706b21ede
     nodeName: Attack Action
     nodeType: 4
-    position: {x: 149, y: 531}
+    position: {x: 523, y: 693}
     conditionType: 0
     actionType: 3
+    animationStateName: 
+    childrenGuids: []
+  - guid: 89ebd0ce-b3b6-4cee-ba98-c609b8e1ce67
+    nodeName: Action
+    nodeType: 4
+    position: {x: 1158, y: 219}
+    conditionType: 0
+    actionType: 6
     animationStateName: 
     childrenGuids: []
   - guid: e0e283cc-cf23-4c45-97fd-4c10533b8446
     nodeName: Chase Sequence
     nodeType: 2
-    position: {x: 801, y: 364}
+    position: {x: 993, y: 541}
     conditionType: 0
     actionType: 0
     animationStateName: 
     childrenGuids:
     - 462900ab-0ce8-4a8b-92a7-d1d36ddda8f8
-    - 8d067a83-f4aa-49ca-a577-9c99b3d47912
-    - 3604b182-8e85-4cf3-aa1a-a0551c467d52
     - feafebb6-9510-4fdd-9913-c68aaa8844fc
-  - guid: 462900ab-0ce8-4a8b-92a7-d1d36ddda8f8
-    nodeName: Near Condition
-    nodeType: 3
-    position: {x: 429, y: 531}
-    conditionType: 1
-    actionType: 0
-    animationStateName: 
-    childrenGuids: []
-  - guid: 8d067a83-f4aa-49ca-a577-9c99b3d47912
-    nodeName: CanChase Condition
-    nodeType: 3
-    position: {x: 669, y: 531}
-    conditionType: 6
-    actionType: 0
+    - 3604b182-8e85-4cf3-aa1a-a0551c467d52
+  - guid: 3604b182-8e85-4cf3-aa1a-a0551c467d52
+    nodeName: Chase Action
+    nodeType: 4
+    position: {x: 1342, y: 683}
+    conditionType: 0
+    actionType: 4
     animationStateName: 
     childrenGuids: []
   - guid: feafebb6-9510-4fdd-9913-c68aaa8844fc
     nodeName: IsAttacking Condition
     nodeType: 3
-    position: {x: 897, y: 531}
+    position: {x: 1094, y: 708}
     conditionType: 7
     actionType: 0
     animationStateName: 
     childrenGuids: []
-  - guid: 3604b182-8e85-4cf3-aa1a-a0551c467d52
-    nodeName: Chase Action
-    nodeType: 4
-    position: {x: 1138, y: 502}
-    conditionType: 0
-    actionType: 4
+  - guid: 462900ab-0ce8-4a8b-92a7-d1d36ddda8f8
+    nodeName: Near Condition
+    nodeType: 3
+    position: {x: 828, y: 708}
+    conditionType: 1
+    actionType: 0
     animationStateName: 
     childrenGuids: []
-  - guid: 071e444c-d0c9-4714-b78f-f3d72bae72e5
-    nodeName: Default Action
+  - guid: fd94569d-ee6e-4379-a73e-263d5ced904b
+    nodeName: Sequence
+    nodeType: 2
+    position: {x: -763, y: 517}
+    conditionType: 0
+    actionType: 0
+    animationStateName: 
+    childrenGuids:
+    - 4e4cfff3-0d3e-4a6d-8bc3-668d4e3c3d34
+    - 862ca720-2059-4ce7-89ed-bc4290d90291
+  - guid: 862ca720-2059-4ce7-89ed-bc4290d90291
+    nodeName: Action
     nodeType: 4
-    position: {x: 827, y: 160}
+    position: {x: -745, y: 702}
     conditionType: 0
     actionType: 5
+    animationStateName: 
+    childrenGuids: []
+  - guid: 4e4cfff3-0d3e-4a6d-8bc3-668d4e3c3d34
+    nodeName: Condition
+    nodeType: 3
+    position: {x: -1016, y: 710}
+    conditionType: 9
+    actionType: 0
+    animationStateName: 
+    childrenGuids: []
+  - guid: 03053799-e81a-4918-bc70-6e31c7f5cd7b
+    nodeName: Sequence
+    nodeType: 2
+    position: {x: -326, y: 517}
+    conditionType: 0
+    actionType: 0
+    animationStateName: 
+    childrenGuids:
+    - 4179437c-29ac-4c4a-87e4-27ef362ff7d3
+    - 175801ce-c5bb-40fa-8c32-209973c8ad65
+  - guid: 4179437c-29ac-4c4a-87e4-27ef362ff7d3
+    nodeName: Condition
+    nodeType: 3
+    position: {x: -484, y: 710}
+    conditionType: 3
+    actionType: 0
+    animationStateName: 
+    childrenGuids: []
+  - guid: 175801ce-c5bb-40fa-8c32-209973c8ad65
+    nodeName: Action
+    nodeType: 4
+    position: {x: -251, y: 710}
+    conditionType: 0
+    actionType: 3
     animationStateName: 
     childrenGuids: []

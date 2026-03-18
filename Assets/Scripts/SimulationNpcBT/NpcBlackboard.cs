@@ -21,5 +21,6 @@ namespace TestBT
         public bool canChase; // 추격
         public bool canAttack; // 공격
         public bool canFlee; // 도망
+        public bool canSteal; // 빼앗기
     }
 }

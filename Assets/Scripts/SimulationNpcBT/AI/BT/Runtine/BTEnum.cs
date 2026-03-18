@@ -16,17 +16,6 @@ namespace AI.BT.Runtime
         Action
     }
 
-    public enum BTActionType
-    {
-        None,
-        LookAt,
-        Flee,
-        Attack,
-        Chase,
-        GoHome,
-        KeepDefault
-    }
-
     public enum BTConditionType
     {
         None,
@@ -38,6 +27,19 @@ namespace AI.BT.Runtime
         CanAttack,
         CanChase,
         IsAttacking,
-        CanHome
+        CanSteal,
+        CanHome,
+    }
+    
+    public enum BTActionType
+    {
+        None,
+        LookAt,
+        Flee,
+        Attack,
+        Chase,
+        Steal,
+        GoHome,
+        KeepDefault
     }
 }

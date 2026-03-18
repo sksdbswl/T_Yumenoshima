@@ -26,6 +26,7 @@ public static class BTGraphRuntimeBuilder
         { BTConditionType.CanAttack, owner => owner.sensor.Blackboard.canAttack },
         { BTConditionType.CanChase, owner => owner.sensor.Blackboard.canChase },
         { BTConditionType.CanHome, owner =>  owner.sensor.Blackboard.canHome},
+        { BTConditionType.CanSteal, owner =>  owner.sensor.Blackboard.canSteal},
         { BTConditionType.IsProgress, owner => owner.executor.IsProgressing() },
     };
 
@@ -35,6 +36,7 @@ public static class BTGraphRuntimeBuilder
         { BTActionType.Flee, owner => owner.executor.DoFlee(owner.sensor.Blackboard.player) },
         { BTActionType.Attack, owner => owner.executor.DoAttack(owner.sensor.Blackboard.player) },
         { BTActionType.Chase, owner => owner.executor.DoChase(owner.sensor.Blackboard) },
+        { BTActionType.Steal, owner => owner.executor.DoSteal(owner.sensor.Blackboard.player) },
         { BTActionType.GoHome, owner => owner.executor.GoHome() },
         { BTActionType.KeepDefault, owner => owner.executor.KeepDefault() },
     };

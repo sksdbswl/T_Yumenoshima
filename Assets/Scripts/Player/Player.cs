@@ -1,18 +1,25 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour
+public sealed class Player :  MonoBehaviour
 {
     public PlayerInputHandler inputHandler;
     public IInteractable currentInteractable;
-
+    
+    private PlayerStatus playerStatus;
+    private IPlayerStatus _playerStatus => playerStatus;
+    
     // 플레이어 주변에 있는 모든 상호작용 대상들
     public List<IInteractable> interactablesInRange = new List<IInteractable>();
 
     [Header("Player Settings")]
     bool Gather = false;
     bool Fishing = false;
+    
+    private void Awake()
+    {
+        if (playerStatus == null) playerStatus = GetComponent<PlayerStatus>();
+    }
     
     private void OnEnable()
     {

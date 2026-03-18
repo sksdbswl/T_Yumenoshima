@@ -59,7 +59,7 @@ MonoBehaviour:
     nodeName: CanAttack Condition
     nodeType: 3
     position: {x: 266, y: 709}
-    conditionType: 6
+    conditionType: 9
     actionType: 0
     animationStateName: 
     childrenGuids: []
@@ -68,7 +68,7 @@ MonoBehaviour:
     nodeType: 4
     position: {x: 523, y: 693}
     conditionType: 0
-    actionType: 3
+    actionType: 5
     animationStateName: 
     childrenGuids: []
   - guid: 89ebd0ce-b3b6-4cee-ba98-c609b8e1ce67
@@ -76,7 +76,7 @@ MonoBehaviour:
     nodeType: 4
     position: {x: 1158, y: 219}
     conditionType: 0
-    actionType: 6
+    actionType: 7
     animationStateName: 
     childrenGuids: []
   - guid: e0e283cc-cf23-4c45-97fd-4c10533b8446
@@ -163,6 +163,6 @@ MonoBehaviour:
     nodeType: 4
     position: {x: -251, y: 710}
     conditionType: 0
-    actionType: 3
+    actionType: 5
     animationStateName: 
     childrenGuids: []
