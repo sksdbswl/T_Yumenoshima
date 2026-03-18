@@ -7,7 +7,7 @@ namespace TestBT
     {
         /// <summary>
         /// 1. 아침,점심 : 추격, 공격
-        /// 2. 저녁 : 잠자기
+        /// 2. 저녁 : 잠자기 or Home
         /// </summary>
         #region Monster : Chase/Attack
 

@@ -240,7 +240,7 @@ public class PlacementSystem : MonoBehaviour
         Gizmos.DrawWireCube(cellCenter, half * 2f);
     }
     
-    public void RebuildFromSave(List<PlacedObjectData> datas)
+    public void RebuildFromSave(IReadOnlyList<PlacedObjectData> datas)
     {
         // 기존 배치 오브젝트 싹 지우고 시작하려면 여기서 정리
         // ex) 현재 필드에 있는 PlaceableObject.FindObjectsOfType<PlaceableObject>() 제거

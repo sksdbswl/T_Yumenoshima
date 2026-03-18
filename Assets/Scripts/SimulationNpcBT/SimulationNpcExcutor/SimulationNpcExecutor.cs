@@ -198,7 +198,7 @@ namespace TestBT
         public ENodeState GoHome()
         {
             // 1. 집 찾기
-            var house = PlaceableInteraction.GetByInstanceId(npcSO.BuilderId);
+            var house = PlacementManager.Singleton.GetByBuilderId(npcSO.BuilderId);
             if (house == null)
                 return ENodeState.ENS_Failure;
 

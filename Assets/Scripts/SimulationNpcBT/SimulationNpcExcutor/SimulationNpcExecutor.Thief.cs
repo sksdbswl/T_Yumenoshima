@@ -6,8 +6,7 @@ namespace TestBT
     public partial class SimulationNpcExecutor
     {
         /// <summary>
-        /// 1. 아침 : 활동 x
-        /// 2. 점심 : 일반 시민으로 활동
+        /// 1. 아침, 점심 : 일반 시민으로 활동
         /// 3. 저녁 : 마주치면 돈 뺏김
         /// </summary>
 
