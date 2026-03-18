@@ -105,7 +105,7 @@ namespace DS.Windows
 
         private void Load()
         {
-            // 🔹 실제 Graph 저장 위치와 동일한 폴더 사용
+            // 실제 Graph 저장 위치와 동일한 폴더 사용
             string filePath = EditorUtility.OpenFilePanel(
                 "Dialogue Graphs",
                 "Assets/Dialog/Editor/DialogueSystem/Graphs",
