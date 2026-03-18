@@ -407,7 +407,7 @@ namespace DS.Utilities
             CreateFolder("Assets/Dialog/DialogueSystem/Dialogues", graphFileName);
             //CreateFolder(containerFolderPath, "Global");
             CreateFolder(containerFolderPath, "Groups");
-            CreateFolder($"{containerFolderPath}/Global", "Dialogues");
+           // CreateFolder($"{containerFolderPath}/Global", "Dialogues");
         }
 
         private static void GetElementsFromGraphView()

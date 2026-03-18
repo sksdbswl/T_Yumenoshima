@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DS.ScriptableObjects.DSDialogueSO
   <DialogueName>k__BackingField: "\uC778\uC0AC"
   <GroupType>k__BackingField: 2
-  <NpcId>k__BackingField: 
+  <NpcId>k__BackingField: Shin
   <Text>k__BackingField: "\uD654\uC774\uD305 !"
   <Choices>k__BackingField:
   - <Text>k__BackingField: Next Dialogue
