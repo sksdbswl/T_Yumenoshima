@@ -17,5 +17,5 @@ MonoBehaviour:
   Role: 3
   Prefab: {fileID: 2183983995791420318, guid: 1d68fea489488964baf07852f905a3c8, type: 3}
   IsStack: 0
-  IsFire: 0
+  IsFire: 1
   Door: 1

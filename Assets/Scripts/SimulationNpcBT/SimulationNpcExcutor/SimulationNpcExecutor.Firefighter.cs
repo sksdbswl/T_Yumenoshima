@@ -41,6 +41,33 @@ namespace TestBT
             agent.SetDestination(fireTarget.transform.position);
             return ENodeState.ENS_Running;
         }
+        
+        /// <summary>
+        /// 불난 건물 찾기
+        /// </summary>
+        // public static PlaceableInteraction GetNearestFireBuilding(Vector3 from)
+        // {
+        //     var buildings = PlacementManager.Singleton.BuildingInstances;
+        //
+        //     PlaceableInteraction nearest = null;
+        //     float bestSqr = float.MaxValue;
+        //
+        //     for (int i = 0; i < buildings.Count; i++)
+        //     {
+        //         var b = buildings[i];
+        //         if (b == null) continue;
+        //         if (!b.IsOnFire) continue;
+        //
+        //         float sqr = (b.transform.position - from).sqrMagnitude;
+        //         if (sqr < bestSqr)
+        //         {
+        //             bestSqr = sqr;
+        //             nearest = b;
+        //         }
+        //     }
+        //
+        //     return nearest;
+        // }
 
         /// <summary>
         /// 불 끄기

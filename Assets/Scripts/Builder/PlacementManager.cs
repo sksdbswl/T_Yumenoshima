@@ -110,6 +110,30 @@ public class PlacementManager : SingletonBase<PlacementManager>
 
         Debug.Log($"Placement saved to: {SavePath}");
     }
+    
+    /// <summary>
+    /// BuilderId를 사용하여 특정 오브젝트를 삭제합니다.
+    /// </summary>
+    public void RemoveObject(int builderId)
+    {
+        if (!_instances.TryGetValue(builderId, out var instance)) return;
+        
+        _placedObjects.RemoveAll(data => data.id == builderId);
+
+        UnregisterInstance(instance);
+
+        if (instance != null) 
+            Destroy(instance.gameObject);
+    }
+
+    /// <summary>
+    /// PlaceableInteraction 컴포넌트를 직접 전달하여 삭제
+    /// </summary>
+    public void RemoveObject(PlaceableInteraction placeable)
+    {
+        if (placeable == null) return;
+        RemoveObject(placeable.BuilderId);
+    }
 
     public void Load()
     {
