@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f262818b55b0f4418296bad0176bdab, type: 3}
+  m_Name: 1
+  m_EditorClassIdentifier: Assembly-CSharp::DS.ScriptableObjects.DSDialogueSO
+  <DialogueName>k__BackingField: 1
+  <GroupType>k__BackingField: 1
+  <NpcId>k__BackingField: Uraraka
+  <Text>k__BackingField: "\uC61B\uB0A0\uC758 \uD558\uB098\uBE44 \uC12C\uC740 \uC774\uB807\uAC8C
+    \uC544\uB984\uB2E4\uC6E0\uB294\uB370.."
+  <Choices>k__BackingField:
+  - <Text>k__BackingField: Next Dialogue
+    <NextDialogue>k__BackingField: {fileID: 11400000, guid: 82e3ee4f392af864682b8d9b78a2525f, type: 2}
+  <DialogueType>k__BackingField: 0
+  <IsStartingDialogue>k__BackingField: 1
+  <NpcAnimationClip>k__BackingField: {fileID: 1827226128182048838, guid: df7066cb95b024b4295159063e763b8c, type: 3}
+  <Actions>k__BackingField: []
+  <StageId>k__BackingField: 1

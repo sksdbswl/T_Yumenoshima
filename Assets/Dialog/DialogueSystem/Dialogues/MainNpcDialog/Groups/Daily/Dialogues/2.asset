@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f262818b55b0f4418296bad0176bdab, type: 3}
+  m_Name: 2
+  m_EditorClassIdentifier: Assembly-CSharp::DS.ScriptableObjects.DSDialogueSO
+  <DialogueName>k__BackingField: 2
+  <GroupType>k__BackingField: 3
+  <NpcId>k__BackingField: 
+  <Text>k__BackingField: Dialogue text.
+  <Choices>k__BackingField:
+  - <Text>k__BackingField: "\uB098\uB3C4 \uC88B\uB2E4\uACE0 \uC0DD\uAC01\uD574"
+    <NextDialogue>k__BackingField: {fileID: 11400000, guid: f10c8784a44dabd4d9c96419d14e26e0, type: 2}
+  - <Text>k__BackingField: "\uB09C \uBCC4\uB85C\uB77C\uACE0 \uC0DD\uAC01\uD574"
+    <NextDialogue>k__BackingField: {fileID: 11400000, guid: 9d8c570d46c617d408dc6bf334ac3213, type: 2}
+  <DialogueType>k__BackingField: 1
+  <IsStartingDialogue>k__BackingField: 0
+  <NpcAnimationClip>k__BackingField: {fileID: 0}
+  <Actions>k__BackingField: []
+  <StageId>k__BackingField: 0
