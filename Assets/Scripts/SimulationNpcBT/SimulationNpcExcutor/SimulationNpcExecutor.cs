@@ -84,18 +84,6 @@ namespace TestBT
         {
             return isProgress;
         }
-
-        public ENodeState CheckIsAnomaly()
-        {
-            if (isAnomaly)
-            {
-                agent.isStopped = true;
-                agent.ResetPath();
-                return ENodeState.ENS_Failure;
-            }
-            
-            return ENodeState.ENS_Running;
-        }
         
         public bool TryStopIfAnomaly()
         {

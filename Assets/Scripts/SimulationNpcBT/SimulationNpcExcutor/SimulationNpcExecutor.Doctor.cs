@@ -130,11 +130,18 @@ namespace TestBT
             if (agent != null)
                 agent.isStopped = false;
 
-            Debug.Log($"[Doctor] 치료 완료 : {target.name}");
-
+            ReleaseAnomaly();
+  
+            return ENodeState.ENS_Success;
+        }
+        
+        // 상태 이상 해제
+        public void ReleaseAnomaly()
+        {
+            Debug.Log($"[Doctor] 치료 완료, 상태이상 해제 : {currentNpc.name}");
+            currentNpc.executor.isAnomaly = false;
             currentNpc.agent.isStopped = false;
             currentNpc = null;
-            return ENodeState.ENS_Success;
         }
 
         #endregion

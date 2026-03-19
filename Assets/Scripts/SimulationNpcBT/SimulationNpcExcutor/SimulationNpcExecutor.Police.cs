@@ -55,8 +55,7 @@ namespace TestBT
         {
             if (agent == null || !agent.enabled || !agent.isOnNavMesh)
                 return ENodeState.ENS_Failure;
-
-            CheckIsAnomaly();
+            if(TryStopIfAnomaly()) return ENodeState.ENS_Failure;
             
             if (currentThiefTarget == null)
             {

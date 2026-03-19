@@ -45,7 +45,7 @@ public partial class GameManager
             if (CurrentState == RoutineState.Morning)
             {
                 TryIgniteRandomBuilding();
-                //TryChangeRandomNpcEmotionTired();
+                TryChangeRandomNpcEmotionTired();
             }
 
             yield return new WaitForSeconds(20f);
