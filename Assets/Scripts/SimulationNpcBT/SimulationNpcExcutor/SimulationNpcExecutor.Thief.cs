@@ -7,15 +7,12 @@ namespace TestBT
     public partial class SimulationNpcExecutor
     {
         /// <summary>
-        /// 1. 아침, 점심 : 일반 시민으로 활동
-        /// 2. 저녁 : 마주치면 돈 뺏김
-        ///
-        /// 현재는 그냥 마주치면 스틸
+        /// 1. 아침, 점심 : 플레이어 돈 스틸 -> 경찰이 주기적으로 제압 ( 일정 쿨타임 만큼 스틸 불가 )
+        /// 2. 저녁 : 플레이어 돈 스틸 -> 경찰이 귀가 후에는 제압 불가, 도망 다녀야함  
         /// </summary>
         #region Thief : Chase/Steal
 
         private float stealDelay = 5f;
-        private float stealTimer = 0f;
         
         public bool IsRestricted = false;
         private Coroutine restrictedCoroutine;
@@ -39,13 +36,13 @@ namespace TestBT
                 
                 // animator.SetTrigger("Attack"); 
                 
-                stealTimer = stealDelay;
+                delayTimer = stealDelay;
                 isProgress = true;
             }
   
-            stealTimer -= Time.deltaTime;
+            delayTimer -= Time.deltaTime;
             
-            if (stealTimer > 0f)
+            if (delayTimer > 0f)
             {
                 //Debug.Log($"스틸 중... ::{attackTimer}");
                 // 2. 스틸 진행 중
@@ -54,7 +51,7 @@ namespace TestBT
 
             // 3. 스틸 완료 시점
             //Debug.Log("스틸 끝");
-            stealTimer = 0f;
+            delayTimer = 0f;
             isProgress = false;
             agent.isStopped = false;
             

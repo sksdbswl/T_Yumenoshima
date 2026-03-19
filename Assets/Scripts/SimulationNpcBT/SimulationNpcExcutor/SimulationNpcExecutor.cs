@@ -14,7 +14,7 @@ namespace TestBT
         
         private NavMeshAgent agent;
         private float defaultActionTimer = 3f;
-        private float delayTimer = 0f;
+        private float delayTimer = 0f; 
         private bool isProgress = false;
         private bool isEmotion = false;
         public bool isAnomaly = false;
