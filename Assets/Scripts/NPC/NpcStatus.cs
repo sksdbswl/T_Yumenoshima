@@ -10,9 +10,8 @@ public sealed class NpcStatus : MonoBehaviour, INpcStatus
     [SerializeField] private float maxHp = 100f;
     [SerializeField] private float currentHp = 100f;
 
-    [Header("Emotion / Status")]
+    [Header("Emotion")]
     [SerializeField] private Const.EEmotion currentEmotion = Const.EEmotion.Neutral;
-    [SerializeField] private Const.EStatusEffect currentStatusEffects = Const.EStatusEffect.None;
     
     private NavMeshAgent agent;
     private INpcStatus _npcStatusImplementation;
@@ -22,7 +21,6 @@ public sealed class NpcStatus : MonoBehaviour, INpcStatus
     public bool IsAnomaly { get; set; }
 
     public Const.EEmotion CurrentEmotion => currentEmotion;
-    public Const.EStatusEffect CurrentStatusEffects => currentStatusEffects;
 
     private void Awake()
     {
@@ -80,21 +78,6 @@ public sealed class NpcStatus : MonoBehaviour, INpcStatus
         }
     }
     
-    public void ApplyStatusEffect(Const.EStatusEffect effect)
-    {
-        currentStatusEffects |= effect;
-    }
-
-    public void RemoveStatusEffect(Const.EStatusEffect effect)
-    {
-        currentStatusEffects &= ~effect;
-    }
-
-    public bool HasStatusEffect(Const.EStatusEffect effect)
-    {
-        return (currentStatusEffects & effect) == effect;
-    }
-
     private void OnDead()
     {
         Debug.Log("Player Dead");

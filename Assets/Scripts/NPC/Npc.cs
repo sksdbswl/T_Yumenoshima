@@ -9,7 +9,7 @@ public sealed class Npc : MonoBehaviour
     [HideInInspector] public NavMeshAgent agent;
     [HideInInspector] public SimulationNpcSensor sensor;
     [HideInInspector] public SimulationNpcExecutor executor;
-
+    
     private INpcStatus npcStatus;
     public INpcStatus _npcStatus => npcStatus;
     

@@ -7,7 +7,6 @@ public interface IPlayerStatus
     float MaxStamina { get; }
 
     Const.EEmotion CurrentEmotion { get; }
-    Const.EStatusEffect CurrentStatusEffects { get; }
 
     void TakeDamage(float amount);
     void Heal(float amount);
@@ -16,8 +15,4 @@ public interface IPlayerStatus
     void RecoverStamina(float amount);
 
     void ChangeEmotion(Const.EEmotion emotion);
-
-    void ApplyStatusEffect(Const.EStatusEffect effect);
-    void RemoveStatusEffect(Const.EStatusEffect effect);
-    bool HasStatusEffect(Const.EStatusEffect effect);
 }

@@ -15,7 +15,6 @@ public sealed class PlayerStatus : MonoBehaviour, IPlayerStatus
 
     [Header("Emotion / Status")]
     [SerializeField] private Const.EEmotion currentEmotion = Const.EEmotion.Neutral;
-    [SerializeField] private Const.EStatusEffect currentStatusEffects = Const.EStatusEffect.None;
 
     public float CurrentHp => currentHp;
     public float MaxHp => maxHp;
@@ -24,7 +23,6 @@ public sealed class PlayerStatus : MonoBehaviour, IPlayerStatus
     public float MaxStamina => maxStamina;
 
     public Const.EEmotion CurrentEmotion => currentEmotion;
-    public Const.EStatusEffect CurrentStatusEffects => currentStatusEffects;
 
     private void Awake()
     {
@@ -79,21 +77,6 @@ public sealed class PlayerStatus : MonoBehaviour, IPlayerStatus
     public void ChangeEmotion(Const.EEmotion emotion)
     {
         currentEmotion = emotion;
-    }
-
-    public void ApplyStatusEffect(Const.EStatusEffect effect)
-    {
-        currentStatusEffects |= effect;
-    }
-
-    public void RemoveStatusEffect(Const.EStatusEffect effect)
-    {
-        currentStatusEffects &= ~effect;
-    }
-
-    public bool HasStatusEffect(Const.EStatusEffect effect)
-    {
-        return (currentStatusEffects & effect) == effect;
     }
 
     private void OnDead()
