@@ -77,7 +77,6 @@ MonoBehaviour:
     animationStateName: 
     childrenGuids:
     - da83ba9e-3310-4b7a-874d-b12d0016e6ce
-    - 86470c01-5141-4c19-9ea2-0c7aafa36e23
     - ad0b588c-0573-4102-ab10-3536e5aed6bf
   - guid: da83ba9e-3310-4b7a-874d-b12d0016e6ce
     nodeName: Condition
@@ -87,18 +86,10 @@ MonoBehaviour:
     actionType: 0
     animationStateName: 
     childrenGuids: []
-  - guid: 86470c01-5141-4c19-9ea2-0c7aafa36e23
-    nodeName: Condition
-    nodeType: 3
-    position: {x: 697, y: 597}
-    conditionType: 3
-    actionType: 0
-    animationStateName: 
-    childrenGuids: []
   - guid: ad0b588c-0573-4102-ab10-3536e5aed6bf
     nodeName: Action
     nodeType: 4
-    position: {x: 953, y: 572}
+    position: {x: 745, y: 572}
     conditionType: 0
     actionType: 1
     animationStateName: 

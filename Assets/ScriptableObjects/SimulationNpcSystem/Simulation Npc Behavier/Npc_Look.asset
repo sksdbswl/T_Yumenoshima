@@ -31,38 +31,65 @@ MonoBehaviour:
     actionType: 0
     animationStateName: 
     childrenGuids:
+    - 2c1d7a87-0647-44d7-8d22-f8c4214d0005
     - e0f40ed7-b4d6-4aaf-a559-062f0e9a7d1f
+    - 9505a38a-5e9d-44b8-b4cb-2c2413997758
+  - guid: 9505a38a-5e9d-44b8-b4cb-2c2413997758
+    nodeName: Action
+    nodeType: 4
+    position: {x: 847, y: 187}
+    conditionType: 0
+    actionType: 16
+    animationStateName: 
+    childrenGuids: []
+  - guid: 2c1d7a87-0647-44d7-8d22-f8c4214d0005
+    nodeName: Selector
+    nodeType: 1
+    position: {x: 109, y: 365}
+    conditionType: 0
+    actionType: 0
+    animationStateName: 
+    childrenGuids:
+    - cf43acdb-ed29-4181-881d-68507e440f21
+    - 2f7fba46-8c40-4358-83c7-7a3a31a7e8fc
+  - guid: cf43acdb-ed29-4181-881d-68507e440f21
+    nodeName: Condition
+    nodeType: 3
+    position: {x: -188, y: 526}
+    conditionType: 8
+    actionType: 0
+    animationStateName: 
+    childrenGuids: []
+  - guid: 2f7fba46-8c40-4358-83c7-7a3a31a7e8fc
+    nodeName: Action
+    nodeType: 4
+    position: {x: 70, y: 526}
+    conditionType: 0
+    actionType: 15
+    animationStateName: 
+    childrenGuids: []
   - guid: e0f40ed7-b4d6-4aaf-a559-062f0e9a7d1f
     nodeName: Sequence
     nodeType: 2
-    position: {x: 402, y: 321}
+    position: {x: 464, y: 365}
     conditionType: 0
     actionType: 0
     animationStateName: 
     childrenGuids:
     - da83ba9e-3310-4b7a-874d-b12d0016e6ce
-    - 86470c01-5141-4c19-9ea2-0c7aafa36e23
     - ad0b588c-0573-4102-ab10-3536e5aed6bf
-  - guid: 86470c01-5141-4c19-9ea2-0c7aafa36e23
-    nodeName: Condition
-    nodeType: 3
-    position: {x: 402, y: 526}
-    conditionType: 3
-    actionType: 0
-    animationStateName: 
-    childrenGuids: []
   - guid: da83ba9e-3310-4b7a-874d-b12d0016e6ce
     nodeName: Condition
     nodeType: 3
-    position: {x: 112, y: 526}
-    conditionType: 1
+    position: {x: 442, y: 597}
+    conditionType: 2
     actionType: 0
     animationStateName: 
     childrenGuids: []
   - guid: ad0b588c-0573-4102-ab10-3536e5aed6bf
     nodeName: Action
     nodeType: 4
-    position: {x: 677, y: 516}
+    position: {x: 731, y: 572}
     conditionType: 0
     actionType: 1
     animationStateName: 
