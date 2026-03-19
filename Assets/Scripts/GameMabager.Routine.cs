@@ -16,11 +16,11 @@ public partial class GameManager
         while (true)
         {
             SetState(RoutineState.Morning);
-            StartCoroutine(RoutineCoroutine());
+            _routineCoroutine = StartCoroutine(RoutineCoroutine());
             yield return new WaitForSeconds(60f);
 
             SetState(RoutineState.Noon);
-            StopCoroutine(RoutineCoroutine());
+            if (_routineCoroutine != null) StopCoroutine(_routineCoroutine);
             yield return new WaitForSeconds(10f);
 
             SetState(RoutineState.Night);
@@ -34,10 +34,11 @@ public partial class GameManager
         
         Debug.Log($"State Changed: {state}");
         
-        // TODO: 여기서 조명 변경, NPC 상태 변경 등 처리
+        // TODO: 여기서 날씨나 조명 변경
         OnRoutineChanged?.Invoke(state); 
     }
     
+    Coroutine _routineCoroutine;
     public IEnumerator RoutineCoroutine()
     {
         while (true)

@@ -57,6 +57,9 @@ namespace TestBT
                 return ENodeState.ENS_Failure;
             if(TryStopIfAnomaly()) return ENodeState.ENS_Failure;
             
+            // 저녁엔 활동 불가
+            if (GameManager.Singleton.CurrentState == RoutineState.Night) return ENodeState.ENS_Failure;
+            
             if (currentThiefTarget == null)
             {
                 currentThiefTarget = GetNearestThief();
