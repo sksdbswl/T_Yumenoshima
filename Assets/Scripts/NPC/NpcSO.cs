@@ -3,6 +3,13 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Npc/NpcRole", fileName = "Npc")]
 public class NpcSO : ScriptableObject
 {
+    /// <summary>
+    /// BuilderId
+    /// 0~10 : 특정 직업 Npc 집
+    /// 11~90 : 일반 데코 오브젝트
+    /// 100~n : 기본 마을 사람들 집
+    /// 아이디 중복 불가, Npc마다 각 고유의 집을 보유해야함 
+    /// </summary>
     public int Id;
     public int BuilderId;
     public string Name;

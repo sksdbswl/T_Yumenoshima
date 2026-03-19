@@ -3,6 +3,7 @@ public static class Const
     public enum JobType
     {
         None,
+        Citizen,
         Firefighter,
         Doctor,
         Police,

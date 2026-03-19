@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c98d2d94c174a62b4d79243c9a268e3, type: 3}
-  m_Name: Shin
+  m_Name: Uraraka
   m_EditorClassIdentifier: Assembly-CSharp::Npc
-  Id: 3
-  BuilderId: 3
-  Name: DialogShin
-  Job: 4
+  Id: 100
+  BuilderId: 100
+  Name: DialogUraraka
+  Job: 1
   Thumbnail: {fileID: 21300000, guid: 5b56d9fa0e8bd6e409ed188db38a692c, type: 3}
   spawnPoint: {x: 3, y: 1, z: 0}
   WorldStageMin: 1
