@@ -256,6 +256,8 @@ public class DialogueUI : UIBase
                 return;
             }
 
+            Debug.Log("=== chioce count: " + choices.Count);
+            
             for (int i = 0; i < choices.Count; i++)
             {
                 var localChoice = choices[i];

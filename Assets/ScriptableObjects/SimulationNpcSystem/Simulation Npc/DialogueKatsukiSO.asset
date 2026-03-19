@@ -12,8 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5fab774af4a4350bedd35e0745f68ee, type: 3}
   m_Name: DialogueKatsukiSO
   m_EditorClassIdentifier: Assembly-CSharp::DialogueDatabaseSO
-  entries:
-  - npcId: DialogueKatsuki
-    minStage: 0
-    maxStage: 0
-    container: {fileID: 0}
+  entries: []

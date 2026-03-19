@@ -12,8 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5fab774af4a4350bedd35e0745f68ee, type: 3}
   m_Name: DialogueShinSO
   m_EditorClassIdentifier: Assembly-CSharp::DialogueDatabaseSO
-  entries:
-  - npcId: Shin
-    minStage: 0
-    maxStage: 0
-    container: {fileID: 11400000, guid: 61c961db866490f4190956c659ab9b3b, type: 2}
+  entries: []

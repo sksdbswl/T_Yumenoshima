@@ -118,7 +118,7 @@ MonoBehaviour:
   dialoguePanel: {fileID: 9017522344799115842}
   speakerText: {fileID: 2912359556273317995}
   bodyText: {fileID: 3633112670125741712}
-  choicesParent: {fileID: 4927149292687321703}
+  choicesParent: {fileID: 1123593137792769097}
   choiceButtonPrefab: {fileID: 1335350024216664640, guid: 38c4e911241094a749bdded9cc8856b0, type: 3}
   dialogueContainer: {fileID: 0}
 --- !u!1 &2688011023182945168
