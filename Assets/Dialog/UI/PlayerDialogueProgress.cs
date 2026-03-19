@@ -24,7 +24,7 @@ public partial class PlayerDialogueProgress : SingletonBase<PlayerDialogueProgre
     public List<string> flags = new List<string>();
 
     // =========================
-    // ✅ (선택) 런타임 캐시: Find 반복 줄이기
+    // (선택) 런타임 캐시: Find 반복 줄이기
     // =========================
     private Dictionary<string, NpcStoryEntry> npcStoryMap;
     private Dictionary<string, QuestEntry> questMap;

@@ -34,7 +34,26 @@ public partial class GameManager : SingletonBase<GameManager>
     
     private void Start()
     {
+        TestLog();
         StartCoroutine(DayRoutineCoroutine());
+    }
+
+    /// <summary>
+    /// questui test용
+    /// </summary>
+    private void TestLog()
+    {
+        var accepted = PlayerDialogueProgress.Singleton.GetAcceptedQuests();
+    
+        Debug.Log($"Accepted Quest Count: {accepted.Count}");
+        
+        for (int i = 0; i < accepted.Count; i++)
+        {
+            var entry = accepted[i];
+            var data = GameManager.Singleton.GetQuestData(entry.questId);
+    
+            Debug.Log($"퀘스트 이름: {data.questName}");
+        }
     }
 
     private void Update()

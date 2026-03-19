@@ -26,7 +26,7 @@ public class QuestDatabase : ScriptableObject
         return map.ContainsKey(questId);
     }
 
-    public QuestMetaData Get(string questId)
+    public QuestMetaData GetQuest(string questId)
     {
         if (map == null) BuildMap();
         map.TryGetValue(questId, out var result);

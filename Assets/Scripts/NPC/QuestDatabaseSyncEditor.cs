@@ -42,7 +42,7 @@ public static class QuestDatabaseSyncEditor
             if (string.IsNullOrWhiteSpace(questId))
                 continue;
 
-            var existing = db.Get(questId);
+            var existing = db.GetQuest(questId);
             if (existing == null)
             {
                 db.quests.Add(new QuestMetaData
