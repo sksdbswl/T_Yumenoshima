@@ -11,17 +11,19 @@ namespace TestBT
     {
         [HideInInspector] public NpcSO npcSO;
         [HideInInspector] public EmotionIcon currentEmotionIcon;
+        
         private NavMeshAgent agent;
-        private float defaultSpeed = 3f;
-        private float runSpeed = 10f;
+        private float defaultActionTimer = 3f;
+        private float delayTimer = 0f;
         private bool isProgress = false;
         private bool isEmotion = false;
         public bool isAnomaly = false;
+        private Npc currentNpc;
         
         private void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
-            SetSpeed(defaultSpeed);
+            SetSpeed(npcSO.defaultSpeed);
         }
         
         public void MoveTo(Vector3 target)
@@ -62,7 +64,7 @@ namespace TestBT
                 agent.isStopped = false;
                 if (!agent.hasPath || agent.remainingDistance < 0.5f)
                 {
-                    SetSpeed(defaultSpeed);
+                    SetSpeed(npcSO.defaultSpeed);
                     agent.SetDestination(hit.position);
                 }
             }
@@ -193,7 +195,7 @@ namespace TestBT
                             continue;
 
                         agent.isStopped = false;
-                        SetSpeed(runSpeed);
+                        SetSpeed(npcSO.runSpeed);
                         _currentFleeTarget = hit.position;
                         agent.SetDestination(_currentFleeTarget);
                         _hasFleeTarget = true;
@@ -245,7 +247,7 @@ namespace TestBT
                 _homeTarget = house.transform.position;
 
                 agent.isStopped = false;
-                SetSpeed(defaultSpeed);
+                SetSpeed(npcSO.defaultSpeed);
                 agent.SetDestination(_homeTarget);
 
                 _hasHomeTarget = true;

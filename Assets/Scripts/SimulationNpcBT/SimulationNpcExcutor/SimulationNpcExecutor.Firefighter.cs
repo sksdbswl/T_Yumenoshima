@@ -12,9 +12,6 @@ namespace TestBT
         /// </summary>
         #region Firefighter : Patrol/Extinguish
 
-        private float extinguishDelay = 3f;
-        private float extinguishTimer = 0f;
-
         private PlaceableInteraction currentFireTarget;
         
         /// <summary>
@@ -94,7 +91,7 @@ namespace TestBT
             isEmotion = true;
             agent.isStopped = false;
             agent.SetDestination(currentFireTarget.transform.position);
-            SetSpeed(runSpeed);
+            SetSpeed(npcSO.runSpeed);
             
             return ENodeState.ENS_Running;
         }
@@ -127,22 +124,22 @@ namespace TestBT
                 if (lookDir != Vector3.zero)
                     transform.forward = lookDir;
 
-                extinguishTimer = extinguishDelay;
+                delayTimer = defaultActionTimer;
                 isProgress = true;
 
                 Debug.Log($"[Firefighter] 진화 시작 : {currentFireTarget.name}");
             }
 
-            extinguishTimer -= Time.deltaTime;
+            delayTimer -= Time.deltaTime;
 
-            if (extinguishTimer > 0f)
+            if (delayTimer > 0f)
             {
                 return ENodeState.ENS_Running;
             }
 
             currentFireTarget.SetFire(false);
 
-            extinguishTimer = 0f;
+            delayTimer = 0f;
             isProgress = false;
 
             if (agent != null)
@@ -154,7 +151,7 @@ namespace TestBT
             
             isEmotion = false;
             currentFireTarget = null;
-            SetSpeed(defaultSpeed);
+            SetSpeed(npcSO.defaultSpeed);
             return ENodeState.ENS_Success;
         }
 

@@ -6,12 +6,7 @@ namespace TestBT
     public partial class SimulationNpcExecutor
     {
         #region Doctor : Patrol/Healing
-
-        private float healDelay = 3f;
-        private float healTimer = 0f;
-
-        private Npc currentNpc;
-
+        
         /// <summary>
         /// 가까운 아픈 Npc 찾기
         /// </summary>
@@ -109,22 +104,22 @@ namespace TestBT
                 if (lookDir != Vector3.zero)
                     transform.forward = lookDir;
 
-                healTimer = healDelay;
+                delayTimer = defaultActionTimer;
                 isProgress = true;
 
                 Debug.Log($"[Doctor] 치료 시작 : {target.name}");
             }
 
-            healTimer -= Time.deltaTime;
+            delayTimer -= Time.deltaTime;
 
-            if (healTimer > 0f)
+            if (delayTimer > 0f)
             {
                 return ENodeState.ENS_Running;
             }
 
             currentNpc._npcStatus.ChangeEmotion(currentNpc, Const.EEmotion.Neutral);
 
-            healTimer = 0f;
+            delayTimer = 0f;
             isProgress = false;
 
             if (agent != null)

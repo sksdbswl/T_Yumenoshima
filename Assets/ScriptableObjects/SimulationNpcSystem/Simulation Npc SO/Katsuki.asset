@@ -20,10 +20,8 @@ MonoBehaviour:
   spawnPoint: {x: 3, y: 1, z: 0}
   WorldStageMin: 1
   WorldStageMax: 1
-  moveSpeed: 0
-  attackSpeed: 0
-  chaseSpeed: 0
-  fleeSpeed: 0
+  defaultSpeed: 2
+  runSpeed: 5
   canChase: 1
   canAttack: 0
   canFlee: 0

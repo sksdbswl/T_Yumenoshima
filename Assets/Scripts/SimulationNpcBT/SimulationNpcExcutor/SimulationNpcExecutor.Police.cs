@@ -6,12 +6,7 @@ namespace TestBT
     public partial class SimulationNpcExecutor
     {
         #region Police : Patrol/Catch
-
-        private float catchDelay = 3f;
-        private float catchTimer = 0f;
-
-        private Npc currentThiefTarget;
-
+        
         public Npc GetNearestThief()
         {
             var npcs = GameManager.Singleton.SpawnedNpcStatuses;
@@ -41,12 +36,12 @@ namespace TestBT
 
         public ENodeState DoFindThief()
         {
-            if (currentThiefTarget != null)
+            if (currentNpc != null)
                 return ENodeState.ENS_Success;
 
-            currentThiefTarget = GetNearestThief();
+            currentNpc = GetNearestThief();
 
-            return currentThiefTarget != null
+            return currentNpc != null
                 ? ENodeState.ENS_Success
                 : ENodeState.ENS_Failure;
         }
@@ -57,17 +52,18 @@ namespace TestBT
                 return ENodeState.ENS_Failure;
             if(TryStopIfAnomaly()) return ENodeState.ENS_Failure;
             
-            // 저녁엔 활동 불가
-            if (GameManager.Singleton.CurrentState == RoutineState.Night) return ENodeState.ENS_Failure;
+            // 활동 불가 상태
+            if (GameManager.Singleton.CurrentState == RoutineState.Night) return ENodeState.ENS_Failure; //저녁엔 활동 불가
+            if (currentNpc.executor.isAnomaly) return ENodeState.ENS_Failure; // 상대가 이상상태일땐 따로 제압하지 않아도됨
             
-            if (currentThiefTarget == null)
+            if (currentNpc == null)
             {
-                currentThiefTarget = GetNearestThief();
-                if (currentThiefTarget == null)
+                currentNpc = GetNearestThief();
+                if (currentNpc == null)
                     return ENodeState.ENS_Failure;
             }
 
-            float distance = Vector3.Distance(transform.position, currentThiefTarget.transform.position);
+            float distance = Vector3.Distance(transform.position, currentNpc.transform.position);
 
             if (distance <= 2.0f)
             {
@@ -77,7 +73,7 @@ namespace TestBT
             }
 
             agent.isStopped = false;
-            agent.SetDestination(currentThiefTarget.transform.position);
+            agent.SetDestination(currentNpc.transform.position);
             return ENodeState.ENS_Running;
         }
 
@@ -86,10 +82,10 @@ namespace TestBT
         /// </summary>
         public ENodeState DoCatch()
         {
-            if (currentThiefTarget == null)
+            if (currentNpc == null)
                 return ENodeState.ENS_Failure;
 
-            float distance = Vector3.Distance(transform.position, currentThiefTarget.transform.position);
+            float distance = Vector3.Distance(transform.position, currentNpc.transform.position);
             if (distance > 2.5f)
             {
                 return ENodeState.ENS_Failure;
@@ -103,33 +99,33 @@ namespace TestBT
                     agent.ResetPath();
                 }
 
-                Vector3 lookDir = (currentThiefTarget.transform.position - transform.position).normalized;
+                Vector3 lookDir = (currentNpc.transform.position - transform.position).normalized;
                 lookDir.y = 0f;
                 if (lookDir != Vector3.zero)
                     transform.forward = lookDir;
 
-                catchTimer = catchDelay;
+                delayTimer = defaultActionTimer;
                 isProgress = true;
 
-                Debug.Log($"[Police] 제압 시작 : {currentThiefTarget.name}");
+                Debug.Log($"[Police] 제압 시작 : {currentNpc.name}");
             }
 
-            catchTimer -= Time.deltaTime;
+            delayTimer -= Time.deltaTime;
 
-            if (catchTimer > 0f)
+            if (delayTimer > 0f)
                 return ENodeState.ENS_Running;
 
-            currentThiefTarget.executor.SetRestricted(10f); // 10초 동안 훔치기 금지
+            currentNpc.executor.SetRestricted(10f); // 10초 동안 훔치기 금지
 
-            catchTimer = 0f;
+            delayTimer = 0f;
             isProgress = false;
 
             if (agent != null && agent.enabled && agent.isOnNavMesh)
                 agent.isStopped = false;
 
-            Debug.Log($"[Police] 제압 완료 : {currentThiefTarget.name}");
+            Debug.Log($"[Police] 제압 완료 : {currentNpc.name}");
 
-            currentThiefTarget = null;
+            currentNpc = null;
             return ENodeState.ENS_Success;
         }
 

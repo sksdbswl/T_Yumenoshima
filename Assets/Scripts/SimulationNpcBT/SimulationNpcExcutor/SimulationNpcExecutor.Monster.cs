@@ -12,7 +12,6 @@ namespace TestBT
         #region Monster : Chase/Attack
 
         private float attackDelay = 5f;
-        private float attackTimer = 0f;
 
         public ENodeState DoAttack(Transform target)
         {
@@ -33,15 +32,15 @@ namespace TestBT
                 
                 // animator.SetTrigger("Attack"); // 피격 애니메이션 처리
                 
-                attackTimer = attackDelay;
+                delayTimer = attackDelay;
                 isProgress = true;
             }
   
-            attackTimer -= Time.deltaTime;
+            delayTimer -= Time.deltaTime;
             
-            if (attackTimer > 0f)
+            if (delayTimer > 0f)
             {
-                Debug.Log($"공격 중... ::{attackTimer}");
+                Debug.Log($"공격 중... ::{delayTimer}");
                 // 2. 공격 진행 중
                 
                 return ENodeState.ENS_Running;
@@ -49,7 +48,7 @@ namespace TestBT
 
             // 3. 공격 완료 시점
             Debug.Log("공격 끝");
-            attackTimer = 0f;
+            delayTimer = 0f;
             isProgress = false;
             agent.isStopped = false;
             

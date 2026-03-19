@@ -55,7 +55,7 @@ public class NpcInteraction : InteractionTarget, IInteractable
         // Debug.Log($"==========[NpcInteraction] RequestTalk: {pl.name}, {movement}");
         // movement.StopWanderLoop(); 
 
-        npcSO.TryTalk();
+        //npcSO.TryTalk();
     }
 
     /// <summary>
@@ -115,12 +115,12 @@ public class NpcInteraction : InteractionTarget, IInteractable
         
         if (isTalkable)
         {
-            bool hasNext = npcSO.TryTalk();
-            if (!hasNext)
-            {
-                Debug.Log("[NpcInteraction] 다음 대사 없음, 대화 종료함");
-                RequestEndTalk();
-            }
+            //bool hasNext = npcSO.TryTalk();
+            // if (!hasNext)
+            // {
+            //     Debug.Log("[NpcInteraction] 다음 대사 없음, 대화 종료함");
+            //     RequestEndTalk();
+            // }
         }
         else
         {
