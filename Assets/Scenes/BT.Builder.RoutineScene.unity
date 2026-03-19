@@ -356,6 +356,8 @@ MonoBehaviour:
   entries:
   - prefab: {fileID: 8293257398236458406, guid: 6a437baa10bb2994893eff640a1e285e, type: 3}
     initialCount: 5
+  - prefab: {fileID: 7598582521046233047, guid: 8dbe77358d1bf3143977809954350043, type: 3}
+    initialCount: 5
 --- !u!4 &164875000
 Transform:
   m_ObjectHideFlags: 0

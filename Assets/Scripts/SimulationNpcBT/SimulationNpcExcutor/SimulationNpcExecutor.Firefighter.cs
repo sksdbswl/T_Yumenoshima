@@ -16,7 +16,6 @@ namespace TestBT
         private float extinguishTimer = 0f;
 
         private PlaceableInteraction currentFireTarget;
-        private EmotionIcon currentEmotionIcon;
         
         /// <summary>
         /// 가장 가까운 불난 건물 탐색

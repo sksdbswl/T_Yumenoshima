@@ -10,6 +10,7 @@ namespace TestBT
     public partial class SimulationNpcExecutor : MonoBehaviour
     {
         [HideInInspector] public NpcSO npcSO;
+        [HideInInspector] public EmotionIcon currentEmotionIcon;
         private NavMeshAgent agent;
         private float defaultSpeed = 3f;
         private float runSpeed = 10f;

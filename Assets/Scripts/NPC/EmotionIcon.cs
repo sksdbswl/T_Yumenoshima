@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class EmotionIcon : PoolObject<Const.EEmotion>
 {
-    [SerializeField] private Vector3 offset = new Vector3(0f, 2f, 0f);
     [SerializeField] private bool billboard = true;
     [SerializeField] private Const.EEmotion emotionType;
 

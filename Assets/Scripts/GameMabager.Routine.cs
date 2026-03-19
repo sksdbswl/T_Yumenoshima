@@ -93,6 +93,8 @@ public partial class GameManager
         var targetNpc = _spawnedNpcStatuses[index];
 
         targetNpc._npcStatus.ChangeEmotion(targetNpc,Const.EEmotion.Tired);
+        targetNpc.executor.currentEmotionIcon = 
+            NpcEmotionManager.Instance.ShowEmotion(Const.EEmotion.Tired, targetNpc.transform, Vector3.up * 1.5f);
         
         Debug.Log($"NPC 감정 변경: {targetNpc.name} → Tired");
     }

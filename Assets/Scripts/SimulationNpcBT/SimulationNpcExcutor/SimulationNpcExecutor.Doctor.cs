@@ -141,6 +141,7 @@ namespace TestBT
             Debug.Log($"[Doctor] 치료 완료, 상태이상 해제 : {currentNpc.name}");
             currentNpc.executor.isAnomaly = false;
             currentNpc.agent.isStopped = false;
+            NpcEmotionManager.Instance.ReturnEmotion(currentNpc.executor.currentEmotionIcon);
             currentNpc = null;
         }
 
