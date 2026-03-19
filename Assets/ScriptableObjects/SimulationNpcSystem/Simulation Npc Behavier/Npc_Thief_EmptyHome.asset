@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 23b1a06ff4a04412aa95e1417175b6e5, type: 3}
-  m_Name: Npc_Thief
+  m_Name: Npc_Thief_EmptyHome
   m_EditorClassIdentifier: Assembly-CSharp::AI.BT.Runtime.BTGraphAsset
   rootGuid: 1541bab5-371b-4e03-818e-14ac6e68a5ea
   nodes:
@@ -31,7 +31,6 @@ MonoBehaviour:
     actionType: 0
     animationStateName: 
     childrenGuids:
-    - fd94569d-ee6e-4379-a73e-263d5ced904b
     - 03053799-e81a-4918-bc70-6e31c7f5cd7b
     - d3846d75-eb0b-4740-859d-f0a738a11889
     - e0e283cc-cf23-4c45-97fd-4c10533b8446
@@ -104,32 +103,6 @@ MonoBehaviour:
     position: {x: 828, y: 708}
     conditionType: 1
     actionType: 0
-    animationStateName: 
-    childrenGuids: []
-  - guid: fd94569d-ee6e-4379-a73e-263d5ced904b
-    nodeName: Sequence
-    nodeType: 2
-    position: {x: -763, y: 517}
-    conditionType: 0
-    actionType: 0
-    animationStateName: 
-    childrenGuids:
-    - 4e4cfff3-0d3e-4a6d-8bc3-668d4e3c3d34
-    - 862ca720-2059-4ce7-89ed-bc4290d90291
-  - guid: 4e4cfff3-0d3e-4a6d-8bc3-668d4e3c3d34
-    nodeName: Condition
-    nodeType: 3
-    position: {x: -1016, y: 710}
-    conditionType: 9
-    actionType: 0
-    animationStateName: 
-    childrenGuids: []
-  - guid: 862ca720-2059-4ce7-89ed-bc4290d90291
-    nodeName: Action
-    nodeType: 4
-    position: {x: -750, y: 710}
-    conditionType: 0
-    actionType: 12
     animationStateName: 
     childrenGuids: []
   - guid: 89ebd0ce-b3b6-4cee-ba98-c609b8e1ce67
