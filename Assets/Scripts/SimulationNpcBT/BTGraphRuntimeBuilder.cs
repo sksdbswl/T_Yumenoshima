@@ -23,9 +23,9 @@ public static class BTGraphRuntimeBuilder
         { BTConditionType.IsPlayerNear, owner => owner.sensor.Blackboard.isPlayerNear },
         { BTConditionType.IsPlayerVeryNear, owner => owner.sensor.Blackboard.isPlayerVeryNear },
         { BTConditionType.CanAttack, owner => owner.sensor.Blackboard.canAttack },
-        { BTConditionType.CanSteal, owner =>  owner.sensor.Blackboard.canSteal},
+        { BTConditionType.CanSteal, owner =>  !owner.executor.IsRestricted && owner.sensor.Blackboard.canSteal},
         { BTConditionType.CanFlee, owner => owner.sensor.Blackboard.canFlee },
-        { BTConditionType.CanChase, owner => owner.sensor.Blackboard.canChase },
+        { BTConditionType.CanChase, owner =>  !owner.executor.IsRestricted && owner.sensor.Blackboard.canChase },
         { BTConditionType.CanHome, owner =>  owner.sensor.Blackboard.canHome},
        
         { BTConditionType.IsProgress, owner => owner.executor.IsProgressing() },
@@ -45,6 +45,10 @@ public static class BTGraphRuntimeBuilder
         { BTActionType.FindTiredTarget, owner => owner.executor.DoFindPatient() },
         { BTActionType.MoveToTiredTarget, owner => owner.executor.DoMoveToPatient() },
         { BTActionType.Heal, owner => owner.executor.DoHeal() },
+        
+        { BTActionType.FindThiefTarget, owner => owner.executor.DoFindThief() },
+        { BTActionType.MoveToThief, owner => owner.executor.DoMoveToThief() },
+        { BTActionType.Catch, owner => owner.executor.DoCatch() },
         
         { BTActionType.Chase, owner => owner.executor.DoChase(owner.sensor.Blackboard) },
         { BTActionType.GoHome, owner => owner.executor.GoHome() },

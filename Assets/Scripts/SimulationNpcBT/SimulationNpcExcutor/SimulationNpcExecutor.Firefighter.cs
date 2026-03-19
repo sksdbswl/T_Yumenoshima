@@ -66,24 +66,13 @@ namespace TestBT
         public ENodeState DoMoveToFire()
         {
             if (agent == null) return ENodeState.ENS_Failure;
-            if (isAnomaly)
-            {
-                agent.isStopped = true;
-                agent.ResetPath();
-                return ENodeState.ENS_Failure;
-            }
+            if(TryStopIfAnomaly()) return ENodeState.ENS_Failure;
             
             if (currentFireTarget == null || !currentFireTarget.IsOnFire)
             {
                 currentFireTarget = GetNearestFireBuilding();
                 if (currentFireTarget == null) return ENodeState.ENS_Failure;
             }
-
-            // if (!currentFireTarget.gameObject.activeInHierarchy)
-            // {
-            //     currentFireTarget = null;
-            //     return ENodeState.ENS_Failure;
-            // }
 
             float distance = Vector3.Distance(transform.position, currentFireTarget.transform.position);
             

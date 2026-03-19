@@ -31,7 +31,7 @@ public class AssetManager : SingletonBase<AssetManager>
 
     public GameObject InstantiateNpcModel(string prefabName)
     {
-        string address = $"{AssetConstant.AddressPrefixNpcModel}{prefabName}";
+        string address = $"{AssetConstant.AddressPrefixNpcModel}{prefabName}".Trim();
         return LoadAssetClone<GameObject>(address);
     }
 

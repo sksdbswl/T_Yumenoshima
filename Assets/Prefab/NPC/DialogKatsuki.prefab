@@ -535,9 +535,9 @@ GameObject:
   - component: {fileID: -2924341018571830997}
   - component: {fileID: -234164649088483774}
   - component: {fileID: -6918103366982436708}
-  - component: {fileID: -7912351034199445406}
+  - component: {fileID: -7090429068536290447}
   m_Layer: 12
-  m_Name: DialogDeku
+  m_Name: DialogKatsuki
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -639,7 +639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab340a28598542d2ae83baa8ed8cafc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Npc
-  npcSO: {fileID: 11400000, guid: a6cc93bb09bc7d24fb5e0d6a68015cfc, type: 2}
+  npcSO: {fileID: 11400000, guid: 62b2bcb8b1167894bad26d6fff941542, type: 2}
   agent: {fileID: 0}
   sensor: {fileID: 0}
   executor: {fileID: 0}
@@ -655,9 +655,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de3f4a71973444048aeb3a2251ea5dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCDialogueTrigger
-  npcId: Deku
+  npcId: Katsuki
   actor: {fileID: 2856573434675037943}
-  database: {fileID: 11400000, guid: 9424d2bffd94e964990f5be412d4beb8, type: 2}
+  database: {fileID: 11400000, guid: 3df3b6e4d4358da46a0a9acb026703ae, type: 2}
 --- !u!114 &2856573434675037943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -698,7 +698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24e70855fca444218165d58f035879f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestBT.SimulationNpcController
-  graphAsset: {fileID: 11400000, guid: 6f7f888100c90364396b2560a555b4de, type: 2}
+  graphAsset: {fileID: 11400000, guid: 0b0e40e93b70551459a1eb17a1994590, type: 2}
   sensor: {fileID: 0}
   executor: {fileID: 0}
 --- !u!114 &-234164649088483774
@@ -729,9 +729,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestBT.SimulationNpcSensor
   npcSO: {fileID: 0}
-  nearDistance: 2
-  veryNearDistance: 2
---- !u!114 &-7912351034199445406
+  nearDistance: 10
+  veryNearDistance: 4
+--- !u!114 &-7090429068536290447
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -963,7 +963,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 42a85c20812251f42acc3f6dff817ef0, type: 2}
+  - {fileID: 2100000, guid: 6db85fc1002af7e44bf4ab4b4b085a16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

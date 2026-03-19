@@ -22,7 +22,6 @@ namespace AI.BT.Runtime
         IsPlayerNear,
         IsPlayerVeryNear,
         IsProgress,
-        IsAnomaly,
         CanFlee,
         CanAttack,
         CanChase,
@@ -50,6 +49,11 @@ namespace AI.BT.Runtime
         FindTiredTarget,
         MoveToTiredTarget,
         Heal,
+        
+        // 경찰
+        FindThiefTarget,
+        MoveToThief,
+        Catch,
         
         // 기본
         GoHome,

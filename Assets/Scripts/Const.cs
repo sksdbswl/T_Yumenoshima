@@ -5,7 +5,9 @@ public static class Const
         None,
         Firefighter,
         Doctor,
-        Police 
+        Police,
+        Thief,
+        Banker,
     }
     
     // 감정

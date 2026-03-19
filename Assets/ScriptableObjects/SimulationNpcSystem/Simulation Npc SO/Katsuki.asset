@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c98d2d94c174a62b4d79243c9a268e3, type: 3}
-  m_Name: Nagumo
+  m_Name: Katsuki
   m_EditorClassIdentifier: Assembly-CSharp::Npc
-  Id: 2
-  BuilderId: 2
-  Name: DialogNagumo
-  Job: 2
+  Id: 4
+  BuilderId: 4
+  Name: 'DialogKatsuki '
+  Job: 4
   Thumbnail: {fileID: 21300000, guid: 5b56d9fa0e8bd6e409ed188db38a692c, type: 3}
-  spawnPoint: {x: -1, y: 1, z: 0}
-  WorldStageMin: 10
-  WorldStageMax: 10
-  moveSpeed: 5
+  spawnPoint: {x: 3, y: 1, z: 0}
+  WorldStageMin: 1
+  WorldStageMax: 1
+  moveSpeed: 0
   attackSpeed: 0
-  chaseSpeed: 5
+  chaseSpeed: 0
   fleeSpeed: 0
-  canChase: 0
+  canChase: 1
   canAttack: 0
   canFlee: 0
-  canSteal: 0
+  canSteal: 1

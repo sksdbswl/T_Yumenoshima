@@ -42,6 +42,8 @@ namespace TestBT
 
         public ENodeState KeepDefault()
         {
+            if(TryStopIfAnomaly()) return ENodeState.ENS_Failure;
+
             DoRandomMove();
             return ENodeState.ENS_Success;
         }
@@ -83,9 +85,30 @@ namespace TestBT
             return isProgress;
         }
 
-        public bool IsAnomaly()
+        public ENodeState CheckIsAnomaly()
         {
-            return isAnomaly;
+            if (isAnomaly)
+            {
+                agent.isStopped = true;
+                agent.ResetPath();
+                return ENodeState.ENS_Failure;
+            }
+            
+            return ENodeState.ENS_Running;
+        }
+        
+        public bool TryStopIfAnomaly()
+        {
+            if (!isAnomaly)
+                return false;
+
+            if (agent != null && agent.enabled && agent.isOnNavMesh)
+            {
+                agent.isStopped = true;
+                agent.ResetPath();
+            }
+
+            return true;
         }
         
         /// <summary>

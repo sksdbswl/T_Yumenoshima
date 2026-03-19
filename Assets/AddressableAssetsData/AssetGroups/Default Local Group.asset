@@ -37,6 +37,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 72aadcbe296fd1c48b39be2405404842
+    m_Address: Assets/Prefab/NPC/DialogKatsuki
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 72e98c603b091f846acc4b4d1255e6ad
     m_Address: Assets/Prefab/Builder/Bridge
     m_ReadOnly: 0

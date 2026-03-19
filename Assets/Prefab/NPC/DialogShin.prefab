@@ -698,7 +698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24e70855fca444218165d58f035879f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestBT.SimulationNpcController
-  graphAsset: {fileID: 11400000, guid: 0b0e40e93b70551459a1eb17a1994590, type: 2}
+  graphAsset: {fileID: 11400000, guid: 5439426450bd4b9449be20cc4d6bbb42, type: 2}
   sensor: {fileID: 0}
   executor: {fileID: 0}
 --- !u!114 &-234164649088483774
@@ -715,6 +715,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TestBT.SimulationNpcExecutor
   npcSO: {fileID: 0}
   isAnomaly: 0
+  IsRestricted: 0
 --- !u!114 &-6918103366982436708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -962,7 +963,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6db85fc1002af7e44bf4ab4b4b085a16, type: 2}
+  - {fileID: 2100000, guid: 8078eace953836a46a925a8e25640d24, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

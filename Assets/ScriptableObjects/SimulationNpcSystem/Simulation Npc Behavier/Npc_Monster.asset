@@ -59,7 +59,7 @@ MonoBehaviour:
     nodeName: CanAttack Condition
     nodeType: 3
     position: {x: 266, y: 709}
-    conditionType: 6
+    conditionType: 5
     actionType: 0
     animationStateName: 
     childrenGuids: []
@@ -94,7 +94,7 @@ MonoBehaviour:
     nodeName: IsAttacking Condition
     nodeType: 3
     position: {x: 1094, y: 708}
-    conditionType: 7
+    conditionType: 6
     actionType: 0
     animationStateName: 
     childrenGuids: []
@@ -120,7 +120,7 @@ MonoBehaviour:
     nodeName: Condition
     nodeType: 3
     position: {x: -1016, y: 710}
-    conditionType: 9
+    conditionType: 8
     actionType: 0
     animationStateName: 
     childrenGuids: []
@@ -129,7 +129,7 @@ MonoBehaviour:
     nodeType: 4
     position: {x: -750, y: 710}
     conditionType: 0
-    actionType: 12
+    actionType: 15
     animationStateName: 
     childrenGuids: []
   - guid: 89ebd0ce-b3b6-4cee-ba98-c609b8e1ce67
@@ -137,7 +137,7 @@ MonoBehaviour:
     nodeType: 4
     position: {x: 1611, y: 215}
     conditionType: 0
-    actionType: 13
+    actionType: 16
     animationStateName: 
     childrenGuids: []
   - guid: 03053799-e81a-4918-bc70-6e31c7f5cd7b

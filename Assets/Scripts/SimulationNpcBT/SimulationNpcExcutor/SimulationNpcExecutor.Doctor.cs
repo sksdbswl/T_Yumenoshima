@@ -24,11 +24,6 @@ namespace TestBT
 
             for (int i = 0; i < npcs.Count; i++)
             {
-                // var controller = npcs[i];
-                // if (controller == null) continue;
-                // if (controller.transform == transform) continue;
-                // if (npcs[i] == null) continue;
-                
                 if (npcs[i]._npcStatus.CurrentEmotion != Const.EEmotion.Tired) continue;
                 
                 float sqr = (npcs[i]._npcStatus.GetTransform().position - transform.position).sqrMagnitude;

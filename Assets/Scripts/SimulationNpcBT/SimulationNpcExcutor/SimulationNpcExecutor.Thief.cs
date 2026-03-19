@@ -1,3 +1,4 @@
+using System.Collections;
 using AI.BT.Runtime;
 using UnityEngine;
 
@@ -7,13 +8,17 @@ namespace TestBT
     {
         /// <summary>
         /// 1. 아침, 점심 : 일반 시민으로 활동
-        /// 3. 저녁 : 마주치면 돈 뺏김
+        /// 2. 저녁 : 마주치면 돈 뺏김
+        ///
+        /// 현재는 그냥 마주치면 스틸
         /// </summary>
-
         #region Thief : Chase/Steal
 
         private float stealDelay = 5f;
         private float stealTimer = 0f;
+        
+        public bool IsRestricted = false;
+        private Coroutine restrictedCoroutine;
         
         public ENodeState DoSteal(Transform target)
         {
@@ -54,6 +59,34 @@ namespace TestBT
             agent.isStopped = false;
             
             return ENodeState.ENS_Success;
+        }
+        
+        // 훔치기 가능 상태 체크
+        public void SetRestricted(float duration)
+        {
+            if (restrictedCoroutine != null)
+                StopCoroutine(restrictedCoroutine);
+
+            restrictedCoroutine = StartCoroutine(RestrictedCoroutine(duration));
+        }
+
+        private IEnumerator RestrictedCoroutine(float duration)
+        {
+            IsRestricted = true;
+            Debug.Log($"{name} 제압 상태 시작 ({duration}초)");
+
+            yield return new WaitForSeconds(duration);
+
+            IsRestricted = false;
+
+            if (agent != null && agent.enabled && agent.isOnNavMesh)
+            {
+                agent.isStopped = false;
+            }
+
+            restrictedCoroutine = null;
+
+            Debug.Log($"{name} 제압 상태 해제");
         }
         
         #endregion
