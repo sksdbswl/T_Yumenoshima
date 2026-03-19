@@ -16,7 +16,8 @@ namespace TestBT
         private float extinguishTimer = 0f;
 
         private PlaceableInteraction currentFireTarget;
-
+        private EmotionIcon currentEmotionIcon;
+        
         /// <summary>
         /// 가장 가까운 불난 건물 탐색
         /// </summary>
@@ -82,9 +83,20 @@ namespace TestBT
                 return ENodeState.ENS_Success;
             }
 
+            if (!isEmotion)
+            {
+                currentEmotionIcon = NpcEmotionManager.Instance.ShowEmotion(
+                    Const.EEmotion.Exclamation,
+                    this.transform,
+                    Vector3.up * 1.5f
+                );
+            }
+            
+            isEmotion = true;
             agent.isStopped = false;
             agent.SetDestination(currentFireTarget.transform.position);
             SetSpeed(runSpeed);
+            
             return ENodeState.ENS_Running;
         }
 
@@ -138,7 +150,10 @@ namespace TestBT
                 agent.isStopped = false;
 
             Debug.Log($"[Firefighter] 진화 완료 : {currentFireTarget.name}");
-
+            
+            if (isEmotion) NpcEmotionManager.Instance.ReturnEmotion(currentEmotionIcon);
+            
+            isEmotion = false;
             currentFireTarget = null;
             SetSpeed(defaultSpeed);
             return ENodeState.ENS_Success;

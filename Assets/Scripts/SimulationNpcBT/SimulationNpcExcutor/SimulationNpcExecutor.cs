@@ -14,6 +14,7 @@ namespace TestBT
         private float defaultSpeed = 3f;
         private float runSpeed = 10f;
         private bool isProgress = false;
+        private bool isEmotion = false;
         public bool isAnomaly = false;
         
         private void Awake()
