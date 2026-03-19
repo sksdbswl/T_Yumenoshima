@@ -91,7 +91,7 @@ public class PlaceableInteraction : InteractionTarget, IInteractable
     // =======================
     public bool IsOnFire { get; private set; }
     public float FireDuration { get; private set; }
-    private float destroyAfterFireSeconds = 10f;
+    private float destroyAfterFireSeconds = 30f;
     private Coroutine fireCoroutine;
     
     public void SetFire(bool on)
