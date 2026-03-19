@@ -71,7 +71,7 @@ public partial class PlayerDialogueProgress
     {
         public string npcId;
 
-        // ✅ 인스펙터 입력은 List
+        // 인스펙터 입력은 List
         public List<StageStoryPair> storiesByStage = new();
         public List<StageQuestPair> questsByStage = new();
         public List<StageDailyPair> dailyByStage = new();
@@ -145,7 +145,7 @@ public partial class PlayerDialogueProgress
     }
 
     /// <summary>
-    /// ✅ 핵심: stage까지(<=stage)의 stageKey들을 순차적으로 처리해서
+    /// 핵심: stage까지(<=stage)의 stageKey들을 순차적으로 처리해서
     /// 1) 미완료 스토리 있으면 그거부터
     /// 2) 아니면 시작가능 퀘스트
     /// 3) 아니면 데일리
@@ -178,7 +178,7 @@ public partial class PlayerDialogueProgress
             if (!string.IsNullOrEmpty(gate.requiredFlag) && !HasFlag(gate.requiredFlag))
                 continue;
 
-            // ✅ 이 스토리가 다음 진행 대상
+            // 이 스토리가 다음 진행 대상
             return new NextDialogueResult
             {
                 type = NextDialogueType.NpcStory,
@@ -234,5 +234,67 @@ public partial class PlayerDialogueProgress
         }
 
         return new NextDialogueResult { type = NextDialogueType.None, reason = "No available dialogue" };
+    }
+    
+    
+    /// <summary>
+    /// 현재 Accepted 상태인 퀘스트들을 반환
+    /// </summary>
+    public List<QuestEntry> GetAcceptedQuests()
+    {
+        EnsureCache();
+
+        List<QuestEntry> result = new List<QuestEntry>();
+
+        for (int i = 0; i < quests.Count; i++)
+        {
+            var q = quests[i];
+            if (q == null) continue;
+
+            if (q.state == QuestState.Accepted)
+                result.Add(q);
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// 현재 Accepted 상태인 퀘스트 ID 목록 반환
+    /// </summary>
+    public List<string> GetAcceptedQuestIds()
+    {
+        EnsureCache();
+
+        List<string> result = new List<string>();
+
+        for (int i = 0; i < quests.Count; i++)
+        {
+            var q = quests[i];
+            if (q == null || string.IsNullOrEmpty(q.questId)) continue;
+
+            if (q.state == QuestState.Accepted)
+                result.Add(q.questId);
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Accepted 상태인 첫 번째 퀘스트 반환(없으면 null)
+    /// </summary>
+    public QuestEntry GetFirstAcceptedQuest()
+    {
+        EnsureCache();
+
+        for (int i = 0; i < quests.Count; i++)
+        {
+            var q = quests[i];
+            if (q == null) continue;
+
+            if (q.state == QuestState.Accepted)
+                return q;
+        }
+
+        return null;
     }
 }

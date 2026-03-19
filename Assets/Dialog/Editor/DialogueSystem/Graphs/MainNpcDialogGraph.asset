@@ -21,7 +21,7 @@ MonoBehaviour:
     <NpcId>k__BackingField: Uraraka
   - <ID>k__BackingField: 14952eeb-de33-4e1e-8106-8391ab1600b6
     <Name>k__BackingField: Quest
-    <Position>k__BackingField: {x: 191.00002, y: -63.999992}
+    <Position>k__BackingField: {x: 191, y: -64}
     <GroupType>k__BackingField: 2
     <NpcId>k__BackingField: Uraraka
   - <ID>k__BackingField: 81c3961a-4fbd-4f75-a6e4-b050212c6557
@@ -105,20 +105,6 @@ MonoBehaviour:
     <AnimationClip>k__BackingField: {fileID: 7400000, guid: a28bc0d5d74e942599e839179dae8546, type: 3}
     <Actions>k__BackingField: []
     <StageId>k__BackingField: 0
-  - <ID>k__BackingField: 1e2030b1-0220-4e19-aa99-34baccfceb7b
-    <Name>k__BackingField: 1
-    <Text>k__BackingField: "\uD018\uC2A4\uD2B8\uB97C \uC120\uD0DD\uD574\uC918"
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: "\uCC44\uC9D1"
-      <NodeID>k__BackingField: c0ea9246-ab9e-43ab-ac34-2cbcfcc6def6
-    - <Text>k__BackingField: "\uC0AC\uB0E5"
-      <NodeID>k__BackingField: a034fdeb-483f-4a24-a865-3a3180dea401
-    <GroupID>k__BackingField: 14952eeb-de33-4e1e-8106-8391ab1600b6
-    <DialogueType>k__BackingField: 1
-    <Position>k__BackingField: {x: 216, y: 122}
-    <AnimationClip>k__BackingField: {fileID: 0}
-    <Actions>k__BackingField: []
-    <StageId>k__BackingField: 1
   - <ID>k__BackingField: 1d47389c-c799-437d-b332-5d3b72924643
     <Name>k__BackingField: 1
     <Text>k__BackingField: "\uC624\uB298 \uB0A0\uC528\uAC00 \uCC38 \uC88B\uC9C0 \uC54A\uC544
@@ -130,16 +116,7 @@ MonoBehaviour:
     <DialogueType>k__BackingField: 0
     <Position>k__BackingField: {x: 1435, y: -3}
     <AnimationClip>k__BackingField: {fileID: 0}
-    <Actions>k__BackingField:
-    - trigger: 1
-      type: 0
-      npcId: 
-      npcStoryStage: 0
-      questId: 
-      questState: 0
-      flag: 
-      receiverType: 
-      methodName: 
+    <Actions>k__BackingField: []
     <StageId>k__BackingField: 0
   - <ID>k__BackingField: d007b5f5-9aa8-488c-bd41-5342e25cdde6
     <Name>k__BackingField: 3
@@ -232,6 +209,43 @@ MonoBehaviour:
       flag: 
       receiverType: 
       methodName: 
+      questMeta:
+        questId: 
+        questName: 
+        description: 
+        money: 0
+        exp: 0
+        cleanliness: 0
+    <StageId>k__BackingField: 1
+  - <ID>k__BackingField: 1e2030b1-0220-4e19-aa99-34baccfceb7b
+    <Name>k__BackingField: 1
+    <Text>k__BackingField: "\uD018\uC2A4\uD2B8\uB97C \uC120\uD0DD\uD574\uC918"
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: "\uCC44\uC9D1"
+      <NodeID>k__BackingField: c0ea9246-ab9e-43ab-ac34-2cbcfcc6def6
+    - <Text>k__BackingField: "\uC0AC\uB0E5"
+      <NodeID>k__BackingField: a034fdeb-483f-4a24-a865-3a3180dea401
+    <GroupID>k__BackingField: 14952eeb-de33-4e1e-8106-8391ab1600b6
+    <DialogueType>k__BackingField: 1
+    <Position>k__BackingField: {x: 216, y: 122}
+    <AnimationClip>k__BackingField: {fileID: 0}
+    <Actions>k__BackingField:
+    - trigger: 1
+      type: 1
+      npcId: 
+      npcStoryStage: 0
+      questId: 1
+      questState: 0
+      flag: 
+      receiverType: 
+      methodName: 
+      questMeta:
+        questId: 1
+        questName: "\uCCAB\uBC88\uC9F8 \uD018\uC2A4\uD2B8"
+        description: "\uD018\uC2A4\uD2B8\uB97C \uC120\uD0DD\uD574\uC918"
+        money: 100
+        exp: 100
+        cleanliness: 100
     <StageId>k__BackingField: 1
   <OldGroupNames>k__BackingField:
   - Story

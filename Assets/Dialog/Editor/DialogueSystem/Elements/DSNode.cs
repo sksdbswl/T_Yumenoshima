@@ -14,6 +14,9 @@ namespace DS.Elements
     using Utilities;
     using Windows;
 
+    /// <summary>
+    /// 실제 Editor에 그려질 노드 정보들
+    /// </summary>
     public class DSNode : Node
     {
         public string ID { get; set; }
@@ -298,17 +301,17 @@ namespace DS.Elements
                     box.Add(stage);
                     break;
                 }
-
+                
                 case DSDialogueActionType.SetQuestState:
                 {
-                    var questId = new TextField("QuestId") { value = action.questId };
-                    questId.RegisterValueChangedCallback(e => action.questId = e.newValue);
+                    if (action.questMeta == null)
+                        action.questMeta = new QuestMetaData();
 
-                    var state = new EnumField("QuestID", action.questState);
+                    var state = new EnumField("QuestState", action.questState);
                     state.RegisterValueChangedCallback(e => action.questState = (QuestState)e.newValue);
 
-                    box.Add(questId);
                     box.Add(state);
+                    box.Add(CreateQuestMetaFields(action));
                     break;
                 }
 
@@ -336,10 +339,82 @@ namespace DS.Elements
                 }
             }
             
-          
-
             return box;
         }
+        
+        private VisualElement CreateQuestMetaFields(DSDialogueActionData action)
+        {
+            if (action.questMeta == null)
+                action.questMeta = new QuestMetaData();
 
+            var container = new VisualElement();
+            container.style.flexDirection = FlexDirection.Column;
+            container.style.marginTop = 4;
+            container.style.marginBottom = 4;
+
+            var questIdField = new TextField("QuestId")
+            {
+                value = action.questMeta.questId ?? action.questId ?? ""
+            };
+            questIdField.RegisterValueChangedCallback(evt =>
+            {
+                action.questMeta.questId = evt.newValue;
+                action.questId = evt.newValue; // 기존 questId와 동기화
+            });
+            container.Add(questIdField);
+
+            var questNameField = new TextField("QuestName")
+            {
+                value = action.questMeta.questName ?? ""
+            };
+            questNameField.RegisterValueChangedCallback(evt =>
+            {
+                action.questMeta.questName = evt.newValue;
+            });
+            container.Add(questNameField);
+
+            var descriptionField = new TextField("Description")
+            {
+                value = action.questMeta.description ?? "",
+                multiline = true
+            };
+            descriptionField.RegisterValueChangedCallback(evt =>
+            {
+                action.questMeta.description = evt.newValue;
+            });
+            container.Add(descriptionField);
+
+            var moneyField = new IntegerField("Money")
+            {
+                value = action.questMeta.money
+            };
+            moneyField.RegisterValueChangedCallback(evt =>
+            {
+                action.questMeta.money = evt.newValue;
+            });
+            container.Add(moneyField);
+
+            var expField = new IntegerField("Exp")
+            {
+                value = action.questMeta.exp
+            };
+            expField.RegisterValueChangedCallback(evt =>
+            {
+                action.questMeta.exp = evt.newValue;
+            });
+            container.Add(expField);
+
+            var cleanlinessField = new IntegerField("Cleanliness")
+            {
+                value = action.questMeta.cleanliness
+            };
+            cleanlinessField.RegisterValueChangedCallback(evt =>
+            {
+                action.questMeta.cleanliness = evt.newValue;
+            });
+            container.Add(cleanlinessField);
+
+            return container;
+        }
     }
 }

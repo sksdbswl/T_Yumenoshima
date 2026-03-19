@@ -522,7 +522,17 @@ namespace DS.Utilities
                     questState = a.questState,
                     flag = a.flag,
                     receiverType = a.receiverType,
-                    methodName = a.methodName
+                    methodName = a.methodName,
+
+                    questMeta = a.questMeta == null ? null : new QuestMetaData
+                    {
+                        questId = a.questMeta.questId,
+                        questName = a.questMeta.questName,
+                        description = a.questMeta.description,
+                        money = a.questMeta.money,
+                        exp = a.questMeta.exp,
+                        cleanliness = a.questMeta.cleanliness
+                    }
                 });
             }
 

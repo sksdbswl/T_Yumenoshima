@@ -35,4 +35,11 @@ MonoBehaviour:
     flag: 
     receiverType: 
     methodName: 
+    questMeta:
+      questId: 
+      questName: 
+      description: 
+      money: 0
+      exp: 0
+      cleanliness: 0
   <StageId>k__BackingField: 1

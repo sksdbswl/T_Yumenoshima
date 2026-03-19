@@ -24,5 +24,21 @@ MonoBehaviour:
   <DialogueType>k__BackingField: 1
   <IsStartingDialogue>k__BackingField: 1
   <NpcAnimationClip>k__BackingField: {fileID: 0}
-  <Actions>k__BackingField: []
+  <Actions>k__BackingField:
+  - trigger: 1
+    type: 1
+    npcId: 
+    npcStoryStage: 0
+    questId: 1
+    questState: 0
+    flag: 
+    receiverType: 
+    methodName: 
+    questMeta:
+      questId: 1
+      questName: "\uCCAB\uBC88\uC9F8 \uD018\uC2A4\uD2B8"
+      description: "\uD018\uC2A4\uD2B8\uB97C \uC120\uD0DD\uD574\uC918"
+      money: 100
+      exp: 100
+      cleanliness: 100
   <StageId>k__BackingField: 1
