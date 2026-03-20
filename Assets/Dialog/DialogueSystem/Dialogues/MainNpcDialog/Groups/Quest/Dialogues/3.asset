@@ -23,4 +23,4 @@ MonoBehaviour:
   <IsStartingDialogue>k__BackingField: 0
   <NpcAnimationClip>k__BackingField: {fileID: 7400006, guid: f7b6954ec8fb0de4cbe60b244d54f758, type: 3}
   <Actions>k__BackingField: []
-  <StageId>k__BackingField: 0
+  <StageId>k__BackingField: 1

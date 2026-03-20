@@ -142,31 +142,31 @@ public class DialogueUI : UIBase
             var nodes = pair.Value;
             if (groupSO == null || nodes == null) continue;
 
-            // 타입/NPC 필터
-            if (groupSO.GroupType != type) continue;
-            if (!string.Equals(groupSO.NpcId, npcId, StringComparison.Ordinal)) continue;
+            if (groupSO.GroupType != type)
+                continue;
 
-            // 저장된 진행도
+            if (!string.Equals(groupSO.NpcId, npcId, StringComparison.Ordinal))
+                continue;
+
             int saved = LoadProgress(type, groupSO.NpcId);
 
             for (int i = 0; i < nodes.Count; i++)
             {
                 var node = nodes[i];
                 if (node == null) continue;
+                
+                if (!node.IsStartingDialogue)
+                    continue;
 
-                // ✅ 시작노드만 후보
-                if (!node.IsStartingDialogue) continue;
+                if (node.StageId <= 0)
+                    continue;
 
-                // ✅ start node만 StageId를 갖고, 나머지는 0인 정책
-                if (node.StageId <= 0) continue;
+                if (node.StageId > GameManager.Singleton.Stage)
+                    continue;
 
-                // ✅ 월드 스테이지 제한
-                if (node.StageId > GameManager.Singleton.Stage) continue;
+                if (node.StageId <= saved)
+                    continue;
 
-                // ✅ 이미 클리어한 stageId면 스킵
-                if (node.StageId <= saved) continue;
-
-                // ✅ 다음 후보 중 stageId 가장 작은 것 선택
                 if (node.StageId < bestStageId)
                 {
                     bestStageId = node.StageId;
@@ -175,7 +175,6 @@ public class DialogueUI : UIBase
             }
         }
 
-        Debug.Log($"[DialogueManager] NextStart({type}) -> {(best != null ? best.DialogueName : "null")} (StageId={(best != null ? best.StageId : 0)})");
         return best;
     }
 
@@ -399,7 +398,7 @@ public class DialogueUI : UIBase
         if (node == null || node.Actions == null) return;
 
         var prog = PlayerDialogueProgress.Singleton;
-
+        
         for (int i = 0; i < node.Actions.Count; i++)
         {
             var a = node.Actions[i];
@@ -413,6 +412,9 @@ public class DialogueUI : UIBase
 
                 case DSDialogueActionType.SetQuestState:
                     prog.SetQuestState(a.questId, a.questState);
+                    
+                    Debug.Log($"[After Accept] accepted count = {prog.GetAcceptedQuests().Count}");
+                    
                     break;
 
                 case DSDialogueActionType.SetFlag:

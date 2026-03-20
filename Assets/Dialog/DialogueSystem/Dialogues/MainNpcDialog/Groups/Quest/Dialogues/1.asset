@@ -30,7 +30,7 @@ MonoBehaviour:
     npcId: 
     npcStoryStage: 0
     questId: 1
-    questState: 0
+    questState: 1
     flag: 
     receiverType: 
     methodName: 

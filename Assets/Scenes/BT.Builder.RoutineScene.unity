@@ -862,6 +862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fcd3943a576e7d4f99f70c18a53b8eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  questDatabase: {fileID: 11400000, guid: 1d0dedb7dfd10cf40bf0ba58da20f877, type: 2}
 --- !u!4 &1146180269
 Transform:
   m_ObjectHideFlags: 0

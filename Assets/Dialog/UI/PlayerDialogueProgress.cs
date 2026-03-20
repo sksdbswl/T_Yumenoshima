@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using DS.ScriptableObjects;
 using UnityEngine;
 
 /// <summary>
@@ -31,7 +30,13 @@ public partial class PlayerDialogueProgress : SingletonBase<PlayerDialogueProgre
     private HashSet<string> flagSet;
 
     private bool cacheBuilt;
-
+    
+    protected override void Awake()
+    {
+        base.Awake();
+        LoadFromPrefs();
+    }
+    
     private void EnsureCache()
     {
         if (cacheBuilt) return;
@@ -59,7 +64,7 @@ public partial class PlayerDialogueProgress : SingletonBase<PlayerDialogueProgre
     private void InvalidateCache() => cacheBuilt = false;
 
     // =========================
-    // ✅ NPC Story API
+    // NPC Story API
     // =========================
 
     /// <summary>npcId의 스토리 진행 단계(없으면 0)</summary>
@@ -111,15 +116,15 @@ public partial class PlayerDialogueProgress : SingletonBase<PlayerDialogueProgre
     // =========================
     // ✅ Quest API
     // =========================
-
+    
     public QuestState GetQuestState(string questId)
     {
         if (string.IsNullOrEmpty(questId)) return QuestState.NotStarted;
-
+    
         EnsureCache();
         if (questMap.TryGetValue(questId, out var q) && q != null)
             return q.state;
-
+    
         return QuestState.NotStarted;
     }
 
@@ -136,7 +141,11 @@ public partial class PlayerDialogueProgress : SingletonBase<PlayerDialogueProgre
 
     public void SetQuestState(string questId, QuestState state, int step = 0)
     {
-        if (string.IsNullOrEmpty(questId)) return;
+        if (string.IsNullOrEmpty(questId))
+        {
+            Debug.LogWarning("[PlayerDialogueProgress] questId is null or empty");
+            return;
+        }
 
         step = Mathf.Max(0, step);
 
@@ -146,13 +155,37 @@ public partial class PlayerDialogueProgress : SingletonBase<PlayerDialogueProgre
             q = new QuestEntry { questId = questId, state = state, step = step };
             quests.Add(q);
             questMap[questId] = q;
+            Debug.Log($"[PlayerDialogueProgress] Added quest: {questId}, total={quests.Count}");
         }
         else
         {
             q.state = state;
             q.step = step;
+            Debug.Log($"[PlayerDialogueProgress] Updated quest: {questId}, total={quests.Count}");
         }
+
+        SaveToPrefs();
     }
+
+    // public void SetQuestState(string questId, QuestState state, int step = 0)
+    // {
+    //     if (string.IsNullOrEmpty(questId)) return;
+    //
+    //     step = Mathf.Max(0, step);
+    //
+    //     EnsureCache();
+    //     if (!questMap.TryGetValue(questId, out var q) || q == null)
+    //     {
+    //         q = new QuestEntry { questId = questId, state = state, step = step };
+    //         quests.Add(q);
+    //         questMap[questId] = q;
+    //     }
+    //     else
+    //     {
+    //         q.state = state;
+    //         q.step = step;
+    //     }
+    // }
 
     public bool IsQuestAccepted(string questId) => GetQuestState(questId) == QuestState.Accepted;
     public bool IsQuestCompleted(string questId) => GetQuestState(questId) == QuestState.Completed;

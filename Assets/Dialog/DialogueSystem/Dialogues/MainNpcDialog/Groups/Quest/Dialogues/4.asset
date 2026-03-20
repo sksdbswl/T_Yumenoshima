@@ -22,5 +22,21 @@ MonoBehaviour:
   <DialogueType>k__BackingField: 0
   <IsStartingDialogue>k__BackingField: 0
   <NpcAnimationClip>k__BackingField: {fileID: 1827226128182048838, guid: eceb3201331c9af499159646a80e6a5b, type: 3}
-  <Actions>k__BackingField: []
-  <StageId>k__BackingField: 0
+  <Actions>k__BackingField:
+  - trigger: 2
+    type: 0
+    npcId: 
+    npcStoryStage: 0
+    questId: 
+    questState: 0
+    flag: 
+    receiverType: 
+    methodName: 
+    questMeta:
+      questId: 
+      questName: 
+      description: 
+      money: 0
+      exp: 0
+      cleanliness: 0
+  <StageId>k__BackingField: 1

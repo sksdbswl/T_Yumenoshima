@@ -16,12 +16,12 @@ MonoBehaviour:
   <Groups>k__BackingField:
   - <ID>k__BackingField: 36d8697c-4084-4791-a120-7a02893d789b
     <Name>k__BackingField: Story
-    <Position>k__BackingField: {x: -1796, y: -307}
+    <Position>k__BackingField: {x: -1107, y: -44}
     <GroupType>k__BackingField: 1
     <NpcId>k__BackingField: Uraraka
   - <ID>k__BackingField: 14952eeb-de33-4e1e-8106-8391ab1600b6
     <Name>k__BackingField: Quest
-    <Position>k__BackingField: {x: 191, y: -64}
+    <Position>k__BackingField: {x: 191, y: -80}
     <GroupType>k__BackingField: 2
     <NpcId>k__BackingField: Uraraka
   - <ID>k__BackingField: 81c3961a-4fbd-4f75-a6e4-b050212c6557
@@ -69,18 +69,6 @@ MonoBehaviour:
     <AnimationClip>k__BackingField: {fileID: 0}
     <Actions>k__BackingField: []
     <StageId>k__BackingField: 0
-  - <ID>k__BackingField: a034fdeb-483f-4a24-a865-3a3180dea401
-    <Name>k__BackingField: 3
-    <Text>k__BackingField: "\uBAAC\uC2A4\uD130\uB97C 10\uB9C8\uB9AC \uC7A1\uC544\uC918"
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: Next Dialogue
-      <NodeID>k__BackingField: 6472d5bb-7eba-4dcc-94a6-adcce7f43055
-    <GroupID>k__BackingField: 14952eeb-de33-4e1e-8106-8391ab1600b6
-    <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: 650, y: 343}
-    <AnimationClip>k__BackingField: {fileID: 7400006, guid: f7b6954ec8fb0de4cbe60b244d54f758, type: 3}
-    <Actions>k__BackingField: []
-    <StageId>k__BackingField: 0
   - <ID>k__BackingField: 6472d5bb-7eba-4dcc-94a6-adcce7f43055
     <Name>k__BackingField: 4
     <Text>k__BackingField: "\uD654\uC774\uD305 !"
@@ -91,20 +79,24 @@ MonoBehaviour:
     <DialogueType>k__BackingField: 0
     <Position>k__BackingField: {x: 1035, y: 157}
     <AnimationClip>k__BackingField: {fileID: 1827226128182048838, guid: eceb3201331c9af499159646a80e6a5b, type: 3}
-    <Actions>k__BackingField: []
-    <StageId>k__BackingField: 0
-  - <ID>k__BackingField: c0ea9246-ab9e-43ab-ac34-2cbcfcc6def6
-    <Name>k__BackingField: 2
-    <Text>k__BackingField: "\uB098\uBB47\uAC00\uC9C0\uB97C 10\uAC1C \uAD6C\uD574\uC918"
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: Next Dialogue
-      <NodeID>k__BackingField: 6472d5bb-7eba-4dcc-94a6-adcce7f43055
-    <GroupID>k__BackingField: 14952eeb-de33-4e1e-8106-8391ab1600b6
-    <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: 612, y: 35}
-    <AnimationClip>k__BackingField: {fileID: 7400000, guid: a28bc0d5d74e942599e839179dae8546, type: 3}
-    <Actions>k__BackingField: []
-    <StageId>k__BackingField: 0
+    <Actions>k__BackingField:
+    - trigger: 2
+      type: 0
+      npcId: 
+      npcStoryStage: 0
+      questId: 
+      questState: 0
+      flag: 
+      receiverType: 
+      methodName: 
+      questMeta:
+        questId: 
+        questName: 
+        description: 
+        money: 0
+        exp: 0
+        cleanliness: 0
+    <StageId>k__BackingField: 1
   - <ID>k__BackingField: 1d47389c-c799-437d-b332-5d3b72924643
     <Name>k__BackingField: 1
     <Text>k__BackingField: "\uC624\uB298 \uB0A0\uC528\uAC00 \uCC38 \uC88B\uC9C0 \uC54A\uC544
@@ -166,7 +158,7 @@ MonoBehaviour:
       <NodeID>k__BackingField: 6594e16d-480f-43b4-abc1-245496509b79
     <GroupID>k__BackingField: 36d8697c-4084-4791-a120-7a02893d789b
     <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: -1771, y: -185}
+    <Position>k__BackingField: {x: -1082, y: 78}
     <AnimationClip>k__BackingField: {fileID: 1827226128182048838, guid: df7066cb95b024b4295159063e763b8c, type: 3}
     <Actions>k__BackingField: []
     <StageId>k__BackingField: 1
@@ -182,7 +174,7 @@ MonoBehaviour:
       <NodeID>k__BackingField: 8696171f-b65f-4d2e-a281-5932379f0343
     <GroupID>k__BackingField: 36d8697c-4084-4791-a120-7a02893d789b
     <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: -1410, y: -163}
+    <Position>k__BackingField: {x: -721, y: 100}
     <AnimationClip>k__BackingField: {fileID: 0}
     <Actions>k__BackingField: []
     <StageId>k__BackingField: 0
@@ -197,7 +189,7 @@ MonoBehaviour:
       <NodeID>k__BackingField: 
     <GroupID>k__BackingField: 36d8697c-4084-4791-a120-7a02893d789b
     <DialogueType>k__BackingField: 1
-    <Position>k__BackingField: {x: -909, y: -208}
+    <Position>k__BackingField: {x: -220, y: 55}
     <AnimationClip>k__BackingField: {fileID: 6525236775515741207, guid: eceb3201331c9af499159646a80e6a5b, type: 3}
     <Actions>k__BackingField:
     - trigger: 1
@@ -235,7 +227,7 @@ MonoBehaviour:
       npcId: 
       npcStoryStage: 0
       questId: 1
-      questState: 0
+      questState: 1
       flag: 
       receiverType: 
       methodName: 
@@ -246,6 +238,30 @@ MonoBehaviour:
         money: 100
         exp: 100
         cleanliness: 100
+    <StageId>k__BackingField: 1
+  - <ID>k__BackingField: c0ea9246-ab9e-43ab-ac34-2cbcfcc6def6
+    <Name>k__BackingField: 2
+    <Text>k__BackingField: "\uB098\uBB47\uAC00\uC9C0\uB97C 10\uAC1C \uAD6C\uD574\uC918"
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 6472d5bb-7eba-4dcc-94a6-adcce7f43055
+    <GroupID>k__BackingField: 14952eeb-de33-4e1e-8106-8391ab1600b6
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 628, y: 19}
+    <AnimationClip>k__BackingField: {fileID: 7400000, guid: a28bc0d5d74e942599e839179dae8546, type: 3}
+    <Actions>k__BackingField: []
+    <StageId>k__BackingField: 1
+  - <ID>k__BackingField: a034fdeb-483f-4a24-a865-3a3180dea401
+    <Name>k__BackingField: 3
+    <Text>k__BackingField: "\uBAAC\uC2A4\uD130\uB97C 10\uB9C8\uB9AC \uC7A1\uC544\uC918"
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 6472d5bb-7eba-4dcc-94a6-adcce7f43055
+    <GroupID>k__BackingField: 14952eeb-de33-4e1e-8106-8391ab1600b6
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 668, y: 353}
+    <AnimationClip>k__BackingField: {fileID: 7400006, guid: f7b6954ec8fb0de4cbe60b244d54f758, type: 3}
+    <Actions>k__BackingField: []
     <StageId>k__BackingField: 1
   <OldGroupNames>k__BackingField:
   - Story
@@ -265,10 +281,10 @@ MonoBehaviour:
       - 6
     - Key: Quest
       Value:
-      - 3
       - 4
-      - 2
       - 1
+      - 2
+      - 3
     - Key: Story
       Value:
       - 1
