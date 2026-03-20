@@ -10,31 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f262818b55b0f4418296bad0176bdab, type: 3}
-  m_Name: 3
+  m_Name: 4
   m_EditorClassIdentifier: Assembly-CSharp::DS.ScriptableObjects.DSDialogueSO
-  <DialogueName>k__BackingField: 3
+  <DialogueName>k__BackingField: 4
   <GroupType>k__BackingField: 1
   <NpcId>k__BackingField: Uraraka
-  <Text>k__BackingField: "\uB098\uC640 \uD568\uAED8 \uC12C\uC744 \uB418\uB3CC\uB824\uB193\uC9C0
-    \uC54A\uC744\uB798 ?"
+  <Text>k__BackingField: "\uACE0\uB9C8\uC6CC"
   <Choices>k__BackingField:
-  - <Text>k__BackingField: "\uADF8\uB798, \uC88B\uC544"
-    <NextDialogue>k__BackingField: {fileID: 11400000, guid: 0496db666e036394db1d58e837e7c6c1, type: 2}
-  - <Text>k__BackingField: "\uADF8\uAC74 \uC5B4\uB824\uC6B8 \uAC83 \uAC19\uC544.."
-    <NextDialogue>k__BackingField: {fileID: 11400000, guid: 51f7a962dfeca01468586e86b8e1c79a, type: 2}
-  <DialogueType>k__BackingField: 1
+  - <Text>k__BackingField: Next Dialogue
+    <NextDialogue>k__BackingField: {fileID: 0}
+  <DialogueType>k__BackingField: 0
   <IsStartingDialogue>k__BackingField: 0
-  <NpcAnimationClip>k__BackingField: {fileID: 6525236775515741207, guid: eceb3201331c9af499159646a80e6a5b, type: 3}
+  <NpcAnimationClip>k__BackingField: {fileID: 0}
   <Actions>k__BackingField:
-  - trigger: 1
-    type: 0
-    npcId: 1
+  - trigger: 2
+    type: 3
+    npcId: 
     npcStoryStage: 0
     questId: 
     questState: 0
     flag: 
-    receiverType: 
-    methodName: 
+    receiverType: NPC
+    methodName: OnAcceptIslandTrip
     questMeta:
       questId: 
       questName: 
@@ -42,4 +39,4 @@ MonoBehaviour:
       money: 0
       exp: 0
       cleanliness: 0
-  <StageId>k__BackingField: 1
+  <StageId>k__BackingField: 0

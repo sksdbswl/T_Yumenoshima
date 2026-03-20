@@ -5,6 +5,7 @@ using DS.Data;
 using DS.Enumerations;
 using UnityEngine;
 using DS.ScriptableObjects;
+using TestBT;
 using TMPro;
 using UnityEngine.UI;
 
@@ -31,10 +32,18 @@ public class DialogueUI : UIBase
     private bool built;
     private Dictionary<DSDialogueSO, DSDialogueGroupSO> nodeToGroupSO;
     
+    // 현재 상호작용 된 Npc
+    private SimulationNpcExecutor currentNpc;
+    
     public void SetContainer(DSDialogueContainerSO container)
     {
         dialogueContainer = container;
         built = false;
+    }
+    
+    public void SetCurrentNpc(SimulationNpcExecutor npc)
+    {
+        currentNpc = npc;
     }
 
     // =========================
@@ -412,9 +421,6 @@ public class DialogueUI : UIBase
 
                 case DSDialogueActionType.SetQuestState:
                     prog.SetQuestState(a.questId, a.questState);
-                    
-                    Debug.Log($"[After Accept] accepted count = {prog.GetAcceptedQuests().Count}");
-                    
                     break;
 
                 case DSDialogueActionType.SetFlag:
@@ -429,42 +435,60 @@ public class DialogueUI : UIBase
     
     private void InvokeActionMethod(DSDialogueActionData a, DSDialogueSO node)
     {
-        // receiverType 비어있으면 DialogueManager(this)에서 찾기
-        object target = this;
+        object target = GetActionTarget(a.receiverType);
+        if (target == null)
+            return;
 
-        // receiverType이 있으면 그 타입의 컴포넌트를 씬에서 찾아 호출
-        if (!string.IsNullOrEmpty(a.receiverType))
+        var method = FindActionMethod(target, a.methodName);
+        if (method == null)
         {
-            var type = Type.GetType(a.receiverType);
-            if (type == null)
-                return;
-
-            // find 말고 다른 방법은 없으려나 ?
-            var comp = FindFirstObjectByType(type); 
-            if (comp == null) return;
-
-            target = comp;
+            Debug.LogWarning($"[DialogueManager] Method not found: {target.GetType().FullName}.{a.methodName}");
+            return;
         }
-
-        var t = target.GetType();
-        var flags = BindingFlags.NonPublic | BindingFlags.Instance;
-
-        var mi =
-            t.GetMethod(a.methodName, flags, null, Type.EmptyTypes, null)
-            ?? t.GetMethod(a.methodName, flags, null, new[] { typeof(DSDialogueSO) }, null);
-
-        if (mi == null) return;
 
         try
         {
-            var p = mi.GetParameters();
-            if (p.Length == 0) mi.Invoke(target, null);
-            else mi.Invoke(target, new object[] { node });
+            var parameters = method.GetParameters();
+            if (parameters.Length == 0)
+                method.Invoke(target, null);
+            else
+                method.Invoke(target, new object[] { node });
         }
         catch (Exception e)
         {
-            Debug.LogError($"[DialogueManager] Invoke failed: {t.FullName}.{a.methodName} :: {e}");
+            Debug.LogError($"[DialogueManager] Invoke failed: {target.GetType().FullName}.{a.methodName} :: {e}");
         }
+    }
+
+    private object GetActionTarget(string receiverType)
+    {
+        if (string.IsNullOrEmpty(receiverType) || receiverType == "SELF")
+            return this;
+
+        if (receiverType == "NPC")
+        {
+            if (currentNpc == null)
+                Debug.LogWarning("[DialogueManager] currentNpc is null");
+
+            return currentNpc;
+        }
+
+        Debug.LogWarning($"[DialogueManager] Unknown receiverType: {receiverType}");
+        return null;
+    }
+
+    private MethodInfo FindActionMethod(object target, string methodName)
+    {
+        if (target == null || string.IsNullOrEmpty(methodName))
+            return null;
+
+        const BindingFlags flags =
+            BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+
+        var type = target.GetType();
+
+        return type.GetMethod(methodName, flags, null, Type.EmptyTypes, null)
+               ?? type.GetMethod(methodName, flags, null, new[] { typeof(DSDialogueSO) }, null);
     }
     
     /// <summary>

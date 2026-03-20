@@ -267,5 +267,20 @@ namespace TestBT
 
             return ENodeState.ENS_Success;
         }
+        
+        //Node callbacks
+        public void OnAcceptIslandTrip()
+        {
+            Debug.Log("[Dialogue] 좋아, 함께 섬으로 이동하자");
+
+            // 이동 BT 시작
+            // currentState = ENpcState.MoveToIsland;
+            // agent.SetDestination(islandPoint.position);
+        }
+
+        public void OnRejectIslandTrip()
+        {
+            Debug.Log("[Dialogue] 대화 처음으로 복귀 또는 종료");
+        }
     }
 }
