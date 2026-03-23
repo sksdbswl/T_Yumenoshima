@@ -7,3 +7,10 @@ ShaderImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 181364
+  packageName: Official Thema - SD Unity-chan Haon Custom 3.0
+  packageVersion: 3.0
+  assetPath: Assets/SD Unity-Chan Haon Custom/Shader/Unity-chan Toon Shader Ver 2.0.6/Toon_DoubleShadeWithFeather_TransClipping_StencilOut.shader
+  uploadId: 397166
