@@ -2003,12 +2003,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8343860563494506300, guid: 986824871a7557a439263db687bebfa0, type: 3}
       propertyPath: m_WarningMessage
-      value: "\nBinding warning: Some generic clip(s) animate transforms that are
-        already bound by a Humanoid avatar. These transforms can only be changed
-        by Humanoid clips.\n\tTransform 'Hand_R'\n\tTransform 'Head'\n\tTransform
-        'Upper_Arm_L'\n\tTransform 'Foot_L'\n\tTransform 'center'\n\tTransform 'Finger_L_Thumb_Distal'\n\tTransform
-        'Finger_R_Pinky_Proximal'\n\tTransform 'Eye_R'\n\tTransform 'Hips'\n\tTransform
-        'Lower_Leg_L'\n\tand more ..."
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8343860563494506300, guid: 986824871a7557a439263db687bebfa0, type: 3}
       propertyPath: m_ApplyRootMotion
@@ -4339,7 +4334,7 @@ Transform:
   m_GameObject: {fileID: 938695201}
   serializedVersion: 2
   m_LocalRotation: {x: 0.103061065, y: -0.79039097, z: 0.1385934, w: 0.587752}
-  m_LocalPosition: {x: 3.9199684, y: 1.899993, z: 0.96998274}
+  m_LocalPosition: {x: 1.65, y: 1.39, z: -0.27000004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4531,7 +4526,7 @@ Transform:
   m_GameObject: {fileID: 1110045716}
   serializedVersion: 2
   m_LocalRotation: {x: 0.10306105, y: -0.790391, z: 0.13859342, w: 0.587752}
-  m_LocalPosition: {x: 3.9199684, y: 1.899993, z: 0.96998274}
+  m_LocalPosition: {x: 1.65, y: 1.39, z: -0.27000004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
