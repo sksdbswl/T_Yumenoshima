@@ -815,7 +815,7 @@ Transform:
   m_GameObject: {fileID: 938695201}
   serializedVersion: 2
   m_LocalRotation: {x: 0.38596243, y: 0, z: 0, w: 0.92251456}
-  m_LocalPosition: {x: 6.8, y: 127, z: -97.7}
+  m_LocalPosition: {x: 2.3, y: 28, z: -26.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1007,7 +1007,7 @@ Transform:
   m_GameObject: {fileID: 1110045716}
   serializedVersion: 2
   m_LocalRotation: {x: 0.38596237, y: 0, z: 0, w: 0.92251456}
-  m_LocalPosition: {x: 6.8, y: 127, z: -97.7}
+  m_LocalPosition: {x: 2.3, y: 28, z: -26.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1046,7 +1046,7 @@ PlayableDirector:
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 038f25e0ccb50f4498d436268c4fe772, type: 2}
   m_InitialState: 1
-  m_WrapMode: 2
+  m_WrapMode: 0
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
   m_SceneBindings:
