@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-2345530187039183312
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Editor::UnityEditor.Rendering.Universal.AssetVersion
-  version: 10
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -20,15 +7,29 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Eye_00_00
+  m_Name: Hair_01_00
   m_Shader: {fileID: 4800000, guid: b4f674f383806e5419ee221e39445de0, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _DEPTHTEX_RIMLIGHT_FIX_DOTTED_LINE_ARTIFACTS
-  - _ISFACE
   - _RECEIVE_URP_SHADOW
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _INVERSE_Z_AXIS_BLD_ON
+  - _IS_BLENDADDTOMATCAP_ON
+  - _IS_FILTER_HICUTPOINTLIGHTCOLOR_ON
+  - _IS_LIGHTCOLOR_1ST_SHADE_ON
+  - _IS_LIGHTCOLOR_2ND_SHADE_ON
+  - _IS_LIGHTCOLOR_AP_RIMLIGHT_ON
+  - _IS_LIGHTCOLOR_BASE_ON
+  - _IS_LIGHTCOLOR_HIGHCOLOR_ON
+  - _IS_LIGHTCOLOR_MATCAP_ON
+  - _IS_LIGHTCOLOR_RIMLIGHT_ON
+  - _OUTLINE_NML
+  - _RIMLIGHT_ON
+  - _SET_SYSTEMSHADOWSTOBASE_ON
+  - _USE_1STAS2ND_ON
+  - _USE_BASEAS1ST_ON
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -36,7 +37,6 @@ Material:
   stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
-  - NiloToonOutline
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -58,7 +58,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 3f38c94fed55ebb4eae2ad4b36f3e266, type: 3}
+        m_Texture: {fileID: 2800000, guid: dec0793b22cab0d49b856d7aadb13306, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMapStackingLayer10MaskTex:
@@ -221,10 +221,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _DetailTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _DissolveThresholdMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -258,10 +254,6 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EnvironmentReflectionMaskMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _ExtraTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -497,10 +489,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SubsurfaceTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _ZOffsetMaskTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -521,13 +509,11 @@ Material:
     - _CharacterID: 0
     - _DissolveMode: 0
     m_Floats:
-    - Backface_Normal_Mode: 0
-    - EFFECT_EXTRA_TEX: 1
     - _1st2nd_Shades_Feather: 0.0001
-    - _1st_ShadeColor_Feather: 0.58
-    - _1st_ShadeColor_Step: 0.258
-    - _2nd_ShadeColor_Feather: 0.0001
-    - _2nd_ShadeColor_Step: 0
+    - _1st_ShadeColor_Feather: 0.353
+    - _1st_ShadeColor_Step: 0.5
+    - _2nd_ShadeColor_Feather: 0.091
+    - _2nd_ShadeColor_Step: 0.139
     - _AddPrecomputedVelocity: 0
     - _Add_Antipodean_RimLight: 0
     - _AdditionalLightCelShadeMidPoint: 0
@@ -552,7 +538,6 @@ Material:
     - _AllowRenderURPUniversalForwardOnlyPass: 1
     - _AllowedNiloToonBloomOverrideStrength: 1
     - _AlphaClip: 0
-    - _AlphaClipThreshold: 0.1
     - _AlphaOverrideMode: 0
     - _AlphaOverrideStrength: 1
     - _AlphaOverrideTexInvertColor: 0
@@ -569,7 +554,7 @@ Material:
     - _ApplyDepthTexRimLightFixDottedLineArtifacts: 1
     - _AsUnlit: 0
     - _BackFaceForceShadow: 0
-    - _BaseColor_Step: 0.258
+    - _BaseColor_Step: 0.5
     - _BaseMapBrightness: 1
     - _BaseMapStackingLayer10ApplytoFaces: 0
     - _BaseMapStackingLayer10ColorBlendMode: 0
@@ -816,8 +801,7 @@ Material:
     - _BaseMapStackingLayerSkinColorTexUVRotateSpeed: 0
     - _BaseMapStackingLayerSkinColorTexUVRotatedAngle: 0
     - _BaseMapUVIndex: 0
-    - _BaseShade_Feather: 0.58
-    - _BillboardKwToggle: 0
+    - _BaseShade_Feather: 0.13
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BlendOp: 0
@@ -1003,14 +987,13 @@ Material:
     - _HairStrandSpecularUVDirection: 0
     - _HairStrandSpecularUVIndex: 0
     - _HighColor_Power: 0
-    - _HueVariationKwToggle: 1
     - _IgnoreDefaultMainLightFaceShadow: 1
     - _IndirectLightFlatten: 1
     - _Inverse_Clipping: 0
     - _Inverse_MatcapMask: 0
     - _Inverse_Z_Axis_BLD: 1
     - _IsBaseMapAlphaAsClippingMask: 0
-    - _IsFace: 1
+    - _IsFace: 0
     - _IsSkin: 0
     - _Is_BLD: 0
     - _Is_BakedNormal: 0
@@ -1022,10 +1005,10 @@ Material:
     - _Is_LightColor_1st_Shade: 1
     - _Is_LightColor_2nd_Shade: 1
     - _Is_LightColor_Ap_RimLight: 1
-    - _Is_LightColor_Base: 0
+    - _Is_LightColor_Base: 1
     - _Is_LightColor_HighColor: 1
     - _Is_LightColor_MatCap: 1
-    - _Is_LightColor_RimLight: 0
+    - _Is_LightColor_RimLight: 1
     - _Is_NormalMapForMatCap: 0
     - _Is_NormalMapToBase: 0
     - _Is_NormalMapToHighColor: 0
@@ -1090,7 +1073,6 @@ Material:
     - _NiloToonSelfShadowIntensityForNonFace: 1
     - _NiloToonSelfShadowMappingDepthBias: 0
     - _NiloToonSelfShadowMappingNormalBias: 0
-    - _NormalMapKwToggle: 1
     - _OUTLINE: 0
     - _OcclusionMapApplytoFaces: 0
     - _OcclusionMapInvertColor: 0
@@ -1155,13 +1137,12 @@ Material:
     - _PerMaterialDissolveThresholdMapInvertColor: 0
     - _PerMaterialDissolveThresholdMapUVIndex: 0
     - _PerMaterialDissolveThresholdMapUVTiling: 1
-    - _PerMaterialEnableDepthTextureRimLightAndShadow: 0
+    - _PerMaterialEnableDepthTextureRimLightAndShadow: 1
     - _PerspectiveRemovalAmount: 0
     - _PerspectiveRemovalEndHeight: 1
     - _PerspectiveRemovalRadius: 1
     - _PerspectiveRemovalStartHeight: 0
     - _PreMultiplyAlphaIntoRGBOutput: 0
-    - _QueueControl: 0
     - _QueueOffset: 0
     - _RampLightTexMode: 1
     - _RampLightingFaceAreaRemoveEffect: 1
@@ -1190,13 +1171,13 @@ Material:
     - _RenderCharacter: 1
     - _RenderFaceGroup: 0
     - _RenderFacePreset: 0
-    - _RenderOutline: 0
+    - _RenderOutline: 1
     - _RenderScreenSpaceOutline: 0
     - _RenderScreenSpaceOutlineV2: 0
     - _RimLight: 1
     - _RimLight_FeatherOff: 0
-    - _RimLight_InsideMask: 0.048
-    - _RimLight_Power: 0.212
+    - _RimLight_InsideMask: 0.061
+    - _RimLight_Power: 0.085
     - _Rotate_MatCapUV: 0
     - _Rotate_NormalMapForMatCapUV: 0
     - _ScreenSpaceOutlineDepthSensitivity: 1
@@ -1265,12 +1246,10 @@ Material:
     - _StencilPass: 0
     - _StencilPreset: 0
     - _StencilRef: 0
-    - _StepOffset: -0.5
-    - _SubsurfaceIndirect: 0.25
-    - _SubsurfaceKwToggle: 0
+    - _StepOffset: 0
     - _SupportClothDynamics: 0
     - _Surface: 0
-    - _SurfaceTypePreset: 1
+    - _SurfaceTypePreset: 0
     - _TweakHighColorOnShadow: 0
     - _TweakMatCapOnShadow: 0
     - _Tweak_HighColorMaskLevel: 0
@@ -1279,7 +1258,7 @@ Material:
     - _Tweak_MatcapMaskLevel: 0
     - _Tweak_RimLightMaskLevel: 0
     - _Tweak_ShadingGradeMapLevel: 0
-    - _Tweak_SystemShadowsLevel: -0.237
+    - _Tweak_SystemShadowsLevel: 0
     - _Tweak_transparency: 0
     - _UIDisplayMode: 100
     - _UV0RotateSpeed: 0
@@ -1329,12 +1308,6 @@ Material:
     - _UseZOffsetMaskTex: 0
     - _Use_1stAs2nd: 1
     - _Use_BaseAs1st: 1
-    - _WIND_BRANCH1: 0
-    - _WIND_BRANCH2: 0
-    - _WIND_RIPPLE: 0
-    - _WIND_SHARED: 0
-    - _WIND_SHIMMER: 0
-    - _WindQuality: 0
     - _WorkflowMode: 1
     - _XRMotionVectorsPass: 1
     - _ZOffset: 0
@@ -1348,8 +1321,8 @@ Material:
     - _utsTechnique: 1
     - _utsVersion: 2.06
     m_Colors:
-    - _1st_ShadeColor: {r: 0.7075472, g: 0.7075472, b: 0.7075472, a: 1}
-    - _2nd_ShadeColor: {r: 0.6603774, g: 0.6603774, b: 0.6603774, a: 1}
+    - _1st_ShadeColor: {r: 0.89599466, g: 0.8006408, b: 0.9811321, a: 1}
+    - _2nd_ShadeColor: {r: 0.59011215, g: 0.6435489, b: 0.8396226, a: 1}
     - _AlphaOverrideTexChannelMask: {r: 0, g: 1, b: 0, a: 0}
     - _Ap_RimLightColor: {r: 1, g: 1, b: 1, a: 1}
     - _BackFaceBaseMapReplaceColor: {r: 0, g: 0, b: 0, a: 0}
@@ -1488,8 +1461,6 @@ Material:
     - _HairStrandSpecularTintMapTilingXyOffsetZw: {r: 1, g: 1, b: 0, a: 0}
     - _HeadBonePositionWS: {r: 0, g: 0, b: 0, a: 1}
     - _HighColor: {r: 0, g: 0, b: 0, a: 1}
-    - _HueVariation: {r: 1, g: 0.5, b: 0, a: 0.1}
-    - _HueVariationColor: {r: 1, g: 0.5, b: 0, a: 0.2}
     - _LitToShadowTransitionAreaTintColor: {r: 1, g: 1, b: 1, a: 1}
     - _LowSaturationFallbackColor: {r: 0.3764706, g: 0.4141177, b: 0.5019608, a: 0}
     - _MatCapAdditiveColor: {r: 1, g: 1, b: 1, a: 1}
@@ -1529,7 +1500,7 @@ Material:
     - _PerMaterialDissolvePatternMapChannelMask: {r: 1, g: 0, b: 0, a: 0}
     - _PerMaterialDissolveThresholdMapChannelMask: {r: 0, g: 1, b: 0, a: 0}
     - _RampLightingSampleUvYTexChannelMask: {r: 0, g: 1, b: 0, a: 0}
-    - _RimLightColor: {r: 0.33962262, g: 0.33962262, b: 0.33962262, a: 1}
+    - _RimLightColor: {r: 0.631, g: 0.541398, b: 0.541398, a: 1}
     - _ScreenSpaceOutlineDepthSensitivityTexChannelMask: {r: 0, g: 1, b: 0, a: 0}
     - _ScreenSpaceOutlineNormalsSensitivityTexChannelMask: {r: 0, g: 1, b: 0, a: 0}
     - _ScreenSpaceOutlineOcclusionAreaTintColor: {r: 1, g: 1, b: 1, a: 1}
@@ -1548,7 +1519,6 @@ Material:
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecularColorTintMapTilingXyOffsetZw: {r: 1, g: 1, b: 0, a: 0}
     - _SpecularMapChannelMask: {r: 0, g: 0, b: 1, a: 0}
-    - _SubsurfaceColor: {r: 1, g: 1, b: 1, a: 1}
     - _URPShadowMappingTintColor: {r: 1, g: 1, b: 1, a: 1}
     - _UV0CenterPivotScalePos: {r: 1, g: 1, b: 0, a: 0}
     - _UV0ScaleOffset: {r: 1, g: 1, b: 0, a: 0}
