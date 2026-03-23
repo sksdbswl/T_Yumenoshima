@@ -26,6 +26,9 @@ public class CutsceneSystem : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.C))
             PlayCutscene("0");
+        
+        if (Input.GetKeyDown(KeyCode.V))
+            PlayCutscene("1");
     }
     
     public void PlayCutscene(string id)
