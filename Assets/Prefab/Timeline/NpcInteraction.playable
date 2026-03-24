@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: AnimationPlayableAsset
   m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.AnimationPlayableAsset
   m_Clip: {fileID: 1827226128182048838, guid: c5d1001b0c5d42a4c88c2dbeb667a1f5, type: 3}
-  m_Position: {x: 0.73, y: 0, z: 0}
+  m_Position: {x: 1.81, y: 0, z: 0}
   m_EulerAngles: {x: 0, y: 0, z: 0}
-  m_UseTrackMatchFields: 1
+  m_UseTrackMatchFields: 0
   m_MatchTargetFields: 0
   m_RemoveStartOffset: 1
   m_ApplyFootIK: 1
@@ -85,8 +85,8 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.016666668
-        value: {x: -0.09851516, y: 0.8866366, z: 0}
+        time: 0
+        value: {x: 0, y: 0, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -152,8 +152,8 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.016666668
-        value: -0.09851516
+        time: 0
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -182,8 +182,8 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.016666668
-        value: 0.8866366
+        time: 0
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -212,7 +212,7 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.016666668
+        time: 0
         value: 0
         inSlope: 0
         outSlope: 0
@@ -274,6 +274,7 @@ MonoBehaviour:
   - {fileID: 6645317398525765761}
   - {fileID: 6827902091448167962}
   - {fileID: 6181350162768744766}
+  - {fileID: 1165135388091811706}
   m_FixedDuration: 0
   m_EditorSettings:
     m_Framerate: 60
@@ -320,14 +321,14 @@ MonoBehaviour:
   m_Muted: 0
   m_CustomPlayableFullTypename: 
   m_Curves: {fileID: 0}
-  m_Parent: {fileID: 6181350162768744766}
+  m_Parent: {fileID: 11400000}
   m_Children: []
   m_Clips: []
   m_Markers:
     m_Objects: []
   m_InfiniteClipPreExtrapolation: 1
   m_InfiniteClipPostExtrapolation: 1
-  m_InfiniteClipOffsetPosition: {x: 0.15, y: 0, z: -0.7}
+  m_InfiniteClipOffsetPosition: {x: -0.2, y: -0, z: -5.09}
   m_InfiniteClipOffsetEulerAngles: {x: -0, y: 0, z: 0}
   m_InfiniteClipTimeOffset: 0
   m_InfiniteClipRemoveOffset: 0
@@ -407,8 +408,7 @@ MonoBehaviour:
   m_CustomPlayableFullTypename: 
   m_Curves: {fileID: 0}
   m_Parent: {fileID: 11400000}
-  m_Children:
-  - {fileID: 1165135388091811706}
+  m_Children: []
   m_Clips:
   - m_Version: 1
     m_Start: 0
