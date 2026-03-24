@@ -2019,7 +2019,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8343860563502031032, guid: 986824871a7557a439263db687bebfa0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.36
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8343860563502031032, guid: 986824871a7557a439263db687bebfa0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4334,7 +4334,7 @@ Transform:
   m_GameObject: {fileID: 938695201}
   serializedVersion: 2
   m_LocalRotation: {x: 0.103061065, y: -0.79039097, z: 0.1385934, w: 0.587752}
-  m_LocalPosition: {x: 3.92, y: 1.9000001, z: 0.97}
+  m_LocalPosition: {x: 1.65, y: 1.39, z: -0.27000004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4526,7 +4526,7 @@ Transform:
   m_GameObject: {fileID: 1110045716}
   serializedVersion: 2
   m_LocalRotation: {x: 0.10306105, y: -0.790391, z: 0.13859342, w: 0.587752}
-  m_LocalPosition: {x: 3.92, y: 1.9000001, z: 0.97}
+  m_LocalPosition: {x: 1.65, y: 1.39, z: -0.27000004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4577,7 +4577,7 @@ PlayableDirector:
     value: {fileID: 1322066554}
   - key: {fileID: 6181350162768744766, guid: c7e1f917832ddfe4b8d81802aaaac654, type: 2}
     value: {fileID: 778613401}
-  - key: {fileID: 1165135388091811706, guid: c7e1f917832ddfe4b8d81802aaaac654, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 778613401}
   - key: {fileID: 6645317398525765761, guid: 038f25e0ccb50f4498d436268c4fe772, type: 2}
     value: {fileID: 1110045721}
@@ -4586,6 +4586,8 @@ PlayableDirector:
   - key: {fileID: 6181350162768744766, guid: 038f25e0ccb50f4498d436268c4fe772, type: 2}
     value: {fileID: 778613401}
   - key: {fileID: 3267389934889267280, guid: 038f25e0ccb50f4498d436268c4fe772, type: 2}
+    value: {fileID: 778613401}
+  - key: {fileID: 5912953326636709605, guid: c7e1f917832ddfe4b8d81802aaaac654, type: 2}
     value: {fileID: 778613401}
   m_ExposedReferences:
     m_References:
