@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: FadeEffect
   m_EditorClassIdentifier: 
   transitionMaterial: {fileID: 2100000, guid: 9c3b3e3b3325af445a261fe0e2c9524a, type: 2}
-  duration: 1
+  duration: 2

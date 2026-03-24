@@ -126,5 +126,28 @@ namespace PixeLadder.EasyTransition
             Destroy(materialInstance); // Clean up the material instance to prevent leaks
             isTransitioning = false;
         }
+        
+        public IEnumerator PlayTransitionOut(TransitionEffect effect = null)
+        {
+            var effectToUse = effect ?? defaultTransition;
+    
+            Material materialInstance = new Material(effectToUse.transitionMaterial);
+            Rect rect = transitionImageInstance.rectTransform.rect;
+            materialInstance.SetVector(RectSizeID, new Vector4(rect.width, rect.height, 0, 0));
+            effectToUse.SetEffectProperties(materialInstance);
+            transitionImageInstance.material = materialInstance;
+            transitionImageInstance.gameObject.SetActive(true);
+    
+            yield return effectToUse.AnimateOut(transitionImageInstance);
+        }
+
+        public IEnumerator PlayTransitionIn(TransitionEffect effect = null)
+        {
+            var effectToUse = effect ?? defaultTransition;
+    
+            yield return effectToUse.AnimateIn(transitionImageInstance);
+    
+            transitionImageInstance.gameObject.SetActive(false);
+        }
     }
 }
