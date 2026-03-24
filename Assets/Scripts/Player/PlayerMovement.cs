@@ -116,36 +116,80 @@ public class PlayerMovement : MonoBehaviour
         //     }
         // }
     }
+    
+    [SerializeField] private float acceleration = 20f;
+    [SerializeField] private float deceleration = 25f;
 
     private void FixedUpdate()
     {
-        // 이동 처리
         Vector2 moveInput = player.inputHandler.MoveInput;
-        Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
+        Vector3 move = new Vector3(moveInput.x, 0f, moveInput.y);
 
-        Vector3 targetVel = move * moveSpeed;
-        Vector3 vel = rb.linearVelocity;
-        vel.x = targetVel.x;
-        vel.z = targetVel.z;
-        rb.linearVelocity = vel;
+        if (move.sqrMagnitude > 1f)
+            move.Normalize();
 
-        // 회전
-        if (move.sqrMagnitude > 0.01f)
+        Vector3 currentVel = rb.linearVelocity;
+        Vector3 currentHorizontal = new Vector3(currentVel.x, 0f, currentVel.z);
+        Vector3 targetHorizontal = move * moveSpeed;
+
+        float accel = move.sqrMagnitude > 0.01f ? acceleration : deceleration;
+
+        Vector3 newHorizontal = Vector3.MoveTowards(
+            currentHorizontal,
+            targetHorizontal,
+            accel * Time.fixedDeltaTime
+        );
+
+        rb.linearVelocity = new Vector3(newHorizontal.x, currentVel.y, newHorizontal.z);
+
+        if (newHorizontal.sqrMagnitude > 0.01f)
         {
-            Quaternion targetRot = Quaternion.LookRotation(move);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, 12f * Time.fixedDeltaTime);
+            Quaternion targetRot = Quaternion.LookRotation(newHorizontal.normalized);
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                targetRot,
+                10f * Time.fixedDeltaTime
+            );
         }
 
-        // 액션(낚시, 채집 등) 중에는 Idle/Walk 애니를 건드리지 않음
         if (IsBusy)
             return;
 
-        // 이동 애니메이션
-        if (move.magnitude > 0.1f)
+        if (newHorizontal.sqrMagnitude > 0.01f)
             animancer.Play(walkClip, fade);
         else
             animancer.Play(idleClip, fade);
     }
+
+    // private void FixedUpdate()
+    // {
+    //     // 이동 처리
+    //     Vector2 moveInput = player.inputHandler.MoveInput;
+    //     Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
+    //
+    //     Vector3 targetVel = move * moveSpeed;
+    //     Vector3 vel = rb.linearVelocity;
+    //     vel.x = targetVel.x;
+    //     vel.z = targetVel.z;
+    //     rb.linearVelocity = vel;
+    //
+    //     // 회전
+    //     if (move.sqrMagnitude > 0.01f)
+    //     {
+    //         Quaternion targetRot = Quaternion.LookRotation(move);
+    //         transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, 12f * Time.fixedDeltaTime);
+    //     }
+    //
+    //     // 액션(낚시, 채집 등) 중에는 Idle/Walk 애니를 건드리지 않음
+    //     if (IsBusy)
+    //         return;
+    //
+    //     // 이동 애니메이션
+    //     if (move.magnitude > 0.1f)
+    //         animancer.Play(walkClip, fade);
+    //     else
+    //         animancer.Play(idleClip, fade);
+    // }
 
     // ----------------------------
     // 점프 (지금은 애니 없이 물리만)

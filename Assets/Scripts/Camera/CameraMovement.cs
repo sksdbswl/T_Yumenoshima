@@ -20,7 +20,10 @@ public class CameraMovement : MonoBehaviour
     void Update()
     {
         moveInput = moveAction.action.ReadValue<Vector2>();
-        HandleMoveAndFace(moveInput);
+        
+        
+        
+        //HandleMoveAndFace(moveInput);
     }
 
     void HandleMoveAndFace(Vector2 input)
@@ -59,8 +62,6 @@ public class CameraMovement : MonoBehaviour
     }
 }
 
-// namespace REIW
-// {
 //     public class CameraMovement : MonoBehaviour
 //     {
 //         public enum CameraType { Tps, Fps }
@@ -224,4 +225,4 @@ public class CameraMovement : MonoBehaviour
 //             return Mathf.Min(speed, maxConsideredSpeed);
 //         }
 //     }
-// }
+//     }
