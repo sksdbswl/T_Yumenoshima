@@ -25,12 +25,14 @@ public sealed class Player :  MonoBehaviour
     {
         inputHandler.OnInteract += HandleInteract;
         inputHandler.OnCancel   += HandleCancel;
+        inputHandler.OnFreeLook   += HandleFreeLookCamera;
     }
     
     private void OnDisable()
     {
         inputHandler.OnInteract -= HandleInteract;
         inputHandler.OnCancel   -= HandleCancel;
+        inputHandler.OnFreeLook   -= HandleFreeLookCamera;
     }
     
     /// <summary>
@@ -116,5 +118,10 @@ public sealed class Player :  MonoBehaviour
 
         // 3) 그 외에는 (NPC 등)
         return list[0];
+    }
+
+    private void HandleFreeLookCamera()
+    {
+        // FreeLookCamera.Instance.Toggle();
     }
 }

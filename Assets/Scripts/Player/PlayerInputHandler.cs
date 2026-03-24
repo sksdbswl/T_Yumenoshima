@@ -9,25 +9,28 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] public InputActionReference jumpAction; // Space
     [SerializeField] public InputActionReference interactAction; // E
     [SerializeField] public InputActionReference cancelAction; // Escape
-
+    [SerializeField] public InputActionReference freeLookAction; // Tab
     public Vector2 MoveInput { get; private set; }
 
     public Action OnJump;
     public Action OnInteract;
     public Action OnCancel;
-
+    public Action OnFreeLook; 
+    
     private void OnEnable()
     {
         moveAction.action.Enable();
         jumpAction.action.Enable();
         interactAction.action.Enable();
         cancelAction.action.Enable();
+        freeLookAction.action.Enable(); 
 
         moveAction.action.performed += OnMovePerformed;
         moveAction.action.canceled  += OnMoveCanceled;
         jumpAction.action.performed += OnJumpPerformed;
         interactAction.action.performed += OnInteractPerformed;
         cancelAction.action.performed   += OnCancelPerformed;
+        freeLookAction.action.performed += OnFreeLookPerformed;  
     }
 
     private void OnDisable()
@@ -37,11 +40,13 @@ public class PlayerInputHandler : MonoBehaviour
         jumpAction.action.performed -= OnJumpPerformed;
         interactAction.action.performed -= OnInteractPerformed;
         cancelAction.action.performed   -= OnCancelPerformed;
-
+        freeLookAction.action.performed   -= OnFreeLookPerformed;
+        
         moveAction.action.Disable();
         jumpAction.action.Disable();
         interactAction.action.Disable();
         cancelAction.action.Disable();
+        freeLookAction.action.Disable();
     }
 
     private void OnMovePerformed(InputAction.CallbackContext ctx)
@@ -58,4 +63,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void OnCancelPerformed(InputAction.CallbackContext ctx)
         => OnCancel?.Invoke();
+    
+    private void OnFreeLookPerformed(InputAction.CallbackContext ctx) 
+        => OnFreeLook?.Invoke();
 }
