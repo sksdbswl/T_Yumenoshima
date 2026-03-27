@@ -1425,7 +1425,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6673471543539831693, guid: eb5b47ab59fa9b54c91d050c2d19dd17, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.85
+      value: -11.58
       objectReference: {fileID: 0}
     - target: {fileID: 6673471543539831693, guid: eb5b47ab59fa9b54c91d050c2d19dd17, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3912,6 +3912,8 @@ MonoBehaviour:
   tpsCamera: {fileID: 1543627886}
   freeCamera: {fileID: 1424907843}
   isFreeLook: 0
+  moveSpeed: 30
+  edgeThreshold: 10
 --- !u!1 &407168022
 GameObject:
   m_ObjectHideFlags: 0
@@ -6143,7 +6145,7 @@ Transform:
   m_GameObject: {fileID: 938695201}
   serializedVersion: 2
   m_LocalRotation: {x: 0.26693356, y: -1.4167166e-24, z: -6.7939793e-25, w: 0.96371496}
-  m_LocalPosition: {x: 0, y: 6, z: -17.85}
+  m_LocalPosition: {x: 0, y: 6, z: -21.58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6702,7 +6704,7 @@ Transform:
   m_GameObject: {fileID: 1543627882}
   serializedVersion: 2
   m_LocalRotation: {x: 0.26693356, y: -1.4167166e-24, z: -6.7939793e-25, w: 0.96371496}
-  m_LocalPosition: {x: 0, y: 6, z: -17.85}
+  m_LocalPosition: {x: 0, y: 6, z: -21.58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
