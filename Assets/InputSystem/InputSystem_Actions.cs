@@ -190,6 +190,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FreeView"",
+                    ""type"": ""Button"",
+                    ""id"": ""ff45bab1-73ed-4ca8-a509-d792ecf8dad6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -586,6 +595,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Touch;Keyboard&Mouse"",
                     ""action"": ""Tab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bbfbc576-9f70-4dd1-b174-2778082fc886"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse;Touch"",
+                    ""action"": ""FreeView"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1184,6 +1204,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Cancel = m_Player.FindAction("Cancel", throwIfNotFound: true);
         m_Player_Tab = m_Player.FindAction("Tab", throwIfNotFound: true);
+        m_Player_FreeView = m_Player.FindAction("FreeView", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1288,6 +1309,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Cancel;
     private readonly InputAction m_Player_Tab;
+    private readonly InputAction m_Player_FreeView;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1343,6 +1365,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Tab".
         /// </summary>
         public InputAction @Tab => m_Wrapper.m_Player_Tab;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/FreeView".
+        /// </summary>
+        public InputAction @FreeView => m_Wrapper.m_Player_FreeView;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1402,6 +1428,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Tab.started += instance.OnTab;
             @Tab.performed += instance.OnTab;
             @Tab.canceled += instance.OnTab;
+            @FreeView.started += instance.OnFreeView;
+            @FreeView.performed += instance.OnFreeView;
+            @FreeView.canceled += instance.OnFreeView;
         }
 
         /// <summary>
@@ -1446,6 +1475,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Tab.started -= instance.OnTab;
             @Tab.performed -= instance.OnTab;
             @Tab.canceled -= instance.OnTab;
+            @FreeView.started -= instance.OnFreeView;
+            @FreeView.performed -= instance.OnFreeView;
+            @FreeView.canceled -= instance.OnFreeView;
         }
 
         /// <summary>
@@ -1823,6 +1855,13 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnTab(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "FreeView" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFreeView(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

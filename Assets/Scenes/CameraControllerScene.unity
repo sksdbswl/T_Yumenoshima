@@ -1288,9 +1288,13 @@ PrefabInstance:
       value: -26.660135
       objectReference: {fileID: 0}
     - target: {fileID: 5715685004379321578, guid: eb5b47ab59fa9b54c91d050c2d19dd17, type: 3}
-      propertyPath: freeLookAction
+      propertyPath: tabAction
       value: 
       objectReference: {fileID: -8840251434474178098, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    - target: {fileID: 5715685004379321578, guid: eb5b47ab59fa9b54c91d050c2d19dd17, type: 3}
+      propertyPath: freeLookAction
+      value: 
+      objectReference: {fileID: -7572042268475687686, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     - target: {fileID: 5843051829130583290, guid: eb5b47ab59fa9b54c91d050c2d19dd17, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.053629898
@@ -3908,6 +3912,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08d8be22912fcef46a2f6fb0c1d7f99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraSystem
+  player: {fileID: 1012141351}
   inputHandler: {fileID: 1078445873}
   tpsCamera: {fileID: 1543627886}
   freeCamera: {fileID: 1424907843}
