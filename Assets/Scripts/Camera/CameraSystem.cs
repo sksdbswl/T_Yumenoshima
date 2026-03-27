@@ -68,7 +68,6 @@ public class CameraSystem : SingletonBase<CameraSystem>
 
     private void MoveCamera(Vector3 moveDir)
     {
-        // 카메라 forward 대신 월드 기준 앞뒤 사용
         Vector3 forward = new Vector3(0f, 0f, 1f); // 월드 Z축 고정
         Vector3 right   = new Vector3(1f, 0f, 0f); // 월드 X축 고정
 
