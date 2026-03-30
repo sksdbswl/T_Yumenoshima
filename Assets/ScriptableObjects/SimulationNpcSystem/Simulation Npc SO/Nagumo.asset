@@ -26,3 +26,4 @@ MonoBehaviour:
   canAttack: 0
   canFlee: 0
   canSteal: 0
+  jobBT: {fileID: 11400000, guid: 402da6cd5f91bb2459dbc19d92fb9491, type: 2}

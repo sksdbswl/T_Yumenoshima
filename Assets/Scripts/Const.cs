@@ -1,5 +1,6 @@
 public static class Const
 {
+    // 직업
     public enum JobType
     {
         None,

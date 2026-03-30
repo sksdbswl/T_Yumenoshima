@@ -1,3 +1,4 @@
+using AI.BT.Runtime;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Npc/NpcRole", fileName = "Npc")]
@@ -28,6 +29,8 @@ public class NpcSO : ScriptableObject
     public bool canAttack;
     public bool canFlee;
     public bool canSteal;
+    
+    public BTGraphAsset jobBT;
     
     /// <summary>
     /// 실제 대화시작 : 플레이어가 이 NPC와 대화 시도할 때 호출

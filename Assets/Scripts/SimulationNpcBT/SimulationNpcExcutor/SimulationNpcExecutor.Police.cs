@@ -20,7 +20,7 @@ namespace TestBT
                 var npc = npcs[i];
                 if (npc == null) continue;
                 if (npc.transform == transform) continue;
-                if(npc.npcSO.Job != Const.JobType.Thief) continue;
+                if (npc.npcSO.Job != Const.JobType.Thief) continue;
                 if (npc.executor.IsRestricted) continue; // 이미 제압 중인 도둑이면 스킵
                 
                 float sqr = (npc.transform.position - transform.position).sqrMagnitude;
