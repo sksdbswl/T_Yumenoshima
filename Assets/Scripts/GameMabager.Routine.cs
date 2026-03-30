@@ -45,6 +45,11 @@ public partial class GameManager
         {
             if (CurrentState == RoutineState.Morning)
             {
+               // 직업 가져오기 가능
+            }
+
+            if (CurrentState == RoutineState.Noon)
+            {
                 TryIgniteRandomBuilding();
                 TryChangeRandomNpcEmotionTired();
             }
@@ -83,8 +88,7 @@ public partial class GameManager
     }
     
     /// <summary>
-    /// 인게임 NPC 상태 전환 : 일정 시간 기준으로 Npc가 환자가 되는 루틴
-    /// 테스트로 아침에만 일어나도록 되어있음
+    /// 인게임 NPC 상태 전환 : 일정 시간 기준으로 Npc가 환자가 되는 루틴 / 점심에만 적용
     /// </summary>
     public void TryChangeRandomNpcEmotionTired()
     {

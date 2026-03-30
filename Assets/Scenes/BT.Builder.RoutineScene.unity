@@ -616,6 +616,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5715685004379321578, guid: eb5b47ab59fa9b54c91d050c2d19dd17, type: 3}
+      propertyPath: tabAction
+      value: 
+      objectReference: {fileID: -8840251434474178098, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    - target: {fileID: 5715685004379321578, guid: eb5b47ab59fa9b54c91d050c2d19dd17, type: 3}
+      propertyPath: freeLookAction
+      value: 
+      objectReference: {fileID: -7572042268475687686, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     - target: {fileID: 6121263527199118078, guid: eb5b47ab59fa9b54c91d050c2d19dd17, type: 3}
       propertyPath: m_Name
       value: Player(NiloToon)

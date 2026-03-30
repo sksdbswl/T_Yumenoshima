@@ -2,6 +2,9 @@ using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
+/// <summary>
+/// NpcDialogueTrigger Component로 변경
+/// </summary>
 public class NpcInteraction : InteractionTarget, IInteractable
 {
     public NpcSO npcSO;

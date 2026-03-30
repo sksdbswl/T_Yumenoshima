@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caaa76378291a144d849f29230be0a5a, type: 3}
+  m_Name: Tutorial
+  m_EditorClassIdentifier: Assembly-CSharp::DS.ScriptableObjects.DSDialogueContainerSO
+  <FileName>k__BackingField: Tutorial
+  <DialogueGroups>k__BackingField:
+    list:
+    - Key: {fileID: 11400000, guid: e38434552a7b67a4f9c4e239bd651c84, type: 2}
+      Value:
+      - {fileID: 11400000, guid: 8c897d71e5d411c41a758b9047b73d46, type: 2}
+      - {fileID: 11400000, guid: 7044774159fdeac4982a796e492593a3, type: 2}
+      - {fileID: 11400000, guid: 69884f34d18b6f1408c1f6285d44b80d, type: 2}
+      - {fileID: 11400000, guid: 67df3cf055bd21d46ae6387c97bd7d33, type: 2}
+      - {fileID: 11400000, guid: 09c20e2b4f5ec26498bede3b55c0b7ae, type: 2}
+      - {fileID: 11400000, guid: 8e7fc47b19549fe48b6f5a08b0807506, type: 2}
+    - Key: {fileID: 11400000, guid: 816580f2669708f40b2021aa82951d90, type: 2}
+      Value:
+      - {fileID: 11400000, guid: 794930b22b6663344bc89ae4991a2b84, type: 2}
+      - {fileID: 11400000, guid: 1d020b431fbe432499e44aa8d452c964, type: 2}
+      - {fileID: 11400000, guid: c35b29aa6dee4e0439f8e4f630bc91e7, type: 2}
+      - {fileID: 11400000, guid: 6845d94ae04e2d747900001874c586e7, type: 2}
+    - Key: {fileID: 11400000, guid: 70bc56d82b2931b43a0698f696ee6545, type: 2}
+      Value:
+      - {fileID: 11400000, guid: 204530234ffa3df4baf96058ee560d22, type: 2}
+      - {fileID: 11400000, guid: bfb6c6eb216ab864a9f8359e1ca9af37, type: 2}
+      - {fileID: 11400000, guid: 3879f447eb4e75649998eebf6bbc267d, type: 2}
+      - {fileID: 11400000, guid: c74a23d66dc777642a7de7813acf453c, type: 2}
+      - {fileID: 11400000, guid: da3d0da3d1230954b9bed965661e479a, type: 2}
+      - {fileID: 11400000, guid: 0a7db0f9078e76a4cba2c50b236633ff, type: 2}
+      - {fileID: 11400000, guid: 2f4bd89711f7e7340936637453956975, type: 2}
+  <UngroupedDialogues>k__BackingField: []
