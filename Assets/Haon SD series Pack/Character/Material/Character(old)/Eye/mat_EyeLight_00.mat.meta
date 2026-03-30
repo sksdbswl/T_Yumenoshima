@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: ec1184d726abcc34a88eb18e0e135b9b
+timeCreated: 1509736054
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 311173
+  packageName: Haon SD Creature Pack
+  packageVersion: 2025.0
+  assetPath: Assets/Haon SD series Pack/Character/Material/Character(old)/Eye/mat_EyeLight_00.mat
+  uploadId: 733196
