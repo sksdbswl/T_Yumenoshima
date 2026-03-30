@@ -1,0 +1,13 @@
+The "fire extinguisher pack" contains 16 high quality game assets ready to fill up your level.
+good for third person and fps games.
+
+All objects are .fbx format files and all the texture maps are .tga files.
+
+This pack contains:
+- 16 assets.
+- LODs where needed.
+- Normal, specular and a diffuse map for all the assets.
+- Extra uv channel for your lightmaps.
+
+
+We would love to hear your rating and comment.
