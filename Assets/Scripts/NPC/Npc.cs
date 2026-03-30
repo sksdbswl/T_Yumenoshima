@@ -9,6 +9,7 @@ public sealed class Npc : MonoBehaviour
     [HideInInspector] public NavMeshAgent agent;
     [HideInInspector] public SimulationNpcSensor sensor;
     [HideInInspector] public SimulationNpcExecutor executor;
+    [HideInInspector] public NPCDialogueTrigger trigger;
     
     private INpcStatus npcStatus;
     public INpcStatus _npcStatus => npcStatus;
@@ -18,9 +19,11 @@ public sealed class Npc : MonoBehaviour
         agent    = GetComponent<NavMeshAgent>();
         sensor   = GetComponent<SimulationNpcSensor>();
         executor = GetComponent<SimulationNpcExecutor>();
+        trigger  = GetComponent<NPCDialogueTrigger>();
         npcStatus = GetComponent<INpcStatus>(); 
         sensor.npcSO = npcSO;
         executor.npcSO = npcSO;
+        trigger.npcSO = npcSO;
     }
     
     private void OnEnable()

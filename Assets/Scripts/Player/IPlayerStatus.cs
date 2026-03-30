@@ -1,5 +1,6 @@
 public interface IPlayerStatus
 {
+    Const.JobType JobType { get; } 
     float CurrentHp { get; }
     float MaxHp { get; }
 
@@ -15,4 +16,5 @@ public interface IPlayerStatus
     void RecoverStamina(float amount);
 
     void ChangeEmotion(Const.EEmotion emotion);
+    void ChangeJob(Const.JobType job);
 }

@@ -77,6 +77,7 @@ GameObject:
   - component: {fileID: 7545239134483298863}
   - component: {fileID: 5356303169991269315}
   - component: {fileID: 8383120166840864263}
+  - component: {fileID: 1811253071403651771}
   m_Layer: 0
   m_Name: PoliceOffice
   m_TagString: Untagged
@@ -156,3 +157,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &1811253071403651771
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3700171377258557563}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5.7435365, y: 5.5065246, z: 4.909834}
+  m_Center: {x: 0.06815314, y: 2.7138455, z: 0.16617346}

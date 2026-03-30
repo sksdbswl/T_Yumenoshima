@@ -12,7 +12,8 @@ public class NpcInteraction : InteractionTarget, IInteractable
     public bool isTalkable = false;
     private bool canTalk = false;
     private QuestMarkerUI questMarkerUI;
-    
+    private IInteractable _interactableImplementation;
+
     public void Awake()
     {
         questMarkerUI = DialogRepository.Singleton.SpawnMarker();
@@ -107,7 +108,9 @@ public class NpcInteraction : InteractionTarget, IInteractable
         // 머리 위 UI 토글
         questMarkerUI.SetQuestActive(hasStoryQuest);
     }
-        
+
+    public void CheckInteract(RoutineState routine, Player player) { }
+
     /// <summary>
     /// 상호작용 시작 / 대화 한 줄 진행
     /// Player.OnInteractPerformed 에서 호출

@@ -6,7 +6,8 @@ using Cysharp.Threading.Tasks;
 /// </summary>
 public interface IInteractable
 {
-    void CheckInteract(int stage);
+    void CheckInteract(RoutineState routine, Player player);
+    //void CheckInteract(int stage);
     UniTask BeginInteract(Player player);
     void EndInteract(Player player);
 }

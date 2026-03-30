@@ -53,7 +53,7 @@ namespace TestBT
             if(TryStopIfAnomaly()) return ENodeState.ENS_Failure;
             
             // 활동 불가 상태
-            if (GameManager.Singleton.CurrentState == RoutineState.Night) return ENodeState.ENS_Failure; //저녁엔 활동 불가
+            if (GameManager.Singleton.CurrentRoutine == RoutineState.Night) return ENodeState.ENS_Failure; //저녁엔 활동 불가
             if (currentNpc.executor.isAnomaly) return ENodeState.ENS_Failure; // 상대가 이상상태일땐 따로 제압하지 않아도됨
             
             if (currentNpc == null)

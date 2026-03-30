@@ -40,7 +40,8 @@ public sealed class Player :  MonoBehaviour
     /// </summary>
     public void HandleInteract()
     {
-        currentInteractable?.BeginInteract(this);
+        currentInteractable?.CheckInteract(GameManager.Singleton.CurrentRoutine,this);
+        //currentInteractable?.BeginInteract(this);
     }
 
     /// <summary>

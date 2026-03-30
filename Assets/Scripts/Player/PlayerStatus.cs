@@ -15,6 +15,10 @@ public sealed class PlayerStatus : MonoBehaviour, IPlayerStatus
 
     [Header("Emotion / Status")]
     [SerializeField] private Const.EEmotion currentEmotion = Const.EEmotion.Neutral;
+    [SerializeField] private Const.JobType currentJob = Const.JobType.None;
+
+    private IPlayerStatus _playerStatusImplementation;
+    public Const.JobType JobType => _playerStatusImplementation.JobType;
 
     public float CurrentHp => currentHp;
     public float MaxHp => maxHp;
@@ -23,6 +27,8 @@ public sealed class PlayerStatus : MonoBehaviour, IPlayerStatus
     public float MaxStamina => maxStamina;
 
     public Const.EEmotion CurrentEmotion => currentEmotion;
+    
+    public Const.JobType CurrentJobType => currentJob;
 
     private void Awake()
     {
@@ -77,6 +83,11 @@ public sealed class PlayerStatus : MonoBehaviour, IPlayerStatus
     public void ChangeEmotion(Const.EEmotion emotion)
     {
         currentEmotion = emotion;
+    }
+
+    public void ChangeJob(Const.JobType job)
+    {
+        _playerStatusImplementation.ChangeJob(job);
     }
 
     private void OnDead()

@@ -4,22 +4,39 @@ using UnityEngine;
 
 public class NPCDialogueTrigger : InteractionTarget, IInteractable
 {
+    [HideInInspector] public NpcSO npcSO;
     [SerializeField] private string npcId;
     [SerializeField] private DialogueActor actor;
     [SerializeField] private DialogueDatabaseSO database;
 
     private bool playerInRange;
-    private IInteractable _interactableImplementation;
+    private IInteractable _interactable;
 
-    public void CheckInteract(int stage)
+    // public void CheckInteract(int stage)
+    // {
+    // }
+
+    public void CheckInteract(RoutineState routine, Player player)
     {
+        if (routine == RoutineState.Morning)
+        {
+            // 직업선택 가능
+            
+            Debug.Log($"[NPC {npcSO.name}] Check Interact :: 직업 선택만 가능한 시간입니다.");
+            
+        }  else if (routine == RoutineState.Noon)
+        {
+            BeginInteract(player);
+        }
+        
+        //_interactable.CheckInteract(routine, player);
     }
 
     public async UniTask BeginInteract(Player player)
     {
-        if (!database.TryGetContainer(npcId, out var container))
+        if (!database.TryGetContainer(npcSO.name, out var container))
         {
-            Debug.LogWarning($"[NPC {npcId}] no container");
+            Debug.LogWarning($"[NPC {npcSO.name}] no container");
             return;
         }
         
@@ -29,7 +46,7 @@ public class NPCDialogueTrigger : InteractionTarget, IInteractable
         
         dialog.SetCurrentNpc(executor);
         dialog.SetContainer(container);
-        dialog.StartDialogueAuto(npcId);
+        dialog.StartDialogueAuto(npcSO.name);
     }
 
     public void EndInteract(Player player)

@@ -75,6 +75,12 @@ public class PlaceableInteraction : InteractionTarget, IInteractable
 
     public void CheckInteract(int stage) { }
 
+    public void CheckInteract(RoutineState routine, Player player)
+    {
+        // Door.CheckInteract(routine, player);
+        BeginInteract(player).Forget();
+    }
+
     public async UniTask BeginInteract(Player player)
     {
         Debug.Log($"[PlaceableObject] Building Interact: {SourceItem?.DisplayName} (Role: {Role})");

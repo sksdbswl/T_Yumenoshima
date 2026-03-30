@@ -9,28 +9,28 @@ public partial class GameManager
     /// 300f = 5분
     /// </summary>
     public event System.Action<RoutineState> OnRoutineChanged;
-    public RoutineState CurrentState { get; private set; }
+    public RoutineState CurrentRoutine { get; private set; }
     
     public IEnumerator DayRoutineCoroutine()
     {
         while (true)
         {
             SetState(RoutineState.Morning);
-            _routineCoroutine = StartCoroutine(RoutineCoroutine());
             yield return new WaitForSeconds(60f);
 
             SetState(RoutineState.Noon);
-            if (_routineCoroutine != null) StopCoroutine(_routineCoroutine);
+            _routineCoroutine = StartCoroutine(RoutineCoroutine());
             yield return new WaitForSeconds(10f);
 
             SetState(RoutineState.Night);
+            if (_routineCoroutine != null) StopCoroutine(_routineCoroutine);
             yield return new WaitForSeconds(30f);
         }
     }
 
     void SetState(RoutineState state)
     {
-        CurrentState = state;
+        CurrentRoutine = state;
         
         Debug.Log($"State Changed: {state}");
         
@@ -43,12 +43,12 @@ public partial class GameManager
     {
         while (true)
         {
-            if (CurrentState == RoutineState.Morning)
+            if (CurrentRoutine == RoutineState.Morning)
             {
                // 직업 가져오기 가능
             }
 
-            if (CurrentState == RoutineState.Noon)
+            if (CurrentRoutine == RoutineState.Noon)
             {
                 TryIgniteRandomBuilding();
                 TryChangeRandomNpcEmotionTired();
