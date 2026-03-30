@@ -7,7 +7,7 @@ public sealed class Player :  MonoBehaviour
     public IInteractable currentInteractable;
     
     private PlayerStatus playerStatus;
-    private IPlayerStatus _playerStatus => playerStatus;
+    public IPlayerStatus _playerStatus => playerStatus;
     
     // 플레이어 주변에 있는 모든 상호작용 대상들
     public List<IInteractable> interactablesInRange = new List<IInteractable>();

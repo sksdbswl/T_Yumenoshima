@@ -12,24 +12,26 @@ public class NPCDialogueTrigger : InteractionTarget, IInteractable
     private bool playerInRange;
     private IInteractable _interactable;
 
-    // public void CheckInteract(int stage)
-    // {
-    // }
+    public void CheckInteract(int stage) { }
 
     public void CheckInteract(RoutineState routine, Player player)
     {
         if (routine == RoutineState.Morning)
         {
-            // 직업선택 가능
-            
-            Debug.Log($"[NPC {npcSO.name}] Check Interact :: 직업 선택만 가능한 시간입니다.");
-            
-        }  else if (routine == RoutineState.Noon)
+            if (player._playerStatus.JobType == Const.JobType.None)
+            {
+                // 직업선택 가능
+                Debug.Log($"[NPC {npcSO.name}] Check Interact :: 직업 선택만 가능한 시간입니다.");
+                player._playerStatus.ChangeJob(npcSO.Job);
+                // TODO::
+                // gacha 연출 추가
+                // 직업있는 npc bt 일반 npc로 전환 
+            } 
+        }  
+        else if (routine == RoutineState.Noon)
         {
             BeginInteract(player);
         }
-        
-        //_interactable.CheckInteract(routine, player);
     }
 
     public async UniTask BeginInteract(Player player)
