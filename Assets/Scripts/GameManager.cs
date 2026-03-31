@@ -136,6 +136,7 @@ public partial class GameManager : SingletonBase<GameManager>
         if (!ok) return;
 
         await UIManager.Show<BuilderUI>(UIList.BuilderUI);
+        await UIManager.Show<PlayerHUD>(UIList.PlayerHUD);
         
         // 2. 씬 로드
         //await SceneManager.LoadSceneAsync("DialogScene").ToUniTask();

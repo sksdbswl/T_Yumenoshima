@@ -42,6 +42,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7147d1694bd3afe41990a506b5f643e4
+    m_Address: Assets/UI/PlayerHUD
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 72aadcbe296fd1c48b39be2405404842
     m_Address: Assets/Prefab/NPC/DialogKatsuki
     m_ReadOnly: 0

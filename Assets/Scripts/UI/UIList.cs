@@ -17,5 +17,7 @@ public enum UIList
     POPUP_MAX, // Popup Max
     PANEL_START, // Panel Start
         
+    PlayerHUD,
+    
     PANEL_MAX,
 }

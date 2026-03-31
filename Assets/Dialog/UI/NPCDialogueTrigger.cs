@@ -15,18 +15,19 @@ public class NPCDialogueTrigger : InteractionTarget, IInteractable
     
     public void CheckInteract(int stage) { }
 
-    public void CheckInteract(RoutineState routine, Player player)
+    public async void CheckInteract(RoutineState routine, Player player)
     {
         if (routine == RoutineState.Morning)
         {
             if (player._playerStatus.CurrentJobType == Const.JobType.None)
             {
                 // 직업선택 가능
-                Debug.Log($"[NPC {npcSO.name}] Check Interact :: 직업 선택만 가능한 시간입니다.");
                 player._playerStatus.ChangeJob(npcSO.Job);
                 
-                // TODO::
                 // get 연출 추가
+                var presenter = await UIManager.Singleton.GetUI<PlayerHUD>(UIList.PlayerHUD);
+                presenter.ShowEffect(Const.EEffect.Change, player);
+                
                 // 직업있는 npc bt 일반 citizen npc로 전환
                 var controller = this.gameObject.GetComponent<SimulationNpcController>();
                 controller.ChangeCitizenTree();

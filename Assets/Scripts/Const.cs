@@ -32,4 +32,14 @@ public static class Const
         Embarrassed,// 당황
         Exclamation,// 느낌표
     }
+    
+    // 효과
+    public enum EEffect
+    {
+        None,
+        Get,
+        Catch,
+        Change,
+        Gacha
+    }
 }
