@@ -31,6 +31,9 @@ public class NPCDialogueTrigger : InteractionTarget, IInteractable
                 // 직업있는 npc bt 일반 citizen npc로 전환
                 var controller = this.gameObject.GetComponent<SimulationNpcController>();
                 controller.ChangeCitizenTree();
+                
+                // ui update
+                Dashboard.Singleton.Init();
             } 
         }  
         else if (routine == RoutineState.Noon)

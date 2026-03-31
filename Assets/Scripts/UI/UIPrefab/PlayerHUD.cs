@@ -58,6 +58,7 @@ public class PlayerHUD : UIBase
         if (followRoutine != null)
             StopCoroutine(followRoutine);
 
+        iconImage.enabled = true;
         iconImage.sprite = icon;
         gameObject.SetActive(true);
 
@@ -81,7 +82,7 @@ public class PlayerHUD : UIBase
         Vector3 worldPos = player.transform.position + headOffset;
         Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
 
-        transform.position = screenPos;
+        iconImage.transform.position = screenPos;
     }
 
     private IEnumerator HideAfter(float duration)
@@ -94,6 +95,7 @@ public class PlayerHUD : UIBase
             followRoutine = null;
         }
 
+        iconImage.enabled = false;
         gameObject.SetActive(false);
         hideRoutine = null;
     }

@@ -416,7 +416,7 @@ GameObject:
   - component: {fileID: 187477910}
   - component: {fileID: 187477909}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: quest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -639,6 +639,17 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &515683113 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5195545057861618353, guid: eb5b47ab59fa9b54c91d050c2d19dd17, type: 3}
+  m_PrefabInstance: {fileID: 653229350}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0672ea380bca9aa48a591edef3d58504, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player
 --- !u!1001 &653229350
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -974,6 +985,7 @@ GameObject:
   - component: {fileID: 1429942700}
   - component: {fileID: 1429942699}
   - component: {fileID: 1429942698}
+  - component: {fileID: 1429942702}
   m_Layer: 5
   m_Name: Dashboard/QuestUI
   m_TagString: Untagged
@@ -1056,8 +1068,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 187477908}
   - {fileID: 1765054915}
+  - {fileID: 187477908}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1065,6 +1077,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1429942702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429942697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6327e487c8754e899dbd2fbd480f846f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Dashboard
+  player: {fileID: 515683113}
+  job: {fileID: 1765054916}
+  quest: {fileID: 187477909}
 --- !u!1 &1662401070
 GameObject:
   m_ObjectHideFlags: 0
@@ -1205,7 +1232,7 @@ GameObject:
   - component: {fileID: 1765054917}
   - component: {fileID: 1765054916}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: job
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
