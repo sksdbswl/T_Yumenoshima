@@ -240,7 +240,6 @@ namespace TestBT
         
         public ENodeState GoHome()
         {
-            Debug.Log("1231231231==========");
             // 1. 집 찾기
             var house = PlacementManager.Singleton.GetByBuilderId(npcSO.BuilderId);
             if (house == null)

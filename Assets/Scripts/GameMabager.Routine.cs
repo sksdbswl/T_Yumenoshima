@@ -50,7 +50,7 @@ public partial class GameManager
 
             if (CurrentRoutine == RoutineState.Noon)
             {
-                //TryChangeRandomBuildingFired();
+                TryChangeRandomBuildingFired();
                 //TryChangeRandomNpcEmotionTired();
             }
 

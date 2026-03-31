@@ -75,12 +75,15 @@ public class PlaceableInteraction : InteractionTarget, IInteractable
 
     public void CheckInteract(int stage) { }
 
+    
     public void CheckInteract(RoutineState routine, Player player)
     {
-        // Door.CheckInteract(routine, player);
+        if (TryInteract(player, this))
+            return;
+
         BeginInteract(player).Forget();
     }
-
+    
     public async UniTask BeginInteract(Player player)
     {
         Debug.Log($"[PlaceableObject] Building Interact: {SourceItem?.DisplayName} (Role: {Role})");
@@ -90,6 +93,22 @@ public class PlaceableInteraction : InteractionTarget, IInteractable
     public void EndInteract(Player player)
     {
         Debug.Log($"[PlaceableObject] EndInteract: {SourceItem?.DisplayName}");
+    }
+    
+    /// <summary>
+    /// 플레이어 직업 별 건물 상호작용 가능 여부 확인
+    /// </summary>
+    public bool TryInteract(Player player, IInteractable target)
+    {
+        var jobBehavior = player._playerStatus.CurrentJobBehavior;
+
+        if (jobBehavior != null && jobBehavior.CanInteract(target))
+        {
+            jobBehavior.Execute(player, target);
+            return true;
+        }
+
+        return false;
     }
 
     // =======================
@@ -157,6 +176,29 @@ public class PlaceableInteraction : InteractionTarget, IInteractable
         PlacementManager.Singleton.Save();
         
         Destroy(gameObject);
+    }
+    
+    public void ExtinguishFire()
+    {
+        if (!IsOnFire)
+            return;
+
+        IsOnFire = false;
+        FireDuration = 0f;
+
+        if (fireCoroutine != null)
+        {
+            StopCoroutine(fireCoroutine);
+            fireCoroutine = null;
+        }
+
+        var rends = GetComponentsInChildren<Renderer>();
+        foreach (var r in rends)
+        {
+            r.material.color = Color.white;
+        }
+
+        Debug.Log($"{name} 화재 진압 완료");
     }
 }
 
