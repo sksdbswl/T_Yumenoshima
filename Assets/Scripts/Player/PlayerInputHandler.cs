@@ -66,7 +66,9 @@ public class PlayerInputHandler : MonoBehaviour
         => OnJump?.Invoke();
 
     private void OnInteractPerformed(InputAction.CallbackContext ctx)
-        => OnInteract?.Invoke();
+    {
+        OnInteract?.Invoke();
+    }
 
     private void OnCancelPerformed(InputAction.CallbackContext ctx)
         => OnCancel?.Invoke();

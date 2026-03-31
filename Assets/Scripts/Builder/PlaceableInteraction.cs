@@ -72,15 +72,9 @@ public class PlaceableInteraction : InteractionTarget, IInteractable
     // =======================
     // IInteractable 구현부
     // =======================
-
-    public void CheckInteract(int stage) { }
-
     
     public void CheckInteract(RoutineState routine, Player player)
     {
-        if (TryInteract(player, this))
-            return;
-
         BeginInteract(player).Forget();
     }
     
@@ -93,22 +87,6 @@ public class PlaceableInteraction : InteractionTarget, IInteractable
     public void EndInteract(Player player)
     {
         Debug.Log($"[PlaceableObject] EndInteract: {SourceItem?.DisplayName}");
-    }
-    
-    /// <summary>
-    /// 플레이어 직업 별 건물 상호작용 가능 여부 확인
-    /// </summary>
-    public bool TryInteract(Player player, IInteractable target)
-    {
-        var jobBehavior = player._playerStatus.CurrentJobBehavior;
-
-        if (jobBehavior != null && jobBehavior.CanInteract(target))
-        {
-            jobBehavior.Execute(player, target);
-            return true;
-        }
-
-        return false;
     }
 
     // =======================

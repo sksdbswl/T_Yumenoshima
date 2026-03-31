@@ -12,8 +12,6 @@ public class NPCDialogueTrigger : InteractionTarget, IInteractable
 
     private bool playerInRange;
     private IInteractable _interactable;
-    
-    public void CheckInteract(int stage) { }
 
     public async void CheckInteract(RoutineState routine, Player player)
     {

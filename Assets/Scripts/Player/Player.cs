@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public sealed class Player :  MonoBehaviour
@@ -38,10 +39,24 @@ public sealed class Player :  MonoBehaviour
     /// <summary>
     /// 상호작용 시작 / 진행 
     /// </summary>
+    // public void HandleInteract()
+    // {
+    //     currentInteractable?.CheckInteract(GameManager.Singleton.CurrentRoutine,this);
+    // }
     public void HandleInteract()
     {
-        currentInteractable?.CheckInteract(GameManager.Singleton.CurrentRoutine,this);
-        //currentInteractable?.BeginInteract(this);
+        if (currentInteractable == null)
+            return;
+
+        var behavior = _playerStatus.CurrentJobBehavior;
+
+        if (behavior != null && behavior.CanInteract(currentInteractable))
+        {
+            behavior.Execute(this, currentInteractable).Forget();
+            return;
+        }
+
+        currentInteractable.CheckInteract(GameManager.Singleton.CurrentRoutine, this);
     }
 
     /// <summary>

@@ -18,9 +18,6 @@ public class FirefighterBehavior : IJobBehavior
         if (target is not PlaceableInteraction placeable)
             return;
 
-        if (!placeable.IsOnFire)
-            return;
-
         placeable.ExtinguishFire();
 
         // 연출 추가 

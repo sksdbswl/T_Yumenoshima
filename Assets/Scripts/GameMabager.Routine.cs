@@ -16,7 +16,7 @@ public partial class GameManager
         while (true)
         {
             SetState(RoutineState.Morning);
-            yield return new WaitForSeconds(30f);
+            yield return new WaitForSeconds(15f);
 
             SetState(RoutineState.Noon);
             _routineCoroutine = StartCoroutine(RoutineCoroutine());
@@ -24,7 +24,7 @@ public partial class GameManager
 
             SetState(RoutineState.Night);
             if (_routineCoroutine != null) StopCoroutine(_routineCoroutine);
-            yield return new WaitForSeconds(30f);
+            yield return new WaitForSeconds(10f);
         }
     }
 
@@ -51,7 +51,7 @@ public partial class GameManager
             if (CurrentRoutine == RoutineState.Noon)
             {
                 TryChangeRandomBuildingFired();
-                //TryChangeRandomNpcEmotionTired();
+                TryChangeRandomNpcEmotionTired();
             }
 
             yield return new WaitForSeconds(20f);
