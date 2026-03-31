@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using AI.BT.Runtime;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace TestBT
 {
     public class SimulationNpcController : MonoBehaviour
     {
-        [SerializeField] private BTGraphAsset graphAsset;
+        //[SerializeField] private BTGraphAsset graphAsset;
+        [HideInInspector] public NpcSO npcSO;
         [HideInInspector] public SimulationNpcSensor sensor;
         [HideInInspector] public SimulationNpcExecutor executor;
         
@@ -27,13 +29,22 @@ namespace TestBT
         {
             var player = FindObjectOfType<PlayerBT>();
 
-            runner.Operate();
             sensor.Tick(player);
+            runner.Operate();
         }
         
-        private INode BuildTree()
+        public INode BuildTree()
         {
-            return BTGraphRuntimeBuilder.Build(graphAsset, this);
+            return BTGraphRuntimeBuilder.Build(npcSO.jobBT, this);
+        }
+        
+        public void ChangeCitizenTree()
+        {
+            executor.ResetState();
+            sensor.Blackboard.init();
+            
+            var newTree = BTGraphRuntimeBuilder.Build(npcSO.citizenBT, this);
+            runner.ChangeTree(newTree);
         }
     }
 }

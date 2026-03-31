@@ -1,6 +1,6 @@
 public interface IPlayerStatus
 {
-    Const.JobType JobType { get; } 
+    Const.JobType CurrentJobType { get; } 
     float CurrentHp { get; }
     float MaxHp { get; }
 

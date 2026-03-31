@@ -18,17 +18,14 @@ public sealed class PlayerStatus : MonoBehaviour, IPlayerStatus
     [SerializeField] private Const.JobType currentJob = Const.JobType.None;
 
     private IPlayerStatus _playerStatusImplementation;
-    public Const.JobType JobType => _playerStatusImplementation.JobType;
-
+    public IPlayerStatus _playerStatus => _playerStatusImplementation;
     public float CurrentHp => currentHp;
     public float MaxHp => maxHp;
-
     public float CurrentStamina => currentStamina;
     public float MaxStamina => maxStamina;
-
     public Const.EEmotion CurrentEmotion => currentEmotion;
-    
     public Const.JobType CurrentJobType => currentJob;
+    
 
     private void Awake()
     {
@@ -87,7 +84,8 @@ public sealed class PlayerStatus : MonoBehaviour, IPlayerStatus
 
     public void ChangeJob(Const.JobType job)
     {
-        _playerStatusImplementation.ChangeJob(job);
+        Debug.Log($"Player Job Changed: {job}");
+        currentJob = job;
     }
 
     private void OnDead()

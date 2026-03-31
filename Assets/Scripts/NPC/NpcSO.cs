@@ -31,6 +31,7 @@ public class NpcSO : ScriptableObject
     public bool canSteal;
     
     public BTGraphAsset jobBT;
+    public BTGraphAsset citizenBT;
     
     /// <summary>
     /// 실제 대화시작 : 플레이어가 이 NPC와 대화 시도할 때 호출

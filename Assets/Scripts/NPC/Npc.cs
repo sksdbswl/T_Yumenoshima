@@ -9,6 +9,7 @@ public sealed class Npc : MonoBehaviour
     [HideInInspector] public NavMeshAgent agent;
     [HideInInspector] public SimulationNpcSensor sensor;
     [HideInInspector] public SimulationNpcExecutor executor;
+    [HideInInspector] public SimulationNpcController controller;
     [HideInInspector] public NPCDialogueTrigger trigger;
     
     private INpcStatus npcStatus;
@@ -16,14 +17,7 @@ public sealed class Npc : MonoBehaviour
     
     private void Awake()
     {
-        agent    = GetComponent<NavMeshAgent>();
-        sensor   = GetComponent<SimulationNpcSensor>();
-        executor = GetComponent<SimulationNpcExecutor>();
-        trigger  = GetComponent<NPCDialogueTrigger>();
-        npcStatus = GetComponent<INpcStatus>(); 
-        sensor.npcSO = npcSO;
-        executor.npcSO = npcSO;
-        trigger.npcSO = npcSO;
+        Initiate();
     }
     
     private void OnEnable()
@@ -35,6 +29,21 @@ public sealed class Npc : MonoBehaviour
     {
         GameManager.Singleton.OnRoutineChanged -= HandleRoutineChange;
     }
+
+    private void Initiate()
+    {
+        agent    = GetComponent<NavMeshAgent>();
+        sensor   = GetComponent<SimulationNpcSensor>();
+        executor = GetComponent<SimulationNpcExecutor>();
+        trigger  = GetComponent<NPCDialogueTrigger>();
+        controller = GetComponent<SimulationNpcController>();
+        
+        npcStatus = GetComponent<INpcStatus>(); 
+        sensor.npcSO = npcSO;
+        executor.npcSO = npcSO;
+        controller.npcSO = npcSO;
+        trigger.npcSO = npcSO;
+    }
     
     private void HandleRoutineChange(RoutineState state)
     {
@@ -43,12 +52,15 @@ public sealed class Npc : MonoBehaviour
             case RoutineState.Morning:
                 Debug.Log("아침 입니다. 일어나세요");
                 // BT가 알아서 Patrol(배회)하도록
+                controller.BuildTree();
                 sensor.Blackboard.canHome = false;
 
                 break;
 
             case RoutineState.Noon:
                 Debug.Log("오후 입니다. 일하세요");
+                sensor.Blackboard.canHome = false;
+                // executor.ResetState(); // ← 추가
                 // 직업별로 work target 세팅(은행원은 카운터, 경찰은 순찰지점 등)
                 break;
 
@@ -56,7 +68,6 @@ public sealed class Npc : MonoBehaviour
                 Debug.Log("저녁 입니다. 귀가하세요");
                 // 여기서 이동을 직접 하지 말고 집으로 가야 한다만 표시
                 sensor.Blackboard.canHome = true;
-                
                 break;
         }
     }

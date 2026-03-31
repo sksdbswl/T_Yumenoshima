@@ -18,8 +18,8 @@ MonoBehaviour:
   Job: 3
   Thumbnail: {fileID: 21300000, guid: 5b56d9fa0e8bd6e409ed188db38a692c, type: 3}
   spawnPoint: {x: -1, y: 1, z: 0}
-  WorldStageMin: 1
-  WorldStageMax: 1
+  WorldStageMin: 10
+  WorldStageMax: 10
   defaultSpeed: 2
   runSpeed: 5
   canChase: 0
@@ -27,3 +27,4 @@ MonoBehaviour:
   canFlee: 0
   canSteal: 0
   jobBT: {fileID: 11400000, guid: 402da6cd5f91bb2459dbc19d92fb9491, type: 2}
+  citizenBT: {fileID: 11400000, guid: c7e6bc294c1140b478b1cbd8f0937e46, type: 2}

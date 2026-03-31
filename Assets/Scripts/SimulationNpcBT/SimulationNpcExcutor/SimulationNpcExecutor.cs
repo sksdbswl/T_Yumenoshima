@@ -12,12 +12,14 @@ namespace TestBT
         [HideInInspector] public NpcSO npcSO;
         [HideInInspector] public EmotionIcon currentEmotionIcon;
         
-        private NavMeshAgent agent;
+        public NavMeshAgent agent;
         private float defaultActionTimer = 3f;
         private float delayTimer = 0f; 
         private bool isProgress = false;
         private bool isEmotion = false;
         public bool isAnomaly = false;
+        
+        // npc 끼리 상호작용이 필요한 경우 해당 값에 할당 : ex ) 의사 -> 환자
         private Npc currentNpc;
         
         private void Awake()
@@ -47,7 +49,7 @@ namespace TestBT
         public ENodeState KeepDefault()
         {
             if(TryStopIfAnomaly()) return ENodeState.ENS_Failure;
-
+            
             DoRandomMove();
             return ENodeState.ENS_Success;
         }
@@ -92,6 +94,8 @@ namespace TestBT
         public bool TryStopIfAnomaly()
         {
             if (!isAnomaly)
+                return false;
+            if(GameManager.Singleton.CurrentRoutine == RoutineState.Night) 
                 return false;
 
             if (agent != null && agent.enabled && agent.isOnNavMesh)
@@ -236,36 +240,58 @@ namespace TestBT
         
         public ENodeState GoHome()
         {
+            Debug.Log("1231231231==========");
             // 1. 집 찾기
             var house = PlacementManager.Singleton.GetByBuilderId(npcSO.BuilderId);
             if (house == null)
                 return ENodeState.ENS_Failure;
+            if(GameManager.Singleton.CurrentRoutine != RoutineState.Night) return ENodeState.ENS_Failure;
+           
+            var target = house.transform.position;
 
-            // 2. 목표 설정 (한 번만)
             if (!_hasHomeTarget)
             {
-                _homeTarget = house.transform.position;
-
                 agent.isStopped = false;
                 SetSpeed(npcSO.defaultSpeed);
-                agent.SetDestination(_homeTarget);
+                agent.SetDestination(target);
 
                 _hasHomeTarget = true;
-
-                return ENodeState.ENS_Running;
             }
 
-            // 3. 이동 중
             if (agent.pathPending)
                 return ENodeState.ENS_Running;
 
             if (agent.remainingDistance > agent.stoppingDistance)
                 return ENodeState.ENS_Running;
 
-            // 4. 도착
             _hasHomeTarget = false;
-
             return ENodeState.ENS_Success;
+            
+            // // 2. 목표 설정 (한 번만)
+            // if (!_hasHomeTarget)
+            // {
+            //     _homeTarget = house.transform.position;
+            //
+            //     agent.isStopped = false;
+            //     SetSpeed(npcSO.defaultSpeed);
+            //     agent.SetDestination(_homeTarget);
+            //
+            //     _hasHomeTarget = true;
+            //
+            //     return ENodeState.ENS_Running;
+            // }
+            //
+            // // 3. 이동 중
+            // if (agent.pathPending)
+            //     return ENodeState.ENS_Running;
+            //
+            // if (agent.remainingDistance > agent.stoppingDistance)
+            //     return ENodeState.ENS_Running;
+            //
+            // // 4. 도착
+            // _hasHomeTarget = false;
+            //
+            // return ENodeState.ENS_Success;
         }
         
         //Node callbacks
@@ -281,6 +307,16 @@ namespace TestBT
         public void OnRejectIslandTrip()
         {
             Debug.Log("[Dialogue] 대화 처음으로 복귀 또는 종료");
+        }
+        
+        public void ResetState()
+        {
+            // 이동 상태 초기화
+            agent.ResetPath();
+            //agent.velocity = Vector3.zero;
+        
+            // 내부 상태 초기화
+            //sensor.Blackboard.init();
         }
     }
 }
