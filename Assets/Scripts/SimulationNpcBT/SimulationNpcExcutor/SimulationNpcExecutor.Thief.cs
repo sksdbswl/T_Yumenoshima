@@ -21,10 +21,11 @@ namespace TestBT
         {
             if (target == null) return ENodeState.ENS_Failure;
             
-            var player = target.GetComponent<PlayerStatus>();
-            
             // 플레이어가 경찰이면 스틸 불가
-            if(player._playerStatus.CurrentJobType == Const.JobType.Police) return ENodeState.ENS_Failure;            
+            //var player = target.GetComponent<PlayerStatus>();
+            // Debug.Log($"player target:: {target} / {target.name}");
+            // Debug.Log($"player playerStatus:: {player._playerStatus}");
+            //if(player._playerStatus.CurrentJobType == Const.JobType.Police) return ENodeState.ENS_Failure;            
             
             if (!isProgress)
             {
@@ -36,7 +37,7 @@ namespace TestBT
                 lookDir.y = 0;
                 if (lookDir != Vector3.zero) transform.forward = lookDir;
 
-                
+                var player = target.GetComponent<PlayerStatus>();
                 player?.TakeSteal(100000);
                 
                 // animator.SetTrigger("Attack"); 

@@ -20,7 +20,7 @@ public partial class GameManager
 
             SetState(RoutineState.Noon);
             _routineCoroutine = StartCoroutine(RoutineCoroutine());
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(60f);
 
             SetState(RoutineState.Night);
             if (_routineCoroutine != null) StopCoroutine(_routineCoroutine);

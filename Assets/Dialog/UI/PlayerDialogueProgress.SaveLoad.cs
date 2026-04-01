@@ -33,7 +33,7 @@ public partial class PlayerDialogueProgress
         var data = JsonUtility.FromJson<SaveData>(json);
         FromSaveData(data);
 
-        Debug.Log($"[PlayerDialogueProgress] Loaded: {json}");
+        //Debug.Log($"[PlayerDialogueProgress] Loaded: {json}");
     }
 
     public void ClearPrefsSave()
