@@ -84,7 +84,7 @@ namespace TestBT
         {
             if (currentNpc == null)
                 return ENodeState.ENS_Failure;
-
+            
             float distance = Vector3.Distance(transform.position, currentNpc.transform.position);
             if (distance > 2.5f)
             {
@@ -115,7 +115,7 @@ namespace TestBT
             if (delayTimer > 0f)
                 return ENodeState.ENS_Running;
 
-            currentNpc.executor.SetRestricted(10f); // 10초 동안 훔치기 금지
+            currentNpc.executor.SetRestricted(10f); // 10초 동안 훔치기 불가
 
             delayTimer = 0f;
             isProgress = false;
