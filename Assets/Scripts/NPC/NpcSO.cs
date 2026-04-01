@@ -15,7 +15,6 @@ public class NpcSO : ScriptableObject
     public int BuilderId;
     public string Name;
     public Const.JobType Job;
-    //public GameObject Prefab;
     public Sprite Thumbnail;
     public Vector3 spawnPoint;
 
@@ -32,6 +31,7 @@ public class NpcSO : ScriptableObject
     
     public BTGraphAsset jobBT;
     public BTGraphAsset citizenBT;
+    public bool jobCopy;
     
     /// <summary>
     /// 실제 대화시작 : 플레이어가 이 NPC와 대화 시도할 때 호출

@@ -28,3 +28,4 @@ MonoBehaviour:
   canSteal: 0
   jobBT: {fileID: 11400000, guid: 402da6cd5f91bb2459dbc19d92fb9491, type: 2}
   citizenBT: {fileID: 11400000, guid: c7e6bc294c1140b478b1cbd8f0937e46, type: 2}
+  jobCopy: 1

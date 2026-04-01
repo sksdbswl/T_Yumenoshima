@@ -20,6 +20,8 @@ public class NPCDialogueTrigger : InteractionTarget, IInteractable
             if (player._playerStatus.CurrentJobType == Const.JobType.None)
             {
                 // 직업선택 가능
+                if(!npcSO.jobCopy) return;
+                
                 player._playerStatus.ChangeJob(npcSO.Job);
                 
                 // get 연출 추가

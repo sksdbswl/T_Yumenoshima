@@ -31,8 +31,6 @@ public sealed class PlayerStatus : MonoBehaviour, IPlayerStatus
     public float CurrentStamina => currentStamina;
     public float MaxStamina => maxStamina;
     public Const.EEmotion CurrentEmotion => currentEmotion;
-    //public Const.JobType CurrentJobType => currentJob;
-    
 
     private void Awake()
     {
