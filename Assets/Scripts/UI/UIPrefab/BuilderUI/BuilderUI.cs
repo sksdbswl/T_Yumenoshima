@@ -59,12 +59,9 @@ public class BuilderUI : UIBase
         foreach (var item in placement.Items)
         {
             var place = Instantiate(builderItemPrefab, builderItemContent.transform);
-            var icon = place.GetComponentInChildren<Image>();
-            var name = place.GetComponentInChildren<TextMeshProUGUI>();
+            var builderItem = place.GetComponent<BuilderItem>();
 
-            icon.sprite = item.Icon;
-            name.text = item.DisplayName;
-            place.gameObject.SetActive(true);
+            builderItem.Initialize(item);
             
             place.GetComponent<Button>().onClick.AddListener(() =>
             {
