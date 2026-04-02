@@ -22,7 +22,6 @@ public class PlacementManager : SingletonBase<PlacementManager>
     private PlacementSystem _placementSystem;
     public PlacementSystem placementSystem => _placementSystem;
     
-    
     private string SavePath =>
         Path.Combine(Application.persistentDataPath, "placement.json");
 
