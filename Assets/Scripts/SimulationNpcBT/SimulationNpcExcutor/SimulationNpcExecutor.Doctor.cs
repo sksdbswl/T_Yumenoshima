@@ -39,7 +39,7 @@ namespace TestBT
                 return ENodeState.ENS_Success;
 
             currentNpc = GetNearestPatient();
-
+            
             return currentNpc != null
                 ? ENodeState.ENS_Success
                 : ENodeState.ENS_Failure;
@@ -60,13 +60,23 @@ namespace TestBT
             if (target == null) return ENodeState.ENS_Failure;
 
             float distance = Vector3.Distance(transform.position, target.position);
-
+            
             if (distance <= 2.0f)
             {
                 agent.isStopped = true;
                 return ENodeState.ENS_Success;
             }
+            
+            if (!isEmotion)
+            {
+                currentEmotionIcon = NpcEmotionManager.Instance.ShowEmotion(
+                    Const.EEmotion.Exclamation,
+                    this.transform,
+                    Vector3.up * 1.5f
+                );
+            }
 
+            isEmotion = true;
             agent.isStopped = false;
             agent.SetDestination(target.position);
             return ENodeState.ENS_Running;
@@ -134,6 +144,9 @@ namespace TestBT
         public void ReleaseAnomaly()
         {
             Debug.Log($"[Doctor] 치료 완료, 상태이상 해제 : {currentNpc.name}");
+            if (isEmotion) NpcEmotionManager.Instance.ReturnEmotion(currentEmotionIcon);
+            
+            isEmotion = false;
             currentNpc.executor.isAnomaly = false;
             currentNpc.agent.isStopped = false;
             NpcEmotionManager.Instance.ReturnEmotion(currentNpc.executor.currentEmotionIcon);
