@@ -67,7 +67,8 @@ public partial class GameManager : SingletonBase<GameManager>
         
         if (Input.GetKeyDown(KeyCode.B))
         {
-            PlacementManager.Singleton.OnPlacementEdit();
+            var builderUI = UIManager.GetUI<BuilderUI>(UIList.BuilderUI);
+            builderUI.SetStore(!builderUI._isOpen);
         }
     }
     

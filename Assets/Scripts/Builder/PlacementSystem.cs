@@ -35,7 +35,7 @@ public class PlacementSystem : MonoBehaviour
     private void OnDisable()
     {
         _currentItem = null;
-        _previewObj.SetActive(false);
+        if(_previewObj != null) _previewObj.SetActive(false);
     }
 
     void Update()

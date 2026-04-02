@@ -150,4 +150,17 @@ public partial class UIManager : SingletonBase<UIManager>
     {
         Singleton.cachedUIsForOnlyOneRender.ForEach(go => go.SetActive(true));
     }
+    
+    public static T GetUI<T>(UIList ui) where T : UIBase
+    {
+        var container =
+            ui is > UIList.POPUP_START and < UIList.POPUP_MAX
+                ? Singleton.popups
+                : Singleton.panels;
+
+        if (!container.TryGetValue(ui, out var uiBase) || uiBase == null)
+            return null;
+
+        return uiBase as T;
+    }
 }

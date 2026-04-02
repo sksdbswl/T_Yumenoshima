@@ -668,8 +668,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2389995801825561915}
         m_TargetAssemblyTypeName: BuilderUI, Assembly-CSharp
-        m_MethodName: CloseStore
-        m_Mode: 1
+        m_MethodName: SetStore
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1138,15 +1138,15 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2389995801825561915}
         m_TargetAssemblyTypeName: BuilderUI, Assembly-CSharp
-        m_MethodName: OpenStore
-        m_Mode: 1
+        m_MethodName: SetStore
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &4435246784793832551
 GameObject:
@@ -1979,6 +1979,7 @@ MonoBehaviour:
   builderStoreUI: {fileID: 7017911606275424750}
   builderItemContent: {fileID: 2257949893325914247}
   builderItemPrefab: {fileID: 5461324361652002152}
+  _isOpen: 0
 --- !u!1 &6122546151184525894
 GameObject:
   m_ObjectHideFlags: 0

@@ -41,16 +41,27 @@ public class BuilderUI : UIBase
         placement.RebuildFromSave(PlacementManager.Singleton.PlacedObjects);
     }
 
-    public void OpenStore()
+    [HideInInspector] public bool _isOpen;
+
+    public void SetStore(bool isOpen)
     {
-        builderStoreUI.SetActive(true);
+        _isOpen = isOpen;
+        builderStoreUI.SetActive(isOpen);
+
+        // Placement 제어
+        PlacementManager.Singleton.placementSystem.enabled = isOpen;
     }
     
-    public void CloseStore()
-    {
-        builderStoreUI.SetActive(false);
-        PlacementManager.Singleton.placementSystem.enabled = false;
-    }
+    // public void OpenStore()
+    // {
+    //     builderStoreUI.SetActive(true);
+    // }
+    //
+    // public void CloseStore()
+    // {
+    //     builderStoreUI.SetActive(false);
+    //     PlacementManager.Singleton.placementSystem.enabled = false;
+    // }
     
     private void LoadHousingShop()
     {
