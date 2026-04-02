@@ -20,7 +20,7 @@ public class Dashboard : SingletonBase<Dashboard>
     
     private void Awake()
     {
-        Housing.onClick.AddListener(OnActiveHousing);
+        //Housing.onClick.AddListener(OnActiveHousing);
     }
 
     private void Start()

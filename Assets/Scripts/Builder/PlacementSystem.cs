@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,6 +29,12 @@ public class PlacementSystem : MonoBehaviour
         _cam = Camera.main;
         _currentItem = (catalog && catalog.Items.Length > 0) ? catalog.Items[0] : null;
         CreatePreview();
+    }
+
+    private void OnDisable()
+    {
+        _currentItem = null;
+        _previewObj.SetActive(false);
     }
 
     void Update()
@@ -229,7 +236,6 @@ public class PlacementSystem : MonoBehaviour
         
         obj.Initialize(_currentItem.Role, _currentItem, pos, save);
     }
-    
     
     // 디버그: OverlapBox 시각화
     private void OnDrawGizmosSelected()
