@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlacementSystem : MonoBehaviour
 {
@@ -74,7 +75,9 @@ public class PlacementSystem : MonoBehaviour
         
         if (_currentItem ==null) return false;
         if (_cam == null || groundArea == null) return false;
-
+        // UI 위 클릭이면 배치 막기
+        if (IsPointerOverUI()) return false;
+        
         // 마우스/중앙 레이
         //* 0.5f (또는 / 2f) 를 해주면 x = 960, y = 540 즉 화면의 가운데 좌표
         Ray ray = useMouse
@@ -165,6 +168,12 @@ public class PlacementSystem : MonoBehaviour
 
         canPlace = true;
         return true;
+    }
+    
+    private bool IsPointerOverUI()
+    {
+        if (EventSystem.current == null) return false;
+        return EventSystem.current.IsPointerOverGameObject();
     }
     
     // groundArea 내부 포함 판정: ClosestPoint가 자기 자신이면 내부(또는 경계)로 간주
