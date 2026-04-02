@@ -16,6 +16,7 @@ MonoBehaviour:
   DisplayName: PoliceOffice
   Role: 3
   Prefab: {fileID: 3700171377258557563, guid: 90da0168c1325754aa7cd369cc7e5e57, type: 3}
+  Icon: {fileID: 21300000, guid: 76f798a664a1040a082e37484dadfaa2, type: 3}
   IsStack: 0
   IsFire: 1
   Door: 1

@@ -20,7 +20,9 @@ public class PlacementManager : SingletonBase<PlacementManager>
     public IReadOnlyList<PlaceableInteraction> BuildingInstances => _buildingInstances;
 
     private PlacementSystem _placementSystem;
-
+    public PlacementSystem placementSystem => _placementSystem;
+    
+    
     private string SavePath =>
         Path.Combine(Application.persistentDataPath, "placement.json");
 

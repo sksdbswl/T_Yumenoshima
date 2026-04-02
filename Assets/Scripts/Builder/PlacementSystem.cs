@@ -21,6 +21,8 @@ public class PlacementSystem : MonoBehaviour
     private GameObject _previewObj;
     private Vector3 _offsetFromCorner = Vector3.zero;
 
+    public PlaceableCatalogTable CatalogTable => catalog;
+    
     void Awake()
     {
         _cam = Camera.main;

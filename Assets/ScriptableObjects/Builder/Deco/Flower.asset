@@ -16,6 +16,7 @@ MonoBehaviour:
   DisplayName: Flower
   Role: 2
   Prefab: {fileID: 2203325870594349342, guid: 7d43f5d5c0dec92498da1505ac014371, type: 3}
+  Icon: {fileID: 21300000, guid: 732c72dbc1fb04c5db11e6e63d7ab79f, type: 3}
   IsStack: 0
   IsFire: 0
   Door: 0

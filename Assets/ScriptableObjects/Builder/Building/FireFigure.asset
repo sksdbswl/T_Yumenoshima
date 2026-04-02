@@ -16,6 +16,7 @@ MonoBehaviour:
   DisplayName: FireFigure
   Role: 3
   Prefab: {fileID: 2183983995791420318, guid: e51ccb2ac9862e34887da36163810553, type: 3}
+  Icon: {fileID: 21300000, guid: fef164a82e35a40749c7d051ce42036f, type: 3}
   IsStack: 0
   IsFire: 1
   Door: 1

@@ -16,6 +16,7 @@ MonoBehaviour:
   DisplayName: Road
   Role: 0
   Prefab: {fileID: 4662052247883202228, guid: 2027b564d5cb0734e82f052262f28863, type: 3}
+  Icon: {fileID: 21300000, guid: 083b79cd6280b4186beaea0a39352110, type: 3}
   IsStack: 0
   IsFire: 0
   Door: 0

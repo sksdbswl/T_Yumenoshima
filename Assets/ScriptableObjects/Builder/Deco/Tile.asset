@@ -16,6 +16,7 @@ MonoBehaviour:
   DisplayName: Tile
   Role: 1
   Prefab: {fileID: 4662052247883202228, guid: dcb3a6d116658a7488bf4429dedafea0, type: 3}
+  Icon: {fileID: 21300000, guid: 7f5f767c3cc1943f78da2c960dc64b01, type: 3}
   IsStack: 1
   IsFire: 0
   Door: 0
