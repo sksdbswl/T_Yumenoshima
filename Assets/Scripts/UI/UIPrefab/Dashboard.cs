@@ -9,19 +9,6 @@ public class Dashboard : SingletonBase<Dashboard>
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI job;
     [SerializeField] private TextMeshProUGUI quest;
-    
-    // [Header("Func")]
-    // [SerializeField] private Button Housing;
-    // [SerializeField] private GameObject HousingUI;
-    // [SerializeField] private GameObject HousingItemPrefab;
-    // [SerializeField] private RectTransform HousingParent;
-    
-    bool isHousingUIActive = false;
-    
-    private void Awake()
-    {
-        //Housing.onClick.AddListener(OnActiveHousing);
-    }
 
     private void Start()
     {
@@ -38,7 +25,6 @@ public class Dashboard : SingletonBase<Dashboard>
         }
 
         Init();
-        //LoadHousingShop();
     }
 
     public void Init()

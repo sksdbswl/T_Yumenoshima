@@ -49,6 +49,7 @@ public class BuilderUI : UIBase
     public void CloseStore()
     {
         builderStoreUI.SetActive(false);
+        PlacementManager.Singleton.placementSystem.enabled = false;
     }
     
     private void LoadHousingShop()
@@ -76,7 +77,7 @@ public class BuilderUI : UIBase
     {
         Debug.Log($"BuilderPlacement: {buildingId}");
         
-        PlacementManager.Singleton.placementSystem.SelectCatalogIndex(buildingId);
-        //PlacementManager.Singleton.OnPlacementEdit();
+        PlacementManager.Singleton.placementSystem.SelectCatalogBuilderID(buildingId);
+        PlacementManager.Singleton.placementSystem.enabled = true;
     }
 }

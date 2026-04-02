@@ -216,8 +216,17 @@ public class PlacementSystem : MonoBehaviour
     }
 
     // ---------------- Catalog ----------------
+    public void SelectCatalogBuilderID(int builderId)
+    {
+        Debug.Log($"SelectCatalogIndex: {builderId}");
+        if (catalog == null || catalog.GetByBuilderId(builderId) == null) return;
+        _currentItem = catalog.GetByBuilderId(builderId);
+        CreatePreview();
+    }
+    
     public void SelectCatalogIndex(int index)
     {
+        Debug.Log($"SelectCatalogIndex: {index}");
         if (catalog == null || catalog.Items == null) return;
         if (index < 0 || index >= catalog.Items.Length) return;
         _currentItem = catalog.Items[index];
