@@ -42,7 +42,6 @@ public partial class GameManager
     public IEnumerator RoutineCoroutine()
     {
         while (true)
-            
         {
             if (CurrentRoutine == RoutineState.Morning)
             {

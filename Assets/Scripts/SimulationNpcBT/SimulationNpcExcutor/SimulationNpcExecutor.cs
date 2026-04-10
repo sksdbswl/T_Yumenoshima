@@ -245,7 +245,8 @@ namespace TestBT
             if (house == null)
                 return ENodeState.ENS_Failure;
             if(GameManager.Singleton.CurrentRoutine != RoutineState.Night) return ENodeState.ENS_Failure;
-           
+            
+            
             var target = house.transform.position;
 
             if (!_hasHomeTarget)
