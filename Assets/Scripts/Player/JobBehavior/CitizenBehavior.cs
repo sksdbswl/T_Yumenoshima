@@ -4,9 +4,9 @@ public class CitizenBehavior : IJobBehavior
 {
     private IJobBehavior _jobBehaviorImplementation;
     public Const.JobType JobType => Const.JobType.Citizen;
-    public bool CanInteract(IInteractable target)
+    public bool CanInteract(Player player, IInteractable target)
     {
-        return _jobBehaviorImplementation.CanInteract(target);
+        return _jobBehaviorImplementation.CanInteract(player, target);
     }
 
     public async UniTask Execute(Player player, IInteractable target)

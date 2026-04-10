@@ -4,7 +4,7 @@ using UnityEngine;
 public class PoliceBehavior : IJobBehavior
 {
     public Const.JobType JobType => Const.JobType.Police;
-    public bool CanInteract(IInteractable target)
+    public bool CanInteract(Player player, IInteractable target)
     {
         if (target is not NPCDialogueTrigger npcTrigger)
             return false;

@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class NpcEmotionManager : BasePoolManager<Const.EEmotion>
+public class EmotionManager : BasePoolManager<Const.EEmotion>
 {
-    private static NpcEmotionManager _instance;
-    public static NpcEmotionManager Instance 
+    private static EmotionManager _instance;
+    public static EmotionManager Instance 
     {
         get 
         {
-            if (_instance == null) _instance = FindFirstObjectByType<NpcEmotionManager>();
+            if (_instance == null) _instance = FindFirstObjectByType<EmotionManager>();
             return _instance;
         }
     }

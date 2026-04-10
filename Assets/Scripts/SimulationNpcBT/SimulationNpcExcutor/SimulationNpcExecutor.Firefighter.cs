@@ -81,7 +81,7 @@ namespace TestBT
 
             if (!isEmotion)
             {
-                currentEmotionIcon = NpcEmotionManager.Instance.ShowEmotion(
+                currentEmotionIcon = EmotionManager.Instance.ShowEmotion(
                     Const.EEmotion.Exclamation,
                     this.transform,
                     Vector3.up * 1.5f
@@ -147,7 +147,7 @@ namespace TestBT
 
             Debug.Log($"[Firefighter] 진화 완료 : {currentFireTarget.name}");
             
-            if (isEmotion) NpcEmotionManager.Instance.ReturnEmotion(currentEmotionIcon);
+            if (isEmotion) EmotionManager.Instance.ReturnEmotion(currentEmotionIcon);
             
             isEmotion = false;
             currentFireTarget = null;

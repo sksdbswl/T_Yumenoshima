@@ -69,7 +69,7 @@ namespace TestBT
             
             if (!isEmotion)
             {
-                currentEmotionIcon = NpcEmotionManager.Instance.ShowEmotion(
+                currentEmotionIcon = EmotionManager.Instance.ShowEmotion(
                     Const.EEmotion.Exclamation,
                     this.transform,
                     Vector3.up * 1.5f
@@ -144,12 +144,12 @@ namespace TestBT
         public void ReleaseAnomaly()
         {
             Debug.Log($"[Doctor] 치료 완료, 상태이상 해제 : {currentNpc.name}");
-            if (isEmotion) NpcEmotionManager.Instance.ReturnEmotion(currentEmotionIcon);
+            if (isEmotion) EmotionManager.Instance.ReturnEmotion(currentEmotionIcon);
             
             isEmotion = false;
             currentNpc.executor.isAnomaly = false;
             currentNpc.agent.isStopped = false;
-            NpcEmotionManager.Instance.ReturnEmotion(currentNpc.executor.currentEmotionIcon);
+            EmotionManager.Instance.ReturnEmotion(currentNpc.executor.currentEmotionIcon);
             currentNpc = null;
         }
 

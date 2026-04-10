@@ -43,6 +43,7 @@ public sealed class Player :  MonoBehaviour
     // {
     //     currentInteractable?.CheckInteract(GameManager.Singleton.CurrentRoutine,this);
     // }
+    
     public void HandleInteract()
     {
         if (currentInteractable == null)
@@ -50,7 +51,7 @@ public sealed class Player :  MonoBehaviour
 
         var behavior = _playerStatus.CurrentJobBehavior;
 
-        if (behavior != null && behavior.CanInteract(currentInteractable))
+        if (behavior != null && behavior.CanInteract(this, currentInteractable))
         {
             behavior.Execute(this, currentInteractable).Forget();
             return;

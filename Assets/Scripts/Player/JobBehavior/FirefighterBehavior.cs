@@ -4,7 +4,7 @@ using UnityEngine;
 public class FirefighterBehavior : IJobBehavior
 {
     public Const.JobType JobType => Const.JobType.Firefighter;
-    public bool CanInteract(IInteractable target)
+    public bool CanInteract(Player player, IInteractable target)
     {
         if (target is not PlaceableInteraction placeable)
             return false;
